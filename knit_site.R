@@ -1,20 +1,3 @@
-# if (!requireNamespace("BiocManager", quietly = TRUE))
-#    install.packages("BiocManager")
-# BiocManager::install(c("biomaRt","DESeq2"), update=FALSE, ask=FALSE)
-#
-# missing <- setdiff(c("tidyr", "ggplot2", "pheatmap", "ggrepel", "formattable", "RColorBrewer", "matrixStats", "dplyr", "biomaRt", "DESeq2"), rownames(installed.packages()))
-# if (!length(missing)) { cat("Ready for Computational Foundations workshop\n")} else {cat("PROBLEM: could not install:", missing, "\n")
-#install.packages("pheatmap")
-install.packages("ggrepel")
-install.packages("formattable")
-install.packages("tidyr")
-install.packages("RColorBrewer")
-# install.packages("matrixStats")
-install.packages("dplyr")
-install.packages('tidyverse')
-# }
-
-
 # install.packages("remotes")
 # library(remotes)
 # remove.packages('klippy');
