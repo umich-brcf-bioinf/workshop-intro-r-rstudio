@@ -30,7 +30,7 @@ body, td {
 ---
 
 
-### Day 1 (Chris/Marci & ?)
+### Day 1 (Chris/Marci & Raymond)
 | Time | Topic |
 | :---  | :----------------------------------------------------------- |
 |  9:00 | [Introductions and Startup](workshop-intro.html) |
@@ -38,7 +38,7 @@ body, td {
 |       | [Data Exploration with dplyr](r-02-exploration-dplyr.html) |
 |  12:00 | Day 1 concludes |
 
-### Day 2 (?)
+### Day 2 (Raymond)
 | Time | Topic |
 | :-----  | :------------------------------------ |
 |  9:00 | Review |

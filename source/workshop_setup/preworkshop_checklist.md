@@ -18,7 +18,7 @@ body{ /* Normal  */
 
 <br/>
 
-1. (optional) Take the [Pre-workshop survey](https://forms.gle/WnRFCwBnQM69TAVb8){target="_blank"}<br/>
+1. (optional) Take the [Pre-workshop survey](https://michmed.org/qq87m){target="_blank"}<br/>
 To help us better understand your collective background, we invite you to take an optional, anonymous pre-workshop survey.
 
 2. Follow this link for [instructions to set up your computer](setup_instructions.html){target="_blank"}<br/>
