@@ -1,0 +1,26 @@
+name: "Intro to R & RStudio"
+output_dir: ../html
+navbar:
+  title: "Intro to R & RStudio"
+  type: inverse
+  left:
+    - text: "Intro"
+      href: workshop-intro.html
+    - text: "Day 1"
+      menu:
+        - text: "Introducing R and RStudio"
+          href: r-01-introduction.html
+        - text: "Data Exploration with dplyr"
+          href: r-02-exploration-dplyr.html
+    - text: "Day 2"
+      menu:
+        - text: "Data Exploration with dplyr (continnued)"
+          href: r-02-exploration-dplyr.html
+        - text: "Data Visualization with ggplot"
+          href: r-03-exploration-ggplot.html
+        - text: "Downloading and Using Libraries"
+          href: r-04-bioconductor.html
+        - text: "Getting Help with R"
+          href: r-05-help.html
+    - text: "Wrap up"
+      href: workshop-wrap-up.html

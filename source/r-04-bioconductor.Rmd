@@ -1,0 +1,126 @@
+---
+title: "Using packages"
+output:
+        html_document:
+            includes:
+                in_header: header.html
+            theme: paper
+            toc: true
+            toc_depth: 4
+            toc_float: true 
+            number_sections: false
+            fig_caption: false
+            markdown: GFM
+            code_download: false
+---
+
+<style type="text/css">
+
+body, td {
+   font-size: 16px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(lang = c("r", "markdown", "bash"), position = c("top", "right"))
+```
+
+```{r, 'chunk_options', include=FALSE}
+source("../bin/chunk-options.R")
+knitr_fig_path("04-")
+```
+
+<!-- example of rendered lesson https://datacarpentry.org/genomics-r-intro/02-r-basics/index.html -->
+
+# Packages
+
+So far we have used commands that only require what is known as "base R." But R is a highly extensible language with thousands of packages (or libraries) available for installation. Packages can be installed from a variety of sources, but the three most common are:
+
+1. [CRAN (the Comprehensive R Archive Network)](https://cran.r-project.org/)
+2. [Bioconductor](https://bioconductor.org/)
+3. Individual repositories on GitHub.
+
+By way of brief orientation, packages on CRAN and Bioconductor can be trusted to have met some basic functionality and quality tests owing to their respective review processes. Packages found on GitHub are not subject to any review, but many development versions of packages on CRAN and Bioconductor can be found on GitHub.
+
+Packages on CRAN tend to be more general purpose, whereas Bioconductor packages are meant to facilitate "rigorous and reproducible analysis of data from current and emerging biological assays." In other words, Bioconductor is specialized for Bioinformatics.
+
+# Installing packages
+
+## From CRAN
+
+To install a package from CRAN, you can run something like:
+
+~~~
+# Do not run, this is already installed for us
+install.packages('tidyverse')
+~~~
+
+## From Bioconductor
+
+To install a package from Bioconductor, you first need the `BiocManager` package. Then you can give the name of the package to the installer, as in:
+
+~~~
+# Do not run
+install.packages('BiocManager')
+
+# The :: notation before the install() tells R to use the function from BiocManager
+BiocManager::install('DESeq2')
+~~~
+
+## From GitHub
+
+To install packages from GitHub one can use the `remotes::install_github()` function. For example:
+
+~~~
+# Do not run
+# To install the package at https://github.com/sartorlab/methylSig/
+# The format is <repository_owner>/<repository_name>
+remotes::install_github('sartorlab/methylSig')
+~~~
+
+## One installer to rule them all
+
+It turns out that `BiocManager::install()` can do all of the above for you. In particular, the function will interpret any library with a `/` passed to it as a GitHub repository, and it will determine whether other packages are on CRAN or Bioconductor and fetch as appropriate. For example, you could install all three packages above with:
+
+~~~
+# Do not run
+BiocManager::install(c('tidyverse', 'DESeq2', 'sartorlab/methylSig'))
+~~~
+
+# Search for Bioconductor packages
+
+While this workshop series focuses on differential expression analysis of RNA-seq data, there are many different types of data and analyses that bioinformaticians may want to work with. Sometimes you may get a new dataset and not know exactly where to start with analyzing or visualizing it. The Bioconductor package search view can be a great way to browse through the packages that are available.
+
+There are several thousand packages available through the Bioconductor website. It can be a bit of a challenge to find what you want, but one helpful resource is the [package search page](https://bioconductor.org/packages/release/BiocViews.html#___Software) (pictured below).
+
+![screenshot of bioconductor search](images/bioconductor_search.jpg)
+
+# Using packages
+
+Once you have installed a package, that doesn't mean you have access to all its functions in the R session. You have to use the `library()` command to load a package, like with:
+
+```{r eval = FALSE}
+library(DESeq2)
+```
+
+Note that when installing a package we quoted the package name, but when we load the library after installation we don't.
+
+# Resources
+
+- [Bioconductor](https://bioconductor.org/)
+- [Bioconductor package search](https://bioconductor.org/packages/release/BiocViews.html#___Software)
+- [CRAN](https://cran.r-project.org/)
+
+
+<br/>
+<br/>
+<hr/>
+| [Previous lesson](r-03-exploration-ggplot.html) | [Top of this lesson](#top) | [Next lesson](r-05-help.html) |
+| :--- | :----: | ---: |
