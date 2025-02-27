@@ -39,8 +39,6 @@ that will enable more efficient, reproducible, and impactful computational resea
 
 ## Housekeeping
 
-- Please take our optional [post-workshop survey](https://forms.gle/JQg4tn1B4jAVxkz29){target="_blank"} (5-10 minutes) <br />
-
 - We will email you a link to the final session recordings by next week.
 
 - This workshop website will be available.
@@ -51,7 +49,7 @@ for 90 days.
 ---
 
 ### Can I continue to use the Bash/RStudio environments we used in the workshop?
-- BASH Shell and RStudio workshop compute environment will be available for one week from today.
+- The RStudio workshop compute environment will be available for one week from today.
   - _Please save all your R scripts now_ so that we can "right-size" the compute environment immediately following today's workshop session.
 - You can download files from the workshop environment from your terminal/command line window as below.
   (You will need to substitute your actual workshop username and type workshop password when prompted.)
@@ -64,19 +62,12 @@ for 90 days.
     for details on how to install programs on your own computer.
 
 ### Where can I learn more about Bash commands or RStudio functions?
-- Bash cheatsheets:
-  - [https://files.fosswire.com/2007/08/fwunixref.pdf](https://files.fosswire.com/2007/08/fwunixref.pdf){target="_blank"}
-- [ExplainShell.com](https://explainshell.com/){target="_blank"} can elaborate the flags of specific Bash commands:
-- Regular expression syntax (aka "regex") is extremely powerful but also a broad topic unto itself
-  - [Regex tutorial — A quick cheatsheet by examples](https://medium.com/factory-mind/regex-tutorial-a-simple-cheatsheet-by-examples-649dc1c3f285){target="_blank"}
-  - A bit like ExplainShell above, but for regex expressions:<br/>
-  [https://regexr.com](https://regexr.com/){target="_blank"} 
 - A nifty collection of [cheatsheets for R](https://www.rstudio.com/resources/cheatsheets/){target="_blank"} and links to download some our favorites:
   - [Base R](http://github.com/rstudio/cheatsheets/blob/main/base-r.pdf){target="_blank"}   - [Data transformation with dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf){target="_blank"}
   - [Data visualization with ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf){target="_blank"}
 
 ### Can you recommend other relevant workshops or turorials?
-- The [University of Michigan Bioinformatics Core](https://medresearch.umich.edu/office-research/about-office-research/biomedical-research-core-facilities/bioinformatics-core/bioinformatics-workshops-training){target="_blank"} hosts workshops through the year.
+- The [University of Michigan Bioinformatics Core](https://michmed.org/GqGzZ){target="_blank"} regularly hosts workshops.
 - Intro lessons and workshops in Bash / Git / R / Python : 
   - [Software Carpentry](https://software-carpentry.org/lessons/){target="_blank"}
   - [The Carpentries at the University of Michigan](https://umcarpentries.org/){target="_blank"} host several introductory workshops each year following curricula that are developed collaboratively and using the latest research into best practices for teaching computer science content. All workshops are offered for free to learners. 
