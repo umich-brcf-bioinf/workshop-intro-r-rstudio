@@ -48,7 +48,7 @@ for 90 days.
 
 ---
 
-### Can I continue to use the Bash/RStudio environments we used in the workshop?
+### Can I continue to use the RStudio environments we used in the workshop?
 - The RStudio workshop compute environment will be available for one week from today.
   - _Please save all your R scripts now_ so that we can "right-size" the compute environment immediately following today's workshop session.
 - You can download files from the workshop environment from your terminal/command line window as below.
@@ -61,12 +61,12 @@ for 90 days.
   - See [Advanced setup instructions](workshop_setup/setup_instructions_advanced.html){target="_blank"}
     for details on how to install programs on your own computer.
 
-### Where can I learn more about Bash commands or RStudio functions?
+### Where can I learn more about RStudio packages and functions?
 - A nifty collection of [cheatsheets for R](https://www.rstudio.com/resources/cheatsheets/){target="_blank"} and links to download some our favorites:
   - [Base R](http://github.com/rstudio/cheatsheets/blob/main/base-r.pdf){target="_blank"}   - [Data transformation with dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf){target="_blank"}
   - [Data visualization with ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf){target="_blank"}
 
-### Can you recommend other relevant workshops or turorials?
+### Can you recommend other relevant workshops or tutorials?
 - The [University of Michigan Bioinformatics Core](https://michmed.org/GqGzZ){target="_blank"} regularly hosts workshops.
 - Intro lessons and workshops in Bash / Git / R / Python : 
   - [Software Carpentry](https://software-carpentry.org/lessons/){target="_blank"}
@@ -75,6 +75,13 @@ for 90 days.
 
 ## How can I learn more about computational research at University of Michigan?
 - [UM CoderSpaces "office hours"](https://datascience.isr.umich.edu/events/coderspaces/){target="_blank"} and UM CoderSpaces Slack workspace. _(See "Useful Resources" section in CoderSpaces page for instructions on how to join and access the CoderSpaces Slack workspace.)_
+- [Advanced Research Computing](https://its.umich.edu/advanced-research-computing){target="_blank"}
+  - [Research Computing Package](https://its.umich.edu/advanced-research-computing/research-computing-package){target="_blank"}
+  - Upcoming [UM Advanced Research Computing workshops](https://ttc.iss.lsa.umich.edu/ttc/sessions/tag/arc/){target="_blank"}
+  - Videos on [getting started with Great Lakes](https://www.mivideo.it.umich.edu/channel/ARC-TS%2BTraining/181860561/){target="_blank"}
+
+
+
 - Upcoming [UM Advanced Research Computing workshops](https://arc.umich.edu/events/){target="_blank"}.
 - Advanced Research Computing (ARC) at University of Michigan hosts a
   high-performance computing (HPC) platform called _Great Lakes_ which combines

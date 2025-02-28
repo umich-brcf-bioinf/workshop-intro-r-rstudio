@@ -35,6 +35,7 @@ body, td {
 | :---  | :----------------------------------------------------------- |
 |  9:00 | [Introductions and Startup](workshop-intro.html) |
 |  9:30 | [Intro to R](r-01-introduction.html)
+|       | **Break** |
 |       | [Data Exploration with dplyr](r-02-exploration-dplyr.html) |
 |  12:00 | Day 1 concludes |
 
