@@ -106,10 +106,10 @@ be happy to lend a hand to get things working.
 
 ### **Launch R/RStudio (from the web)**
 
-  5.1 Open the following web address: <https://bfx-workshop01.med.umich.edu/>
+  3.1 Open the following web address: <https://bfx-workshop01.med.umich.edu/>
 
-  5.2 When prompted, enter the  username and password supplied by your hosts and
-   click **Sign In**. (Same username and password as the step above.)
+  3.2 When prompted, enter the  username and password supplied by your hosts and
+   click **Sign In**.
 
    You should see a new webpage that looks like something like this:
 
@@ -121,7 +121,6 @@ be happy to lend a hand to get things working.
 Your workstation and logins are ready for the workshop; thank you for
    taking time to set this up in advance.
 
-   - You can close the command window by typing **exit** <Return/Enter> or simply closing the window.
    - You can close your RStudio session by clicking the small orange "power"
      button in the top-right corner (highlighted in the picture above by a red
      arrow).  The webpage will announce **R Session Ended**; you may now close
