@@ -39,9 +39,7 @@ a[target="_blank"]::after {
  - We want to make the computers work harder so we can do more meaningful work. This workshop introduces foundational tools and techniques that make computational projects simpler, more powerful, and more reproducible.
 
  - By the end of the workshop, attendees will be able to
-   - Understand how to use a range of basic Bash commands including techniques
-     to view and manipulate files from the command line.
-   - Combine Bash commands together to create custom scripts.
+   - Use RStudio to build R scripts, examine R data structures, navigate directories and files
    - Understand basics of importing data into R and ways to clean/manipulate data
    - Visualize data as plots
 
@@ -91,11 +89,13 @@ recognize these techniques when you see them and, with some independent study, a
 
 # Using Zoom and Slack
 
+## <img src="images/workshop-intro/zoom_logo.png" alt="Zoom" width=120/>
+
 - We will be recording this session. Recordings will be available to participants
   following the workshop.
 
-
-## <img src="images/workshop-intro/zoom_logo.png" alt="Zoom" width=120/>
+- To see what the instructor is sharing, click the "Chris's Screen" button in the top of the Zoom window. 
+![Zoom meeting/screen toggle](images/workshop-intro/zoom_meeting_screen.png)
 
 - Zoom controls are at the bottom of the Zoom window:
 ![Zoom controls](images/workshop-intro/zoom_controls.png)
