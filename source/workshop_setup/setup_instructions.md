@@ -68,54 +68,55 @@ be happy to lend a hand to get things working.
 
 ### **Zoom**
 
-   If you have not used Zoom before, please use the following link to
-   install "Zoom client for Meetings"\
-   https://zoom.us/download
+If you have not used Zoom before, please use the following link to
+install "Zoom client for Meetings"\
+https://zoom.us/download
 
-   - Additional Zoom settings for Macintosh:
+Additional Zoom settings for Macintosh:
 
-     1.1  To enable screen sharing (useful for breakout rooms and tech support)
+ **1.1**  To enable screen sharing (useful for breakout rooms and tech support)
 
-        - System Preferences \>\> Security & Privacy: click on the Privacy tab
-        - Select **Screen Recording** on left tab
-        - Scroll to the bottom of the right tab and verify **Zoom** is checked.
+  - System Preferences \>\> Security & Privacy: click on the Privacy tab
+  - Select **Screen Recording** on left tab
+  - Scroll to the bottom of the right tab and verify **Zoom** is checked.
 
-     1.2.  To enable remote control (useful for breakout rooms and tech support)
+ **1.2**  To enable remote control (useful for breakout rooms and tech support)
 
-        - System Preferences \>\> Security & Privacy: click on the Privacy tab
-        - Select **Accessibility** on left tab
-        - Scroll to the bottom on the right tab and verify **Zoom** is checked.
-        - If it's not checked, click the lower left lock icon and enter
-            user password when prompted. You can now check Zoom in the
-            right tab.
-        - Click the lock again.
+  - System Preferences \>\> Security & Privacy: click on the Privacy tab
+  - Select **Accessibility** on left tab
+  - Scroll to the bottom on the right tab and verify **Zoom** is checked.
+  - If it's not checked, click the lower left lock icon and enter
+        user password when prompted. You can now check Zoom in the
+        right tab.
+  - Click the lock again.
 
-      1.3.  Close and relaunch Zoom client.
+ **1.3**  Close and relaunch Zoom client.
 
 ### **Slack**
+Please note that this is a standalone Slack workspace and not connected to UM or any other Slack accounts.
 
-   2.1. In the Slack email invitation from the hosts, click the link to join the Slack workspace.
+ **2.1** In the Slack email invitation from the hosts, click the link to join the Slack workspace.
 
-   2.2. Follow the Slack instructions to login or create an account. You may
-      edit your profile to add a photo if you choose.
+ **2.2** Follow the Slack instructions to login or create an account. You may
+    edit your profile to add a photo if you choose.
 
-   2.3. Note that once your Slack account is established and you have accepted the
-      Slack invite you can access the Slack channel by pointing your web browser
-      here: https://umbioinfcoreworkshops.slack.com
+ **2.3** Note that once your Slack account is established and you have accepted the
+    Slack invite you can access the Slack channel by pointing your web browser
+    here: https://umbioinfcoreworkshops.slack.com
 
 
 ### **Launch R/RStudio (from the web)**
 
-  3.1 Open the following web address: <https://bfx-workshop01.med.umich.edu/>
+**3.1** Open the following web address: <https://bfx-workshop01.med.umich.edu/>
 
-  3.2 When prompted, enter the  username and password supplied by your hosts and
-   click **Sign In**.
+**3.2** When prompted, enter the  username and password supplied by your hosts and
+ click **Sign In**.
 
-   You should see a new webpage that looks like something like this:
+ You should see a new webpage that looks like something like this:
 
-   ![RStudio initial screen](images/setup_instructions_rstudio.png)
+ ![RStudio initial screen](images/setup_instructions_rstudio.png)
 
-   If you see a screen like that above, you have successfully logged into RStudio.
+ If you see a screen like that above, you have successfully logged into RStudio.
 
 ## Congratulations
 Your workstation and logins are ready for the workshop; thank you for
@@ -123,7 +124,7 @@ Your workstation and logins are ready for the workshop; thank you for
 
    - You can close your RStudio session by clicking the small orange "power"
      button in the top-right corner (highlighted in the picture above by a red
-     arrow).  The webpage will announce **R Session Ended**; you may now close
+     arrow).  The webpage will announce **R&nbsp;Session&nbsp;Ended**; you may now close
      the web page.
 
 ### A note on the shared compute environment
