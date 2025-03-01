@@ -39,12 +39,12 @@ that will enable more efficient, reproducible, and impactful computational resea
 
 ## Housekeeping
 
-- We will email you a link to the final session recordings by next week.
+- We will email you a link to the final session recordings next week.
 
-- This workshop website will be available.
+- This workshop website (aka "show notes") will be available.
 
-- The [UM Bioinformatics Core Workshop Slack channel](https://umbioinfcoreworkshops.slack.com){target="_blank"} will be available 
-for 90 days.
+- The [UM Bioinformatics Core Workshop Slack channel](https://umbioinfcoreworkshops.slack.com){target="_blank"} 
+  will be available for 90 days.
 
 ---
 
@@ -78,20 +78,7 @@ for 90 days.
 - [Advanced Research Computing](https://its.umich.edu/advanced-research-computing){target="_blank"}
   - [Research Computing Package](https://its.umich.edu/advanced-research-computing/research-computing-package){target="_blank"}
   - Upcoming [UM Advanced Research Computing workshops](https://ttc.iss.lsa.umich.edu/ttc/sessions/tag/arc/){target="_blank"}
-  - Videos on [getting started with Great Lakes](https://www.mivideo.it.umich.edu/channel/ARC-TS%2BTraining/181860561/){target="_blank"}
-
-
-
-- Upcoming [UM Advanced Research Computing workshops](https://arc.umich.edu/events/){target="_blank"}.
-- Advanced Research Computing (ARC) at University of Michigan hosts a
-  high-performance computing (HPC) platform called _Great Lakes_ which combines
-  high-end computers, fast/resilient storage, and pre-installed software.
-  GreatLakes may be a good resource for folks who need to run the more compute
-  intensive steps and a substantial block of compute and storage is subsidized
-  by ARC making it essentially free to many researchers.
-  - About [Great Lakes HPC](https://arc.umich.edu/greatlakes/){target="_blank"}.
-  - About the ARC [Research Computing Package](https://arc.umich.edu/umrcp/){target="_blank"}.
-  - Videos on [getting started with Great Lakes](https://www.mivideo.it.umich.edu/channel/ARC-TS%2BTraining/181860561/){target="_blank"}. (available to UM folks)
+  - Videos on [getting started with Great Lakes](https://www.mivideo.it.umich.edu/channel/ARC-TS%2BTraining/181860561/){target="_blank"} (Requires UM login)
 
 ---
 
