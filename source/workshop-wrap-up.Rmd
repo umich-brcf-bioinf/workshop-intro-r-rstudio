@@ -49,7 +49,7 @@ that will enable more efficient, reproducible, and impactful computational resea
 ---
 
 ### Can I continue to use the RStudio environments we used in the workshop?
-- The RStudio workshop compute environment will be available for one week from today.
+- The RStudio workshop compute environment will be available through 4/11/2025.
   - _Please save all your R scripts now_ so that we can "right-size" the compute environment immediately following today's workshop session.
 - You can download files from the workshop environment from your terminal/command line window as below.
   (You will need to substitute your actual workshop username and type workshop password when prompted.)
