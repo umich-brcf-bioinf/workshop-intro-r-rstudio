@@ -355,16 +355,16 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (continnued)</a>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (cont.)</a>
     </li>
     <li>
-      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
-    </li>
-    <li>
-      <a href="r-04-bioconductor.html">Downloading and Using Libraries</a>
+      <a href="r-04-bioconductor.html">Using Packages / Libraries</a>
     </li>
     <li>
       <a href="r-05-help.html">Getting Help with R</a>
+    </li>
+    <li>
+      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
     </li>
   </ul>
 </li>
@@ -426,7 +426,7 @@ to load the <code>gapminder_1997</code> data. Let’s do that again:</p>
 <pre class="r"><code>library(tidyverse)
 gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ────────────────────────────────────────────────────────────────────────────────
+── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -477,20 +477,13 @@ ranges of the data.</p>
 as input and will summarize the columns automatically depending on their
 data type.</p>
 <pre class="r"><code>summary(gapminder_1997)</code></pre>
-<pre><code>   country               year           pop             continent            lifeExp     
- Length:142         Min.   :1997   Min.   :1.456e+05   Length:142         Min.   :36.09  
- Class :character   1st Qu.:1997   1st Qu.:3.770e+06   Class :character   1st Qu.:55.63  
- Mode  :character   Median :1997   Median :9.735e+06   Mode  :character   Median :69.39  
-                    Mean   :1997   Mean   :3.884e+07                      Mean   :65.01  
-                    3rd Qu.:1997   3rd Qu.:2.431e+07                      3rd Qu.:74.17  
-                    Max.   :1997   Max.   :1.230e+09                      Max.   :80.69  
-   gdpPercap      
- Min.   :  312.2  
- 1st Qu.: 1366.8  
- Median : 4781.8  
- Mean   : 9090.2  
- 3rd Qu.:12022.9  
- Max.   :41283.2  </code></pre>
+<pre><code>   country               year           pop             continent            lifeExp        gdpPercap      
+ Length:142         Min.   :1997   Min.   :1.456e+05   Length:142         Min.   :36.09   Min.   :  312.2  
+ Class :character   1st Qu.:1997   1st Qu.:3.770e+06   Class :character   1st Qu.:55.63   1st Qu.: 1366.8  
+ Mode  :character   Median :1997   Median :9.735e+06   Mode  :character   Median :69.39   Median : 4781.8  
+                    Mean   :1997   Mean   :3.884e+07                      Mean   :65.01   Mean   : 9090.2  
+                    3rd Qu.:1997   3rd Qu.:2.431e+07                      3rd Qu.:74.17   3rd Qu.:12022.9  
+                    Max.   :1997   Max.   :1.230e+09                      Max.   :80.69   Max.   :41283.2  </code></pre>
 <p>We see that for the numeric data we get quantile information and the
 mean, whereas for character data we simply get the length of the column.
 For data with NAs, the number thereof would be displayed.</p>
@@ -1088,8 +1081,7 @@ max, as well as ordering the results by mean GDP.</p>
 <th align="left"><a href="r-01-introduction.html">Previous
 lesson</a></th>
 <th align="center"><a href="#top">Top of this lesson</a></th>
-<th align="right"><a href="r-03-exploration-ggplot.html">Next
-lesson</a></th>
+<th align="right"><a href="r-04-bioconductor.html">Next lesson</a></th>
 </tr>
 </thead>
 <tbody>
