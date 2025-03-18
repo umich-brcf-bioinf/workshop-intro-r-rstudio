@@ -743,5 +743,5 @@ ggplot(data = gapminder_1997_labels) +
 <br/>
 <br/>
 <hr/>
-| [Previous lesson](r-02-exploration-dplyr.html) | [Top of this lesson](#top) | [Next lesson](r-04-bioconductor.html) |
+| [Previous lesson](r-05-help.Rmd) | [Top of this lesson](#top) | [Wrap up](workshop-wrap-up.html) |
 | :--- | :----: | ---: |

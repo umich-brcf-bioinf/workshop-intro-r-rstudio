@@ -1,5 +1,5 @@
 ---
-title: "Using packages"
+title: "Using Packages / Libraries"
 output:
         html_document:
             includes:
@@ -39,9 +39,15 @@ knitr_fig_path("04-")
 
 <!-- example of rendered lesson https://datacarpentry.org/genomics-r-intro/02-r-basics/index.html -->
 
-# Packages
+So far we have used commands that only require what is known as "base R." But R is a highly extensible language with thousands of packages (or libraries) available for installation.
 
-So far we have used commands that only require what is known as "base R." But R is a highly extensible language with thousands of packages (or libraries) available for installation. Packages can be installed from a variety of sources, but the three most common are:
+FYI:
+
+- **Package** refers to the collection of functions (and sometimes data).
+- **Library** refers to the directory location where the code/data are stored. 
+- In practice, R code and documentation often use these terms interchangeably.
+
+Packages can be installed from a variety of sources, but the three most common are:
 
 1. [CRAN (the Comprehensive R Archive Network)](https://cran.r-project.org/)
 2. [Bioconductor](https://bioconductor.org/)
@@ -122,5 +128,5 @@ Note that when installing a package we quoted the package name, but when we load
 <br/>
 <br/>
 <hr/>
-| [Previous lesson](r-03-exploration-ggplot.html) | [Top of this lesson](#top) | [Next lesson](r-05-help.html) |
+| [Previous lesson](r-02-exploration-dplyr.html) | [Top of this lesson](#top) | [Next lesson](r-05-help.html) |
 | :--- | :----: | ---: |
