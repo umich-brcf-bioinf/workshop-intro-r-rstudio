@@ -43,10 +43,10 @@ body, td {
 | Time | Topic |
 | :-----  | :------------------------------------ |
 |  9:00 | Review |
-|  9:10 | [Data Exploration with dplyr](r-02-exploration-dplyr.html) |
-|       | [Data Visualization with ggplot](r-03-exploration-ggplot.html) |
+|  9:10 | [Data Exploration with dplyr (cont.)](r-02-exploration-dplyr.html) |
+|       | [Using Packages / Libraries](r-04-bioconductor.html)
 |       | **Break** |
-|       | [R Libraries](r-04-bioconductor.html)
 |       | [R Help](r-05-help.html) |
+|       | [Data Visualization with ggplot](r-03-exploration-ggplot.html) |
 | 11:45 | [Wrap-up](workshop-wrap-up.html) |
 | 12:00 | Day 2 concludes |
