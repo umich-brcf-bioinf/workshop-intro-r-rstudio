@@ -13,7 +13,7 @@
 
 <title>Introducing R and RStudio</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -451,48 +451,72 @@ RStudio.</p>
 </div>
 <div id="log-in-to-rstudio-server" class="section level1">
 <h1>Log in to RStudio Server</h1>
-<p>To get started, open a web browser and enter the following URL.</p>
-<pre><code>http://bfx-workshop02.med.umich.edu</code></pre>
-<p>You should now be looking at a page that will allow you to login to
-the RStudio server:</p>
-<p><img src="images/rstudio_login_screen.png" alt="rstudio default session" style="width: 1000px;"/></p>
-<p>Enter your user credentials and click <kbd>Sign In</kbd>. The
-credentials are the same we used on the command line yesterday, but if
-you forget yours, a helper can retrieve it for you, just ask in Slack.
-You should now see the RStudio interface:</p>
-<p><img src="images/rstudio_session_default.png" alt="rstudio default session" style="width:1000px;"/></p>
+<p>To get started, we’ll go to <a
+href="http://bfx-workshop01.med.umich.edu">http://bfx-workshop01.med.umich.edu</a></p>
+<p>The login page for the server looks like:</p>
+<p><img src="images/01_rstudio_login_screen.png" alt="rstudio login screen" style="width: 1000px;"/></p>
+<p>Enter your user credentials and click <kbd>Sign In</kbd>. The RStudio
+interface should load and look like:</p>
+<p><img src="images/02_rstudio_session_default.png" alt="rstudio default session" style="width:1000px;"/></p>
 <p><strong>Checkpoint</strong></p>
 </div>
 <div id="orienting-on-rstudio" class="section level1">
 <h1>Orienting on RStudio</h1>
-<p>To orient ourselves on the interface of RStudio, look in the lower
-right pane, that has a list of files and folders. Click on the
-<code>welcome.R</code> script.</p>
-<p>There should now be four panes in your RStudio window, with the
-<code>welcome.R</code> script in the upper left pane, this is the
-“Source” or “Scripts” pane. It displays the code that we will write to
-perform our analysis.</p>
-<!-- Insert screenshot with welcome.R in script pane. -->
-<p>In the Scripts pane, there is a line of icons, towards the right side
-of the pane there is a “Run” button. First highlight all the code in the
-Source pane, and then click “Run”.</p>
-<!-- Insert screenshot of the result of running welcome.R -->
+<p>RStudio is an integrated development environment where you can write,
+execute, and see the results of your code. The interface is arranged in
+different panes:</p>
+<ul>
+<li>The Console pane along the left where you can enter commands an
+execute them.</li>
+<li>The Environment pane in the upper right shows any variables you have
+created, along with their values.</li>
+<li>The pane in the lower right has a few functions:
+<ul>
+<li>The Files tab let’s you navigate the file system.</li>
+<li>The Plots tab displays any plots from code run in the Console.</li>
+<li>The Help tab displays the documentation of functions.</li>
+</ul></li>
+</ul>
+<div id="commands-in-the-console" class="section level2">
+<h2>Commands in the Console</h2>
+<p>We can input commands directly into the Console (now the lower left
+pane) and press <KBD>Enter</KBD> to execute them. Try it with:</p>
+<pre><code>&gt; 2+2
+[1] 4</code></pre>
+<p>If we enter commands directly into the Console and execute them,
+<strong>there is no record</strong> that persists after we close
+RStudio.</p>
+<p><img src="images/03_rstudio_console_execution.png" alt="rstudio console execution" style="width:1000px;"/></p>
 <p><strong>Checkpoint</strong></p>
-<p>A number of things just happened in all the panes:</p>
-<ol style="list-style-type: decimal">
-<li>There is a record of the code that was run along with the results in
-the lower left pane. This is the “Console” panel, and here is where the
-output of executing code is displayed. You can also type directly in the
-prompt and execute code, but it is not saved in the script.</li>
-<li>There is a <code>phenotypes_by_species</code> object listed in the
-upper right pane. This is the “Environment” panel, and it shows all the
-existing variables in the session, as well as a brief description.</li>
-<li>There is a plot in the lower right pane where the file structure was
-previously listed. This is the “Files / Plots / Help” pane, and it can
-show the file browser that we saw at the start, display plots that are
-executed in the Console, or display help pages as we’ll see later.</li>
-</ol>
-<p><strong>Questions?</strong></p>
+</div>
+<div id="commands-in-the-script" class="section level2">
+<h2>Commands in the Script</h2>
+<p>To keep that record, we will enter our commands in a script. When
+first opening RStudio, there is no pane to write code to save as a file.
+But by clicking on the icon in the upper-right-most of the interface (a
+blank piece of paper with a + sign), and selecting <KBD>R Script</KBD> a
+new pane opens. This last pane is the Source (or Script) pane, and it is
+here that we’ll keep a running record of the commands we learn in this
+workshop.</p>
+<p><img src="images/04_rstudio_create_script.png" alt="rstudio create script" style="width:1000px;"/></p>
+<p>Which will swing open the Script pane:</p>
+<p><img src="images/05_rstudio_script_pane.png" alt="rstudio script pane" style="width:1000px;"/></p>
+<p>In the Script pane, enter:</p>
+<pre><code>3+2</code></pre>
+<p>Notice that if we press <KBD>Enter</KBD> in the Source pane, we get a
+new line. <strong>The code does note execute.</strong> In order to
+execute the code we press <KBD>Ctrl + Enter</KBD> <strong>on the line of
+code we want to execute</strong>. We then see that code executed, along
+with its result in in the Console pane.</p>
+<p><img src="images/06_rstudio_script_execution.png" alt="rstudio script execution" style="width:1000px;"/></p>
+<blockquote>
+<h2 id="note-script-pane-and-console-pane">Note: Script Pane and Console
+Pane</h2>
+<p>The code written in the Script Pane is inert until it is executed
+with <KBD>Control + Enter</KBD>. The Console Pane is the record of the
+code that has been executed. <br></p>
+</blockquote>
+</div>
 <div id="configuring-rstudio" class="section level2">
 <h2>Configuring RStudio</h2>
 <p>All of the panes in RStudio have configuration options. For example,
@@ -501,12 +525,30 @@ borders. The most important customization options for pane layout are in
 the <KBD>View</KBD> menu. Other options such as font sizes,
 colors/themes, and more are in the <KBD>Tools</KBD> menu under
 <KBD>Global Options</KBD>.</p>
-<p>Let’s all enable soft-wrapping of the code files so that we don’t
-have to scroll left and right if our code exceeds the width of the
-window. To do this click <KBD>Tools</KBD> then <KBD>Global Options</KBD>
-then <KBD>Code</KBD>, and check the box for “Soft-wrap R source files”,
-then click <KBD>OK</KBD>.</p>
+<p>We can enable soft-wrapping of code by selecting <KBD>Code</KBD> and
+then <KBD>Soft Wrap Long Lines</KBD>.</p>
+<p><img src="images/07_rstudio_soft_wrap.png" alt="rstudio code execution" style="width:1000px;"/></p>
 </div>
+</div>
+<div id="workshop-flow" class="section level1">
+<h1>Workshop Flow</h1>
+<p>The code we execute together is available in three forms:</p>
+<ol style="list-style-type: decimal">
+<li>By viewing the instructor’s Zoom screen share,</li>
+<li>By code pasted into Slack, and</li>
+<li>By code blocks on these web pages.</li>
+</ol>
+<p>As a learner you are welcome to get the same code into your Script
+Pane by:</p>
+<ol style="list-style-type: decimal">
+<li>Typing the code from the Zoom screen share into your Script
+Pane,</li>
+<li>Copying the code from Slack and pasting into your Script Pane,
+or</li>
+<li>Copying the code from the code blocks on these web pages and pasting
+into your Script Pane.</li>
+</ol>
+<p><strong>Questions?</strong></p>
 </div>
 <div id="creating-an-rstudio-project" class="section level1">
 <h1>Creating an RStudio project</h1>
@@ -526,7 +568,9 @@ href="http://swcarpentry.github.io/git-novice/">git</a>.</li>
 <code>~/.Rhistory</code>, select No. The following window should
 appear:</li>
 </ol>
-<p><img src="images/new_project_window.png" alt="rstudio default session" style="width: 600px;"/></p>
+<center>
+<img src="images/new_project_window.png" alt="rstudio default session" style="width: 600px;"/>
+</center>
 <ol start="2" style="list-style-type: decimal">
 <li><p>In this window, select <kbd>Existing Directory</kbd>. For
 “Project working directory”, click <kbd>Browse…</kbd>, select the “CF_R”
@@ -563,25 +607,24 @@ the file extension <code>.R</code>.</p>
 <p><strong>Checkpoint</strong></p>
 </div>
 </div>
-<div id="commands-in-r" class="section level1">
-<h1>Commands in R</h1>
-<p>To get started, on line 1 of <code>r_basics.R</code> type
-<code>2+2</code>, and then click the <KBD>Run</KBD> button in the
-Scripts pane. You should see in the Console pane:</p>
-<pre><code>&gt; 2+2
-[1] 4</code></pre>
-<p>You can highlight as many lines of code as you like and click
-<KBD>Run</KBD> to run them, or you can use execution keyboard
-shortcut:</p>
-<ul>
-<li>Mac/Windows execution shortcut:
-<KBD>Ctrl</KBD>+<KBD>Enter</KBD></li>
-<li>Mac execution shortcut: <KBD>Cmd(⌘)</KBD>+<KBD>Enter</KBD></li>
-</ul>
-<p>Let’s go ahead and delete <code>2+2</code> and replace it with
-<code>library(tidyverse)</code> and then hit
-<KBD>Ctrl</KBD>+<KBD>Enter</KBD>.</p>
+<div id="loading-libraries" class="section level1">
+<h1>Loading Libraries</h1>
+<p>R has a number of functions that are present in the “base”
+installation, but the power of R is that many libraries have been
+written with myriad functionality. These libraries can be loaded with
+the <code>library()</code> command. We’ll discuss how to download new
+libraries later, but for now, let’s load the “tidyverse” package.</p>
 <pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching core tidyverse packages ────────────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <blockquote>
 <h2 id="note-package-loading-messages">Note: Package loading
 messages</h2>
@@ -605,7 +648,7 @@ the default. <br></p>
 <code>read_csv()</code> function:</p>
 <pre class="r"><code>gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -697,13 +740,13 @@ printed in the Console pane.</p>
 <p>Let’s try to assign some more objects and see how things can go
 wrong:</p>
 <pre class="r"><code>1number = 3</code></pre>
-<pre><code>Error: &lt;text&gt;:1:2: unexpected symbol
+<pre><code>Error in parse(text = input): &lt;text&gt;:1:2: unexpected symbol
 1: 1number
      ^</code></pre>
 <pre class="r"><code>Flower = &#39;marigold&#39;
 flower = &#39;rose&#39;</code></pre>
 <pre class="r"><code>favorite number = 12</code></pre>
-<pre><code>Error: &lt;text&gt;:1:10: unexpected symbol
+<pre><code>Error in parse(text = input): &lt;text&gt;:1:10: unexpected symbol
 1: favorite number
              ^</code></pre>
 <p><strong>Checkpoint</strong></p>
@@ -748,9 +791,9 @@ function needs to be told what to read because there is no default.</p>
 <p>Not every function needs arguments, but many do. Try the following
 functions:</p>
 <pre class="r"><code>Sys.Date()</code></pre>
-<pre><code>[1] &quot;2025-03-18&quot;</code></pre>
+<pre><code>[1] &quot;2025-03-21&quot;</code></pre>
 <pre class="r"><code>getwd()</code></pre>
-<pre><code>[1] &quot;/home/workshop/cgates/workshop-intro-r-rstudio/source&quot;</code></pre>
+<pre><code>[1] &quot;/Users/rcavalca/Projects/workshop-intro-r-rstudio/source&quot;</code></pre>
 <pre class="r"><code>round(3.1415, 2)</code></pre>
 <pre><code>[1] 3.14</code></pre>
 <p>Notice that we threw in <code>round()</code> which actually takes two
@@ -801,8 +844,8 @@ like, <code>stats::chisq.test</code>. Here the <code>::</code> is R
 notation for <code>package_name::function</code>.</p>
 <p><strong>Checkpoint</strong></p>
 </div>
-<div id="errors-happen" class="section level1">
-<h1>Errors happen</h1>
+<div id="errosr-happn" class="section level1">
+<h1>Errosr happn</h1>
 <p>We already ran some code in this lesson that produced errors. We’re
 going to run lots of code in this workshop and the next, and it’s likely
 we’ll see more errors! The key steps to correcting an error are:</p>
