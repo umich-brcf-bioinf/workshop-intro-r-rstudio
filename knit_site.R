@@ -25,9 +25,9 @@ render_site('source/workshop-intro.Rmd')
 
 render_site('source/r-01-introduction.Rmd')
 render_site('source/r-02-exploration-dplyr.Rmd')
-render_site('source/r-03-exploration-ggplot.Rmd')
 render_site('source/r-04-bioconductor.Rmd')
 render_site('source/r-05-help.Rmd')
+render_site('source/r-03-exploration-ggplot.Rmd')
 
 render_site('source/workshop-wrap-up.Rmd')
 

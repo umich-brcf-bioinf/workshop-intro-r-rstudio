@@ -422,7 +422,7 @@ to load the <code>gapminder_1997</code> data. Let’s do that again:</p>
 <pre class="r"><code>library(tidyverse)
 gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -567,8 +567,47 @@ the default linear scale. We can also change the scale on the
     geom_point() +
     labs(title = &#39;Do people in wealthier countries live longer?&#39;) + 
     aes(color = continent) + 
-    scale_color_brewer(palette = &#39;Set1&#39;)</code></pre>
+    scale_color_brewer(palette = &#39;Set2&#39;)</code></pre>
 <p><img src="fig/03-plot_color_continent_set1-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Here the <code>Set2</code> palette is color blind friendly. You can
+use the following command to see scale attributes:</p>
+<pre class="r"><code>RColorBrewer::brewer.pal.info</code></pre>
+<pre><code>         maxcolors category colorblind
+BrBG            11      div       TRUE
+PiYG            11      div       TRUE
+PRGn            11      div       TRUE
+PuOr            11      div       TRUE
+RdBu            11      div       TRUE
+RdGy            11      div      FALSE
+RdYlBu          11      div       TRUE
+RdYlGn          11      div      FALSE
+Spectral        11      div      FALSE
+Accent           8     qual      FALSE
+Dark2            8     qual       TRUE
+Paired          12     qual       TRUE
+Pastel1          9     qual      FALSE
+Pastel2          8     qual      FALSE
+Set1             9     qual      FALSE
+Set2             8     qual       TRUE
+Set3            12     qual      FALSE
+Blues            9      seq       TRUE
+BuGn             9      seq       TRUE
+BuPu             9      seq       TRUE
+GnBu             9      seq       TRUE
+Greens           9      seq       TRUE
+Greys            9      seq       TRUE
+Oranges          9      seq       TRUE
+OrRd             9      seq       TRUE
+PuBu             9      seq       TRUE
+PuBuGn           9      seq       TRUE
+PuRd             9      seq       TRUE
+Purples          9      seq       TRUE
+RdPu             9      seq       TRUE
+Reds             9      seq       TRUE
+YlGn             9      seq       TRUE
+YlGnBu           9      seq       TRUE
+YlOrBr           9      seq       TRUE
+YlOrRd           9      seq       TRUE</code></pre>
 <p>The <code>scale_color_brewer()</code> function is one of many that
 changes the colors. There are also many built-in “palettes” that are
 appropriate in different use cases. Run
@@ -661,7 +700,7 @@ more complex dataset so we have a bit more data to explore. The
 load in the data.</p>
 <pre class="r"><code>gapminder_data = read_csv(&#39;data/gapminder_data.csv&#39;)</code></pre>
 <pre><code>Rows: 1704 Columns: 6
-── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -1016,8 +1055,8 @@ Workshop we will also see how factors and the order of their levels
 affect the tests for differential expression.</p>
 <p><strong>Checkpoint</strong></p>
 </div>
-<div id="layers" class="section level2">
-<h2>Layers</h2>
+<div id="layers-optional" class="section level2">
+<h2>Layers (optional)</h2>
 <p>To get a sense for how the data are distributed in the box plot, we
 could add a <strong>layer</strong> with <code>geom_point()</code> in
 addition to <code>geom_boxplot()</code>.</p>
@@ -1069,8 +1108,8 @@ example, if we wanted to add a <code>size</code> aesthetic using the
 <p><img src="fig/03-plot_box_jitter_aes-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p><strong>Checkpoint</strong></p>
 </div>
-<div id="color-and-fill" class="section level2">
-<h2>Color and Fill</h2>
+<div id="color-and-fill-optional" class="section level2">
+<h2>Color and Fill (optional)</h2>
 <p>Let’s have a look at our jittered boxplot and explore
 <code>color</code> and <code>fill</code>. When a color is assigned
 directly, we use the name of the color in quotes, as in ‘pink’, and we
@@ -1254,8 +1293,8 @@ the internet was helpful.</p>
 <p><img src="fig/03-rotate_labels2-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p><strong>Checkpoint</strong></p>
 </div>
-<div id="labeling-points" class="section level2">
-<h2>Labeling points</h2>
+<div id="labeling-points-optional" class="section level2">
+<h2>Labeling points (optional)</h2>
 <p>In the scatterplot, we might want to highlight certain countries,
 such as Brazil, China, India, and the United States. There is a very
 nice add-on package called <a
