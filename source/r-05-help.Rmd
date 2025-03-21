@@ -152,5 +152,5 @@ In the output above, `[81]` indicates that the first value on that line is the 8
 <br/>
 <br/>
 <hr/>
-| [Previous lesson](r-04-bioconductor.html) | [Top of this lesson](#top) | [Wrap-up](Module99_Wrap_up.html) |
+| [Previous lesson](r-04-bioconductor.html) | [Top of this lesson](#top) | [Next lesson](r-03-exploration-ggplot.html) |
 | :--- | :----: | ---: |

@@ -13,7 +13,7 @@
 
 <title>Data Visualization with ggplot</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -355,16 +355,16 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (continnued)</a>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (cont.)</a>
     </li>
     <li>
-      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
-    </li>
-    <li>
-      <a href="r-04-bioconductor.html">Downloading and Using Libraries</a>
+      <a href="r-04-bioconductor.html">Using Packages / Libraries</a>
     </li>
     <li>
       <a href="r-05-help.html">Getting Help with R</a>
+    </li>
+    <li>
+      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
     </li>
   </ul>
 </li>
@@ -422,7 +422,7 @@ to load the <code>gapminder_1997</code> data. Let’s do that again:</p>
 <pre class="r"><code>library(tidyverse)
 gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ────────────────────────────────────────────────────────────────────────────────
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -661,7 +661,7 @@ more complex dataset so we have a bit more data to explore. The
 load in the data.</p>
 <pre class="r"><code>gapminder_data = read_csv(&#39;data/gapminder_data.csv&#39;)</code></pre>
 <pre><code>Rows: 1704 Columns: 6
-── Column specification ────────────────────────────────────────────────────────────────────────────────
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -745,20 +745,13 @@ and it’s a good idea to take a peek and see what the range of the data
 are:</p>
 <p><strong>Checkpoint</strong></p>
 <pre class="r"><code>summary(gapminder_data)</code></pre>
-<pre><code>   country               year           pop             continent            lifeExp     
- Length:1704        Min.   :1952   Min.   :6.001e+04   Length:1704        Min.   :23.60  
- Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Class :character   1st Qu.:48.20  
- Mode  :character   Median :1980   Median :7.024e+06   Mode  :character   Median :60.71  
-                    Mean   :1980   Mean   :2.960e+07                      Mean   :59.47  
-                    3rd Qu.:1993   3rd Qu.:1.959e+07                      3rd Qu.:70.85  
-                    Max.   :2007   Max.   :1.319e+09                      Max.   :82.60  
-   gdpPercap       
- Min.   :   241.2  
- 1st Qu.:  1202.1  
- Median :  3531.8  
- Mean   :  7215.3  
- 3rd Qu.:  9325.5  
- Max.   :113523.1  </code></pre>
+<pre><code>   country               year           pop             continent            lifeExp        gdpPercap       
+ Length:1704        Min.   :1952   Min.   :6.001e+04   Length:1704        Min.   :23.60   Min.   :   241.2  
+ Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Class :character   1st Qu.:48.20   1st Qu.:  1202.1  
+ Mode  :character   Median :1980   Median :7.024e+06   Mode  :character   Median :60.71   Median :  3531.8  
+                    Mean   :1980   Mean   :2.960e+07                      Mean   :59.47   Mean   :  7215.3  
+                    3rd Qu.:1993   3rd Qu.:1.959e+07                      3rd Qu.:70.85   3rd Qu.:  9325.5  
+                    Max.   :2007   Max.   :1.319e+09                      Max.   :82.60   Max.   :113523.1  </code></pre>
 <p>We see the same columns as <code>gapminder_1997</code> but we notice
 that there are many more years of data collected than just 1997. Let’s
 jump right in with a plot to understand what this data looks like. And
@@ -1450,10 +1443,9 @@ countries, and look at the top two results.</li>
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left"><a href="r-02-exploration-dplyr.html">Previous
-lesson</a></th>
+<th align="left"><a href="r-05-help.Rmd">Previous lesson</a></th>
 <th align="center"><a href="#top">Top of this lesson</a></th>
-<th align="right"><a href="r-04-bioconductor.html">Next lesson</a></th>
+<th align="right"><a href="workshop-wrap-up.html">Wrap up</a></th>
 </tr>
 </thead>
 <tbody>

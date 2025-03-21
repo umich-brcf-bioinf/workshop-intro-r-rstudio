@@ -13,7 +13,7 @@
 
 <title>Introducing R and RStudio</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -355,16 +355,16 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (continnued)</a>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (cont.)</a>
     </li>
     <li>
-      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
-    </li>
-    <li>
-      <a href="r-04-bioconductor.html">Downloading and Using Libraries</a>
+      <a href="r-04-bioconductor.html">Using Packages / Libraries</a>
     </li>
     <li>
       <a href="r-05-help.html">Getting Help with R</a>
+    </li>
+    <li>
+      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
     </li>
   </ul>
 </li>
@@ -739,13 +739,13 @@ printed in the Console pane.</p>
 <p>Let’s try to assign some more objects and see how things can go
 wrong:</p>
 <pre class="r"><code>1number = 3</code></pre>
-<pre><code>Error in parse(text = input): &lt;text&gt;:1:2: unexpected symbol
+<pre><code>Error: &lt;text&gt;:1:2: unexpected symbol
 1: 1number
      ^</code></pre>
 <pre class="r"><code>Flower = &#39;marigold&#39;
 flower = &#39;rose&#39;</code></pre>
 <pre class="r"><code>favorite number = 12</code></pre>
-<pre><code>Error in parse(text = input): &lt;text&gt;:1:10: unexpected symbol
+<pre><code>Error: &lt;text&gt;:1:10: unexpected symbol
 1: favorite number
              ^</code></pre>
 <p><strong>Checkpoint</strong></p>

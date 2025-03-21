@@ -384,5 +384,5 @@ table(gapminder_1997$continent)
 <br/>
 <br/>
 <hr/>
-| [Previous lesson](r-01-introduction.html) | [Top of this lesson](#top) | [Next lesson](r-03-exploration-ggplot.html) |
+| [Previous lesson](r-01-introduction.html) | [Top of this lesson](#top) | [Next lesson](r-04-bioconductor.html) |
 | :--- | :----: | ---: |
