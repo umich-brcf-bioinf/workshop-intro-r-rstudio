@@ -68,11 +68,11 @@ To get started, we'll go to [http://bfx-workshop01.med.umich.edu](http://bfx-wor
 
 The login page for the server looks like:
 
-<img src="images/01_rstudio_login_screen.jpeg" alt="rstudio login screen" style="width: 1000px;"/>
+<img src="images/01_rstudio_login_screen.png" alt="rstudio login screen" style="width: 1000px;"/>
 
 Enter your user credentials and click <kbd>Sign In</kbd>. The RStudio interface should load and look like:
 
-<img src="images/02_rstudio_session_default.jpeg" alt="rstudio default session" style="width:1000px;"/>
+<img src="images/02_rstudio_session_default.png" alt="rstudio default session" style="width:1000px;"/>
 
 **Checkpoint**
 
@@ -87,12 +87,6 @@ RStudio is an integrated development environment where you can write, execute, a
     - The Plots tab displays any plots from code run in the Console.
     - The Help tab displays the documentation of functions.
 
-When first opening RStudio, there is no pane to write code to save as a file. But by clicking on the icon in the upper-right-most of the interface (a blank piece of paper with a + sign), and selecting <KBD>R Script</KBD> a new pane opens. This last pane is the Source (or Script) pane, and it is here that we'll keep a running record of the commands we learn in this workshop.
-
-<img src="images/03_rstudio_script_pane.jpeg" alt="rstudio script pane" style="width:1000px;"/>
-
-**Checkpoint**
-
 ## Commands in the Console
 
 We can input commands directly into the Console (now the lower left pane) and press <KBD>Enter</KBD> to execute them. Try it with:
@@ -104,19 +98,29 @@ We can input commands directly into the Console (now the lower left pane) and pr
 
 If we enter commands directly into the Console and execute them, **there is no record** that persists after we close RStudio.
 
+<img src="images/03_rstudio_console_execution.png" alt="rstudio console execution" style="width:1000px;"/>
+
+**Checkpoint**
+
 ## Commands in the Script
 
-To keep that record, we will enter our commands in the Script pane, and then send them to the Console for execution. In the Script pane, enter:
+To keep that record, we will enter our commands in a script. When first opening RStudio, there is no pane to write code to save as a file. But by clicking on the icon in the upper-right-most of the interface (a blank piece of paper with a + sign), and selecting <KBD>R Script</KBD> a new pane opens. This last pane is the Source (or Script) pane, and it is here that we'll keep a running record of the commands we learn in this workshop.
+
+<img src="images/04_rstudio_create_script.png" alt="rstudio create script" style="width:1000px;"/>
+
+Which will swing open the Script pane:
+
+<img src="images/05_rstudio_script_pane.png" alt="rstudio script pane" style="width:1000px;"/>
+
+In the Script pane, enter:
 
 ~~~
 3+2
 ~~~
 
-<img src="images/04_rstudio_code_in_script.jpeg" alt="rstudio code in script" style="width:1000px;"/>
-
 Notice that if we press <KBD>Enter</KBD> in the Source pane, we get a new line. **The code does note execute.** In order to execute the code we press <KBD>Ctrl + Enter</KBD> **on the line of code we want to execute**. We then see that code executed, along with its result in in the Console pane.
 
-<img src="images/05_rstudio_code_execution.jpeg" alt="rstudio code execution" style="width:1000px;"/>
+<img src="images/06_rstudio_script_execution.png" alt="rstudio script execution" style="width:1000px;"/>
 
 > ## Note: Script Pane and Console Pane
 >
@@ -129,7 +133,7 @@ All of the panes in RStudio have configuration options. For example, you can min
 
 We can enable soft-wrapping of code by selecting <KBD>Code</KBD> and then <KBD>Soft Wrap Long Lines</KBD>.
 
-<img src="images/06_rstudio_soft_wrap.jpeg" alt="rstudio code execution" style="width:1000px;"/>
+<img src="images/07_rstudio_soft_wrap.png" alt="rstudio code execution" style="width:1000px;"/>
 
 # Workshop Flow
 
