@@ -64,7 +64,7 @@ To get started, we'll use [RStudio](https://posit.co/products/open-source/rstudi
 
 # Log in to RStudio Server
 
-To get started, we'll go to [http://bfx-workshop01.med.umich.edu](http://bfx-workshop01.med.umich.edu)
+To get started, we'll go to [http://bfx-workshop02.med.umich.edu](http://bfx-workshop02.med.umich.edu)
 
 The login page for the server looks like:
 
