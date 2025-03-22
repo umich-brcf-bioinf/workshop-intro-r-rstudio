@@ -80,7 +80,7 @@ Enter your user credentials and click <kbd>Sign In</kbd>. The RStudio interface 
 
 RStudio is an integrated development environment where you can write, execute, and see the results of your code. The interface is arranged in different panes:
 
-- The Console pane along the left where you can enter commands an execute them.
+- The Console pane along the left where you can enter commands and execute them.
 - The Environment pane in the upper right shows any variables you have created, along with their values.
 - The pane in the lower right has a few functions:
     - The Files tab let's you navigate the file system.
@@ -89,7 +89,7 @@ RStudio is an integrated development environment where you can write, execute, a
 
 ## Commands in the Console
 
-We can input commands directly into the Console (now the lower left pane) and press <KBD>Enter</KBD> to execute them. Try it with:
+We can input commands directly into the Console and press <KBD>Enter</KBD> to execute them. Try it with:
 
 ~~~
 > 2+2
@@ -124,7 +124,7 @@ Notice that if we press <KBD>Enter</KBD> in the Source pane, we get a new line. 
 
 > ## Note: Script Pane and Console Pane
 >
-> The code written in the Script Pane is inert until it is executed with <KBD>Control + Enter</KBD>. The Console Pane is the record of the code that has been executed.
+> The code written in the Script Pane is just text until it is executed with <KBD>Control + Enter</KBD>. The Console Pane is the record of the code that has been executed.
 <br>
 
 ## Configuring RStudio
