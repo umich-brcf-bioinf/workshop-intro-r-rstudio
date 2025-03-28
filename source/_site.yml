@@ -14,13 +14,13 @@ navbar:
           href: r-02-exploration-dplyr.html
     - text: "Day 2"
       menu:
-        - text: "Data Exploration with dplyr (continnued)"
+        - text: "Data Exploration with dplyr (cont.)"
           href: r-02-exploration-dplyr.html
-        - text: "Data Visualization with ggplot"
-          href: r-03-exploration-ggplot.html
-        - text: "Downloading and Using Libraries"
+        - text: "Using Packages / Libraries"
           href: r-04-bioconductor.html
         - text: "Getting Help with R"
           href: r-05-help.html
+        - text: "Data Visualization with ggplot"
+          href: r-03-exploration-ggplot.html
     - text: "Wrap up"
       href: workshop-wrap-up.html

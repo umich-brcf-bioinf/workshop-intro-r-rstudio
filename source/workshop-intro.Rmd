@@ -33,6 +33,9 @@ a[target="_blank"]::after {
 }
 </style>
 
+```{r, include = FALSE}
+source("../bin/set_values.R")
+```
 
 # Workshop goals and topics
 
@@ -52,13 +55,11 @@ recognize these techniques when you see them and, with some independent study, a
 
  - Please let us know if there is anything we can do to improve the workshop experience.
 
-
-| ![](images/headshots/headshot_cgates.jpg) | ![](images/headshots/headshot_mbradenb.jpg) | ![](images/headshots/headshot_trsaari.jpg) | ![](images/headshots/headshot_rcavalca.jpg) |
+| ![](images/headshots/headshot_cgates.jpg) | ![](images/headshots/headshot_mbradenb.jpg) | ![](images/headshots/headshot_trsaari.jpg) |  ![](images/headshots/headshot_wld.jpg) |
 |:-:|:-:|:-:|:-:|
-| **Chris** | **Marci** | **Travis** | **Raymond** |
-| ![](images/headshots/headshot_damki.jpg) | ![](images/headshots/headshot_mkdohert.jpg) | ![](images/headshots/headshot_ncarruth.jpg) |
-| **Dana** | **Matt** | **Nick** |
-
+| **Chris** | **Marci** | **Travis** | **Bill** |
+| ![](images/headshots/headshot_damki.jpg) | ![](images/headshots/headshot_clairis.jpg) | ![](images/headshots/headshot_rcavalca.jpg) |
+| **Dana** | **Clair** | **Raymond** | 
 
 <br/>
 
@@ -82,8 +83,7 @@ recognize these techniques when you see them and, with some independent study, a
   email us at bioinformatics-workshops@umich.edu.
 
 - To report a CoC incident/concern, please email Chris Gates (Bioinformatics Core, Managing
-  Director) at cgates@umich.edu or contact the University of Michigan Office of Institutional
-  Equity at institutional.equity@umich.edu.
+  Director) at cgates@umich.edu or contact the `r intro_coc_contact` at `r intro_coc_contact_email`.
 <br/>
 <br/>
 
@@ -147,7 +147,7 @@ breakout room.
 
 ![Posting messages to Slack](images/workshop-intro/slack.png)
 
-  - Slack messages will be posted to the **2025-04-intro-to-r-rstudio** channel.
+  - Slack messages will be posted to the **`r intro_slack_channel`** channel.
     Click on the channel in the left pane (1) to select this channel.
   - You can type in the **message field** (2); click **send** (3) to
     post your message to everyone.

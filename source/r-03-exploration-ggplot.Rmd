@@ -171,7 +171,13 @@ ggplot(data = gapminder_1997) +
     geom_point() +
     labs(title = 'Do people in wealthier countries live longer?') + 
     aes(color = continent) + 
-    scale_color_brewer(palette = 'Set1')
+    scale_color_brewer(palette = 'Set2')
+```
+
+Here the `Set2` palette is color blind friendly. You can use the following command to see scale attributes:
+
+```{r, 'brewer_pal_info'}
+RColorBrewer::brewer.pal.info
 ```
 
 The `scale_color_brewer()` function is one of many that changes the colors. There are also many built-in "palettes" that are appropriate in different use cases. Run `RColorBrewer::display.brewer.all()` to see them. Note that there are linear color scales which might be appropriate for numerical data with a minimum value of 0. There are also divergent color scales that might be useful for continuous variables centered around 0. There are also discrete color scales more appropriate for categorical data that aren't associated with magnitude, like `continent`.
@@ -420,7 +426,7 @@ Compare this to the plot we saw with the `continent` column, where the order was
 
 **Checkpoint**
 
-## Layers
+## Layers (optional)
 
 To get a sense for how the data are distributed in the box plot, we could add a **layer** with `geom_point()` in addition to `geom_boxplot()`.
 
@@ -469,7 +475,7 @@ ggplot(data = gapminder_1997) +
 
 **Checkpoint**
 
-## Color and Fill
+## Color and Fill (optional)
 
 Let's have a look at our jittered boxplot and explore `color` and `fill`. When a color is assigned directly, we use the name of the color in quotes, as in 'pink', and we don't need to use the `aes()` function.
 
@@ -629,7 +635,7 @@ scatter_plot + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust =
 
 **Checkpoint**
 
-## Labeling points
+## Labeling points (optional)
 
 In the scatterplot, we might want to highlight certain countries, such as Brazil, China, India, and the United States. There is a very nice add-on package called [`ggrepel`](https://ggrepel.slowkow.com/index.html). In particular, if we look at the example for [how to hide some of the labels](https://ggrepel.slowkow.com/articles/examples.html#hide-some-of-the-labels), we'll get a sense for how to write code to highlight these countries.
 
@@ -743,5 +749,5 @@ ggplot(data = gapminder_1997_labels) +
 <br/>
 <br/>
 <hr/>
-| [Previous lesson](r-02-exploration-dplyr.html) | [Top of this lesson](#top) | [Next lesson](r-04-bioconductor.html) |
+| [Previous lesson](r-05-help.Rmd) | [Top of this lesson](#top) | [Wrap up](workshop-wrap-up.html) |
 | :--- | :----: | ---: |
