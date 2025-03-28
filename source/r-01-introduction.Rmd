@@ -37,6 +37,10 @@ source("../bin/chunk-options.R")
 knitr_fig_path("01-")
 ```
 
+```{r, include = FALSE}
+source("../bin/set_values.R")
+```
+
 # Objectives
 
 - Introduce R and RStudio.
@@ -64,7 +68,7 @@ To get started, we'll use [RStudio](https://posit.co/products/open-source/rstudi
 
 # Log in to RStudio Server
 
-To get started, we'll go to [http://bfx-workshop02.med.umich.edu](http://bfx-workshop02.med.umich.edu)
+To get started, we'll go to [`r rstudio_server_url`](`r rstudio_server_url`){target="blank"}
 
 The login page for the server looks like:
 

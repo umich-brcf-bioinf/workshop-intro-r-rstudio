@@ -23,6 +23,10 @@ a.external {
 }
 </style>
 
+```{r, include = FALSE}
+source("../../bin/set_values.R")
+```
+
 This document guides you through the installation of software necessary
 to participate in the workshop. To complete
 this setup, you will need:
@@ -107,7 +111,7 @@ Please note that this is a standalone Slack workspace and not connected to UM or
 
 ### **Launch R/RStudio (from the web)**
 
-**3.1** Open the following web address: <https://bfx-workshop01.med.umich.edu/>
+**3.1** Open the following web address: [`r rstudio_server_url`](`r rstudio_server_url`){target="blank"}
 
 **3.2** When prompted, enter the  username and password supplied by your hosts and
  click **Sign In**.
