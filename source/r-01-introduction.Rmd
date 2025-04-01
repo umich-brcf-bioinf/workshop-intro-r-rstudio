@@ -126,7 +126,7 @@ Notice that if we press <KBD>Enter</KBD> in the Source pane, we get a new line. 
 
 <img src="images/06_rstudio_script_execution.png" alt="rstudio script execution" style="width:1000px;"/>
 
-> ## Note: Script Pane and Console Pane
+> ## Note: Script Pane and Console Pane {.unlisted .unnumbered}
 >
 > The code written in the Script Pane is just text until it is executed with <KBD>Control + Enter</KBD>. The Console Pane is the record of the code that has been executed.
 <br>
@@ -197,7 +197,7 @@ R has a number of functions that are present in the "base" installation, but the
 library(tidyverse)
 ```
 
-> ## Note: Package loading messages
+> ## Note: Package loading messages {.unlisted .unnumbered}
 >
 > When loading a package you may get lots of feedback. These aren't necessarily errors, but just give more information on the state of the environment after loading the package. The `tidyverse` is actually a collection of packages. The first section of the output states which packages were lodaed and their versions. The second section notes "Conflicts" that occur because the name of a function is used multiple times. So `dplyr::filter() masks stats::filter()` means that the `dplyr` library and the `stats` library have functions called `filter()`, and that when calling `filter()`, the `dplyr` version will be the default.
 <br>
