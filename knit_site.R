@@ -30,5 +30,7 @@ render_site('source/r-05-help.Rmd')
 render_site('source/r-03-exploration-ggplot.Rmd')
 
 render_site('source/workshop-wrap-up.Rmd')
+render_site('source/analysis_scripts.Rmd')
+
 
 #clean_site(preview=TRUE)
