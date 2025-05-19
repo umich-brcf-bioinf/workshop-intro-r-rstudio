@@ -1,12 +1,13 @@
-install.packages("remotes")
-library(remotes)
-remove.packages('klippy');
-remotes::install_github("umich-brcf-bioinf/workshop-klippy");
+#install.packages("remotes")
+#library(remotes)
+#remove.packages('klippy');
+#remotes::install_github("umich-brcf-bioinf/workshop-klippy");
 # install.packages("kable")
-devtools::install_github("haozhu233/kableExtra")
+#devtools::install_github("haozhu233/kableExtra")
 
 library(rmarkdown)
 library(klippy)
+library(kableExtra)
 
 # The html from the files below don't have the nav bar
 

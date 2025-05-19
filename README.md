@@ -3,6 +3,7 @@ UM Bioinformatics Core: Intro to R & RStudio workshop show notes.
 * Versioned web content:
   
   - [Main](https://umich-brcf-bioinf.github.io/workshop-intro-r-rstudio/main/html/)
+  - [7/16/2025](https://umich-brcf-bioinf.github.io/workshop-intro-r-rstudio/2025-07-16/html/)
   - [4/2/2025](https://umich-brcf-bioinf.github.io/workshop-intro-r-rstudio/2025-04-02/html/)
 
 * Inspired by [UM Carpentries](https://github.com/UMCarpentries/intro-curriculum-r) 
