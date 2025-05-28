@@ -337,7 +337,7 @@ Notice that with each assignment, the object appears in the Environment pane. Al
 
 # Calling functions
 
-Earlier we ran the code `gm97 =read_csv('data/gapminder_1997.csv')`. As we said before, `read_csv()` is a function and `'data/gapminder_1997.csv'` is an argument to that function. What happens if we just do:
+Earlier we ran the code `gm97 = read_csv('data/gapminder_1997.csv')`. As we said before, `read_csv()` is a function and `'data/gapminder_1997.csv'` is an argument to that function. What happens if we just do:
 
 ```{r, 'bad_function_call', error = TRUE}
 read_csv()
