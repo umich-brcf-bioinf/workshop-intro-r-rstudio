@@ -424,7 +424,7 @@ pre {
 <p>In the previous lesson we used the <code>read_csv()</code> function
 to load the <code>gapminder_1997</code> data. Let’s do that again:</p>
 <pre class="r"><code>library(tidyverse)
-gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
+gm97read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
 ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
@@ -504,7 +504,7 @@ as a column, named as specified. Note, this matches the result of
 <code>summary()</code> with some difference in the number of significant
 digits displayed. Alternatively, we could have simply applied
 <code>mean()</code> directly to the column <code>lifeExp</code>:</p>
-<pre class="r"><code>mean(gapminder_1997$lifeExp)</code></pre>
+<pre class="r"><code>mean(gm97lifeExp)</code></pre>
 <pre><code>[1] 65.01468</code></pre>
 <p>This is the base R way, with the <code>$</code> being how columns of
 a data table are accessed. The <code>mean()</code> function returns a
@@ -541,7 +541,7 @@ distinct values of the continents column:</p>
 <p>Here we get a <code>tibble</code> back with the unique continent
 names in their order of appearance. There is an equivalent base R way to
 do this with the <code>unique()</code> function:</p>
-<pre class="r"><code>unique(gapminder_1997$continent)</code></pre>
+<pre class="r"><code>unique(gm97continent)</code></pre>
 <pre><code>[1] &quot;Asia&quot;     &quot;Europe&quot;   &quot;Africa&quot;   &quot;Americas&quot; &quot;Oceania&quot; </code></pre>
 <p>Either way, if there was a misspelled entry, for example, “Urope” we
 would have immediately seen it.</p>
@@ -824,7 +824,7 @@ for only the African data we could:</p>
 # ℹ 42 more rows</code></pre>
 <p>The base R equivalent of the above uses the square bracket notation
 that we saw earlier with a twist:</p>
-<pre class="r"><code>gapminder_1997[gapminder_1997$continent == &#39;Africa&#39;, ]</code></pre>
+<pre class="r"><code>gapminder_1997[gm97continent == &#39;Africa&#39;, ]</code></pre>
 <pre><code># A tibble: 52 × 6
    country                   year      pop continent lifeExp gdpPercap
    &lt;chr&gt;                    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -1028,7 +1028,7 @@ there really only are two:</p>
 <p>There is a base R function, <code>table()</code>, that tabulates the
 number of time an entry occurs in a vector, and is useful for quick
 sanity checking:</p>
-<pre class="r"><code>table(gapminder_1997$continent)</code></pre>
+<pre class="r"><code>table(gm97continent)</code></pre>
 <pre><code>
   Africa Americas     Asia   Europe  Oceania 
       52       25       33       30        2 </code></pre>

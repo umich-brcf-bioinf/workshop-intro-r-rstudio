@@ -50,7 +50,7 @@ source("../bin/set_values.R")
 - Learn how to get help with functions.
 - Get comfortable with errors and asking for help.
 
-# Introduction to R and RStudio
+# What is R and RStudio?
 
 In these lessons we'll use the [gapminder dataset](https://www.gapminder.org/) to explore the relationship between a country's life expectancy and the total value of its finished goods and services, also known as the Gross Domestic Product (GDP). To explore this relationship we need **data** and a **platform to analyze the data**. 
 
@@ -66,9 +66,15 @@ We'll also use R because this is a precursor workshop to RNA-seq Demystified, wh
 
 To get started, we'll use [RStudio](https://posit.co/products/open-source/rstudio/), an integrated development environment (IDE). It acts as a graphical interface to R that has many helpful features, as we'll see. Note that R and RStudio are different, but complimentary. You need R to use RStudio.
 
-# Log in to RStudio Server
+# The gapminder dataset
 
-To get started, we'll go to [`r rstudio_server_url`](`r rstudio_server_url`){target="blank"}
+We will be using a dataset from [gapminder](https://www.gapminder.org/) which contains life expectancy, GDP, and population for countries around the world from 1952 to 2007. It is sufficiently rich to allow us to explore data manipulation and visualization in R. We'll begin with data just from 1997, and will expand to the full 1952 - 2007 dataset towards the end. The following is a preview of the data we'll be working with:
+
+<img src="images/00_gapminder_preview.png" alt="gapminder preview"/>
+
+# Orienting on RStudio
+
+To get started, let's log in to the workshop server by going here: [`r rstudio_server_url`](`r rstudio_server_url`){target="blank"}
 
 The login page for the server looks like:
 
@@ -80,27 +86,23 @@ Enter your user credentials and click <kbd>Sign In</kbd>. The RStudio interface 
 
 **Checkpoint**
 
-# Orienting on RStudio
-
 RStudio is an integrated development environment where you can write, execute, and see the results of your code. The interface is arranged in different panes:
 
-- The Console pane along the left where you can enter commands and execute them.
-- The Environment pane in the upper right shows any variables you have created, along with their values.
+- The **Console pane** along the left where you can enter commands and execute them.
+- The **Environment pane** in the upper right shows any variables you have created, along with their values.
 - The pane in the lower right has a few functions:
-    - The Files tab let's you navigate the file system.
-    - The Plots tab displays any plots from code run in the Console.
-    - The Help tab displays the documentation of functions.
+    - The **Files tab** let's you navigate the file system.
+    - The **Plots tab** displays any plots from code run in the Console.
+    - The **Help tab** displays the documentation of functions.
 
 ## Commands in the Console
 
-We can input commands directly into the Console and press <KBD>Enter</KBD> to execute them. Try it with:
+Commands can be run in the Console directly. Press <KBD>Enter</KBD> to execute them:
 
 ~~~
 > 2+2
 [1] 4
 ~~~
-
-If we enter commands directly into the Console and execute them, **there is no record** that persists after we close RStudio.
 
 <img src="images/03_rstudio_console_execution.png" alt="rstudio console execution" style="width:1000px;"/>
 
@@ -108,28 +110,39 @@ If we enter commands directly into the Console and execute them, **there is no r
 
 ## Commands in the Script
 
-To keep that record, we will enter our commands in a script. When first opening RStudio, there is no pane to write code to save as a file. But by clicking on the icon in the upper-right-most of the interface (a blank piece of paper with a + sign), and selecting <KBD>R Script</KBD> a new pane opens. This last pane is the Source (or Script) pane, and it is here that we'll keep a running record of the commands we learn in this workshop.
+Commands can also be run in a script. Some beenefits to using a script rather than relying on the Console pane:
+
+- Scripts are files that can be shared.
+- Scripts record the steps taken to analyze the data.
+- Scripts can be re-run, allowing for reproducibility.
+
+When first opening RStudio, a script file is not automatically opened. We'll create our script file by clicking on the icon in the upper-left of the interface (a blank piece of paper with a + sign), and selecting <KBD>R Script</KBD>.
 
 <img src="images/04_rstudio_create_script.png" alt="rstudio create script" style="width:1000px;"/>
 
-Which will swing open the Script pane:
+ The new pane that opens is the **Source pane**:
 
 <img src="images/05_rstudio_script_pane.png" alt="rstudio script pane" style="width:1000px;"/>
 
-In the Script pane, enter:
+You can think of this as a simple text editor. In the Script pane, enter:
 
 ~~~
 3+2
 ~~~
 
-Notice that if we press <KBD>Enter</KBD> in the Source pane, we get a new line. **The code does note execute.** In order to execute the code we press <KBD>Ctrl + Enter</KBD> **on the line of code we want to execute**. We then see that code executed, along with its result in in the Console pane.
+Notice that if we press <KBD>Enter</KBD> in the Source pane, we get a new line instead of running the code. In order to execute the code, we press <KBD>Ctrl + Enter</KBD> either on the single line we want to run, or on a highlighted block of code. We then see that code executed, along with its result in in the Console pane.
 
 <img src="images/06_rstudio_script_execution.png" alt="rstudio script execution" style="width:1000px;"/>
 
-> ## Note: Script Pane and Console Pane {.unlisted .unnumbered}
->
-> The code written in the Script Pane is just text until it is executed with <KBD>Control + Enter</KBD>. The Console Pane is the record of the code that has been executed.
-<br>
+## Summary: Console vs Script
+
+Here are some of the key differences between the Console and Script panes in RStudio:
+
+| Console          | Script            |
+|:-----------------|:------------------|
+| Ephemeral code        | Preserved code         |
+| Run with <KBD>Enter</KBD> | Run with <KBD>Ctrl + Enter</KBD> |                  |
+| Hard to share    | Easy to share     |
 
 ## Configuring RStudio
 
@@ -139,109 +152,142 @@ We can enable soft-wrapping of code by selecting <KBD>Code</KBD> and then <KBD>S
 
 <img src="images/07_rstudio_soft_wrap.png" alt="rstudio code execution" style="width:1000px;"/>
 
-# Workshop Flow
+# Workshop flow
 
-The code we execute together is available in three forms:
+To accomodate learning styles and to keep us moving along, we'll provide code in three different ways, and you can get that code into RStudio in corresponding ways:
 
-1. By viewing the instructor's Zoom screen share,
-2. By code pasted into Slack, and
-3. By code blocks on these web pages.
-
-As a learner you are welcome to get the same code into your Script Pane by:
-
-1. Typing the code from the Zoom screen share into your Script Pane,
-2. Copying the code from Slack and pasting into your Script Pane, or
-3. Copying the code from the code blocks on these web pages and pasting into your Script Pane.
+| Source of Code   | Execution of Code |
+|:-----------------|:------------------|
+| Zoom screen share            | Type the code yourself.                            |
+| Slack            | Copy and paste code into RStudio.                  |
+| Website          | Use code block copy button and paste into RStudio. |
 
 **Questions?**
 
-# Creating an RStudio project
+# Setting up
 
-We'll now begin our examination of the gapminder dataset by creating an **RStudio Project**. An RStudio project allows you to more easily:
+Before we begin, the folder structure of a working directory / project organizes all the relevant files. Typically we make directories for the following types of files:
 
-- Save data, files, variables, packages, etc. related to a specific analysis project
-- Restart work where you left off
-- Collaborate, especially if you are using version control such as [git](http://swcarpentry.github.io/git-novice/).
+- Raw data, called `data`, `input`, etc,
+- Results, often `results` or `output` with subfolders for `tables`, `figures`, and `rdata`, and
+- Scripts, often `scripts`.
 
+We've already provided the raw data in the `data/` folder, but you'd otherwise want to move the starting, unaltered, data into this folder.
 
-1. To create a project, go to the <kbd>File</kbd> menu, and click <kbd>New Project...</kbd>. If you are prompted to save your `~/.Rhistory`, select No. The following window should appear:
+## Creating directory stucture
 
-<center>
-<img src="images/new_project_window.png" alt="rstudio default session" style="width: 600px;"/>
-</center>
+Before we start creating directories, let's make sure we're in the right location. To print the current working directory:
 
-2. In this window, select <kbd>Existing Directory</kbd>. For "Project working directory", click <kbd>Browse...</kbd>, select the "CF_R" folder, and click <kbd>Choose</kbd>. This will use the `/home/workshop/user/CF_R` folder as the project directory.
+```{r getwd}
+# =========================================================================
+# Determine and set working directory
+# =========================================================================
 
-3. Finally click <kbd>Create Project</kbd>. In the "Files" tab of your output pane (more about the RStudio layout in a moment), you should see an RStudio project file, **CF_R.Rproj**. All RStudio projects end with the "**.Rproj**" file extension.
+# -------------------------------------------------------------------------
+# Get current working directory
+getwd()
+```
+
+This means that any references to files loaded or files saved **is with respect to this location**. This can simplify our code a bit by allowing us to use relative paths rather than full paths. Let's set our working directory to the IRR folder in our respective home directories.
+
+```{r setwd, eval = FALSE}
+# -------------------------------------------------------------------------
+# Set current working directory
+setwd('~/IRR')
+```
+
+Now that we're sure of our working directory, let's create some folders for our analysis scripts and results thereof.
+
+```{r create_structure}
+# =========================================================================
+# Create directory structure
+# =========================================================================
+
+dir.create('scripts', recursive = TRUE, showWarnings = FALSE)
+dir.create('results/figures', recursive = TRUE, showWarnings = FALSE)
+dir.create('results/tables', recursive = TRUE, showWarnings = FALSE)
+dir.create('results/rdata', recursive = TRUE, showWarnings = FALSE)
+
+# -------------------------------------------------------------------------
+```
+
+## Saving scripts
+
+Let's save our currently open script in the `scripts/` folder as `IRR_day1.R` by clicking <KBD>File</KBD> and then <KBD>Save</KBD>.
 
 **Checkpoint**
 
-## Creating a script
+# Getting started
 
-Let's create an R script in this project to record the commands we'll learn:
+Out of the box, R has a number of useful functions, but its power lies in extending its functionality with packages / libraries. You can think of libraries as collections of functions organized around a particular functionality. For example, the `tidyverse` package is a collection of packages that are designed to work together to make data manipulation and visualization easier. In order to gain access to functions in a package, we need to load the package into our R session.
 
-- Click the <kbd>File</kbd> menu and select <kbd>New File</kbd> and then <kbd>R Script</kbd>.
-- Before we go any further, save your script by clicking the save/disk icon that is in the bar above the first line in the script editor, or click the <kbd>File</kbd> menu and select <kbd>Save</kbd>.
-- In the "Save File" window that opens, select <kbd>New Folder</kbd>. Name it **"scripts"**.
-- Finally, name your file **"r_basics"** in the "File name" field.
+## Loading Libraries
 
-The new script **r_basics.R** is now in the `scripts` folder. You can see that by clicking the `scripts` folder in the "Files" pane. And you can go back up to the main project folder by clicking the `..` to the right of the up arrow in the "Files" pane. By convention, R scripts end with the file extension `.R`.
+Let's begin with loading `tidyverse` since that's the package we'll use for the rest of the workshop.
 
-**Checkpoint**
+```{r, 'load_tidyverse', message = TRUE, warning = TRUE}
+# =========================================================================
+# Load the tidyverse package
 
-# Loading Libraries
-
-R has a number of functions that are present in the "base" installation, but the power of R is that many libraries have been written with myriad functionality. These libraries can be loaded with the `library()` command. We'll discuss how to download new libraries later, but for now, let's load the "tidyverse" package.
-
-```{r, 'load_tidyverse'}
 library(tidyverse)
 ```
 
 > ## Note: Package loading messages {.unlisted .unnumbered}
 >
-> When loading a package you may get lots of feedback. These aren't necessarily errors, but just give more information on the state of the environment after loading the package. The `tidyverse` is actually a collection of packages. The first section of the output states which packages were lodaed and their versions. The second section notes "Conflicts" that occur because the name of a function is used multiple times. So `dplyr::filter() masks stats::filter()` means that the `dplyr` library and the `stats` library have functions called `filter()`, and that when calling `filter()`, the `dplyr` version will be the default.
+> Loading a package can result in a lot of feedback from R. These aren't necessarily errors, but give more information about the result of loading the package. The output tells us which packages were loaded (note that `tidyverse` is sort of a meta-package of packages). The first section of the output states which packages were lodaed and their versions. The second section notes "Conflicts" that occur because the name of a function is used multiple times. So `dplyr::filter() masks stats::filter()` means that the `dplyr` library and the `stats` library have functions called `filter()`, and that when calling `filter()`, the `dplyr` version will be the default.
 <br>
 
 **Checkpoint**
 
-# Loading a csv file
+## Loading a csv file
 
 Let's jump right in and load some of the gapminder data using the `read_csv()` function:
 
-```{r, 'load_gapminder_1997_display', eval = FALSE}
-gapminder_1997 = read_csv('data/gapminder_1997.csv')
+```{r, 'load_gm97_display', eval = FALSE}
+gm97 = read_csv('data/gapminder_1997.csv')
 ```
 
-```{r, 'load_gapminder_1997', echo = FALSE}
-gapminder_1997 = read_csv('../data/gapminder_1997.csv')
+```{r, 'load_gm97', echo = FALSE}
+gm97 = read_csv('../data/gapminder_1997.csv')
 ```
 
-Remember, with the cursor on this line we can click <KBD>Run</KBD>, or we can type <KBD>Ctrl</KBD>+<KBD>Enter</KBD>. We should see some output in the Console pane as well as `gapminder_1997` in the Environment pane. We'll explore the resulting data in later lessons.
+Remember, with the cursor on this line we can click <KBD>Run</KBD>, or we can type <KBD>Ctrl</KBD>+<KBD>Enter</KBD>. We should see some output in the Console pane as well as `gm97` in the Environment pane. We'll explore the resulting data in later lessons.
 
 **Checkpoint**
 
-Let's breakdown this command:
+Let's break down this command:
 
-- We start with `gapminder_1997`, this is the name of the **object** that will reference the data.
-- The `=` indicates the assignment operator. R also has the assignment operator `<-` but we'll stick with `=` in this workshop. The details about the distinction aren't relevant to our workshops.
-- The command ends with `read_csv('data/gapminder_1997.csv')` which is a call to the function `read_csv()` with an **argument** stating the path of the file to read.
+- `gm97` is the **variable name** we're giving to the data we read in.
+- `=` is the **assignment operator** which assigns the object on the right to the name on the left.
+- `read_csv()` is a **function** in `tidyverse` that reads CSV files.
+- `data/gapminder_1997.csv` is the **argument** to `read_csv()` that specifies the file to read.
 
-The output of `read_csv()` in the Console pane gives us useful information such as the dimensions of the data, the delimiter of the file, and how the columns of the data were interpreted.
+The output of `read_csv()` in the Console pane gives information such as the dimensions of the data, the delimiter of the file, and how the columns of the data were interpreted.
+
+> ## Note: The assignment operator {.unlisted .unnumbered}
+>
+> You may have seen another assignment operator, `<-`, which is idiosyncratic to R. We leave as an exercise to the learner to look up the edge cases of when to use `<-` vs `=`. For now, we will use `=` as the assignment operator, which is more common in other programming languages.
+<br>
 
 # Basic R data types
 
-We notice in the output of `read_csv()` that the `country` and `continent` columns were intepreted as character strings (`chr`) and the `year`, `pop`, `lifeExp`, and `gdpPercap` columns were interpreted as numbers (`dbl`).
+In the output of `read_csv()`, the `country` and `continent` columns were intepreted as character strings (`chr`) and the `year`, `pop`, `lifeExp`, and `gdpPercap` columns were interpreted as numbers (`dbl`). This begs the question of the data types available in R. The basic data types in R are:
 
-| Mode (abbreviation) | Type of data |
-|----|------------|
-| Numeric (num) | Numbers such as floating point/decimals (1.0, 0.5, 3.14), there are also more specific numeric types (dbl - Double, int - Integer). These differences are not relevant for most beginners and pertain to how these values are stored in memory. |
-| Character (chr) | A sequence of letters/numbers in single ' ' or double " " quotes. |
-| Factor (fct) | A categorical variable with defined "levels" or categories. |
-| Logical | Boolean values - TRUE or FALSE. |
+| Mode (abbreviation) | Type of data | Example |
+|:----|:-----|:----|
+| Numeric (num) | Decimals, integers, etc. | `1.0`, `3.14`, `-2.5`, `10`, etc. |
+| Character (chr) | Sequence of letters or numbers. | `"Hi"`, `'Hi'`, `"1"`, etc. |
+| Factor (fct) | Categorical values. | Months of the year. |
+| Logical | Boolean values | `TRUE`, `FALSE`, `T`, `F`, etc. |
 
 # Assigning values to objects
 
-Let's assign values to some objects and observe each object after assignment.
+Throughout this workshop we'll be assigning names to objects and manipulating them. The names we give to objects can either make our lives easier or harder. Let's start by describing good practices, and then we'll give some examples of bad practices.
+
+## The good
+
+- Use brief, descriptive names.
+- Separate words with underscores.
 
 ```{r, 'assign_objects'}
 name = 'Ben'
@@ -252,42 +298,46 @@ name = 'Harry Potter'
 name
 ```
 
-Notice that with each assignment, the object appears in the Environment pane. Also notice that by assigning `name` twice, the value becomes the last assigned value, overwriting our initial assignment. Also notice that if we evaluate the name of an object, it is printed in the Console pane.
+## The bad and the ugly
 
-Let's try to assign some more objects and see how things can go wrong:
+- No spaces.
+- Don't start with numbers.
+- Don't use proteted names, like `if`, `else`, `for`, etc. (see [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html) for complete list).
 
 ```{r, 'bad_object_assignments1', error = TRUE}
-1number = 3
-```
-
-```{r, 'bad_object_assignments2', error = TRUE}
-Flower = 'marigold'
-flower = 'rose'
-```
-
-```{r, 'bad_object_assignments3', error = TRUE}
 favorite number = 12
 ```
 
+```{r, 'bad_object_assignments=2', error = TRUE}
+1number = 3
+```
+
+
+
+## Be mindful
+
+- Object names are **case-sensitive**. This means that `name`, `Name`, and `NAME` are three distinct objects. Imagine what confusion you could create!
+- Words in object names can also be separated by camelCase (e.g. `objectName`), but **be consistent**.
+
+```{r, 'mindful_assignments', error = TRUE}
+Flower = 'marigold'
+Flower
+flower = 'rose'
+flower
+```
+
+```{r, 'camelCase_assignments', error = TRUE}
+favoriteNumber = 12
+favoriteNumber
+```
+
+Notice that with each assignment, the object appears in the Environment pane. Also notice that by assigning `name` twice, the value becomes the last assigned value, overwriting our initial assignment. Also notice that if we evaluate the name of an object, it is printed in the Console pane. **We will use this pattern repeatedly.**
+
 **Checkpoint**
-
-What happened here? We got "unexpected symbol" errors, which is R's obtuse way of saying it didn't like the name of the object. 
-
-- `1number` is problematic because object names can't start with numbers.
-- `favorite number` is problematic because object names can't contain spaces.
-- `Flower` and `flower` are distinct objects because R is **case-sensitive**. Avoid variable names that differ by case.
-
-> ## Guidelines on naming objects
-> 
-> - Object names should be explicit and brief.
-> - Object names cannot start with numbers or contain spaces.
-> - Object names are case-sensitive.
-> - Either separate words in object names like `object_name` or `objectName`. **Be consistent.**
-> - Some names cannot be used because they are the names of fundamental functions (e.g. if, else, for; see [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html) for complete list).
 
 # Calling functions
 
-Earlier we ran the code `gapminder_1997 = read_csv('data/gapminder_1997.csv')`. As we said before, `read_csv()` is a function and `'data/gapminder_1997.csv'` is an argument to that function. What happens if we just do:
+Earlier we ran the code `gm97 =read_csv('data/gapminder_1997.csv')`. As we said before, `read_csv()` is a function and `'data/gapminder_1997.csv'` is an argument to that function. What happens if we just do:
 
 ```{r, 'bad_function_call', error = TRUE}
 read_csv()
@@ -338,13 +388,29 @@ Note that in the results of `help.search()` we see things like, `stats::chisq.te
 
 # Errosr happn
 
-We already ran some code in this lesson that produced errors. We're going to run lots of code in this workshop and the next, and it's likely we'll see more errors! The key steps to correcting an error are:
+We already assigned some variables that resulted in errors. There will be plenty of more of those to come; they're a normal part of coding and they are an opportunity to learn! To that end, let's make some mistakes together.
 
-1. Read the error message to try to understand what might have gone wrong. Note, not all error messages are clear, so don't worry if the error message doesn't help you.
-2. Immediately check the spelling of the command; **most errors are caused by typos**.
-3. Check that the objects going into the function are what's expected.
+```{r 'error_example1', eval = FALSE}
+# Example of not closing quotes
+read_csv('data/gapminder_1997.csv)
+```
 
-If you're still stuck as to why an error occurred (something we all encounter), reach out for help. Make sure to post in Slack:
+```{r, 'error_example2', eval = FALSE}
+# Example of not closing parentheses
+round(3.1415, 2
+```
+
+In both cases, the Console displays a `+` to indicate that R is waiting for more input. To get out of this state, we can press <KBD>Esc</KBD>, and try again.
+
+## Handling errors
+
+The key to correcting errors is understanding what went wrong. Sometimes R can help, while other times it seems willfully obtuse.
+
+1. Immediately check the spelling of the command; **most errors are caused by typos**.
+2. Read the error message to try to understand what might have gone wrong.
+3. Check that the objects going into the function are what you expect.
+
+If you're still stuck as to why an error occurred (something we all encounter), reach out for help. For the workshop, please post the question in Slack with the following information:
 
 1. The exact command that caused the error.
 2. The exact error message that resulted.

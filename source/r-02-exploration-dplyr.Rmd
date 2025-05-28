@@ -44,22 +44,22 @@ knitr_fig_path("02-")
 
 # Loading data
 
-In the previous lesson we used the `read_csv()` function to load the `gapminder_1997` data. Let's do that again:
+In the previous lesson we used the `read_csv()` function to load the `gm97` data. Let's do that again:
 
-```{r, 'load_gapminder_1997_display', eval = FALSE}
+```{r, 'load_gm97_display', eval = FALSE}
 library(tidyverse)
-gapminder_1997 = read_csv('data/gapminder_1997.csv')
+gm97 =read_csv('data/gapminder_1997.csv')
 ```
 
-```{r, 'load_gapminder_1997', echo = FALSE}
+```{r, 'load_gm97', echo = FALSE}
 library(tidyverse)
-gapminder_1997 = read_csv('../data/gapminder_1997.csv')
+gm97 =read_csv('../data/gapminder_1997.csv')
 ```
 
 This time, let's look more closely at the data. If we type the name of the object and evaluate it, we'll see a preview:
 
 ```{r, 'preview_data'}
-gapminder_1997
+gm97
 ```
 
 **Checkpoint**
@@ -81,7 +81,7 @@ After reading in data, it's a good habit to preview it, look at summaries of it,
 The `summary()` function, from base R, takes a data table as input and will summarize the columns automatically depending on their data type.
 
 ```{r, 'summary'}
-summary(gapminder_1997)
+summary(gm97)
 ```
 
 We see that for the numeric data we get quantile information and the mean, whereas for character data we simply get the length of the column. For data with NAs, the number thereof would be displayed.
@@ -91,13 +91,13 @@ We see that for the numeric data we get quantile information and the mean, where
 If we wanted to know the mean life expectancy in the dataset, we could use the the `dplyr` `summarize()` function, specifying that we want the `mean()`:
 
 ```{r, 'summarize_lifeexp'}
-summarize(gapminder_1997, avgLifeExp = mean(lifeExp))
+summarize(gm97, avgLifeExp = mean(lifeExp))
 ```
 
 We can use any column name as the input to `mean()`, so long as it's a numeric, and we get a new tibble with our value returned as a column, named as specified. Note, this matches the result of `summary()` with some difference in the number of significant digits displayed. Alternatively, we could have simply applied `mean()` directly to the column `lifeExp`:
 
 ```{r, 'mean_lifexp_dollar'}
-mean(gapminder_1997$lifeExp)
+mean(gm97$lifeExp)
 ```
 
 This is the base R way, with the `$` being how columns of a data table are accessed. The `mean()` function returns a number, whereas `summarize()` returns a `tibble`. In the `tidyverse`, a function whose input is a `tibble` will also have a `tibble` as output. 
@@ -115,13 +115,13 @@ This is the base R way, with the `$` being how columns of a data table are acces
 Data is often subject to errors. To quickly catch data entry problems, the `distinct()` function can be used to show all unique values in the column of a table. Let's take a look at the distinct values of the continents column:
 
 ```{r, 'distinct_continent'}
-distinct(gapminder_1997, continent)
+distinct(gm97, continent)
 ```
 
 Here we get a `tibble` back with the unique continent names in their order of appearance. There is an equivalent base R way to do this with the `unique()` function:
 
 ```{r, 'unique_continent'}
-unique(gapminder_1997$continent)
+unique(gm97$continent)
 ```
 
 Either way, if there was a misspelled entry, for example, "Urope" we would have immediately seen it.
@@ -134,13 +134,13 @@ Either way, if there was a misspelled entry, for example, "Urope" we would have 
 We have a rich dataset whose default ordering is by country. But it's natural to ask questions like "What country has the highest life expectancy?" or "What country had the highest GDP per capita?" The `arrange()` function can help us quickly find the answers.
 
 ```{r, 'arrange_lifeexp'}
-arrange(gapminder_1997, lifeExp)
+arrange(gm97, lifeExp)
 ```
 
 This seems to have done an ascending order on `lifeExp` by default. We have some options, one of which is to wrap the column of interest in the `desc()` function to indicate we want the order to be descending.
 
 ```{r, 'arrange_lifeexp_desc'}
-arrange(gapminder_1997, desc(lifeExp))
+arrange(gm97, desc(lifeExp))
 ```
 
 And here we see that Japan is the country with the longest lived citizens at a little over 80 years.
@@ -151,7 +151,7 @@ And here we see that Japan is the country with the longest lived citizens at a l
 > Which country has the highest GDP per capita in 1997?
 > 
 > ```{r, 'highest_gdppercap_solution'}
-> arrange(gapminder_1997, desc(gdpPercap))
+> arrange(gm97, desc(gdpPercap))
 > ```
 > 
 
@@ -161,13 +161,13 @@ And here we see that Japan is the country with the longest lived citizens at a l
 Sometimes data tables have many columns, and it can be useful to select only a few of them to export, use downstream, preview, etc. The `select()` function works on columns:
 
 ```{r, 'select_positive'}
-select(gapminder_1997, country, year, lifeExp)
+select(gm97, country, year, lifeExp)
 ```
 
 We can do the equivalent of `select()` statement using base R with:
 
 ```{r, 'base_select_positive'}
-gapminder_1997[ , c('country', 'year', 'lifeExp')]
+gm97[ , c('country', 'year', 'lifeExp')]
 ```
 
 Here we use the square-bracket notation again, leaving the row position blank returns all rows, and in the column position we specify the names of the columns as a vector with the `c()` function, meaning "combine", creates a temporary vector of column names. Note that we quoted the column names in this code, whereas in `select()` we didn't have to.
@@ -177,34 +177,34 @@ Here we use the square-bracket notation again, leaving the row position blank re
 Columns can be removed using `select()` with a "minus" in front of the column name.
 
 ```{r, 'select_negative'}
-select(gapminder_1997, -year)
+select(gm97, -year)
 ```
 
 Notice the `year` column is no longer displayed.
 
 ## Saving objects
 
-If we view `gapminder_1997` we notice haven't changed the original data because we haven't saved the object.
+If we view `gm97` we notice haven't changed the original data because we haven't saved the object.
 
 ```{r, 'df_persists'}
-gapminder_1997
+gm97
 ```
 
-To manipulate `gapminder_1997` and save it as a new object we have to assign it a new object name:
+To manipulate `gm97` and save it as a new object we have to assign it a new object name:
 
 ```{r, 'new_df'}
-gapminder_column_subset = select(gapminder_1997, country, year, lifeExp)
-gapminder_column_subset
+gm97_subset = select(gm97, country, year, lifeExp)
+gm97_subset
 ```
 
 ## Saving objects to file
 
-The original data file we read in `data/gapminder_1997.csv` remains the same throughout all these manipulations. What happens in R stays in R until we explicitly write a new object to the same file. **It's good practice to keep raw input data separate, and to never overwrite it.** Let's use the `write_csv()` function to write the `gapminder_column_subset` data to a file. First let's look at `?write_csv` and determine what are the required parameters.
+The original data file we read in `data/gapminder_1997.csv` remains the same throughout all these manipulations. What happens in R stays in R until we explicitly write a new object to the same file. **It's good practice to keep raw input data separate, and to never overwrite it.** Let's use the `write_csv()` function to write the `gm97_subset` data to a file. First let's look at `?write_csv` and determine what are the required parameters.
 
 It looks like `x`, the data to be written and `file`, the path to the output file are required. There are other options, but we won't use them here.
 
 ```{r, 'write_csv', eval = FALSE}
-write_csv(gapminder_column_subset, file = 'gapminder_column_subset.csv')
+write_csv(gm97_subset, file = 'gm97_subset.csv')
 ```
 
 **Checkpoint**
