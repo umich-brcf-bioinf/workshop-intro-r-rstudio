@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+
+<html lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="UM Bioinformatics Core Workshop Team" />
+
+
+<title>Intro to Single Cell RNA-Seq Workshop</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link rel="shortcut icon" href="favicon-16x16.png" />
+<!--Favicon from https://favicon.io/emoji-favicons -->
+<meta property="og:url" content="https://michmed.org/GqVRW"/>
+<meta property="og:title" content="Intro to R & RStudio"/>
+<meta property="og:description" content="A virtual workshop to analyze, and visualize data files using RStudio." />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro to R & RStudio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="workshop-intro.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio</a>
+    </li>
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (cont.)</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor.html">Using Packages / Libraries</a>
+    </li>
+    <li>
+      <a href="r-05-help.html">Getting Help with R</a>
+    </li>
+    <li>
+      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="workshop-wrap-up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Intro to Single Cell RNA-Seq Workshop</h1>
+<h4 class="author">UM Bioinformatics Core Workshop Team</h4>
+
+</div>
+
+
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown, pre.bash");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="workshop-analysis-scripts" class="section level1">
+<h1>Workshop analysis scripts</h1>
+<div id="day-1" class="section level2">
+<h2>Day 1</h2>
+<pre class="r"><code>library(tidyverse)
+
+# Read in the gapminder dataset
+gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)
+
+# Does it matter if you use &lt;- or = ?
+# No, they are equivalent to each other.
+
+name = &#39;Ben&#39;
+name
+
+age = 26
+age
+
+name = &#39;Harry Potter&#39;
+
+1number = 3
+# Variable names cannot begin with numbers
+
+Flower = &#39;marigold&#39;
+flower = &#39;rose&#39;
+# Variable names in R are case sensitive
+# We recommend avoiding capitalization differences in variable names
+
+favorite number = 12
+# Spaces are not allowed in variable names
+
+# Try to assign Ben to name without quotes
+name = Ben
+# In this case, R thinks Ben is the name of a variable, which doesn&#39;t exist
+
+age_string = &#39;26&#39;
+# This is a character for 26, instead of a number, it cannot be used in numerical calculations
+
+# Guidelines on naming objects
+# 1. Make them explicit and brief
+# 2. Names can&#39;t start with numbers or contain spaces
+# 3. Object names are case-sensitive
+# 4. Use _ or . to separate words in variables names OR camelCase. Be consistent in your choice.
+# 5. Some words are &quot;protected&quot;, like if, else, etc
+
+# Let&#39;s try read_csv() without arguments
+read_csv()
+
+# Not every function. requires arguments
+Sys.Date()
+getwd() # Gets the current working directory
+
+# Some functions have more than one argument
+round(3.1415, 2)
+
+# You can get help for functions by putting ? in front of the name
+?round
+
+# It&#39;s often good to explicitly state the parameters and their values
+round(x = 3.1415, digits = 2)
+
+# Look at a more complex function
+?read_csv
+# There are too many parameters here to call the function positionally
+
+# You can search for functions in &quot;plain English&quot;
+help.search(&#39;Chi-squared test&#39;)
+
+??`Chi-squared test`
+# Does the equivalent of the above or if the package isn&#39;t loaded yet
+
+a = &#39;b&#39;
+mean(a)
+
+# Let&#39;s read in gampinder_1997 again
+gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)
+gapminder_1997
+
+# Let&#39;s look at the summary() of gapminder_1997
+summary(gapminder_1997)
+
+# We can summarize specific columns with summarize()
+summarize(gapminder_1997, avgLifeExp = mean(lifeExp))
+
+# We can assign this to a variable with
+avg_life_exp = summarize(gapminder_1997, avgLifeExp = mean(lifeExp))
+avg_life_exp
+
+# In base R you would do:
+mean(gapminder_1997$lifeExp)
+
+# The distinct() function finds unique values
+distinct(gapminder_1997, continent)
+
+# The base R way to do that
+unique(gapminder_1997$continent)
+
+# Use the arrange() function to determine which country has the highest life expectancy?
+arrange(gapminder_1997, lifeExp)
+# This isn&#39;t quite what we want, reverse the ordering with desc()
+arrange(gapminder_1997, desc(lifeExp))
+arrange(gapminder_1997, -lifeExp)
+
+# If you want to know the column names of a data frame use colnames()
+colnames(gapminder_1997)
+
+# Which country has the highest GDP per capita in 1997?
+arrange(gapminder_1997, desc(gdpPercap))
+arrange(gapminder_1997, -gdpPercap)
+
+# If you&#39;d like to select a subset of columns use the select()
+select(gapminder_1997, country, year, lifeExp)
+
+# You can drop columns by putting a - in front of the column name
+select(gapminder_1997, -year)
+
+# Save a modified version of gapminder_1997
+gapminder_column_subset = select(gapminder_1997, country, year, lifeExp)
+gapminder_column_subset
+
+# Save this modified version of gapminder
+write_csv(x = gapminder_column_subset, file =&#39;gapminder_column_subset.csv&#39;)
+
+# select() works on columns, and filter() works on rows
+# Filter for countries in Africa
+filter(gapminder_1997, continent == &#39;Africa&#39;)
+
+# Find the United Kingdom in this data
+filter(gapminder_1997, country == &#39;United Kingdom&#39;)
+
+# Which African countries have a population at least 10,000,000 in 1997?
+filter(gapminder_1997, continent == &#39;Africa&#39; &amp; pop &gt;= 10000000)
+
+# Look for countries with very large populations or very small populations?
+# Less than 1,000,000 or more than 1,000,000,000
+filter(gapminder_1997, pop &lt;= 1000000 | pop &gt;= 1000000000)
+
+# Here&#39;s an example of a contradictory logical condition
+# Less than 1,000,000 and more than 1,000,000,000
+filter(gapminder_1997, pop &lt;= 1000000 &amp; pop &gt;= 1000000000)</code></pre>
+</div>
+<div id="day-2" class="section level2">
+<h2>Day 2</h2>
+<pre class="r"><code>library(tidyverse)
+
+# Read in the gapminder dataset
+gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)
+
+
+# Which African countries have a population at least 10,000,000 in 1997?
+filter(gapminder_1997, continent == &#39;Africa&#39; &amp; pop &gt;= 10000000)
+
+# Look for countries with very large populations or very small populations?
+# Less than 1,000,000 or more than 1,000,000,000
+filter(gapminder_1997, pop &lt;= 1000000 | pop &gt;= 1000000000)
+
+# Here&#39;s an example of a contradictory logical condition
+# Less than 1,000,000 and more than 1,000,000,000
+filter(gapminder_1997, pop &lt;= 1000000 &amp; pop &gt;= 1000000000)
+
+# We can add columns with the mutate() function
+# Let&#39;s find GDP = pop * gdpPercap
+mutate(gapminder_1997, gdp = pop * gdpPercap)
+
+# To see the whole thing, wrap it in data.frame()
+data.frame(mutate(gapminder_1997, gdp = pop * gdpPercap))
+View(mutate(gapminder_1997, gdp = pop * gdpPercap))
+
+# Let&#39;s keep this tibble around
+gapminder_gdp_1997 = mutate(gapminder_1997, gdp = pop * gdpPercap)
+gapminder_gdp_1997
+
+# Let&#39;s execute our first pipe command, combining filter() and select()
+gapminder_1997 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% select(country, continent, pop)
+
+gapminder_1997 %&gt;% select(country, pop) %&gt;% filter(continent == &#39;Oceania&#39;)
+# With each transition of the %&gt;% there is a new (hidden) table
+
+# What is the mean population of the countries of Oceania?
+gapminder_1997 %&gt;% 
+  filter(continent == &#39;Oceania&#39;) %&gt;% 
+  summarize(oceania_mean_pop = mean(pop))
+
+# To take the mean over the entire data set, remove the filter part
+gapminder_1997 %&gt;% summarize(global_mean_pop = mean(pop))
+
+# If we want to compute population means per continent, use group_by()
+gapminder_1997 %&gt;% 
+  group_by(continent) %&gt;% 
+  summarize(mean_pop = mean(pop))
+
+# How many countries do we have data for on each continent?
+gapminder_1997 %&gt;% 
+  group_by(continent) %&gt;% 
+  summarize(num_countries_per_continent = n())
+
+# The base R way to count elements of a column
+table(gapminder_1997$continent)
+
+# Let&#39;s summarize gapminder_1997 by continent, and report the min, median, and max populations for the countries on those continents.
+gapminder_1997 %&gt;% 
+  group_by(continent) %&gt;% 
+  summarize(
+    min_pop = min(pop),
+    median_pop = median(pop),
+    max_pop = max(pop)
+  )
+
+###############
+# Visualization with ggplot2
+
+# Incrementally build our plot
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap) +
+  labs(x = &#39;GDP Per Capita&#39;) + 
+  aes(y = lifeExp) + 
+  labs(y = &#39;Life Expectancy&#39;) +
+  geom_point() +
+  labs(title = &#39;Do people in wealthier countries live longer?&#39;) +
+  aes(color = continent)
+
+# Let&#39;s log transform the x-axis values
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap) +
+  labs(x = &#39;GDP Per Capita&#39;) + 
+  aes(y = lifeExp) + 
+  labs(y = &#39;Life Expectancy&#39;) +
+  geom_point() +
+  labs(title = &#39;Do people in wealthier countries live longer?&#39;) +
+  aes(color = continent) + 
+  scale_x_log10()
+
+# Let&#39;s change the colors of the points to a different set
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap) +
+  labs(x = &#39;GDP Per Capita&#39;) + 
+  aes(y = lifeExp) + 
+  labs(y = &#39;Life Expectancy&#39;) +
+  geom_point() +
+  labs(title = &#39;Do people in wealthier countries live longer?&#39;) +
+  aes(color = continent) +
+  scale_color_brewer(palette = &#39;Set2&#39;)
+
+# The RColorBrewer package provides all sorts of color palettes
+RColorBrewer::brewer.pal.info
+RColorBrewer::display.brewer.all()
+
+# Does population play a role in this trend?
+# Let&#39;s try adding a size aesthetic to see.
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap) +
+  labs(x = &#39;GDP Per Capita&#39;) + 
+  aes(y = lifeExp) + 
+  labs(y = &#39;Life Expectancy&#39;) +
+  geom_point() +
+  labs(title = &#39;Do people in wealthier countries live longer?&#39;) +
+  aes(color = continent) +
+  scale_color_brewer(palette = &#39;Set2&#39;) +
+  aes(size = pop)
+
+# Let&#39;s change the scale of the population legend by dividing by 1,000,000
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap) +
+  labs(x = &#39;GDP Per Capita&#39;) + 
+  aes(y = lifeExp) + 
+  labs(y = &#39;Life Expectancy&#39;) +
+  geom_point() +
+  labs(title = &#39;Do people in wealthier countries live longer?&#39;) +
+  aes(color = continent) +
+  scale_color_brewer(palette = &#39;Set2&#39;) +
+  aes(size = pop/1000000) +
+  labs(size = &#39;Population (in millions)&#39;) +
+  labs(color = &#39;Continent&#39;)
+
+# You can group common functions into a single call, with multiple arguments
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
+  geom_point() +
+  scale_color_brewer(palette = &#39;Set2&#39;) +
+  labs(
+    x = &#39;GDP Per Capita&#39;,
+    y = &#39;Life Expectancy&#39;,
+    color = &#39;Continent&#39;,
+    size = &#39;Population (in millions)&#39;)
+
+# Let&#39;s experiment with a boxplot
+ggplot(data = gapminder_1997) + 
+  aes(x = continent, y = lifeExp) +
+  geom_boxplot()
+
+# Let&#39;s add another geometry to see the individual life expectancies on top of the box plot
+ggplot(data = gapminder_1997) + 
+  aes(x = continent, y = lifeExp) +
+  geom_boxplot() + 
+  geom_point()
+
+# Let&#39;s change geom_point() to geom_jitter()
+ggplot(data = gapminder_1997) + 
+  aes(x = continent, y = lifeExp) +
+  geom_boxplot() + 
+  geom_jitter(width = 0.15)
+
+# Order of layers matters
+ggplot(data = gapminder_1997) + 
+  aes(x = continent, y = lifeExp) +
+  geom_jitter(width = 0.15) +
+  geom_boxplot()
+  
+# ggplot2 has a variety of themes
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
+  geom_point() +
+  scale_color_brewer(palette = &#39;Set2&#39;) +
+  labs(
+    x = &#39;GDP Per Capita&#39;,
+    y = &#39;Life Expectancy&#39;,
+    color = &#39;Continent&#39;,
+    size = &#39;Population (in millions)&#39;) +
+  theme_bw()
+
+# How can we change the size of the text in the plots?
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
+  geom_point() +
+  scale_color_brewer(palette = &#39;Set2&#39;) +
+  labs(
+    x = &#39;GDP Per Capita&#39;,
+    y = &#39;Life Expectancy&#39;,
+    color = &#39;Continent&#39;,
+    size = &#39;Population (in millions)&#39;) +
+  theme_bw() + 
+  theme(text = element_text(size = 16))
+
+# How to rotate axis label text?
+ggplot(data = gapminder_1997) +
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
+  geom_point() +
+  scale_color_brewer(palette = &#39;Set2&#39;) +
+  labs(
+    x = &#39;GDP Per Capita&#39;,
+    y = &#39;Life Expectancy&#39;,
+    color = &#39;Continent&#39;,
+    size = &#39;Population (in millions)&#39;) +
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+library(ggrepel)
+# Let&#39;s highlight Brazil, China, India, and the United States
+gapminder_1997_labels = gapminder_1997 %&gt;% 
+  mutate(label = ifelse(country %in% c(&#39;Brazil&#39;, &#39;China&#39;, &#39;India&#39;, &#39;United States&#39;), country, &#39;&#39;))
+gapminder_1997_labels
+
+# Let&#39;s do a quick sanity check to make sure our labeling is correct
+gapminder_1997_labels %&gt;% filter(label != &#39;&#39;)
+
+# Let&#39;s actually add the labels to the plot for the countries of interest
+ggplot(data = gapminder_1997_labels) +
+  aes(
+    x = gdpPercap, 
+    y = lifeExp, 
+    color = continent, 
+    size = pop/1000000,
+    label = label) +
+  geom_point() +
+  geom_text_repel(box.padding = 0.5, max.overlaps = Inf) + 
+  scale_color_brewer(palette = &#39;Set2&#39;) +
+  labs(
+    x = &#39;GDP Per Capita&#39;,
+    y = &#39;Life Expectancy&#39;,
+    color = &#39;Continent&#39;,
+    size = &#39;Population (in millions)&#39;) +
+  theme_bw() + 
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))</code></pre>
+<p>```</p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

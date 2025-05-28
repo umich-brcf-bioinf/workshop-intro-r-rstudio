@@ -30,7 +30,7 @@ body, td {
 ---
 
 
-### Day 1 (Chris/Marci & Raymond)
+### Day 1 (Chris & Raymond)
 | Time | Topic |
 | :---  | :----------------------------------------------------------- |
 |  9:00 | [Introductions and Startup](workshop-intro.html) |
