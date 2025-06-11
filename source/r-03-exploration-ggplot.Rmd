@@ -49,12 +49,12 @@ In the previous lesson we used the `read_csv()` function to load the `gm97` data
 
 ```{r, 'load_gm97_display', eval = FALSE}
 library(tidyverse)
-gm97 =read_csv('data/gapminder_1997.csv')
+gm97 = read_csv('data/gapminder_1997.csv')
 ```
 
 ```{r, 'load_gm97', echo = FALSE}
 library(tidyverse)
-gm97 =read_csv('../data/gapminder_1997.csv')
+gm97 = read_csv('../data/gapminder_1997.csv')
 ```
 
 # Exploring data visually
@@ -328,7 +328,9 @@ life_exp_by_year_continent = gm %>%
     group_by(year, continent) %>% 
     summarize(mean_life_exp = mean(lifeExp)) %>% 
     arrange(continent)
+```
 
+```{r, 'view_no_eval', eval = FALSE}
 View(life_exp_by_year_continent)
 ```
 
@@ -397,21 +399,21 @@ We know that our data has a `continent` column, and we saw before that there wer
 First, let's look at `?factor`. It takes a character vector (exactly what the `continent` column is), and an optional `levels` character vector which dictates the categories and their desired order.
 
 ```{r, 'factor1'}
-gapminder_factor = gm97 %>% 
+gm_factor = gm97 %>% 
     mutate(continent_factor = factor(continent, levels = c('Oceania', 'Africa', 'Asia', 'Americas', 'Europe')))
 ```
 
 Let's take a look at the new object and see how it's different.
 
 ```{r, 'factor_preview'}
-gapminder_factor
+gm_factor
 ```
 
 Note that the new column has type `fct` (factor) and the old has `chr` (character). That's a good start. Let's look at the head of both columns.
 
 ```{r, 'head_continent'}
-head(gapminder_factor$continent)
-head(gapminder_factor$continent_factor)
+head(gm_factor$continent)
+head(gm_factor$continent_factor)
 ```
 
 **Checkpoint**
@@ -419,7 +421,7 @@ head(gapminder_factor$continent_factor)
 Notice that for the factor column we get the same output, but with additional information about the `levels`, and the ordering is exactly what we specified. Now let's see the effect on a plot similar to the boxplot we already created above.
 
 ```{r, 'factor_boxplot'}
-ggplot(data = gapminder_factor) + aes(x = continent_factor, y = lifeExp) + geom_boxplot()
+ggplot(data = gm_factor) + aes(x = continent_factor, y = lifeExp) + geom_boxplot()
 ```
 
 Compare this to the plot we saw with the `continent` column, where the order was alphabetical. In the RNA-seq Demystified Workshop we will also see how factors and the order of their levels affect the tests for differential expression.

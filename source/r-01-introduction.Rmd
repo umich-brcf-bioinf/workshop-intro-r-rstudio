@@ -298,7 +298,7 @@ name = 'Harry Potter'
 name
 ```
 
-## The bad and the ugly
+## The bad
 
 - No spaces.
 - Don't start with numbers.
@@ -311,8 +311,6 @@ favorite number = 12
 ```{r, 'bad_object_assignments=2', error = TRUE}
 1number = 3
 ```
-
-
 
 ## Be mindful
 
