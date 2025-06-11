@@ -41,9 +41,6 @@ knitr_fig_path("02-")
 
 - Subset, filter, mutate, group and summarize data with `dplyr` functions. Highlight base R equivalents.
 - Understand how to string together multiple functions with the `%>%` pipe.
-- Create plots with both discrete and continuous variables with `ggplot2`.
-- Understand mappings, geometries, and layering in `ggplot2`.
-- Modify the color, theme, and axis labels of a plot.
 
 # Loading data
 
