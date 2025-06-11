@@ -43,8 +43,7 @@ output:
 1.1.  RStudio depends on the R programming environment, so we have to
     install that first. In a web browser, open:
     <https://cran.rstudio.com/bin/windows/base/>
-    and click "Download R 4.3.2 for Windows" (the version may be
-    slightly different). Open the downloaded executable to launch the R
+    and click "Download R for Windows" (the link may include a specific version). Open the downloaded executable to launch the R
     installer.
 
 1.2.  The installer will walk through several options; accept all the
@@ -75,15 +74,13 @@ output:
     by a command prompt (\>):
 
 ```
-R version 4.4.2 (2024-10-31 ucrt) -- "Pile of Leaves"
-Copyright (C) 2024 The R Foundation for Statistical Computing
-Platform: x86_64-w64-mingw32/x64
+R version 4.5.0 (2025-04-11) -- "How About a Twenty-Six"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
-
-  Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -96,6 +93,7 @@ Type 'q()' to quit R.
 > 
 
 ```
+Note: the exact version may be slightly different.
 
 1.7.  Following the workshop, you can remove R and
     RStudio. As an Admin user, go Start \> Settings \> Apps & Features.
@@ -111,7 +109,7 @@ Type 'q()' to quit R.
     [https://cran.rstudio.com/bin/macosx](https://cran.rstudio.com/bin/macosx){target="_blank"}. 
     - Note that newer Macs will use Silicon build, older Macs (pre 2020) will use Intel builds. 
       (You can confirm your architecture under About this Mac: Chip; "Apple M" indicates Silicon. )
-    - Right-click to download the latest version (e.g. "R-4.4.2"", though the 
+    - Right-click to download the latest version (e.g. "R-4.5"", though the 
     specific version may be slightly different). 
     - Open the downloaded executable to launch the R installer.
 
@@ -148,15 +146,13 @@ Type 'q()' to quit R.
 
 
 ```
-R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
-Copyright (C) 2024 The R Foundation for Statistical Computing
-Platform: aarch64-apple-darwin20
+R version 4.5.0 (2025-04-11) -- "How About a Twenty-Six"
+Copyright (C) 2025 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
-
-    Natural language support but running in an English locale
 
 R is a collaborative project with many contributors.
 Type 'contributors()' for more information and
@@ -165,10 +161,11 @@ Type 'contributors()' for more information and
 Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
 Type 'q()' to quit R.
-
 > 
 
 ```
+
+Note: the exact version may be slightly different.
 
 1.7.  Following the workshop, you can remove R and RStudio. Open
     your Applications directory, and drag the R and RStudio application
