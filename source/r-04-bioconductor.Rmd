@@ -73,42 +73,42 @@ The `tidyverse` is actually a collection of packages that are designed to work t
 
 To install a package from CRAN, you can run something like:
 
-~~~
+```{r eval = FALSE}
 # Do not run, this is already installed for us
 install.packages('tidyverse')
-~~~
+```
 
 ## From Bioconductor
 
 To install a package from Bioconductor, you first need the `BiocManager` package. Then you can give the name of the package to the installer, as in:
 
-~~~
+```{r eval = FALSE}
 # Do not run
 install.packages('BiocManager')
 
 # The :: notation before the install() tells R to use the function from BiocManager
 BiocManager::install('DESeq2')
-~~~
+```
 
 ## From GitHub
 
 To install packages from GitHub one can use the `remotes::install_github()` function. For example:
 
-~~~
+```{r eval = FALSE}
 # Do not run
 # To install the package at https://github.com/sartorlab/methylSig/
 # The format is <repository_owner>/<repository_name>
 remotes::install_github('sartorlab/methylSig')
-~~~
+```
 
 ## One installer to rule them all
 
 It turns out that `BiocManager::install()` can do all of the above for you. In particular, the function will interpret any library with a `/` passed to it as a GitHub repository, and it will determine whether other packages are on CRAN or Bioconductor and fetch as appropriate. For example, you could install all three packages above with:
 
-~~~
+```{r eval = FALSE}
 # Do not run
 BiocManager::install(c('tidyverse', 'DESeq2', 'sartorlab/methylSig'))
-~~~
+```
 
 # Search for Bioconductor packages
 

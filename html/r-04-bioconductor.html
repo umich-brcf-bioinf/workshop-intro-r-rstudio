@@ -484,7 +484,7 @@ the constituent packages for you.</p>
 <div id="from-cran" class="section level2">
 <h2>From CRAN</h2>
 <p>To install a package from CRAN, you can run something like:</p>
-<pre><code># Do not run, this is already installed for us
+<pre class="r"><code># Do not run, this is already installed for us
 install.packages(&#39;tidyverse&#39;)</code></pre>
 </div>
 <div id="from-bioconductor" class="section level2">
@@ -492,7 +492,7 @@ install.packages(&#39;tidyverse&#39;)</code></pre>
 <p>To install a package from Bioconductor, you first need the
 <code>BiocManager</code> package. Then you can give the name of the
 package to the installer, as in:</p>
-<pre><code># Do not run
+<pre class="r"><code># Do not run
 install.packages(&#39;BiocManager&#39;)
 
 # The :: notation before the install() tells R to use the function from BiocManager
@@ -502,7 +502,7 @@ BiocManager::install(&#39;DESeq2&#39;)</code></pre>
 <h2>From GitHub</h2>
 <p>To install packages from GitHub one can use the
 <code>remotes::install_github()</code> function. For example:</p>
-<pre><code># Do not run
+<pre class="r"><code># Do not run
 # To install the package at https://github.com/sartorlab/methylSig/
 # The format is &lt;repository_owner&gt;/&lt;repository_name&gt;
 remotes::install_github(&#39;sartorlab/methylSig&#39;)</code></pre>
@@ -515,7 +515,7 @@ library with a <code>/</code> passed to it as a GitHub repository, and
 it will determine whether other packages are on CRAN or Bioconductor and
 fetch as appropriate. For example, you could install all three packages
 above with:</p>
-<pre><code># Do not run
+<pre class="r"><code># Do not run
 BiocManager::install(c(&#39;tidyverse&#39;, &#39;DESeq2&#39;, &#39;sartorlab/methylSig&#39;))</code></pre>
 </div>
 </div>
