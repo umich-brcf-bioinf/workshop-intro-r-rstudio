@@ -405,7 +405,7 @@ body, td {
 <pre class="r"><code>library(tidyverse)
 
 # Read in the gapminder dataset
-gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)
+gm97read_csv(&#39;data/gapminder_1997.csv&#39;)
 
 # Does it matter if you use &lt;- or = ?
 # No, they are equivalent to each other.
@@ -473,7 +473,7 @@ a = &#39;b&#39;
 mean(a)
 
 # Let&#39;s read in gampinder_1997 again
-gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)
+gm97read_csv(&#39;data/gapminder_1997.csv&#39;)
 gapminder_1997
 
 # Let&#39;s look at the summary() of gapminder_1997
@@ -487,13 +487,13 @@ avg_life_exp = summarize(gapminder_1997, avgLifeExp = mean(lifeExp))
 avg_life_exp
 
 # In base R you would do:
-mean(gapminder_1997$lifeExp)
+mean(gm97lifeExp)
 
 # The distinct() function finds unique values
 distinct(gapminder_1997, continent)
 
 # The base R way to do that
-unique(gapminder_1997$continent)
+unique(gm97continent)
 
 # Use the arrange() function to determine which country has the highest life expectancy?
 arrange(gapminder_1997, lifeExp)
@@ -544,7 +544,7 @@ filter(gapminder_1997, pop &lt;= 1000000 &amp; pop &gt;= 1000000000)</code></pre
 <pre class="r"><code>library(tidyverse)
 
 # Read in the gapminder dataset
-gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)
+gm97read_csv(&#39;data/gapminder_1997.csv&#39;)
 
 
 # Which African countries have a population at least 10,000,000 in 1997?
@@ -595,7 +595,7 @@ gapminder_1997 %&gt;%
   summarize(num_countries_per_continent = n())
 
 # The base R way to count elements of a column
-table(gapminder_1997$continent)
+table(gm97continent)
 
 # Let&#39;s summarize gapminder_1997 by continent, and report the min, median, and max populations for the countries on those continents.
 gapminder_1997 %&gt;% 
