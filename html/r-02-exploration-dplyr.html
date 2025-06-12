@@ -427,7 +427,7 @@ to load the <code>gm97</code> data. Let’s do that again:</p>
 <pre class="r"><code>library(tidyverse)
 gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -1040,9 +1040,26 @@ sanity checking:</p>
 <pre><code>
   Africa Americas     Asia   Europe  Oceania 
       52       25       33       30        2 </code></pre>
-<p><strong>Checkpoint</strong></p>
+</div>
+</div>
+<div id="objectives-1" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Learn essential data manipulation functions of <code>dplyr</code>:
+<ul>
+<li><code>select()</code> columns</li>
+<li><code>filter()</code> rows</li>
+<li><code>arrange()</code> rows</li>
+<li><code>mutate()</code> columns</li>
+<li><code>group_by()</code> rows</li>
+</ul></li>
+<li>Learn about the pipe operator (<code>%&gt;%</code>) and how to use
+it to chain together multiple functions.</li>
+</ul>
+</div>
+<div id="exercise-2" class="section level1">
+<h1>Exercise</h1>
 <blockquote>
-<h2 id="exercise-2">Exercise</h2>
 <p>In summarizing data, it’s often useful to build a nicely formatted
 table with min, median, and max values of a variable. Below is an
 example of code to do that for the populations by continent, and
@@ -1095,7 +1112,6 @@ lesson</a></th>
 <tbody>
 </tbody>
 </table>
-</div>
 </div>
 
 

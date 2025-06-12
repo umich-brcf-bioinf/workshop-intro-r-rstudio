@@ -351,9 +351,17 @@ There is a base R function, `table()`, that tabulates the number of time an entr
 table(gm97$continent)
 ```
 
-**Checkpoint**
+# Objectives
 
-> ## Exercise
+- Learn essential data manipulation functions of `dplyr`:
+    - `select()` columns
+    - `filter()` rows
+    - `arrange()` rows
+    - `mutate()` columns
+    - `group_by()` rows
+- Learn about the pipe operator (`%>%`) and how to use it to chain together multiple functions.
+
+# Exercise
 > 
 > In summarizing data, it's often useful to build a nicely formatted table with min, median, and max values of a variable. Below is an example of code to do that for the populations by continent, and arranged by the median population.
 > 
@@ -382,7 +390,6 @@ table(gm97$continent)
 >     arrange(mean_GDP)
 > ```
 > 
-
 
 <br/>
 <br/>

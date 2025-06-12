@@ -427,6 +427,15 @@ Some people ask "Should I learn tidyverse or base R?" and we think that rather t
 
 The `tidyverse` packages have excellent cheatsheets that describe the functionality and usage of the packages. You can find them in RStudio by going to the “Help” menu and selecting “Cheat Sheets”. The two that will be most helpful in this workshop are “Data Visualization with ggplot2” and “Data Transformation with dplyr”.
 
+# Objectives
+
+- Introduce R and RStudio.
+- Learn how to read in a csv file.
+- Discuss object naming conventions and types.
+- Discuss functions and parameters.
+- Learn how to get help with functions.
+- Get comfortable with errors and asking for help.
+
 <br/>
 <br/>
 <hr/>

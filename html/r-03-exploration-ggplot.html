@@ -408,21 +408,45 @@ pre {
 <div id="objectives" class="section level1">
 <h1>Objectives</h1>
 <ul>
-<li>Create plots with both discrete and continuous variables with
-<code>ggplot2</code>.</li>
-<li>Understand mappings, geometries, and layering in
-<code>ggplot2</code>.</li>
-<li>Modify the color, theme, and axis labels of a plot.</li>
+<li>Learn the essential parts of the <code>ggplot2</code> “grammar of
+graphics”:
+<ul>
+<li>Map variables from the data to aesthetics (x, y, color, fill, size,
+etc.) via <code>aes()</code>.</li>
+<li>Plot those mappings with geometries via <code>geom_*()</code>.</li>
+<li>Adjust numeric and categorical scales via
+<code>scale_*()</code>.</li>
+<li>Use a variable to visually stratify data via
+<code>facet_*()</code>.</li>
+</ul></li>
+<li>Learn how to customize plots by:
+<ul>
+<li>Changing color and fill with the RColorBrewer package.</li>
+<li>Altering text and formatting of axis labels and legends.</li>
+</ul></li>
 </ul>
 </div>
-<div id="loading-data" class="section level1">
-<h1>Loading data</h1>
+<div id="exploring-data-visually" class="section level1">
+<h1>Exploring data visually</h1>
+<p>We have learned how to use functions from the <code>tidyverse</code>
+to subset and summarize data, along with some of the equivalent base R
+functions. But all of our manipulations have lacked the visual component
+that can be so helpful in understanding the properties of data,
+i.e. distributions, outliers, trends, etc. Let’s turn our attention to
+plotting in the <code>tidyverse</code> with <code>ggplot2</code>.</p>
+<p>The intellectual framework for <code>ggplot2</code> comes from the
+“Grammar of Graphics” by Wilkinson (<a
+href="https://link.springer.com/book/10.1007/0-387-28695-0">ref</a>).
+This module will introduce the components of that grammar, and how to
+combine them into publication-ready plots.</p>
+<div id="loading-data" class="section level2">
+<h2>Loading data</h2>
 <p>In the previous lesson we used the <code>read_csv()</code> function
 to load the <code>gm97</code> data. Let’s do that again:</p>
 <pre class="r"><code>library(tidyverse)
 gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -430,17 +454,6 @@ dbl (4): year, pop, lifeExp, gdpPercap
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div id="exploring-data-visually" class="section level1">
-<h1>Exploring data visually</h1>
-<p>We have learned how to use <code>dplyr</code> and <code>tidyr</code>
-functions to subset and summarize data, along with some of the
-equivalent base R functions. But all of our manipulations have lacked
-the visual component that can be so helpful in understanding the
-properties of data. Let’s turn our attention to plotting in the
-<code>tidyverse</code> with the <code>ggplot2</code> package. The
-<code>ggplot2</code> package is a powerful, easy to use package that
-creates publication ready plots, and is one of the reasons so many
-people use R.</p>
 <div id="mappings-aesthetics-and-geometries" class="section level2">
 <h2>Mappings, aesthetics, and geometries</h2>
 <p>Let’s jump right in and create our first plot using the
@@ -464,7 +477,7 @@ with:</p>
     aes(x = gdpPercap)</code></pre>
 <p><img src="fig/03-plot2-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>In <code>ggplot2</code>, the <code>+</code> indicates we want to add
-elements to a plot. It’s kind of like the pipe (<code>%&gt;%</code>) in
+elements to a plot; it’s kind of like the pipe (<code>%&gt;%</code>) in
 <code>dplyr</code>. Our plot window is no longer a blank gray square,
 but now has a labeled x-axis with visual delimiters. Here,
 <code>gdpPercap</code> is just the column name from our data, and isn’t
@@ -568,8 +581,18 @@ the default linear scale. We can also change the scale on the
     aes(color = continent) + 
     scale_color_brewer(palette = &#39;Set2&#39;)</code></pre>
 <p><img src="fig/03-plot_color_continent_set1-1.png" width="816" style="display: block; margin: auto;" /></p>
-<p>Here the <code>Set2</code> palette is color blind friendly. You can
-use the following command to see scale attributes:</p>
+<p>In this case, <code>Set2</code> palette is color-blind friendly.
+There are many built-in palettes:</p>
+<pre class="r"><code>RColorBrewer::display.brewer.all()</code></pre>
+<p><img src="fig/03-brewer_pal_info-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Note that there are linear color scales which might be appropriate
+for numerical data with a minimum value of 0 (top group). There are also
+discrete color scales more appropriate for categorical data that aren’t
+associated with magnitude, like <code>continent</code> (middle group).
+There are also divergent color scales that might be useful for
+continuous variables centered around 0 (bottom group).</p>
+<p>Additionally, we can view attributes of the palettes, including which
+are color-blind friendly, with:</p>
 <pre class="r"><code>RColorBrewer::brewer.pal.info</code></pre>
 <pre><code>         maxcolors category colorblind
 BrBG            11      div       TRUE
@@ -607,15 +630,8 @@ YlGn             9      seq       TRUE
 YlGnBu           9      seq       TRUE
 YlOrBr           9      seq       TRUE
 YlOrRd           9      seq       TRUE</code></pre>
-<p>The <code>scale_color_brewer()</code> function is one of many that
-changes the colors. There are also many built-in “palettes” that are
-appropriate in different use cases. Run
-<code>RColorBrewer::display.brewer.all()</code> to see them. Note that
-there are linear color scales which might be appropriate for numerical
-data with a minimum value of 0. There are also divergent color scales
-that might be useful for continuous variables centered around 0. There
-are also discrete color scales more appropriate for categorical data
-that aren’t associated with magnitude, like <code>continent</code>.</p>
+<p>The RColorBrewer package is an excellent package for its ready-made
+palettes, as well as the ability to create custom palettes. See</p>
 <p><strong>Checkpoint</strong></p>
 </div>
 <div id="size" class="section level2">
@@ -699,7 +715,7 @@ more complex dataset so we have a bit more data to explore. The
 data.</p>
 <pre class="r"><code>gm = read_csv(&#39;data/gapminder_data.csv&#39;)</code></pre>
 <pre><code>Rows: 1704 Columns: 6
-── Column specification ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -1375,9 +1391,32 @@ that they only apply to that layer:</p>
        title = &#39;Do people in wealthier countries live longer?&#39;,
        caption = &#39;Figure: GDP per capita and life expectancy are positively correlated, while population is not.&#39;)</code></pre>
 <p><img src="fig/03-plot_labels2-1.png" width="816" style="display: block; margin: auto;" /></p>
-<p><strong>Checkpoint</strong></p>
+</div>
+</div>
+<div id="objectives-1" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Learn the essential parts of the <code>ggplot2</code> “grammar of
+graphics”:
+<ul>
+<li>Map variables from the data to aesthetics (x, y, color, fill, size,
+etc.) via <code>aes()</code>.</li>
+<li>Plot those mappings with geometries via <code>geom_*()</code>.</li>
+<li>Adjust numeric and categorical scales via
+<code>scale_*()</code>.</li>
+<li>Use a variable to visually stratify data via
+<code>facet_*()</code>.</li>
+</ul></li>
+<li>Learn how to customize plots by:
+<ul>
+<li>Changing color and fill with the RColorBrewer package.</li>
+<li>Altering text and formatting of axis labels and legends.</li>
+</ul></li>
+</ul>
+</div>
+<div id="exercise-3" class="section level1">
+<h1>Exercise</h1>
 <blockquote>
-<h2 id="exercise-3">Exercise</h2>
 <p>In a previous exercise we created a plot showing the trend of life
 expectancy across all countries over time, colored by the continent. The
 following code generates a similar plot but for the GDP per capita.</p>
@@ -1498,7 +1537,6 @@ countries, and look at the top two results.</li>
 <tbody>
 </tbody>
 </table>
-</div>
 </div>
 
 

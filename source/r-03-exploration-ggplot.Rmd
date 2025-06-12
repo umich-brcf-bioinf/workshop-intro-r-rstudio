@@ -39,11 +39,22 @@ knitr_fig_path("03-")
 
 # Objectives
 
-- Create plots with both discrete and continuous variables with `ggplot2`.
-- Understand mappings, geometries, and layering in `ggplot2`.
-- Modify the color, theme, and axis labels of a plot.
+- Learn the essential parts of the `ggplot2` "grammar of graphics":
+    - Map variables from the data to aesthetics (x, y, color, fill, size, etc.) via `aes()`.
+    - Plot those mappings with geometries via `geom_*()`.
+    - Adjust numeric and categorical scales via `scale_*()`.
+    - Use a variable to visually stratify data via `facet_*()`.
+- Learn how to customize plots by:
+    - Changing color and fill with the RColorBrewer package.
+    - Altering text and formatting of axis labels and legends.
 
-# Loading data
+# Exploring data visually
+
+We have learned how to use functions from the `tidyverse` to subset and summarize data, along with some of the equivalent base R functions. But all of our manipulations have lacked the visual component that can be so helpful in understanding the properties of data, i.e. distributions, outliers, trends, etc. Let's turn our attention to plotting in the `tidyverse` with `ggplot2`.
+
+The intellectual framework for `ggplot2` comes from the "Grammar of Graphics" by Wilkinson ([ref](https://link.springer.com/book/10.1007/0-387-28695-0)). This module will introduce the components of that grammar, and how to combine them into publication-ready plots.
+
+## Loading data
 
 In the previous lesson we used the `read_csv()` function to load the `gm97` data. Let's do that again:
 
@@ -56,10 +67,6 @@ gm97 = read_csv('data/gapminder_1997.csv')
 library(tidyverse)
 gm97 = read_csv('../data/gapminder_1997.csv')
 ```
-
-# Exploring data visually
-
-We have learned how to use `dplyr` and `tidyr` functions to subset and summarize data, along with some of the equivalent base R functions. But all of our manipulations have lacked the visual component that can be so helpful in understanding the properties of data. Let's turn our attention to plotting in the `tidyverse` with the `ggplot2` package. The `ggplot2` package is a powerful, easy to use package that creates publication ready plots, and is one of the reasons so many people use R.
 
 ## Mappings, aesthetics, and geometries
 
@@ -78,7 +85,7 @@ ggplot(data = gm97) +
     aes(x = gdpPercap)
 ```
 
-In `ggplot2`, the `+` indicates we want to add elements to a plot. It's kind of like the pipe (`%>%`) in `dplyr`. Our plot window is no longer a blank gray square, but now has a labeled x-axis with visual delimiters. Here, `gdpPercap` is just the column name from our data, and isn't really formatted in a "publication-ready" manner. We can use the `labs()` function to alter the label on the x-axis with:
+In `ggplot2`, the `+` indicates we want to add elements to a plot; it's kind of like the pipe (`%>%`) in `dplyr`. Our plot window is no longer a blank gray square, but now has a labeled x-axis with visual delimiters. Here, `gdpPercap` is just the column name from our data, and isn't really formatted in a "publication-ready" manner. We can use the `labs()` function to alter the label on the x-axis with:
 
 ```{r, 'plot3'}
 ggplot(data = gm97) +
@@ -174,13 +181,21 @@ ggplot(data = gm97) +
     scale_color_brewer(palette = 'Set2')
 ```
 
-Here the `Set2` palette is color blind friendly. You can use the following command to see scale attributes:
+In this case, `Set2` palette is color-blind friendly. There are many built-in palettes:
 
 ```{r, 'brewer_pal_info'}
+RColorBrewer::display.brewer.all()
+```
+
+Note that there are linear color scales which might be appropriate for numerical data with a minimum value of 0 (top group). There are also discrete color scales more appropriate for categorical data that aren't associated with magnitude, like `continent` (middle group). There are also divergent color scales that might be useful for continuous variables centered around 0 (bottom group).
+
+Additionally, we can view attributes of the palettes, including which are color-blind friendly, with:
+
+```{r, 'brewer_pal_info2'}
 RColorBrewer::brewer.pal.info
 ```
 
-The `scale_color_brewer()` function is one of many that changes the colors. There are also many built-in "palettes" that are appropriate in different use cases. Run `RColorBrewer::display.brewer.all()` to see them. Note that there are linear color scales which might be appropriate for numerical data with a minimum value of 0. There are also divergent color scales that might be useful for continuous variables centered around 0. There are also discrete color scales more appropriate for categorical data that aren't associated with magnitude, like `continent`.
+The RColorBrewer package is an excellent package for its ready-made palettes, as well as the ability to create custom palettes. See 
 
 **Checkpoint**
 
@@ -690,9 +705,18 @@ ggplot(data = gm97_labels) +
        caption = 'Figure: GDP per capita and life expectancy are positively correlated, while population is not.')
 ```
 
-**Checkpoint**
+# Objectives
 
-> ## Exercise
+- Learn the essential parts of the `ggplot2` "grammar of graphics":
+    - Map variables from the data to aesthetics (x, y, color, fill, size, etc.) via `aes()`.
+    - Plot those mappings with geometries via `geom_*()`.
+    - Adjust numeric and categorical scales via `scale_*()`.
+    - Use a variable to visually stratify data via `facet_*()`.
+- Learn how to customize plots by:
+    - Changing color and fill with the RColorBrewer package.
+    - Altering text and formatting of axis labels and legends.
+
+# Exercise
 > 
 > In a previous exercise we created a plot showing the trend of life expectancy across all countries over time, colored by the continent. The following code generates a similar plot but for the GDP per capita.
 > 
