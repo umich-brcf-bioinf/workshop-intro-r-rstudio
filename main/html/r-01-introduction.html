@@ -416,8 +416,8 @@ pre {
 <li>Get comfortable with errors and asking for help.</li>
 </ul>
 </div>
-<div id="introduction-to-r-and-rstudio" class="section level1">
-<h1>Introduction to R and RStudio</h1>
+<div id="what-is-r-and-rstudio" class="section level1">
+<h1>What is R and RStudio?</h1>
 <p>In these lessons we’ll use the <a
 href="https://www.gapminder.org/">gapminder dataset</a> to explore the
 relationship between a country’s life expectancy and the total value of
@@ -449,9 +449,20 @@ interface to R that has many helpful features, as we’ll see. Note that R
 and RStudio are different, but complimentary. You need R to use
 RStudio.</p>
 </div>
-<div id="log-in-to-rstudio-server" class="section level1">
-<h1>Log in to RStudio Server</h1>
-<p>To get started, we’ll go to <a
+<div id="the-gapminder-dataset" class="section level1">
+<h1>The gapminder dataset</h1>
+<p>We will be using a dataset from <a
+href="https://www.gapminder.org/">gapminder</a> which contains life
+expectancy, GDP, and population for countries around the world from 1952
+to 2007. It is sufficiently rich to allow us to explore data
+manipulation and visualization in R. We’ll begin with data just from
+1997, and will expand to the full 1952 - 2007 dataset towards the end.
+The following is a preview of the data we’ll be working with:</p>
+<p><img src="images/00_gapminder_preview.png" alt="gapminder preview"/></p>
+</div>
+<div id="orienting-on-rstudio" class="section level1">
+<h1>Orienting on RStudio</h1>
+<p>To get started, let’s log in to the workshop server by going here: <a
 href="http://bfx-workshop02.med.umich.edu"
 target="blank">http://bfx-workshop02.med.umich.edu</a></p>
 <p>The login page for the server looks like:</p>
@@ -460,63 +471,85 @@ target="blank">http://bfx-workshop02.med.umich.edu</a></p>
 interface should load and look like:</p>
 <p><img src="images/02_rstudio_session_default.png" alt="rstudio default session" style="width:1000px;"/></p>
 <p><strong>Checkpoint</strong></p>
-</div>
-<div id="orienting-on-rstudio" class="section level1">
-<h1>Orienting on RStudio</h1>
 <p>RStudio is an integrated development environment where you can write,
 execute, and see the results of your code. The interface is arranged in
 different panes:</p>
 <ul>
-<li>The Console pane along the left where you can enter commands and
-execute them.</li>
-<li>The Environment pane in the upper right shows any variables you have
-created, along with their values.</li>
+<li>The <strong>Console pane</strong> along the left where you can enter
+commands and execute them.</li>
+<li>The <strong>Environment pane</strong> in the upper right shows any
+variables you have created, along with their values.</li>
 <li>The pane in the lower right has a few functions:
 <ul>
-<li>The Files tab let’s you navigate the file system.</li>
-<li>The Plots tab displays any plots from code run in the Console.</li>
-<li>The Help tab displays the documentation of functions.</li>
+<li>The <strong>Files tab</strong> let’s you navigate the file
+system.</li>
+<li>The <strong>Plots tab</strong> displays any plots from code run in
+the Console.</li>
+<li>The <strong>Help tab</strong> displays the documentation of
+functions.</li>
 </ul></li>
 </ul>
 <div id="commands-in-the-console" class="section level2">
 <h2>Commands in the Console</h2>
-<p>We can input commands directly into the Console and press
-<KBD>Enter</KBD> to execute them. Try it with:</p>
+<p>Commands can be run in the Console directly. Press <KBD>Enter</KBD>
+to execute them:</p>
 <pre><code>&gt; 2+2
 [1] 4</code></pre>
-<p>If we enter commands directly into the Console and execute them,
-<strong>there is no record</strong> that persists after we close
-RStudio.</p>
 <p><img src="images/03_rstudio_console_execution.png" alt="rstudio console execution" style="width:1000px;"/></p>
 <p><strong>Checkpoint</strong></p>
 </div>
 <div id="commands-in-the-script" class="section level2">
 <h2>Commands in the Script</h2>
-<p>To keep that record, we will enter our commands in a script. When
-first opening RStudio, there is no pane to write code to save as a file.
-But by clicking on the icon in the upper-right-most of the interface (a
-blank piece of paper with a + sign), and selecting <KBD>R Script</KBD> a
-new pane opens. This last pane is the Source (or Script) pane, and it is
-here that we’ll keep a running record of the commands we learn in this
-workshop.</p>
+<p>Commands can also be run in a script. Some beenefits to using a
+script rather than relying on the Console pane:</p>
+<ul>
+<li>Scripts are files that can be shared.</li>
+<li>Scripts record the steps taken to analyze the data.</li>
+<li>Scripts can be re-run, allowing for reproducibility.</li>
+</ul>
+<p>When first opening RStudio, a script file is not automatically
+opened. We’ll create our script file by clicking on the icon in the
+upper-left of the interface (a blank piece of paper with a + sign), and
+selecting <KBD>R Script</KBD>.</p>
 <p><img src="images/04_rstudio_create_script.png" alt="rstudio create script" style="width:1000px;"/></p>
-<p>Which will swing open the Script pane:</p>
+<p>The new pane that opens is the <strong>Source pane</strong>:</p>
 <p><img src="images/05_rstudio_script_pane.png" alt="rstudio script pane" style="width:1000px;"/></p>
-<p>In the Script pane, enter:</p>
+<p>You can think of this as a simple text editor. In the Script pane,
+enter:</p>
 <pre><code>3+2</code></pre>
 <p>Notice that if we press <KBD>Enter</KBD> in the Source pane, we get a
-new line. <strong>The code does note execute.</strong> In order to
-execute the code we press <KBD>Ctrl + Enter</KBD> <strong>on the line of
-code we want to execute</strong>. We then see that code executed, along
+new line instead of running the code. In order to execute the code, we
+press <KBD>Ctrl + Enter</KBD> either on the single line we want to run,
+or on a highlighted block of code. We then see that code executed, along
 with its result in in the Console pane.</p>
 <p><img src="images/06_rstudio_script_execution.png" alt="rstudio script execution" style="width:1000px;"/></p>
-<blockquote>
-<h2 id="note-script-pane-and-console-pane"
-class="unlisted unnumbered">Note: Script Pane and Console Pane</h2>
-<p>The code written in the Script Pane is just text until it is executed
-with <KBD>Control + Enter</KBD>. The Console Pane is the record of the
-code that has been executed. <br></p>
-</blockquote>
+</div>
+<div id="summary-console-vs-script" class="section level2">
+<h2>Summary: Console vs Script</h2>
+<p>Here are some of the key differences between the Console and Script
+panes in RStudio:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Console</th>
+<th align="left">Script</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ephemeral code</td>
+<td align="left">Preserved code</td>
+</tr>
+<tr class="even">
+<td align="left">Run with <KBD>Enter</KBD></td>
+<td align="left">Run with <KBD>Ctrl + Enter</KBD></td>
+</tr>
+<tr class="odd">
+<td align="left">Hard to share</td>
+<td align="left">Easy to share</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="configuring-rstudio" class="section level2">
 <h2>Configuring RStudio</h2>
@@ -532,114 +565,148 @@ then <KBD>Soft Wrap Long Lines</KBD>.</p>
 </div>
 </div>
 <div id="workshop-flow" class="section level1">
-<h1>Workshop Flow</h1>
-<p>The code we execute together is available in three forms:</p>
-<ol style="list-style-type: decimal">
-<li>By viewing the instructor’s Zoom screen share,</li>
-<li>By code pasted into Slack, and</li>
-<li>By code blocks on these web pages.</li>
-</ol>
-<p>As a learner you are welcome to get the same code into your Script
-Pane by:</p>
-<ol style="list-style-type: decimal">
-<li>Typing the code from the Zoom screen share into your Script
-Pane,</li>
-<li>Copying the code from Slack and pasting into your Script Pane,
-or</li>
-<li>Copying the code from the code blocks on these web pages and pasting
-into your Script Pane.</li>
-</ol>
+<h1>Workshop flow</h1>
+<p>To accomodate learning styles and to keep us moving along, we’ll
+provide code in three different ways, and you can get that code into
+RStudio in corresponding ways:</p>
+<table>
+<colgroup>
+<col width="48%" />
+<col width="51%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Source of Code</th>
+<th align="left">Execution of Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Zoom screen share</td>
+<td align="left">Type the code yourself.</td>
+</tr>
+<tr class="even">
+<td align="left">Slack</td>
+<td align="left">Copy and paste code into RStudio.</td>
+</tr>
+<tr class="odd">
+<td align="left">Website</td>
+<td align="left">Use code block copy button and paste into RStudio.</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Questions?</strong></p>
 </div>
-<div id="creating-an-rstudio-project" class="section level1">
-<h1>Creating an RStudio project</h1>
-<p>We’ll now begin our examination of the gapminder dataset by creating
-an <strong>RStudio Project</strong>. An RStudio project allows you to
-more easily:</p>
+<div id="setting-up" class="section level1">
+<h1>Setting up</h1>
+<p>Before we begin, the folder structure of a working directory /
+project organizes all the relevant files. Typically we make directories
+for the following types of files:</p>
 <ul>
-<li>Save data, files, variables, packages, etc. related to a specific
-analysis project</li>
-<li>Restart work where you left off</li>
-<li>Collaborate, especially if you are using version control such as <a
-href="http://swcarpentry.github.io/git-novice/">git</a>.</li>
+<li>Raw data, called <code>data</code>, <code>input</code>, etc,</li>
+<li>Results, often <code>results</code> or <code>output</code> with
+subfolders for <code>tables</code>, <code>figures</code>, and
+<code>rdata</code>, and</li>
+<li>Scripts, often <code>scripts</code>.</li>
 </ul>
-<ol style="list-style-type: decimal">
-<li>To create a project, go to the <kbd>File</kbd> menu, and click
-<kbd>New Project…</kbd>. If you are prompted to save your
-<code>~/.Rhistory</code>, select No. The following window should
-appear:</li>
-</ol>
-<center>
-<img src="images/new_project_window.png" alt="rstudio default session" style="width: 600px;"/>
-</center>
-<ol start="2" style="list-style-type: decimal">
-<li><p>In this window, select <kbd>Existing Directory</kbd>. For
-“Project working directory”, click <kbd>Browse…</kbd>, select the “CF_R”
-folder, and click <kbd>Choose</kbd>. This will use the
-<code>/home/workshop/user/CF_R</code> folder as the project
-directory.</p></li>
-<li><p>Finally click <kbd>Create Project</kbd>. In the “Files” tab of
-your output pane (more about the RStudio layout in a moment), you should
-see an RStudio project file, <strong>CF_R.Rproj</strong>. All RStudio
-projects end with the “<strong>.Rproj</strong>” file extension.</p></li>
-</ol>
-<p><strong>Checkpoint</strong></p>
-<div id="creating-a-script" class="section level2">
-<h2>Creating a script</h2>
-<p>Let’s create an R script in this project to record the commands we’ll
-learn:</p>
-<ul>
-<li>Click the <kbd>File</kbd> menu and select <kbd>New File</kbd> and
-then <kbd>R Script</kbd>.</li>
-<li>Before we go any further, save your script by clicking the save/disk
-icon that is in the bar above the first line in the script editor, or
-click the <kbd>File</kbd> menu and select <kbd>Save</kbd>.</li>
-<li>In the “Save File” window that opens, select <kbd>New Folder</kbd>.
-Name it <strong>“scripts”</strong>.</li>
-<li>Finally, name your file <strong>“r_basics”</strong> in the “File
-name” field.</li>
-</ul>
-<p>The new script <strong>r_basics.R</strong> is now in the
-<code>scripts</code> folder. You can see that by clicking the
-<code>scripts</code> folder in the “Files” pane. And you can go back up
-to the main project folder by clicking the <code>..</code> to the right
-of the up arrow in the “Files” pane. By convention, R scripts end with
-the file extension <code>.R</code>.</p>
+<p>We’ve already provided the raw data in the <code>data/</code> folder,
+but you’d otherwise want to move the starting, unaltered, data into this
+folder.</p>
+<div id="creating-directory-stucture" class="section level2">
+<h2>Creating directory stucture</h2>
+<p>Before we start creating directories, let’s make sure we’re in the
+right location. To print the current working directory:</p>
+<pre class="r"><code># =========================================================================
+# Determine and set working directory
+# =========================================================================
+
+# -------------------------------------------------------------------------
+# Get current working directory
+getwd()</code></pre>
+<pre><code>[1] &quot;/Users/rcavalca/Projects/workshop-intro-r-rstudio/source&quot;</code></pre>
+<p>This means that any references to files loaded or files saved
+<strong>is with respect to this location</strong>. This can simplify our
+code a bit by allowing us to use relative paths rather than full paths.
+Let’s set our working directory to the IRR folder in our respective home
+directories.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Set current working directory
+setwd(&#39;~/IRR&#39;)</code></pre>
+<p>Now that we’re sure of our working directory, let’s create some
+folders for our analysis scripts and results thereof.</p>
+<pre class="r"><code># =========================================================================
+# Create directory structure
+# =========================================================================
+
+dir.create(&#39;scripts&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/figures&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/tables&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/rdata&#39;, recursive = TRUE, showWarnings = FALSE)
+
+# -------------------------------------------------------------------------</code></pre>
+</div>
+<div id="saving-scripts" class="section level2">
+<h2>Saving scripts</h2>
+<p>Let’s save our currently open script in the <code>scripts/</code>
+folder as <code>IRR_day1.R</code> by clicking <KBD>File</KBD> and then
+<KBD>Save</KBD>.</p>
 <p><strong>Checkpoint</strong></p>
 </div>
 </div>
-<div id="loading-libraries" class="section level1">
-<h1>Loading Libraries</h1>
-<p>R has a number of functions that are present in the “base”
-installation, but the power of R is that many libraries have been
-written with myriad functionality. These libraries can be loaded with
-the <code>library()</code> command. We’ll discuss how to download new
-libraries later, but for now, let’s load the “tidyverse” package.</p>
-<pre class="r"><code>library(tidyverse)</code></pre>
+<div id="getting-started" class="section level1">
+<h1>Getting started</h1>
+<p>Out of the box, R has a number of useful functions, but its power
+lies in extending its functionality with packages / libraries. You can
+think of libraries as collections of functions organized around a
+particular functionality. For example, the <code>tidyverse</code>
+package is a collection of packages that are designed to work together
+to make data manipulation and visualization easier. In order to gain
+access to functions in a package, we need to load the package into our R
+session.</p>
+<div id="loading-libraries" class="section level2">
+<h2>Loading Libraries</h2>
+<p>Let’s begin with loading <code>tidyverse</code> since that’s the
+package we’ll use for the rest of the workshop.</p>
+<pre class="r"><code># =========================================================================
+# Load the tidyverse package
+
+library(tidyverse)</code></pre>
+<pre><code>── Attaching core tidyverse packages ──────────────────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter()     masks stats::filter()
+✖ dplyr::group_rows() masks kableExtra::group_rows()
+✖ dplyr::lag()        masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <blockquote>
 <h2 id="note-package-loading-messages" class="unlisted unnumbered">Note:
 Package loading messages</h2>
-<p>When loading a package you may get lots of feedback. These aren’t
-necessarily errors, but just give more information on the state of the
-environment after loading the package. The <code>tidyverse</code> is
-actually a collection of packages. The first section of the output
-states which packages were lodaed and their versions. The second section
-notes “Conflicts” that occur because the name of a function is used
-multiple times. So <code>dplyr::filter() masks stats::filter()</code>
-means that the <code>dplyr</code> library and the <code>stats</code>
-library have functions called <code>filter()</code>, and that when
-calling <code>filter()</code>, the <code>dplyr</code> version will be
-the default. <br></p>
+<p>Loading a package can result in a lot of feedback from R. These
+aren’t necessarily errors, but give more information about the result of
+loading the package. The output tells us which packages were loaded
+(note that <code>tidyverse</code> is sort of a meta-package of
+packages). The first section of the output states which packages were
+lodaed and their versions. The second section notes “Conflicts” that
+occur because the name of a function is used multiple times. So
+<code>dplyr::filter() masks stats::filter()</code> means that the
+<code>dplyr</code> library and the <code>stats</code> library have
+functions called <code>filter()</code>, and that when calling
+<code>filter()</code>, the <code>dplyr</code> version will be the
+default. <br></p>
 </blockquote>
 <p><strong>Checkpoint</strong></p>
 </div>
-<div id="loading-a-csv-file" class="section level1">
-<h1>Loading a csv file</h1>
+<div id="loading-a-csv-file" class="section level2">
+<h2>Loading a csv file</h2>
 <p>Let’s jump right in and load some of the gapminder data using the
 <code>read_csv()</code> function:</p>
-<pre class="r"><code>gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
+<pre class="r"><code>gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ──────────────────────────────────────────────────────────────────────────────────
+── Column specification ────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -648,72 +715,95 @@ dbl (4): year, pop, lifeExp, gdpPercap
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>Remember, with the cursor on this line we can click <KBD>Run</KBD>,
 or we can type <KBD>Ctrl</KBD>+<KBD>Enter</KBD>. We should see some
-output in the Console pane as well as <code>gapminder_1997</code> in the
+output in the Console pane as well as <code>gm97</code> in the
 Environment pane. We’ll explore the resulting data in later lessons.</p>
 <p><strong>Checkpoint</strong></p>
-<p>Let’s breakdown this command:</p>
+<p>Let’s break down this command:</p>
 <ul>
-<li>We start with <code>gapminder_1997</code>, this is the name of the
-<strong>object</strong> that will reference the data.</li>
-<li>The <code>=</code> indicates the assignment operator. R also has the
-assignment operator <code>&lt;-</code> but we’ll stick with
-<code>=</code> in this workshop. The details about the distinction
-aren’t relevant to our workshops.</li>
-<li>The command ends with
-<code>read_csv('data/gapminder_1997.csv')</code> which is a call to the
-function <code>read_csv()</code> with an <strong>argument</strong>
-stating the path of the file to read.</li>
+<li><code>gm97</code> is the <strong>variable name</strong> we’re giving
+to the data we read in.</li>
+<li><code>=</code> is the <strong>assignment operator</strong> which
+assigns the object on the right to the name on the left.</li>
+<li><code>read_csv()</code> is a <strong>function</strong> in
+<code>tidyverse</code> that reads CSV files.</li>
+<li><code>data/gapminder_1997.csv</code> is the
+<strong>argument</strong> to <code>read_csv()</code> that specifies the
+file to read.</li>
 </ul>
-<p>The output of <code>read_csv()</code> in the Console pane gives us
-useful information such as the dimensions of the data, the delimiter of
-the file, and how the columns of the data were interpreted.</p>
+<p>The output of <code>read_csv()</code> in the Console pane gives
+information such as the dimensions of the data, the delimiter of the
+file, and how the columns of the data were interpreted.</p>
+<blockquote>
+<h2 id="note-the-assignment-operator" class="unlisted unnumbered">Note:
+The assignment operator</h2>
+<p>You may have seen another assignment operator, <code>&lt;-</code>,
+which is idiosyncratic to R. We leave as an exercise to the learner to
+look up the edge cases of when to use <code>&lt;-</code> vs
+<code>=</code>. For now, we will use <code>=</code> as the assignment
+operator, which is more common in other programming languages. <br></p>
+</blockquote>
+</div>
 </div>
 <div id="basic-r-data-types" class="section level1">
 <h1>Basic R data types</h1>
-<p>We notice in the output of <code>read_csv()</code> that the
-<code>country</code> and <code>continent</code> columns were intepreted
-as character strings (<code>chr</code>) and the <code>year</code>,
-<code>pop</code>, <code>lifeExp</code>, and <code>gdpPercap</code>
-columns were interpreted as numbers (<code>dbl</code>).</p>
+<p>In the output of <code>read_csv()</code>, the <code>country</code>
+and <code>continent</code> columns were intepreted as character strings
+(<code>chr</code>) and the <code>year</code>, <code>pop</code>,
+<code>lifeExp</code>, and <code>gdpPercap</code> columns were
+interpreted as numbers (<code>dbl</code>). This begs the question of the
+data types available in R. The basic data types in R are:</p>
 <table>
 <colgroup>
-<col width="25%" />
-<col width="75%" />
+<col width="31%" />
+<col width="37%" />
+<col width="31%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>Mode (abbreviation)</th>
-<th>Type of data</th>
+<th align="left">Mode (abbreviation)</th>
+<th align="left">Type of data</th>
+<th align="left">Example</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Numeric (num)</td>
-<td>Numbers such as floating point/decimals (1.0, 0.5, 3.14), there are
-also more specific numeric types (dbl - Double, int - Integer). These
-differences are not relevant for most beginners and pertain to how these
-values are stored in memory.</td>
+<td align="left">Numeric (num)</td>
+<td align="left">Decimals, integers, etc.</td>
+<td align="left"><code>1.0</code>, <code>3.14</code>, <code>-2.5</code>,
+<code>10</code>, etc.</td>
 </tr>
 <tr class="even">
-<td>Character (chr)</td>
-<td>A sequence of letters/numbers in single ’ ’ or double ” ”
-quotes.</td>
+<td align="left">Character (chr)</td>
+<td align="left">Sequence of letters or numbers.</td>
+<td align="left"><code>"Hi"</code>, <code>'Hi'</code>, <code>"1"</code>,
+etc.</td>
 </tr>
 <tr class="odd">
-<td>Factor (fct)</td>
-<td>A categorical variable with defined “levels” or categories.</td>
+<td align="left">Factor (fct)</td>
+<td align="left">Categorical values.</td>
+<td align="left">Months of the year.</td>
 </tr>
 <tr class="even">
-<td>Logical</td>
-<td>Boolean values - TRUE or FALSE.</td>
+<td align="left">Logical</td>
+<td align="left">Boolean values</td>
+<td align="left"><code>TRUE</code>, <code>FALSE</code>, <code>T</code>,
+<code>F</code>, etc.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div id="assigning-values-to-objects" class="section level1">
 <h1>Assigning values to objects</h1>
-<p>Let’s assign values to some objects and observe each object after
-assignment.</p>
+<p>Throughout this workshop we’ll be assigning names to objects and
+manipulating them. The names we give to objects can either make our
+lives easier or harder. Let’s start by describing good practices, and
+then we’ll give some examples of bad practices.</p>
+<div id="the-good" class="section level2">
+<h2>The good</h2>
+<ul>
+<li>Use brief, descriptive names.</li>
+<li>Separate words with underscores.</li>
+</ul>
 <pre class="r"><code>name = &#39;Ben&#39;
 name</code></pre>
 <pre><code>[1] &quot;Ben&quot;</code></pre>
@@ -723,55 +813,58 @@ age</code></pre>
 <pre class="r"><code>name = &#39;Harry Potter&#39;
 name</code></pre>
 <pre><code>[1] &quot;Harry Potter&quot;</code></pre>
-<p>Notice that with each assignment, the object appears in the
-Environment pane. Also notice that by assigning <code>name</code> twice,
-the value becomes the last assigned value, overwriting our initial
-assignment. Also notice that if we evaluate the name of an object, it is
-printed in the Console pane.</p>
-<p>Let’s try to assign some more objects and see how things can go
-wrong:</p>
-<pre class="r"><code>1number = 3</code></pre>
-<pre><code>Error in parse(text = input): &lt;text&gt;:1:2: unexpected symbol
-1: 1number
-     ^</code></pre>
-<pre class="r"><code>Flower = &#39;marigold&#39;
-flower = &#39;rose&#39;</code></pre>
+</div>
+<div id="the-bad" class="section level2">
+<h2>The bad</h2>
+<ul>
+<li>No spaces.</li>
+<li>Don’t start with numbers.</li>
+<li>Don’t use proteted names, like <code>if</code>, <code>else</code>,
+<code>for</code>, etc. (see <a
+href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html">here</a>
+for complete list).</li>
+</ul>
 <pre class="r"><code>favorite number = 12</code></pre>
 <pre><code>Error in parse(text = input): &lt;text&gt;:1:10: unexpected symbol
 1: favorite number
              ^</code></pre>
+<pre class="r"><code>1number = 3</code></pre>
+<pre><code>Error in parse(text = input): &lt;text&gt;:1:2: unexpected symbol
+1: 1number
+     ^</code></pre>
+</div>
+<div id="be-mindful" class="section level2">
+<h2>Be mindful</h2>
+<ul>
+<li>Object names are <strong>case-sensitive</strong>. This means that
+<code>name</code>, <code>Name</code>, and <code>NAME</code> are three
+distinct objects. Imagine what confusion you could create!</li>
+<li>Words in object names can also be separated by camelCase
+(e.g. <code>objectName</code>), but <strong>be consistent</strong>.</li>
+</ul>
+<pre class="r"><code>Flower = &#39;marigold&#39;
+Flower</code></pre>
+<pre><code>[1] &quot;marigold&quot;</code></pre>
+<pre class="r"><code>flower = &#39;rose&#39;
+flower</code></pre>
+<pre><code>[1] &quot;rose&quot;</code></pre>
+<pre class="r"><code>favoriteNumber = 12
+favoriteNumber</code></pre>
+<pre><code>[1] 12</code></pre>
+<p>Notice that with each assignment, the object appears in the
+Environment pane. Also notice that by assigning <code>name</code> twice,
+the value becomes the last assigned value, overwriting our initial
+assignment. Also notice that if we evaluate the name of an object, it is
+printed in the Console pane. <strong>We will use this pattern
+repeatedly.</strong></p>
 <p><strong>Checkpoint</strong></p>
-<p>What happened here? We got “unexpected symbol” errors, which is R’s
-obtuse way of saying it didn’t like the name of the object.</p>
-<ul>
-<li><code>1number</code> is problematic because object names can’t start
-with numbers.</li>
-<li><code>favorite number</code> is problematic because object names
-can’t contain spaces.</li>
-<li><code>Flower</code> and <code>flower</code> are distinct objects
-because R is <strong>case-sensitive</strong>. Avoid variable names that
-differ by case.</li>
-</ul>
-<blockquote>
-<h2 id="guidelines-on-naming-objects">Guidelines on naming objects</h2>
-<ul>
-<li>Object names should be explicit and brief.</li>
-<li>Object names cannot start with numbers or contain spaces.</li>
-<li>Object names are case-sensitive.</li>
-<li>Either separate words in object names like <code>object_name</code>
-or <code>objectName</code>. <strong>Be consistent.</strong></li>
-<li>Some names cannot be used because they are the names of fundamental
-functions (e.g. if, else, for; see <a
-href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html">here</a>
-for complete list).</li>
-</ul>
-</blockquote>
+</div>
 </div>
 <div id="calling-functions" class="section level1">
 <h1>Calling functions</h1>
 <p>Earlier we ran the code
-<code>gapminder_1997 = read_csv('data/gapminder_1997.csv')</code>. As we
-said before, <code>read_csv()</code> is a function and
+<code>gm97 = read_csv('data/gapminder_1997.csv')</code>. As we said
+before, <code>read_csv()</code> is a function and
 <code>'data/gapminder_1997.csv'</code> is an argument to that function.
 What happens if we just do:</p>
 <pre class="r"><code>read_csv()</code></pre>
@@ -782,9 +875,9 @@ function needs to be told what to read because there is no default.</p>
 <p>Not every function needs arguments, but many do. Try the following
 functions:</p>
 <pre class="r"><code>Sys.Date()</code></pre>
-<pre><code>[1] &quot;2025-06-11&quot;</code></pre>
+<pre><code>[1] &quot;2025-06-12&quot;</code></pre>
 <pre class="r"><code>getwd()</code></pre>
-<pre><code>[1] &quot;/Users/cgates/git/workshop-intro-r-rstudio/source&quot;</code></pre>
+<pre><code>[1] &quot;/Users/rcavalca/Projects/workshop-intro-r-rstudio/source&quot;</code></pre>
 <pre class="r"><code>round(3.1415, 2)</code></pre>
 <pre><code>[1] 3.14</code></pre>
 <p>Notice that we threw in <code>round()</code> which actually takes two
@@ -837,25 +930,38 @@ notation for <code>package_name::function</code>.</p>
 </div>
 <div id="errosr-happn" class="section level1">
 <h1>Errosr happn</h1>
-<p>We already ran some code in this lesson that produced errors. We’re
-going to run lots of code in this workshop and the next, and it’s likely
-we’ll see more errors! The key steps to correcting an error are:</p>
+<p>We already assigned some variables that resulted in errors. There
+will be plenty of more of those to come; they’re a normal part of coding
+and they are an opportunity to learn! To that end, let’s make some
+mistakes together.</p>
+<pre class="r"><code># Example of not closing quotes
+read_csv(&#39;data/gapminder_1997.csv)</code></pre>
+<pre class="r"><code># Example of not closing parentheses
+round(3.1415, 2</code></pre>
+<p>In both cases, the Console displays a <code>+</code> to indicate that
+R is waiting for more input. To get out of this state, we can press
+<KBD>Esc</KBD>, and try again.</p>
+<div id="handling-errors" class="section level2">
+<h2>Handling errors</h2>
+<p>The key to correcting errors is understanding what went wrong.
+Sometimes R can help, while other times it seems willfully obtuse.</p>
 <ol style="list-style-type: decimal">
-<li>Read the error message to try to understand what might have gone
-wrong. Note, not all error messages are clear, so don’t worry if the
-error message doesn’t help you.</li>
 <li>Immediately check the spelling of the command; <strong>most errors
 are caused by typos</strong>.</li>
-<li>Check that the objects going into the function are what’s
-expected.</li>
+<li>Read the error message to try to understand what might have gone
+wrong.</li>
+<li>Check that the objects going into the function are what you
+expect.</li>
 </ol>
 <p>If you’re still stuck as to why an error occurred (something we all
-encounter), reach out for help. Make sure to post in Slack:</p>
+encounter), reach out for help. For the workshop, please post the
+question in Slack with the following information:</p>
 <ol style="list-style-type: decimal">
 <li>The exact command that caused the error.</li>
 <li>The exact error message that resulted.</li>
 </ol>
 <p>This way we’ll more quickly be able to diagnose the problem.</p>
+</div>
 </div>
 <div id="base-r-and-the-tidyverse" class="section level1">
 <h1>Base R and the tidyverse</h1>
@@ -886,6 +992,17 @@ describe the functionality and usage of the packages. You can find them
 in RStudio by going to the “Help” menu and selecting “Cheat Sheets”. The
 two that will be most helpful in this workshop are “Data Visualization
 with ggplot2” and “Data Transformation with dplyr”.</p>
+</div>
+<div id="objectives-1" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Introduce R and RStudio.</li>
+<li>Learn how to read in a csv file.</li>
+<li>Discuss object naming conventions and types.</li>
+<li>Discuss functions and parameters.</li>
+<li>Learn how to get help with functions.</li>
+<li>Get comfortable with errors and asking for help.</li>
+</ul>
 <br/> <br/>
 <hr/>
 <table style="width:100%;">
