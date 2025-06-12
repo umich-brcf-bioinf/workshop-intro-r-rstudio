@@ -481,14 +481,30 @@ the constituent packages for you.</p>
 </div>
 <div id="installing-packages" class="section level1">
 <h1>Installing packages</h1>
-<div id="from-cran" class="section level2">
-<h2>From CRAN</h2>
+<p>Historically, the package install method was peculiar to the housing
+repository. Now, the <code>BiocManager</code> package from Bioconductor
+makes it possible to install packages from essentially any source.</p>
+<div id="one-installer-to-rule-them-all" class="section level2">
+<h2>One installer to rule them all</h2>
+<p>The <code>BiocManager::install()</code> function can install CRAN,
+Bioconductor, and GitHub packages. Here’s an example with a mix of all
+three:</p>
+<pre class="r"><code># DO NOT RUN
+# tidyverse is on CRAN, DESeq2 is on Bioconductor, and methylSig is on GitHub
+BiocManager::install(c(&#39;tidyverse&#39;, &#39;DESeq2&#39;, &#39;sartorlab/methylSig&#39;))</code></pre>
+<details>
+<summary>
+Expand for repository-specific installers
+</summary>
+<h3>
+From CRAN
+</h3>
 <p>To install a package from CRAN, you can run something like:</p>
 <pre class="r"><code># Do not run, this is already installed for us
 install.packages(&#39;tidyverse&#39;)</code></pre>
-</div>
-<div id="from-bioconductor" class="section level2">
-<h2>From Bioconductor</h2>
+<h3>
+From Bioconductor
+</h3>
 <p>To install a package from Bioconductor, you first need the
 <code>BiocManager</code> package. Then you can give the name of the
 package to the installer, as in:</p>
@@ -497,26 +513,17 @@ install.packages(&#39;BiocManager&#39;)
 
 # The :: notation before the install() tells R to use the function from BiocManager
 BiocManager::install(&#39;DESeq2&#39;)</code></pre>
-</div>
-<div id="from-github" class="section level2">
-<h2>From GitHub</h2>
+<h3>
+From GitHub
+</h3>
 <p>To install packages from GitHub one can use the
 <code>remotes::install_github()</code> function. For example:</p>
 <pre class="r"><code># Do not run
 # To install the package at https://github.com/sartorlab/methylSig/
 # The format is &lt;repository_owner&gt;/&lt;repository_name&gt;
 remotes::install_github(&#39;sartorlab/methylSig&#39;)</code></pre>
-</div>
-<div id="one-installer-to-rule-them-all" class="section level2">
-<h2>One installer to rule them all</h2>
-<p>It turns out that <code>BiocManager::install()</code> can do all of
-the above for you. In particular, the function will interpret any
-library with a <code>/</code> passed to it as a GitHub repository, and
-it will determine whether other packages are on CRAN or Bioconductor and
-fetch as appropriate. For example, you could install all three packages
-above with:</p>
-<pre class="r"><code># Do not run
-BiocManager::install(c(&#39;tidyverse&#39;, &#39;DESeq2&#39;, &#39;sartorlab/methylSig&#39;))</code></pre>
+</details>
+<p><br></p>
 </div>
 </div>
 <div id="search-for-bioconductor-packages" class="section level1">
