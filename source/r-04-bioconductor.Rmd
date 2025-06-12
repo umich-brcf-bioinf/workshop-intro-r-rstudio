@@ -39,23 +39,33 @@ knitr_fig_path("04-")
 
 <!-- example of rendered lesson https://datacarpentry.org/genomics-r-intro/02-r-basics/index.html -->
 
-So far we have used commands that only require what is known as "base R." But R is a highly extensible language with thousands of packages (or libraries) available for installation.
+# Objectives
 
-FYI:
+- Understand what an R package is.
+- Learn about the different package repositories, and their specialities.
+- Learn how to install packages from the different repositories.
 
-- **Package** refers to the collection of functions (and sometimes data).
-- **Library** refers to the directory location where the code/data are stored. 
-- In practice, R code and documentation often use these terms interchangeably.
+# What is a package?
 
-Packages can be installed from a variety of sources, but the three most common are:
+A **package** is the collection of functions (and sometimes data) stored as files in a particular structure. A **library** is the directory location where the code and data are stored. Typically the words are used interchangeably.
 
-1. [CRAN (the Comprehensive R Archive Network)](https://cran.r-project.org/)
-2. [Bioconductor](https://bioconductor.org/)
-3. Individual repositories on GitHub.
+R comes with a number of packages already installed, but it's in the ability to use additional packages that makes R especially useful. There are three main places to look for R packages. These include:
 
-By way of brief orientation, packages on CRAN and Bioconductor can be trusted to have met some basic functionality and quality tests owing to their respective review processes. Packages found on GitHub are not subject to any review, but many development versions of packages on CRAN and Bioconductor can be found on GitHub.
+1. [CRAN (the Comprehensive R Archive Network)](https://cran.r-project.org/), for general purpose packages. Packages in this repository are subject to documentation and testing requirements that give confidence that the code works as advertised.
+2. [Bioconductor](https://bioconductor.org/), for Bioinformatics packages. Packages in this repository are subject to even more stringent documentation and testing requirements. They are meant to facilitate "rigorous and reproducible analysis of data from current and emerging biological assays."
+3. Individual repositories on GitHub, often for development versions of packages already on (or soon to be on) CRAN or Bioconductor. Packages here are subject to caveat emptor, that is, "let the buyer beware."
 
-Packages on CRAN tend to be more general purpose, whereas Bioconductor packages are meant to facilitate "rigorous and reproducible analysis of data from current and emerging biological assays." In other words, Bioconductor is specialized for Bioinformatics.
+To summarize:
+
+| Repository | Purpose | Documentation | Testing |
+| :--- | :--- | :--- | :--- |
+| CRAN | General purpose packages | Required | Required |
+| Bioconductor | Bioinformatics packages | Required | Required |
+| GitHub | General purpose packages | Not required | Not required |
+
+## Is `tidyverse` a package?
+
+The `tidyverse` is actually a collection of packages that are designed to work together. The `tidyverse` is then a meta-package, with constituent packages like `dplyr`, `ggplot2`, `tidyr`, and others. When you install the `tidyverse` package, it will automatically install all of the constituent packages for you.
 
 # Installing packages
 
@@ -106,7 +116,7 @@ While this workshop series focuses on differential expression analysis of RNA-se
 
 There are several thousand packages available through the Bioconductor website. It can be a bit of a challenge to find what you want, but one helpful resource is the [package search page](https://bioconductor.org/packages/release/BiocViews.html#___Software) (pictured below).
 
-![screenshot of bioconductor search](images/bioconductor_search.jpg)
+![screenshot of bioconductor search](images/bioconductor_search.png)
 
 # Using packages
 
@@ -124,6 +134,11 @@ Note that when installing a package we quoted the package name, but when we load
 - [Bioconductor package search](https://bioconductor.org/packages/release/BiocViews.html#___Software)
 - [CRAN](https://cran.r-project.org/)
 
+# Objectives
+
+- Understand what an R package is.
+- Learn about the different package repositories, and their specialities.
+- Learn how to install packages from the different repositories.
 
 <br/>
 <br/>

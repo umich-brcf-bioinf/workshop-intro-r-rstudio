@@ -406,35 +406,79 @@ pre {
   addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
 </script>
 <!-- example of rendered lesson https://datacarpentry.org/genomics-r-intro/02-r-basics/index.html -->
-<p>So far we have used commands that only require what is known as “base
-R.” But R is a highly extensible language with thousands of packages (or
-libraries) available for installation.</p>
-<p>FYI:</p>
+<div id="objectives" class="section level1">
+<h1>Objectives</h1>
 <ul>
-<li><strong>Package</strong> refers to the collection of functions (and
-sometimes data).</li>
-<li><strong>Library</strong> refers to the directory location where the
-code/data are stored.</li>
-<li>In practice, R code and documentation often use these terms
-interchangeably.</li>
+<li>Understand what an R package is.</li>
+<li>Learn about the different package repositories, and their
+specialities.</li>
+<li>Learn how to install packages from the different repositories.</li>
 </ul>
-<p>Packages can be installed from a variety of sources, but the three
-most common are:</p>
+</div>
+<div id="what-is-a-package" class="section level1">
+<h1>What is a package?</h1>
+<p>A <strong>package</strong> is the collection of functions (and
+sometimes data) stored as files in a particular structure. A
+<strong>library</strong> is the directory location where the code and
+data are stored. Typically the words are used interchangeably.</p>
+<p>R comes with a number of packages already installed, but it’s in the
+ability to use additional packages that makes R especially useful. There
+are three main places to look for R packages. These include:</p>
 <ol style="list-style-type: decimal">
 <li><a href="https://cran.r-project.org/">CRAN (the Comprehensive R
-Archive Network)</a></li>
-<li><a href="https://bioconductor.org/">Bioconductor</a></li>
-<li>Individual repositories on GitHub.</li>
+Archive Network)</a>, for general purpose packages. Packages in this
+repository are subject to documentation and testing requirements that
+give confidence that the code works as advertised.</li>
+<li><a href="https://bioconductor.org/">Bioconductor</a>, for
+Bioinformatics packages. Packages in this repository are subject to even
+more stringent documentation and testing requirements. They are meant to
+facilitate “rigorous and reproducible analysis of data from current and
+emerging biological assays.”</li>
+<li>Individual repositories on GitHub, often for development versions of
+packages already on (or soon to be on) CRAN or Bioconductor. Packages
+here are subject to caveat emptor, that is, “let the buyer beware.”</li>
 </ol>
-<p>By way of brief orientation, packages on CRAN and Bioconductor can be
-trusted to have met some basic functionality and quality tests owing to
-their respective review processes. Packages found on GitHub are not
-subject to any review, but many development versions of packages on CRAN
-and Bioconductor can be found on GitHub.</p>
-<p>Packages on CRAN tend to be more general purpose, whereas
-Bioconductor packages are meant to facilitate “rigorous and reproducible
-analysis of data from current and emerging biological assays.” In other
-words, Bioconductor is specialized for Bioinformatics.</p>
+<p>To summarize:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Repository</th>
+<th align="left">Purpose</th>
+<th align="left">Documentation</th>
+<th align="left">Testing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">CRAN</td>
+<td align="left">General purpose packages</td>
+<td align="left">Required</td>
+<td align="left">Required</td>
+</tr>
+<tr class="even">
+<td align="left">Bioconductor</td>
+<td align="left">Bioinformatics packages</td>
+<td align="left">Required</td>
+<td align="left">Required</td>
+</tr>
+<tr class="odd">
+<td align="left">GitHub</td>
+<td align="left">General purpose packages</td>
+<td align="left">Not required</td>
+<td align="left">Not required</td>
+</tr>
+</tbody>
+</table>
+<div id="is-tidyverse-a-package" class="section level2">
+<h2>Is <code>tidyverse</code> a package?</h2>
+<p>The <code>tidyverse</code> is actually a collection of packages that
+are designed to work together. The <code>tidyverse</code> is then a
+meta-package, with constituent packages like <code>dplyr</code>,
+<code>ggplot2</code>, <code>tidyr</code>, and others. When you install
+the <code>tidyverse</code> package, it will automatically install all of
+the constituent packages for you.</p>
+</div>
+</div>
 <div id="installing-packages" class="section level1">
 <h1>Installing packages</h1>
 <div id="from-cran" class="section level2">
@@ -488,7 +532,7 @@ Bioconductor website. It can be a bit of a challenge to find what you
 want, but one helpful resource is the <a
 href="https://bioconductor.org/packages/release/BiocViews.html#___Software">package
 search page</a> (pictured below).</p>
-<p><img src="images/bioconductor_search.jpg"
+<p><img src="images/bioconductor_search.png"
 alt="screenshot of bioconductor search" /></p>
 </div>
 <div id="using-packages" class="section level1">
@@ -508,6 +552,15 @@ when we load the library after installation we don’t.</p>
 href="https://bioconductor.org/packages/release/BiocViews.html#___Software">Bioconductor
 package search</a></li>
 <li><a href="https://cran.r-project.org/">CRAN</a></li>
+</ul>
+</div>
+<div id="objectives-1" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Understand what an R package is.</li>
+<li>Learn about the different package repositories, and their
+specialities.</li>
+<li>Learn how to install packages from the different repositories.</li>
 </ul>
 <br/> <br/>
 <hr/>
