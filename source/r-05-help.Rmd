@@ -61,6 +61,7 @@ There are a few websites that are useful for getting help with R. They can be su
 | [Bioconductor Support](https://support.bioconductor.org/) | Support forum for Bioconductor packages |
 | [stackoverflow](https://stackoverflow.com/questions/tagged/r) | General programming questions |
 | [Biostars](https://www.biostars.org/) | Bioinformatics specific questions |
+| [UM CoderSpaces](https://umich-coderspaces.slack.com/) | General and UM-specific questions |
 
 # Getting help
 
