@@ -39,14 +39,9 @@ knitr_fig_path("03-")
 
 # Objectives
 
-- Learn the essential parts of the `ggplot2` "grammar of graphics":
-    - Map variables from the data to aesthetics (x, y, color, fill, size, etc.) via `aes()`.
-    - Plot those mappings with geometries via `geom_*()`.
-    - Adjust numeric and categorical scales via `scale_*()`.
-    - Use a variable to visually stratify data via `facet_*()`.
-- Learn how to customize plots by:
-    - Changing color and fill with the RColorBrewer package.
-    - Altering text and formatting of axis labels and legends.
+- Create plots with both discrete and continuous variables with `ggplot2`.
+- Understand the mapping of data to attributes / components of the graph.
+- Modify the color, theme, and axis labels of a plot.
 
 # Exploring data visually
 
