@@ -52,6 +52,13 @@ knitr_fig_path("02-")
 In the previous lesson we used the `read_csv()` function to load the `gm97` data. Let's do that again:
 
 ```{r, 'load_gm97_display', eval = FALSE}
+# =========================================================================
+# Data Transformation with dplyr
+# =========================================================================
+
+# -------------------------------------------------------------------------
+# Ensure libraries and data are loaded
+
 library(tidyverse)
 gm97 = read_csv('data/gapminder_1997.csv')
 ```
@@ -64,6 +71,9 @@ gm97 = read_csv('../data/gapminder_1997.csv')
 This time, let's look more closely at the data. If we type the name of the object and evaluate it, we'll see a preview:
 
 ```{r, 'preview_data'}
+# -------------------------------------------------------------------------
+# Preview the data
+
 gm97
 ```
 
@@ -86,6 +96,9 @@ After reading in data, it's a good habit to preview it, look at summaries of it,
 The `summary()` function, from base R, takes a data table as input and will summarize the columns automatically depending on their data type.
 
 ```{r, 'summary'}
+# -------------------------------------------------------------------------
+# Summarize all column values
+
 summary(gm97)
 ```
 
@@ -96,12 +109,18 @@ We see that for the numeric data we get quantile information and the mean, where
 If we wanted to know the mean life expectancy in the dataset, we could use the the `dplyr` `summarize()` function, specifying that we want the `mean()`:
 
 ```{r, 'summarize_lifeexp'}
+# -------------------------------------------------------------------------
+# Calculate the mean life expectancy over the dataset
+
 summarize(gm97, avgLifeExp = mean(lifeExp))
 ```
 
 We can use any column name as the input to `mean()`, so long as it's a numeric, and we get a new tibble with our value returned as a column, named as specified. Note, this matches the result of `summary()` with some difference in the number of significant digits displayed. Alternatively, we could have simply applied `mean()` directly to the column `lifeExp`:
 
 ```{r, 'mean_lifexp_dollar'}
+# -------------------------------------------------------------------------
+# Base R approach to calculating the mean life expectancy
+
 mean(gm97$lifeExp)
 ```
 
@@ -120,12 +139,18 @@ This is the base R way, with the `$` being how columns of a data table are acces
 Data is often subject to errors. To quickly catch data entry problems, the `distinct()` function can be used to show all unique values in the column of a table. Let's take a look at the distinct values of the continents column:
 
 ```{r, 'distinct_continent'}
+# -------------------------------------------------------------------------
+# Determine the distinct continents present in the dataset
+
 distinct(gm97, continent)
 ```
 
 Here we get a `tibble` back with the unique continent names in their order of appearance. There is an equivalent base R way to do this with the `unique()` function:
 
 ```{r, 'unique_continent'}
+# -------------------------------------------------------------------------
+# Base R approach to determining the distinct continents
+
 unique(gm97$continent)
 ```
 
@@ -140,12 +165,19 @@ Either way, if there was a misspelled entry, for example, "Urope" we would have 
 We have a rich dataset whose default ordering is by country. But it's natural to ask questions like "What country has the highest life expectancy?" or "What country had the highest GDP per capita?" The `arrange()` function can help us quickly find the answers.
 
 ```{r, 'arrange_lifeexp'}
+# -------------------------------------------------------------------------
+# Sort the data by life expectancy
+# NOTE: Default is ascending order
+
 arrange(gm97, lifeExp)
 ```
 
 This seems to have done an ascending order on `lifeExp` by default. We have some options, one of which is to wrap the column of interest in the `desc()` function to indicate we want the order to be descending.
 
 ```{r, 'arrange_lifeexp_desc'}
+# -------------------------------------------------------------------------
+# Sort the data by descending life expectancy
+
 arrange(gm97, desc(lifeExp))
 ```
 
@@ -167,12 +199,18 @@ And here we see that Japan is the country with the longest lived citizens at a l
 Sometimes data tables have many columns, and it can be useful to select only a few of them to export, use downstream, preview, etc. The `select()` function works on columns:
 
 ```{r, 'select_positive'}
+# -------------------------------------------------------------------------
+# Select country, year, and lifeExp columns from the table
+
 select(gm97, country, year, lifeExp)
 ```
 
 We can do the equivalent of `select()` statement using base R with:
 
 ```{r, 'base_select_positive'}
+# -------------------------------------------------------------------------
+# Base R appraoch to selecting columns from the table
+
 gm97[ , c('country', 'year', 'lifeExp')]
 ```
 
@@ -183,22 +221,31 @@ Here we use the square-bracket notation again, leaving the row position blank re
 Columns can be removed using `select()` with a "minus" in front of the column name.
 
 ```{r, 'select_negative'}
+# -------------------------------------------------------------------------
+# Remove the year column
+
 select(gm97, -year)
 ```
 
 Notice the `year` column is no longer displayed.
 
-## Saving objects
+## Saving objects in session
 
 If we view `gm97` we notice haven't changed the original data because we haven't saved the object.
 
 ```{r, 'df_persists'}
+# -------------------------------------------------------------------------
+# Display gm97
+
 gm97
 ```
 
 To manipulate `gm97` and save it as a new object we have to assign it a new object name:
 
 ```{r, 'new_df'}
+# -------------------------------------------------------------------------
+# Create a new table by selecting columns of an existing table
+
 gm97_subset = select(gm97, country, year, lifeExp)
 gm97_subset
 ```
@@ -210,6 +257,9 @@ The original data file we read in `data/gapminder_1997.csv` remains the same thr
 It looks like `x`, the data to be written and `file`, the path to the output file are required. There are other options, but we won't use them here.
 
 ```{r, 'write_csv', eval = FALSE}
+# -------------------------------------------------------------------------
+# Write the subsetted table to file
+
 write_csv(gm97_subset, file = 'gm97_subset.csv')
 ```
 
@@ -236,12 +286,18 @@ We have seen that `select()` subsets the columns of a table. The function `filte
 With these operators in mind we can filter the `gm97` data table in a variety of ways. To filter for only the African data we could:
 
 ```{r, 'filter_by_continent'}
+# -------------------------------------------------------------------------
+# Filter the data for only countries in Africa
+
 filter(gm97, continent == 'Africa')
 ```
 
 The base R equivalent of the above uses the square bracket notation that we saw earlier with a twist:
 
 ```{r, 'base_filter_by_continent'}
+# -------------------------------------------------------------------------
+# Base R approach to filtering rows
+
 gm97[gm97$continent == 'Africa', ]
 ```
 
@@ -258,12 +314,18 @@ Here we put the condition in the row position, before the comma, because we want
 We can answer the question, "Which African countries have population over 10,000,000?" by using the `&` operator with our previous code. This requires both conditions to be true at the same time:
 
 ```{r, 'filter_by_continent_population'}
+# -------------------------------------------------------------------------
+# Filter the data for African countries with populations more than 10M.
+
 filter(gm97, continent == 'Africa' & pop >= 10000000)
 ```
 
 We can subset the data for very large or very small population with the `|` operator, which requires either condition to be true:
 
 ```{r, 'filter_by_large_and_small_pop'}
+# -------------------------------------------------------------------------
+# Filter the data for high and low populations
+
 filter(gm97, pop <= 1000000 | pop >= 1000000000)
 ```
 
@@ -277,12 +339,18 @@ This gives us all the countries with fewer than a million people **or** more tha
 It's common to use existing columns of a data table to create new columns. For example, in the `gm97` data we have a `pop` column and a `gdpPercap` column. We could multiply these two columns to get a new `gdp` column. The `dplyr` function `mutate()` adds columns to an existing data table.
 
 ```{r, 'mutate_gdp'}
+# -------------------------------------------------------------------------
+# Compute the GDP of each country by multiplying GDP per capita and population
+
 mutate(gm97, gdp = pop * gdpPercap)
 ```
 
 As before, this didn't actually add the column to `gm97`, we have to save the object to store it:
 
 ```{r, 'mutate_gdp_saved'}
+# -------------------------------------------------------------------------
+# Now save the updated table as a new object
+
 gm97_gdp = mutate(gm97, gdp = pop * gdpPercap)
 gm97_gdp
 ```
@@ -294,6 +362,9 @@ gm97_gdp
 We've learned how to subset rows with `filter()`, select columns with `select()`, get distinct elements with `distinct()`, and summarize columns with `summarize()`. It's common to use these functions in sequence, where the output of one becomes the input of the next. The concept of "pipe" (`|`) from `bash` has an equivalent in the `tidyverse` in the `%>%` symbol. To see this in action, let's select data from Oceania and display only the `country`, `continent`, and `pop` columns.
 
 ```{r, 'pipe_example1'}
+# -------------------------------------------------------------------------
+# Filter for countries in Oceania, then show a subset of the columns
+
 gm97 %>% filter(continent == 'Oceania') %>% select(country, continent, pop)
 ```
 
@@ -311,15 +382,21 @@ gm97 %>% filter(continent == 'Oceania') %>% select(country, continent, pop)
 It seems there are only two countries, Australia and New Zealand. If we wanted to take the mean of the populations we could pipe the data, after filtering, to `summarize()` as in:
 
 ```{r, 'pipe_example2'}
+# -------------------------------------------------------------------------
+# Filter for countries in Oceania and then compute the mean population
+
 gm97 %>%
     filter(continent == 'Oceania') %>%
-    summarize(oceania_mean_pop = mean(pop))
+    summarize(mean_pop = mean(pop))
 ```
 
 Note this is distinct from taking the mean over the entire dataset:
 
 ```{r, 'pipe_example3'}
-gm97 %>% summarize(global_mean_pop = mean(pop))
+# -------------------------------------------------------------------------
+# Use the same summarize() statement, but on the entire dataset
+
+gm97 %>% summarize(mean_pop = mean(pop))
 ```
 
 Here we've meaningfully named our output, but that was optional. For quick data exploration that could be left off.
@@ -332,6 +409,9 @@ Here we've meaningfully named our output, but that was optional. For quick data 
 If we wanted to determine the mean populations over all the continents, we could run the above code we used for Oceania, but replace Oceania with each continent name. That's a bit tedious, and the `tidyverse` provides a very nice function, `group_by()`, that breaks a data table up into groups and will perform operations within the groups.
 
 ```{r, 'group_by_means'}
+# -------------------------------------------------------------------------
+# Compute the mean population per continent
+
 gm97 %>% 
     group_by(continent) %>% 
     summarize(mean_pop = mean(pop))
@@ -340,6 +420,9 @@ gm97 %>%
 Notice that the Oceania average matches what we got above. Going back to our Oceania subset, we can use `group_by()` with the counting function `n()` to count how many countries there are per continent in the `gm97` data, and verify that there really only are two:
 
 ```{r, 'group_by_count'}
+# -------------------------------------------------------------------------
+# Determine the number of countries on each continent in the dataset
+
 gm97 %>% 
     group_by(continent) %>% 
     summarize(num_countries_per_continent = n())
@@ -348,6 +431,9 @@ gm97 %>%
 There is a base R function, `table()`, that tabulates the number of time an entry occurs in a vector, and is useful for quick sanity checking:
 
 ```{r, 'count_with_table'}
+# -------------------------------------------------------------------------
+# Base R approach for determining the number of countries per continent
+
 table(gm97$continent)
 ```
 

@@ -180,7 +180,7 @@ Before we start creating directories, let's make sure we're in the right locatio
 
 ```{r getwd}
 # =========================================================================
-# Determine and set working directory
+# Introducing R and RStudio
 # =========================================================================
 
 # -------------------------------------------------------------------------
@@ -199,16 +199,13 @@ setwd('~/IRR')
 Now that we're sure of our working directory, let's create some folders for our analysis scripts and results thereof.
 
 ```{r create_structure}
-# =========================================================================
+# -------------------------------------------------------------------------
 # Create directory structure
-# =========================================================================
 
 dir.create('scripts', recursive = TRUE, showWarnings = FALSE)
 dir.create('results/figures', recursive = TRUE, showWarnings = FALSE)
 dir.create('results/tables', recursive = TRUE, showWarnings = FALSE)
 dir.create('results/rdata', recursive = TRUE, showWarnings = FALSE)
-
-# -------------------------------------------------------------------------
 ```
 
 ## Saving scripts
@@ -226,7 +223,7 @@ Out of the box, R has a number of useful functions, but its power lies in extend
 Let's begin with loading `tidyverse` since that's the package we'll use for the rest of the workshop.
 
 ```{r, 'load_tidyverse', message = TRUE, warning = TRUE}
-# =========================================================================
+# -------------------------------------------------------------------------
 # Load the tidyverse package
 
 library(tidyverse)
@@ -244,6 +241,9 @@ library(tidyverse)
 Let's jump right in and load some of the gapminder data using the `read_csv()` function:
 
 ```{r, 'load_gm97_display', eval = FALSE}
+# -------------------------------------------------------------------------
+# Load the gapminder 1997 data
+
 gm97 = read_csv('data/gapminder_1997.csv')
 ```
 
@@ -290,12 +290,15 @@ Throughout this workshop we'll be assigning names to objects and manipulating th
 - Separate words with underscores.
 
 ```{r, 'assign_objects'}
-name = 'Ben'
-name
+# -------------------------------------------------------------------------
+# Examples of good variable names, and writing over an existing variable
+
 age = 26
 age
-name = 'Harry Potter'
-name
+wizard_name = 'Tom Riddle'
+wizard_name
+wizard_name = 'Harry Potter'
+wizard_name
 ```
 
 ## The bad
@@ -305,10 +308,16 @@ name
 - Don't use proteted names, like `if`, `else`, `for`, etc. (see [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html) for complete list).
 
 ```{r, 'bad_object_assignments1', error = TRUE}
+# -------------------------------------------------------------------------
+# Error: Example of variable name with space
+
 favorite number = 12
 ```
 
 ```{r, 'bad_object_assignments=2', error = TRUE}
+# -------------------------------------------------------------------------
+# Error: Example of variable name beginning with number
+
 1number = 3
 ```
 
@@ -318,6 +327,9 @@ favorite number = 12
 - Words in object names can also be separated by camelCase (e.g. `objectName`), but **be consistent**.
 
 ```{r, 'mindful_assignments', error = TRUE}
+# -------------------------------------------------------------------------
+# Example of case-sensitivity of variable names
+
 Flower = 'marigold'
 Flower
 flower = 'rose'
@@ -325,11 +337,14 @@ flower
 ```
 
 ```{r, 'camelCase_assignments', error = TRUE}
+# -------------------------------------------------------------------------
+# Example of camelCase variable name
+
 favoriteNumber = 12
 favoriteNumber
 ```
 
-Notice that with each assignment, the object appears in the Environment pane. Also notice that by assigning `name` twice, the value becomes the last assigned value, overwriting our initial assignment. Also notice that if we evaluate the name of an object, it is printed in the Console pane. **We will use this pattern repeatedly.**
+Notice that with each assignment, the object appears in the Environment pane. Also notice that by assigning `wizard_name` twice, the value becomes the last assigned value, overwriting our initial assignment. Also notice that if we evaluate the name of an object, it is printed in the Console pane. **We will use this pattern repeatedly.**
 
 **Checkpoint**
 
@@ -338,6 +353,9 @@ Notice that with each assignment, the object appears in the Environment pane. Al
 Earlier we ran the code `gm97 = read_csv('data/gapminder_1997.csv')`. As we said before, `read_csv()` is a function and `'data/gapminder_1997.csv'` is an argument to that function. What happens if we just do:
 
 ```{r, 'bad_function_call', error = TRUE}
+# -------------------------------------------------------------------------
+# Example of a function that needs arguments to function
+
 read_csv()
 ```
 
@@ -346,8 +364,13 @@ We get an error in the Console pane. The key part of the message is "argument 'f
 Not every function needs arguments, but many do. Try the following functions:
 
 ```{r, 'function_calls'}
+# -------------------------------------------------------------------------
+# Examples of functions with no required arguments
 Sys.Date()
 getwd()
+
+# -------------------------------------------------------------------------
+# Example of a function with multiple arguments
 round(3.1415, 2)
 ```
 
@@ -357,9 +380,12 @@ Notice that we threw in `round()` which actually takes two arguments. How could 
 
 When a function is unfamiliar, we'll often look at the manual page for the function to understand what arguments are required, what it does, and what it outputs. By prepending a `?` in front of a function name, you can access the manual page.
 
-~~~
+```{r, 'help', eval = FALSE}
+# -------------------------------------------------------------------------
+# Put a "?" in front of a function to see it's manual page
+
 ?round
-~~~
+```
 
 The help page for `round()` tells us the function does essentially what we'd expect, and gives some other related functions. Note also that the arguments section gives us the names of the arguments and what is expected of them. There is often a Details section to describe nuances, and a Value section to describe the output. Finally, there is an Examples section which gives examples of how to run the code.
 
@@ -368,6 +394,9 @@ The help page for `round()` tells us the function does essentially what we'd exp
 When we called `round(3.1415, 2)` it seemed like the first argument is the thing we want to round, and the second argument is how many digits we want. That tracks when we look at `?round`. R can evaluate arguments of a function based on their **position**, as we just saw. However, the preferred way to call a function is to use the names of the arguments, as in:
 
 ```{r, 'named_args'}
+# -------------------------------------------------------------------------
+# Example of named arguments
+
 round(x = 3.14159, digits = 2)
 ```
 
@@ -389,12 +418,16 @@ Note that in the results of `help.search()` we see things like, `stats::chisq.te
 We already assigned some variables that resulted in errors. There will be plenty of more of those to come; they're a normal part of coding and they are an opportunity to learn! To that end, let's make some mistakes together.
 
 ```{r 'error_example1', eval = FALSE}
+# -------------------------------------------------------------------------
 # Example of not closing quotes
+
 read_csv('data/gapminder_1997.csv)
 ```
 
 ```{r, 'error_example2', eval = FALSE}
+# -------------------------------------------------------------------------
 # Example of not closing parentheses
+
 round(3.1415, 2
 ```
 

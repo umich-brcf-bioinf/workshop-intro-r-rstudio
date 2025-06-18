@@ -496,15 +496,11 @@ BiocManager::install(c(&#39;tidyverse&#39;, &#39;DESeq2&#39;, &#39;sartorlab/met
 <summary>
 Expand for repository-specific installers
 </summary>
-<h3>
-From CRAN
-</h3>
+<p><strong>From CRAN</strong></p>
 <p>To install a package from CRAN, you can run something like:</p>
 <pre class="r"><code># Do not run, this is already installed for us
 install.packages(&#39;tidyverse&#39;)</code></pre>
-<h3>
-From Bioconductor
-</h3>
+<p><strong>From Bioconductor</strong></p>
 <p>To install a package from Bioconductor, you first need the
 <code>BiocManager</code> package. Then you can give the name of the
 package to the installer, as in:</p>
@@ -513,9 +509,7 @@ install.packages(&#39;BiocManager&#39;)
 
 # The :: notation before the install() tells R to use the function from BiocManager
 BiocManager::install(&#39;DESeq2&#39;)</code></pre>
-<h3>
-From GitHub
-</h3>
+<p><strong>From GitHub</strong></p>
 <p>To install packages from GitHub one can use the
 <code>remotes::install_github()</code> function. For example:</p>
 <pre class="r"><code># Do not run

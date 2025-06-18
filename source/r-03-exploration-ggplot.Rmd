@@ -39,14 +39,9 @@ knitr_fig_path("03-")
 
 # Objectives
 
-- Learn the essential parts of the `ggplot2` "grammar of graphics":
-    - Map variables from the data to aesthetics (x, y, color, fill, size, etc.) via `aes()`.
-    - Plot those mappings with geometries via `geom_*()`.
-    - Adjust numeric and categorical scales via `scale_*()`.
-    - Use a variable to visually stratify data via `facet_*()`.
-- Learn how to customize plots by:
-    - Changing color and fill with the RColorBrewer package.
-    - Altering text and formatting of axis labels and legends.
+- Create plots with both discrete and continuous variables with `ggplot2`.
+- Understand the mapping of data to attributes / components of the graph.
+- Modify the color, theme, and axis labels of a plot.
 
 # Exploring data visually
 
@@ -59,6 +54,13 @@ The intellectual framework for `ggplot2` comes from the "Grammar of Graphics" by
 In the previous lesson we used the `read_csv()` function to load the `gm97` data. Let's do that again:
 
 ```{r, 'load_gm97_display', eval = FALSE}
+# =========================================================================
+# Data visualization with ggplot
+# =========================================================================
+
+# -------------------------------------------------------------------------
+# Ensure libraries and data are loaded
+
 library(tidyverse)
 gm97 = read_csv('data/gapminder_1997.csv')
 ```
@@ -73,6 +75,9 @@ gm97 = read_csv('../data/gapminder_1997.csv')
 Let's jump right in and create our first plot using the `ggplot()` function. Along the way we'll discuss the components of a plot, and how `ggplot2` conceptualizes plotting.
 
 ```{r, 'plot1'}
+# -------------------------------------------------------------------------
+# Create base plot
+
 ggplot(data = gm97)
 ```
 
@@ -81,6 +86,9 @@ When we ran this code the Plots tab popped up and displayed ... a gray rectangle
 The elements of a plot have properties like: x and y position, size, color, etc. These properties are **aesthetics**, and we need to map variables in our dataset to aesthetics in our plot. This is done with the aesthetic mapping function `aes()`. Let's build up our plot iteratively by mapping `gdpPercap` to the x-axis with:
 
 ```{r, 'plot2'}
+# -------------------------------------------------------------------------
+# Add a mapping: x-axis is gdpPercap
+
 ggplot(data = gm97) +
     aes(x = gdpPercap)
 ```
@@ -88,6 +96,9 @@ ggplot(data = gm97) +
 In `ggplot2`, the `+` indicates we want to add elements to a plot; it's kind of like the pipe (`%>%`) in `dplyr`. Our plot window is no longer a blank gray square, but now has a labeled x-axis with visual delimiters. Here, `gdpPercap` is just the column name from our data, and isn't really formatted in a "publication-ready" manner. We can use the `labs()` function to alter the label on the x-axis with:
 
 ```{r, 'plot3'}
+# -------------------------------------------------------------------------
+# Add a "nice" label for the x-axis
+
 ggplot(data = gm97) +
     aes(x = gdpPercap) +
     labs(x = 'GDP Per Capita')
@@ -110,6 +121,11 @@ ggplot(data = gm97) +
 This is progress, but we still don't have any data plotted. For this, we tell the plot object what to draw by adding a **geometry** (or `geom` for short). There are many geometries, but we'll begin with `geom_point()`, which plots points in the x-y plane.
 
 ```{r, 'plot5'}
+# -------------------------------------------------------------------------
+# Add a mapping: y-axis is lifeExp
+# Add a nice label for the y-axis
+# Add a geometry: geom_point() is a scatterplot
+
 ggplot(data = gm97) +
     aes(x = gdpPercap) +
     labs(x = 'GDP Per Capita') +
@@ -121,6 +137,9 @@ ggplot(data = gm97) +
 From the plot, it appears that higher GDP correlates with longer life expectancy. We can add a title to the plot with `labs()` to suggest this is the point of the plot:
 
 ```{r, 'plot6'}
+# -------------------------------------------------------------------------
+# Add a plot title
+
 ggplot(data = gm97) +
     aes(x = gdpPercap) +
     labs(x = 'GDP Per Capita') +
@@ -137,6 +156,9 @@ ggplot(data = gm97) +
 We've made excellent progress on our first plot, and without even having to write very much code! There is much more we can do visually to understand what the data might be telling us in addition to the general trend we've already observed. For example, we can use different colors for each continent to understand how continent affects this relationship:
 
 ```{r, 'plot_color_continent'}
+# -------------------------------------------------------------------------
+# Add a mapping: color by continent
+
 ggplot(data = gm97) +
     aes(x = gdpPercap) +
     labs(x = 'GDP Per Capita') +
@@ -156,6 +178,9 @@ With the continents shown by color, we immediately pick out that African countri
 When we added the color mapping, ggplot added a legend automatically, assigning different colors to each of the unique values of `continent`. The colors ggplot uses are considered a "scale," and each aesthetic value we can give (x, y, color, etc) has a corresponding scale. Let's experiment with a different numerical scale to see how that works.
 
 ```{r, 'plot_x_log_scale'}
+# -------------------------------------------------------------------------
+# Change the scale of the x axis to log10
+
 ggplot(data = gm97) +
     aes(x = gdpPercap) +
     labs(x = 'GDP Per Capita') +
@@ -170,6 +195,9 @@ ggplot(data = gm97) +
 Here we see that the x-axis has been scaled by the log10. Depending on the data we're plotting the log scale might be more appropriate than the default linear scale. We can also change the scale on the `continent` mapping to change the colors:
 
 ```{r, 'plot_color_continent_set1'}
+# -------------------------------------------------------------------------
+# Change the colors assigned to each continent
+
 ggplot(data = gm97) +
     aes(x = gdpPercap) +
     labs(x = 'GDP Per Capita') +
@@ -184,6 +212,9 @@ ggplot(data = gm97) +
 In this case, `Set2` palette is color-blind friendly. There are many built-in palettes:
 
 ```{r, 'brewer_pal_info'}
+# -------------------------------------------------------------------------
+# Display built-in color scales
+
 RColorBrewer::display.brewer.all()
 ```
 
@@ -192,6 +223,9 @@ Note that there are linear color scales which might be appropriate for numerical
 Additionally, we can view attributes of the palettes, including which are color-blind friendly, with:
 
 ```{r, 'brewer_pal_info2'}
+# -------------------------------------------------------------------------
+# Show attributes of the built-in color scales
+
 RColorBrewer::brewer.pal.info
 ```
 
@@ -224,6 +258,10 @@ We also have the population data for each country and we might wonder if populat
 Here ggplot has created another legend for us called `pop`, the name of the column, and it shows the size related to the population. However, this is in scientific notation, which is a little difficult to interpret at a glance. We can change this by dividing all the population values by 1,000,000. We can also change the labels of the legend using the `labs()` function, just as we did for the x and y axes and title.
 
 ```{r, 'plot_per_million'}
+# -------------------------------------------------------------------------
+# Add a mapping: size is "population in millions"
+# Add nice labels for color and size mappings in the legend
+
 ggplot(data = gm97) +
     aes(x = gdpPercap) +
     labs(x = 'GDP Per Capita') +
@@ -247,6 +285,9 @@ From this plot, it doesn't look like population has much to do with either life 
 In this lesson we have built our plot up line by line and accumulated many lines of code. Many of these steps can be combined to make the code a bit more compact and readable:
 
 ```{r, 'plot_compact_code'}
+# -------------------------------------------------------------------------
+# Recapitulate the above plot with more concise code
+
 ggplot(data = gm97) + 
     aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) + 
     geom_point() + 
@@ -262,6 +303,9 @@ ggplot(data = gm97) +
 The `gm97` has been useful for exploring `dplyr` and `ggplot` functions. Let's load in a more complex dataset so we have a bit more data to explore. The `data/gapmainder_data.csv` dataset is similar to `gm97`, but is longitudinal. The first step is to load in the data.
 
 ```{r, 'load_gapminder_display', eval = FALSE}
+# -------------------------------------------------------------------------
+# Read in full gapminder dataset
+
 gm = read_csv('data/gapminder_data.csv')
 ```
 
@@ -272,6 +316,9 @@ gm = read_csv('../data/gapminder_data.csv')
 Let's look at a preview of the data and explore some functions to see its attributes. First, we can preview it by evaluating a line of code which just names the object:
 
 ```{r, 'preview_gapminder'}
+# -------------------------------------------------------------------------
+# Preview the full dataset
+
 gm
 ```
 
@@ -280,12 +327,18 @@ gm
 Again, the `tibble` provides a nice preview of the data along with many of the attributes including the dimensions and types of columns. There are some functions we can use to determine these attributes on their own:
 
 ```{r, 'dim'}
+# -------------------------------------------------------------------------
+# Calculate the dimensions of the dataset
+
 dim(gm)
 ```
 
 This gives us the number of rows and columns, respectively.
 
 ```{r, 'head'}
+# -------------------------------------------------------------------------
+# Look at the first and last few rows of the dataset
+
 head(gm)
 tail(gm)
 ```
@@ -293,6 +346,9 @@ tail(gm)
 The `head()` and `tail()` functions display the first and last few rows of an object, respectively. There is also a useful function called "structure", `str()`, which displays the structure of an object. This is especially useful when we don't know what an object contains.
 
 ```{r, 'str'}
+# -------------------------------------------------------------------------
+# Display the "structure" of an object
+
 str(gm)
 ```
 
@@ -301,12 +357,18 @@ This is similar to information we see in the `tibble` preview. We see the type o
 **Checkpoint**
 
 ```{r, 'gapminder_summary'}
+# -------------------------------------------------------------------------
+# Summarize all column values
+
 summary(gm)
 ```
 
 We see the same columns as `gm97` but we notice that there are many more years of data collected than just 1997. Let's jump right in with a plot to understand what this data looks like. And let's begin with something similar to the scatterplot we did for `gm97`, but include the year.
 
 ```{r, 'full_plot_point'}
+# -------------------------------------------------------------------------
+# Plot the full dataset in a similar way to the 1997 only data
+
 ggplot(data = gm) +
     aes(x = year, y = lifeExp, color = continent) + 
     geom_point()
@@ -315,12 +377,18 @@ ggplot(data = gm) +
 There seems to be an overall trend of higher life expectancy over time, but it's not as clear as it could be. In our plot, the country-level data is not connected, making it hard to understand country-level trends. Before we figure out how to connect the dots, let's use our `dplyr` knowledge to see if that overall trend we suspect is correct.
 
 ```{r, 'summarize_lifeexp_over_years'}
+# -------------------------------------------------------------------------
+# Calculate global mean life expectancy per year in the data
+
 gm %>% group_by(year) %>% summarize(mean_life_exp = mean(lifeExp))
 ```
 
 That seems clear enough. Of course, this is for all countries combined. We could add continent as an additional group:
 
 ```{r, 'summarize_lifeexp_over_years_continents'}
+# -------------------------------------------------------------------------
+# Calculate mean life expectancy per year per continent in the data
+
 gm %>% group_by(year, continent) %>% summarize(mean_life_exp = mean(lifeExp))
 ```
 
@@ -339,6 +407,9 @@ gm %>% group_by(year, continent) %>% summarize(mean_life_exp = mean(lifeExp))
 This is a step in the right direction, but now the `tibble` preview is actually preventing us from seeing all the data. There are two ways we can see the full result:
 
 ```{r, 'view'}
+# -------------------------------------------------------------------------
+# Calculate mean life expectancy per year per continent, and arrange by continent
+
 life_exp_by_year_continent = gm %>% 
     group_by(year, continent) %>% 
     summarize(mean_life_exp = mean(lifeExp)) %>% 
@@ -346,12 +417,18 @@ life_exp_by_year_continent = gm %>%
 ```
 
 ```{r, 'view_no_eval', eval = FALSE}
+# -------------------------------------------------------------------------
+# Use View() to see a large table in a more convenient display format
+
 View(life_exp_by_year_continent)
 ```
 
 The `View()` function will show the table in the Scripts pane. Another way to accomplish this is to `%>%` pipe `life_exp_by_year_continent` as a `data.frame`:
 
 ```{r, 'data.frame'}
+# -------------------------------------------------------------------------
+# Coerce a tibble into a data.frame to see more of it in the Console
+
 life_exp_by_year_continent %>% data.frame
 ```
 
@@ -366,7 +443,11 @@ And the result is printed out in the Console pane. Either way, the trend of incr
 Of course, **seeing** this data would be more compelling, and we already went through the trouble to save the summarized data as its own object, so let's use it to introduce the line geometry `geom_line()`.
 
 ```{r, 'plot_lifeexp_line'}
-ggplot(life_exp_by_year_continent) + 
+# -------------------------------------------------------------------------
+# Plot the mean life expectancy over the years, per continent as a line graph
+# using the summarized data
+
+ggplot(data = life_exp_by_year_continent) + 
     aes(x = year, y = mean_life_exp, color = continent) + 
     geom_line()
 ```
@@ -376,6 +457,9 @@ The `geom_line()` geometry connects the data points across time in the appropria
 Let's pull this plot back a bit and try to plot all the countries at the same time, rather than an average. Let's try altering the code above and replace `geom_point()` with `geom_line()`:
 
 ```{r, 'full_plot_line_wrong'}
+# -------------------------------------------------------------------------
+# First attempt at plotting life expectancy for all countries over time
+
 ggplot(data = gm) +
     aes(x = year, y = lifeExp, color = continent) + 
     geom_line()
@@ -384,6 +468,9 @@ ggplot(data = gm) +
 This is definitely not the right thing. We got a line for each continent, but we want a line for each country. To tell `ggplot` to connect the values for each `country`, we use the `group` aesthetic:
 
 ```{r, 'full_plot_line_correct'}
+# -------------------------------------------------------------------------
+# Map the group to the country and try again
+
 ggplot(data = gm) +
     aes(x = year, y = lifeExp, color = continent, group = country) + 
     geom_line()
@@ -398,6 +485,9 @@ And now we see each country plotted as its own line so we can see the overall tr
 The `geom_point` and `geom_line` geometries are designed to display numeric values on the x and y axes. Often data has discrete variables (`continent` or `country`) where something like a box plot is more appropriate. Let's revisit our `gm97` data to create a box plot with the continent on the x axis and the life expectancy on the y-axis.
 
 ```{r, 'plot_box'}
+# -------------------------------------------------------------------------
+# For 1997 data only, make a boxplot of life expectancy across the continents
+
 ggplot(data = gm97) + aes(x = continent, y = lifeExp) + geom_boxplot()
 ```
 
@@ -414,6 +504,9 @@ We know that our data has a `continent` column, and we saw before that there wer
 First, let's look at `?factor`. It takes a character vector (exactly what the `continent` column is), and an optional `levels` character vector which dictates the categories and their desired order.
 
 ```{r, 'factor1'}
+# -------------------------------------------------------------------------
+# Add a new continent factor with mutate, where the order is specified
+
 gm_factor = gm97 %>% 
     mutate(continent_factor = factor(continent, levels = c('Oceania', 'Africa', 'Asia', 'Americas', 'Europe')))
 ```
@@ -421,12 +514,18 @@ gm_factor = gm97 %>%
 Let's take a look at the new object and see how it's different.
 
 ```{r, 'factor_preview'}
+# -------------------------------------------------------------------------
+# Preview the table with the additional column
+
 gm_factor
 ```
 
 Note that the new column has type `fct` (factor) and the old has `chr` (character). That's a good start. Let's look at the head of both columns.
 
 ```{r, 'head_continent'}
+# -------------------------------------------------------------------------
+# Look at the first few elements of the old and new column continent column
+
 head(gm_factor$continent)
 head(gm_factor$continent_factor)
 ```
@@ -436,6 +535,9 @@ head(gm_factor$continent_factor)
 Notice that for the factor column we get the same output, but with additional information about the `levels`, and the ordering is exactly what we specified. Now let's see the effect on a plot similar to the boxplot we already created above.
 
 ```{r, 'factor_boxplot'}
+# -------------------------------------------------------------------------
+# Use the new factor column in a boxplot to see change in continent ordering
+
 ggplot(data = gm_factor) + aes(x = continent_factor, y = lifeExp) + geom_boxplot()
 ```
 
@@ -448,6 +550,9 @@ Compare this to the plot we saw with the `continent` column, where the order was
 To get a sense for how the data are distributed in the box plot, we could add a **layer** with `geom_point()` in addition to `geom_boxplot()`.
 
 ```{r, 'plot_box_layer'}
+# -------------------------------------------------------------------------
+# Add a layer on top of the boxplot to show individual data composing each box
+
 ggplot(data = gm97) + 
     aes(x = continent, y = lifeExp) + 
     geom_boxplot() + 
@@ -457,6 +562,9 @@ ggplot(data = gm97) +
 The points are stacking on top of one another, and it can be hard to tell, for a value of `lifeExp`, if more than one data point is there. We can fix this by "jittering" the points, with `geom_jitter()`.
 
 ```{r, 'plot_box_jitter'}
+# -------------------------------------------------------------------------
+# Use geom_jitter() to prevent points from stacking
+
 ggplot(data = gm97) + 
     aes(x = continent, y = lifeExp) + 
     geom_boxplot() + 
@@ -466,6 +574,9 @@ ggplot(data = gm97) +
 Within a column, the horizontal position doesn't have meaning, and is meant to visually separate points of the same value. However, it feels like the jitter is a bit wide, causing the boundaries between the continents to be unclear. If we look at the help `?geom_jitter` we'd see a `width` parameter, which controls how wide to allow the jitter.
 
 ```{r, 'plot_box_jitter_width'}
+# -------------------------------------------------------------------------
+# Adjust the width of the jitter
+
 ggplot(data = gm97) + 
     aes(x = continent, y = lifeExp) + 
     geom_boxplot() + 
@@ -475,6 +586,9 @@ ggplot(data = gm97) +
 It may take some iterations of the `width` parameter to get things where we want them. This is pretty common in `ggplot2`. Note that the word "layer" also means that the layers appear in a particular order, for example, if we swap the `geom_boxplot()` and `geom_jitter()` we see that the points are obscured.
 
 ```{r, 'plot_box_jitter_layer'}
+# -------------------------------------------------------------------------
+# Experiment with reversing the order of the layers
+
 ggplot(data = gm97) + 
     aes(x = continent, y = lifeExp) + 
     geom_jitter(width = 0.15) +
@@ -484,6 +598,10 @@ ggplot(data = gm97) +
 Using the `width` parameter in `geom_jitter()`, we saw that it was possible to change aspects of a layer without altering other layers. This carries into the aesthetics too. For example, if we wanted to add a `size` aesthetic using the `pop` to only the `geom_jitter()` layer:
 
 ```{r, 'plot_box_jitter_aes'}
+# -------------------------------------------------------------------------
+# Map point size to population within the jitter geometry
+# NOTE: This applies the mapping only to the jitter layer
+
 ggplot(data = gm97) + 
     aes(x = continent, y = lifeExp) + 
     geom_boxplot() + 
@@ -497,6 +615,10 @@ ggplot(data = gm97) +
 Let's have a look at our jittered boxplot and explore `color` and `fill`. When a color is assigned directly, we use the name of the color in quotes, as in 'pink', and we don't need to use the `aes()` function.
 
 ```{r, 'plot_box_color1'}
+# -------------------------------------------------------------------------
+# Change the color of the boxplot outline
+# NOTE: The assignment is not mapped to the data
+
 ggplot(data = gm97) + 
     aes(x = continent, y = lifeExp) + 
     geom_boxplot(color = 'pink') + 
@@ -506,6 +628,9 @@ ggplot(data = gm97) +
 We could add a different color to the points in the `geom_jitter()`, and we would do it outside of the `aes()` if we wanted them to be the same.
 
 ```{r, 'plot_box_color2'}
+# -------------------------------------------------------------------------
+# Use distinct colors in distinct geometries
+
 ggplot(data = gm97) + 
     aes(x = continent, y = lifeExp) + 
     geom_boxplot(color = 'pink') + 
@@ -515,6 +640,9 @@ ggplot(data = gm97) +
 Notice that `color` changed the outline of the `geom_boxplot()`. We would use `fill` if we wanted to change the inside color of the box plot.
 
 ```{r, 'plot_box_color3'}
+# -------------------------------------------------------------------------
+# Change the fill color of the boxes
+
 ggplot(data = gm97) + 
     aes(x = continent, y = lifeExp) + 
     geom_boxplot(color = 'pink', fill = 'green') + 
@@ -526,6 +654,9 @@ We probably won't publish this particular plot, as beautiful as it is.
 We have already seen in other plots that we can link `color` to an attribute of our data. We can do the same with `fill`, but we do it inside of the `aes()` function.
 
 ```{r, 'plot_box_color4'}
+# -------------------------------------------------------------------------
+# Change the fill color of the boxes, mapping to the data
+
 ggplot(data = gm97) + 
     aes(x = continent, y = lifeExp) + 
     geom_boxplot(aes(fill = continent)) + 
@@ -539,6 +670,9 @@ ggplot(data = gm97) +
 Our very first plot involved two variables, but it's often helpful to plot a single variable's values as a histogram to understand its distribution. Here the geometries `geom_histogram()` and `geom_density()` can help us. Let's take a look at the histogram for `lifeExp`.
 
 ```{r, 'plot_histogram'}
+# -------------------------------------------------------------------------
+# Create a histogram
+
 ggplot(data = gm97) +
     aes(x = lifeExp) + 
     geom_histogram()
@@ -547,6 +681,9 @@ ggplot(data = gm97) +
 Here there is a message displayed that the default number of bins is 30 from `geom_histogram()`, but that may not be appropriate for all data. There are two ways we can change the bins the geometry uses to count, `bins` which fixes the number of bins, and `binwidth` which fixes the intervals in which values are counted. Let's change the number of bins to 20.
 
 ```{r, 'plot_histogram_bins'}
+# -------------------------------------------------------------------------
+# Change the bin size of the histogram
+
 ggplot(data = gm97) +
     aes(x = lifeExp) + 
     geom_histogram(bins = 20)
@@ -561,6 +698,9 @@ We can see there are fewer bins in this plot.
 We have used the aesthetics `aes()` to map data to `color`, `fill`, etc. and distinguish differences between the subgroups. Faceting is another technique to plot subgroups in their own panels of a single plot, also helping to distinguish differences between subgroups. We started off a relatively simple plot of GDP per capita versus life expectancy, and later colored it by continent. But let's use facets to split the continents into their own sub-plots.
 
 ```{r, 'plot_scatter_facetwrap'}
+# -------------------------------------------------------------------------
+# Create a facet plot of GDP per capita versus life expectancy across continents
+
 ggplot(gm97) + 
     aes(x = gdpPercap, y = lifeExp) + 
     geom_point() + 
@@ -572,6 +712,10 @@ Importantly, we had to use the helper function `vars()` to tell `facet_wrap()` w
 It might be easier to compare differences in the sub-plots if they were arranged by row or by column, rather than wrapping them in a grid. Have a look at the help for `?facet_grid()`. There are `rows` and `cols` arguments that will display the facets as rows or columns.
 
 ```{r, 'plot_scatter_facetgrid'}
+# -------------------------------------------------------------------------
+# Force the facets to display as stacked rows
+# NOTE: This can make plots more comparable
+
 ggplot(gm97) + 
     aes(x = gdpPercap, y = lifeExp) + 
     geom_point() + 
@@ -586,23 +730,32 @@ Now there is only one x-axis, and multiple y-axes. Here the scale is the same fo
 
 While it's great to keep the code that created the plot in an R script, it's also great to save it as an image so you can share it with people that don't use R, or don't want to run all your code to generate the plot. Since we're saving all our steps in a script, we'll make use of the `ggsave()` function. Let's start by taking a look at the help:
 
-~~~
+```{r, 'ggsave_help', eval = FALSE}
+# -------------------------------------------------------------------------
+# Display the manual for ggsave()
+
 ?ggsave
-~~~
+```
 
 Note that it defaults to saving the last displayed plot. also note that there are parameters for the dimensions, the units of the dimensions, and the resolution. Let's run a very basic version of `ggsave()`.
 
 ```{r, 'ggsave1', eval = FALSE}
+# -------------------------------------------------------------------------
+# Save plot to a file
+
 ggsave('first_saved_plot.png', height = 6, width = 6, dpi = 300)
 ```
 
-**Checkpoint**
-
 We can then navigate to the plot and click to open it in the File pane. Note that R Studio Server let's you easily download any file by clicking any number of checkboxes for the files and then clicking "More" and "Export". In the previous command we've used the `.png` extension, so that `ggsave()` knows to create a PNG, but we could have also used `.jpeg`, `.pdf`, `.eps`, etc to create an appropriate file output. See the documentation for `ggsave()` for supported file formats, and note that this is an easy way to save multiple formats and resolutions depending on whether you want to quickly share with a collaborator, or share with a journal for publication.
+
+**Checkpoint**
 
 We just learned how to save plots as files, but we can also save plots as objects in R. This is helpful for when we want to revisit a plot or make changes to it without having to re-type a bunch of code.
 
 ```{r, 'plot_object'}
+# -------------------------------------------------------------------------
+# Save a plot as an object
+
 scatter_plot = ggplot(data = gm97) + 
     aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) + 
     geom_point() + 
@@ -615,6 +768,9 @@ scatter_plot = ggplot(data = gm97) +
 Notice nothing happens, unlike when we ran the code without saving it as an object. If we want to see the plot again, we have to execute the name of the object:
 
 ```{r, 'display_plot_object'}
+# -------------------------------------------------------------------------
+# Display the plot object
+
 scatter_plot
 ```
 
@@ -625,6 +781,9 @@ scatter_plot
 Now that we have a nice plot saved as an object, it's a good time to explore different customizations we can add to the plot. Let's start with changing the theme.
 
 ```{r, 'change_theme'}
+# -------------------------------------------------------------------------
+# Use a built-in theme to change many attributes of a plot at once
+
 scatter_plot + theme_bw()
 ```
 
@@ -635,18 +794,27 @@ What did this do? It changed the background color, added a border around the plo
 We can use the `text` argument of `theme()` to change the size of all the fonts in the plot.
 
 ```{r, 'change_font_size'}
+# -------------------------------------------------------------------------
+# Scale the size of all text in a plot
+
 scatter_plot + theme(text = element_text(size = 16))
 ```
 
 We could also rotate the axis labels using either the `axis.text.x` or `axis.text.y` parameter of `theme()`, and then the `angle`, `vjust`, and `hjust` parameters of `element_text()`.
 
 ```{r, 'rotate_labels'}
+# -------------------------------------------------------------------------
+# Rotate the x-axis labels 90 degrees counter-clockwise
+
 scatter_plot + theme(axis.text.x = element_text(angle = 90))
 ```
 
 Here the axis labels aren't centered on the ticks, and seem to be center justified. We use the `vjust` and `hjust` parameters to fix that. This is a case where an example from searching the internet was helpful.
 
 ```{r, 'rotate_labels2'}
+# -------------------------------------------------------------------------
+# Adjust the justification after rotating the x-axis labels
+
 scatter_plot + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
 ```
 
@@ -659,7 +827,14 @@ In the scatterplot, we might want to highlight certain countries, such as Brazil
 It seems like we'll need to add a new column to `gm97` that has empty labels (`''`) for the countries other than Brazil, China, India, and the United States.
 
 ```{r, 'modify_gapminder'}
+# -------------------------------------------------------------------------
+# Load the ggrepel package in preparation for point labeling
+
 library(ggrepel)
+
+# -------------------------------------------------------------------------
+# Mutate the gm97 data to include a label column
+# NOTE: We only add the desired labels and leave all others as the empty string
 
 gm97_labels = gm97 %>% 
     mutate(label = ifelse(country %in% c('Brazil', 'China', 'India', 'United States'), country, ''))
@@ -668,18 +843,27 @@ gm97_labels = gm97 %>%
 What have we done here? We've used the `mutate()` function to create a new column called label, and the criteria for the entries are, if the entry from the `country` column is in the set `c('Brazil', 'China', 'India', 'United Staets')`, then pass on the country name, otherwise give it an empty string `''`. How can we be sure that we've done the right thing?
 
 ```{r, 'check_label1'}
+# -------------------------------------------------------------------------
+# View the mutated data to make sure we did the right thing
+
 gm97_labels
 ```
 
 Looks like the labels in the preview are correct, how can we check that the countries we wanted are correct?
 
 ```{r, 'check_label2'}
+# -------------------------------------------------------------------------
+# View only the pertinent parts of the mutated data to verify
+
 gm97_labels %>% filter(label != '')
 ```
 
 So now let's take a cue from the example code and incorporate it into our original code:
 
 ```{r, 'plot_labels'}
+# -------------------------------------------------------------------------
+# Add a label mapping and a label geometry
+
 ggplot(data = gm97_labels) + 
     aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000, label = label) + 
     geom_point() + 
@@ -695,6 +879,10 @@ ggplot(data = gm97_labels) +
 Notice that the size of the label is actually inherited from the size aesthetic. This is an example of aesthetics being inherited by default. We could prevent this inheritance by moving the `color` and `size` aesthetic mappings into `geom_point()` so that they only apply to that layer:
 
 ```{r, 'plot_labels2'}
+# -------------------------------------------------------------------------
+# Prevent global inheritence of aesthetic mappings by specifying the mapping
+# only within the relevant geometry
+
 ggplot(data = gm97_labels) + 
   aes(x = gdpPercap, y = lifeExp, label = label) + 
   geom_point(aes(color = continent, size = pop/1000000)) + 
