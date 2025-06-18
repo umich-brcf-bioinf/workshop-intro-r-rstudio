@@ -617,7 +617,7 @@ folder.</p>
 <p>Before we start creating directories, let’s make sure we’re in the
 right location. To print the current working directory:</p>
 <pre class="r"><code># =========================================================================
-# Determine and set working directory
+# Introducing R and RStudio
 # =========================================================================
 
 # -------------------------------------------------------------------------
@@ -634,16 +634,13 @@ directories.</p>
 setwd(&#39;~/IRR&#39;)</code></pre>
 <p>Now that we’re sure of our working directory, let’s create some
 folders for our analysis scripts and results thereof.</p>
-<pre class="r"><code># =========================================================================
+<pre class="r"><code># -------------------------------------------------------------------------
 # Create directory structure
-# =========================================================================
 
 dir.create(&#39;scripts&#39;, recursive = TRUE, showWarnings = FALSE)
 dir.create(&#39;results/figures&#39;, recursive = TRUE, showWarnings = FALSE)
 dir.create(&#39;results/tables&#39;, recursive = TRUE, showWarnings = FALSE)
-dir.create(&#39;results/rdata&#39;, recursive = TRUE, showWarnings = FALSE)
-
-# -------------------------------------------------------------------------</code></pre>
+dir.create(&#39;results/rdata&#39;, recursive = TRUE, showWarnings = FALSE)</code></pre>
 </div>
 <div id="saving-scripts" class="section level2">
 <h2>Saving scripts</h2>
@@ -667,21 +664,10 @@ session.</p>
 <h2>Loading Libraries</h2>
 <p>Let’s begin with loading <code>tidyverse</code> since that’s the
 package we’ll use for the rest of the workshop.</p>
-<pre class="r"><code># =========================================================================
+<pre class="r"><code># -------------------------------------------------------------------------
 # Load the tidyverse package
 
 library(tidyverse)</code></pre>
-<pre><code>── Attaching core tidyverse packages ──────────────────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4     
-── Conflicts ────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter()     masks stats::filter()
-✖ dplyr::group_rows() masks kableExtra::group_rows()
-✖ dplyr::lag()        masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <blockquote>
 <h2 id="note-package-loading-messages" class="unlisted unnumbered">Note:
 Package loading messages</h2>
@@ -704,9 +690,12 @@ default. <br></p>
 <h2>Loading a csv file</h2>
 <p>Let’s jump right in and load some of the gapminder data using the
 <code>read_csv()</code> function:</p>
-<pre class="r"><code>gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Load the gapminder 1997 data
+
+gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ────────────────────────────────────────────────────────────────────
+── Column specification ─────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -804,14 +793,17 @@ then we’ll give some examples of bad practices.</p>
 <li>Use brief, descriptive names.</li>
 <li>Separate words with underscores.</li>
 </ul>
-<pre class="r"><code>name = &#39;Ben&#39;
-name</code></pre>
-<pre><code>[1] &quot;Ben&quot;</code></pre>
-<pre class="r"><code>age = 26
+<pre class="r"><code># -------------------------------------------------------------------------
+# Examples of good variable names, and writing over an existing variable
+
+age = 26
 age</code></pre>
 <pre><code>[1] 26</code></pre>
-<pre class="r"><code>name = &#39;Harry Potter&#39;
-name</code></pre>
+<pre class="r"><code>wizard_name = &#39;Tom Riddle&#39;
+wizard_name</code></pre>
+<pre><code>[1] &quot;Tom Riddle&quot;</code></pre>
+<pre class="r"><code>wizard_name = &#39;Harry Potter&#39;
+wizard_name</code></pre>
 <pre><code>[1] &quot;Harry Potter&quot;</code></pre>
 </div>
 <div id="the-bad" class="section level2">
@@ -824,14 +816,22 @@ name</code></pre>
 href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html">here</a>
 for complete list).</li>
 </ul>
-<pre class="r"><code>favorite number = 12</code></pre>
-<pre><code>Error in parse(text = input): &lt;text&gt;:1:10: unexpected symbol
-1: favorite number
-             ^</code></pre>
-<pre class="r"><code>1number = 3</code></pre>
-<pre><code>Error in parse(text = input): &lt;text&gt;:1:2: unexpected symbol
-1: 1number
-     ^</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Error: Example of variable name with space
+
+favorite number = 12</code></pre>
+<pre><code>Error in parse(text = input): &lt;text&gt;:4:10: unexpected symbol
+3: 
+4: favorite number
+            ^</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Error: Example of variable name beginning with number
+
+1number = 3</code></pre>
+<pre><code>Error in parse(text = input): &lt;text&gt;:4:2: unexpected symbol
+3: 
+4: 1number
+    ^</code></pre>
 </div>
 <div id="be-mindful" class="section level2">
 <h2>Be mindful</h2>
@@ -842,21 +842,27 @@ distinct objects. Imagine what confusion you could create!</li>
 <li>Words in object names can also be separated by camelCase
 (e.g. <code>objectName</code>), but <strong>be consistent</strong>.</li>
 </ul>
-<pre class="r"><code>Flower = &#39;marigold&#39;
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of case-sensitivity of variable names
+
+Flower = &#39;marigold&#39;
 Flower</code></pre>
 <pre><code>[1] &quot;marigold&quot;</code></pre>
 <pre class="r"><code>flower = &#39;rose&#39;
 flower</code></pre>
 <pre><code>[1] &quot;rose&quot;</code></pre>
-<pre class="r"><code>favoriteNumber = 12
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of camelCase variable name
+
+favoriteNumber = 12
 favoriteNumber</code></pre>
 <pre><code>[1] 12</code></pre>
 <p>Notice that with each assignment, the object appears in the
-Environment pane. Also notice that by assigning <code>name</code> twice,
-the value becomes the last assigned value, overwriting our initial
-assignment. Also notice that if we evaluate the name of an object, it is
-printed in the Console pane. <strong>We will use this pattern
-repeatedly.</strong></p>
+Environment pane. Also notice that by assigning <code>wizard_name</code>
+twice, the value becomes the last assigned value, overwriting our
+initial assignment. Also notice that if we evaluate the name of an
+object, it is printed in the Console pane. <strong>We will use this
+pattern repeatedly.</strong></p>
 <p><strong>Checkpoint</strong></p>
 </div>
 </div>
@@ -867,18 +873,25 @@ repeatedly.</strong></p>
 before, <code>read_csv()</code> is a function and
 <code>'data/gapminder_1997.csv'</code> is an argument to that function.
 What happens if we just do:</p>
-<pre class="r"><code>read_csv()</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of a function that needs arguments to function
+
+read_csv()</code></pre>
 <pre><code>Error in read_csv(): argument &quot;file&quot; is missing, with no default</code></pre>
 <p>We get an error in the Console pane. The key part of the message is
 “argument ‘file’ is missing, with no default”. In other words, this
 function needs to be told what to read because there is no default.</p>
 <p>Not every function needs arguments, but many do. Try the following
 functions:</p>
-<pre class="r"><code>Sys.Date()</code></pre>
-<pre><code>[1] &quot;2025-06-12&quot;</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Examples of functions with no required arguments
+Sys.Date()</code></pre>
+<pre><code>[1] &quot;2025-06-18&quot;</code></pre>
 <pre class="r"><code>getwd()</code></pre>
 <pre><code>[1] &quot;/Users/rcavalca/Projects/workshop-intro-r-rstudio/source&quot;</code></pre>
-<pre class="r"><code>round(3.1415, 2)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of a function with multiple arguments
+round(3.1415, 2)</code></pre>
 <pre><code>[1] 3.14</code></pre>
 <p>Notice that we threw in <code>round()</code> which actually takes two
 arguments. How could we have known that?</p>
@@ -888,7 +901,10 @@ arguments. How could we have known that?</p>
 for the function to understand what arguments are required, what it
 does, and what it outputs. By prepending a <code>?</code> in front of a
 function name, you can access the manual page.</p>
-<pre><code>?round</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Put a &quot;?&quot; in front of a function to see it&#39;s manual page
+
+?round</code></pre>
 <p>The help page for <code>round()</code> tells us the function does
 essentially what we’d expect, and gives some other related functions.
 Note also that the arguments section gives us the names of the arguments
@@ -905,7 +921,10 @@ many digits we want. That tracks when we look at <code>?round</code>. R
 can evaluate arguments of a function based on their
 <strong>position</strong>, as we just saw. However, the preferred way to
 call a function is to use the names of the arguments, as in:</p>
-<pre class="r"><code>round(x = 3.14159, digits = 2)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of named arguments
+
+round(x = 3.14159, digits = 2)</code></pre>
 <pre><code>[1] 3.14</code></pre>
 <p>Calling a function, and using named arguments, increases the
 readability of the code and reduces the chance of error, especially with
@@ -934,9 +953,13 @@ notation for <code>package_name::function</code>.</p>
 will be plenty of more of those to come; they’re a normal part of coding
 and they are an opportunity to learn! To that end, let’s make some
 mistakes together.</p>
-<pre class="r"><code># Example of not closing quotes
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of not closing quotes
+
 read_csv(&#39;data/gapminder_1997.csv)</code></pre>
-<pre class="r"><code># Example of not closing parentheses
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of not closing parentheses
+
 round(3.1415, 2</code></pre>
 <p>In both cases, the Console displays a <code>+</code> to indicate that
 R is waiting for more input. To get out of this state, we can press
