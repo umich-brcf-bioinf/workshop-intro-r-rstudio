@@ -5,6 +5,10 @@
 # install.packages("kable")
 # devtools::install_github("haozhu233/kableExtra")
 
+# The sessionInfo outputs will only be refreshed if this var exists and we 
+# are running on AWS
+on_aws = dir.exists('/efs/workshop')
+
 library(rmarkdown)
 library(klippy)
 library(kableExtra)
