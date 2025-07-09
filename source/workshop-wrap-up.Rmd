@@ -39,6 +39,27 @@ klippy::klippy(lang = c("r", "markdown", "bash"), position = c("top", "right"))
 We hope you now have more familiarity with key concepts, tools, and techniques
 that will enable more efficient, reproducible, and impactful computational research.
 
+
+## Session Info
+
+```{r eval = exists("on_aws") && on_aws, echo=FALSE}
+sink('session_info.txt')
+devtools::session_info()
+sink()
+```
+
+<details>
+```{r session_info, eval=FALSE}
+################################################################################
+# Session info (for reproducibility / future reference)
+devtools::session_info()
+```
+
+```{verbatim session_info_txt, file='session_info.txt', eval=FALSE}
+```
+</details>
+
+
 ---
 
 ## Housekeeping

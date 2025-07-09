@@ -1,9 +1,13 @@
-#install.packages("remotes")
-#library(remotes)
-#remove.packages('klippy');
-#remotes::install_github("umich-brcf-bioinf/workshop-klippy");
+# install.packages("remotes")
+# library(remotes)
+# remove.packages('klippy');
+# remotes::install_github("umich-brcf-bioinf/workshop-klippy");
 # install.packages("kable")
-#devtools::install_github("haozhu233/kableExtra")
+# devtools::install_github("haozhu233/kableExtra")
+
+# The sessionInfo outputs will only be refreshed if this var exists and we 
+# are running on AWS
+on_aws = dir.exists('/efs/workshop')
 
 library(rmarkdown)
 library(klippy)
@@ -32,6 +36,7 @@ render_site('source/r-03-exploration-ggplot.Rmd')
 
 render_site('source/workshop-wrap-up.Rmd')
 render_site('source/analysis_scripts.Rmd')
+
 
 
 #clean_site(preview=TRUE)

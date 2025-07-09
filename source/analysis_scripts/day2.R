@@ -1,7 +1,7 @@
 library(tidyverse)
 
 # Read in the gapminder dataset
-gapminder_1997 = read_csv('data/gapminder_1997.csv')
+gm97read_csv('data/gapminder_1997.csv')
 
 
 # Which African countries have a population at least 10,000,000 in 1997?
@@ -52,7 +52,7 @@ gapminder_1997 %>%
   summarize(num_countries_per_continent = n())
 
 # The base R way to count elements of a column
-table(gapminder_1997$continent)
+table(gm97$continent)
 
 # Let's summarize gapminder_1997 by continent, and report the min, median, and max populations for the countries on those continents.
 gapminder_1997 %>% 

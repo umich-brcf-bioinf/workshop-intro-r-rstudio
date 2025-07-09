@@ -1,7 +1,7 @@
 library(tidyverse)
 
 # Read in the gapminder dataset
-gapminder_1997 = read_csv('data/gapminder_1997.csv')
+gm97read_csv('data/gapminder_1997.csv')
 
 # Does it matter if you use <- or = ?
 # No, they are equivalent to each other.
@@ -69,7 +69,7 @@ a = 'b'
 mean(a)
 
 # Let's read in gampinder_1997 again
-gapminder_1997 = read_csv('data/gapminder_1997.csv')
+gm97read_csv('data/gapminder_1997.csv')
 gapminder_1997
 
 # Let's look at the summary() of gapminder_1997
@@ -83,13 +83,13 @@ avg_life_exp = summarize(gapminder_1997, avgLifeExp = mean(lifeExp))
 avg_life_exp
 
 # In base R you would do:
-mean(gapminder_1997$lifeExp)
+mean(gm97$lifeExp)
 
 # The distinct() function finds unique values
 distinct(gapminder_1997, continent)
 
 # The base R way to do that
-unique(gapminder_1997$continent)
+unique(gm97$continent)
 
 # Use the arrange() function to determine which country has the highest life expectancy?
 arrange(gapminder_1997, lifeExp)

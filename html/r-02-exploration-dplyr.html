@@ -13,7 +13,7 @@
 
 <title>Data Transformation with dplyr</title>
 
-<script src="site_libs/header-attrs-2.28/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -408,25 +408,33 @@ pre {
 <div id="objectives" class="section level1">
 <h1>Objectives</h1>
 <ul>
-<li>Subset, filter, mutate, group and summarize data with
-<code>dplyr</code> functions. Highlight base R equivalents.</li>
-<li>Understand how to string together multiple functions with the
-<code>%&gt;%</code> pipe.</li>
-<li>Create plots with both discrete and continuous variables with
-<code>ggplot2</code>.</li>
-<li>Understand mappings, geometries, and layering in
-<code>ggplot2</code>.</li>
-<li>Modify the color, theme, and axis labels of a plot.</li>
+<li>Learn essential data manipulation functions of <code>dplyr</code>:
+<ul>
+<li><code>select()</code> columns</li>
+<li><code>filter()</code> rows</li>
+<li><code>arrange()</code> rows</li>
+<li><code>mutate()</code> columns</li>
+<li><code>group_by()</code> rows</li>
+</ul></li>
+<li>Learn about the pipe operator (<code>%&gt;%</code>) and how to use
+it to chain together multiple functions.</li>
 </ul>
 </div>
 <div id="loading-data" class="section level1">
 <h1>Loading data</h1>
 <p>In the previous lesson we used the <code>read_csv()</code> function
-to load the <code>gapminder_1997</code> data. Let’s do that again:</p>
-<pre class="r"><code>library(tidyverse)
-gapminder_1997 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
+to load the <code>gm97</code> data. Let’s do that again:</p>
+<pre class="r"><code># =========================================================================
+# Data Transformation with dplyr
+# =========================================================================
+
+# -------------------------------------------------------------------------
+# Ensure libraries and data are loaded
+
+library(tidyverse)
+gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ─────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -435,7 +443,10 @@ dbl (4): year, pop, lifeExp, gdpPercap
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <p>This time, let’s look more closely at the data. If we type the name
 of the object and evaluate it, we’ll see a preview:</p>
-<pre class="r"><code>gapminder_1997</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Preview the data
+
+gm97</code></pre>
 <pre><code># A tibble: 142 × 6
    country      year       pop continent lifeExp gdpPercap
    &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -476,14 +487,24 @@ ranges of the data.</p>
 <p>The <code>summary()</code> function, from base R, takes a data table
 as input and will summarize the columns automatically depending on their
 data type.</p>
-<pre class="r"><code>summary(gapminder_1997)</code></pre>
-<pre><code>   country               year           pop             continent            lifeExp        gdpPercap      
- Length:142         Min.   :1997   Min.   :1.456e+05   Length:142         Min.   :36.09   Min.   :  312.2  
- Class :character   1st Qu.:1997   1st Qu.:3.770e+06   Class :character   1st Qu.:55.63   1st Qu.: 1366.8  
- Mode  :character   Median :1997   Median :9.735e+06   Mode  :character   Median :69.39   Median : 4781.8  
-                    Mean   :1997   Mean   :3.884e+07                      Mean   :65.01   Mean   : 9090.2  
-                    3rd Qu.:1997   3rd Qu.:2.431e+07                      3rd Qu.:74.17   3rd Qu.:12022.9  
-                    Max.   :1997   Max.   :1.230e+09                      Max.   :80.69   Max.   :41283.2  </code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Summarize all column values
+
+summary(gm97)</code></pre>
+<pre><code>   country               year           pop             continent        
+ Length:142         Min.   :1997   Min.   :1.456e+05   Length:142        
+ Class :character   1st Qu.:1997   1st Qu.:3.770e+06   Class :character  
+ Mode  :character   Median :1997   Median :9.735e+06   Mode  :character  
+                    Mean   :1997   Mean   :3.884e+07                     
+                    3rd Qu.:1997   3rd Qu.:2.431e+07                     
+                    Max.   :1997   Max.   :1.230e+09                     
+    lifeExp        gdpPercap      
+ Min.   :36.09   Min.   :  312.2  
+ 1st Qu.:55.63   1st Qu.: 1366.8  
+ Median :69.39   Median : 4781.8  
+ Mean   :65.01   Mean   : 9090.2  
+ 3rd Qu.:74.17   3rd Qu.:12022.9  
+ Max.   :80.69   Max.   :41283.2  </code></pre>
 <p>We see that for the numeric data we get quantile information and the
 mean, whereas for character data we simply get the length of the column.
 For data with NAs, the number thereof would be displayed.</p>
@@ -493,7 +514,10 @@ For data with NAs, the number thereof would be displayed.</p>
 <p>If we wanted to know the mean life expectancy in the dataset, we
 could use the the <code>dplyr</code> <code>summarize()</code> function,
 specifying that we want the <code>mean()</code>:</p>
-<pre class="r"><code>summarize(gapminder_1997, avgLifeExp = mean(lifeExp))</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Calculate the mean life expectancy over the dataset
+
+summarize(gm97, avgLifeExp = mean(lifeExp))</code></pre>
 <pre><code># A tibble: 1 × 1
   avgLifeExp
        &lt;dbl&gt;
@@ -504,7 +528,10 @@ as a column, named as specified. Note, this matches the result of
 <code>summary()</code> with some difference in the number of significant
 digits displayed. Alternatively, we could have simply applied
 <code>mean()</code> directly to the column <code>lifeExp</code>:</p>
-<pre class="r"><code>mean(gapminder_1997$lifeExp)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Base R approach to calculating the mean life expectancy
+
+mean(gm97$lifeExp)</code></pre>
 <pre><code>[1] 65.01468</code></pre>
 <p>This is the base R way, with the <code>$</code> being how columns of
 a data table are accessed. The <code>mean()</code> function returns a
@@ -529,7 +556,10 @@ operating on the wrong column. A dangerous situation to be in.</p>
 problems, the <code>distinct()</code> function can be used to show all
 unique values in the column of a table. Let’s take a look at the
 distinct values of the continents column:</p>
-<pre class="r"><code>distinct(gapminder_1997, continent)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Determine the distinct continents present in the dataset
+
+distinct(gm97, continent)</code></pre>
 <pre><code># A tibble: 5 × 1
   continent
   &lt;chr&gt;    
@@ -541,7 +571,10 @@ distinct values of the continents column:</p>
 <p>Here we get a <code>tibble</code> back with the unique continent
 names in their order of appearance. There is an equivalent base R way to
 do this with the <code>unique()</code> function:</p>
-<pre class="r"><code>unique(gapminder_1997$continent)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Base R approach to determining the distinct continents
+
+unique(gm97$continent)</code></pre>
 <pre><code>[1] &quot;Asia&quot;     &quot;Europe&quot;   &quot;Africa&quot;   &quot;Americas&quot; &quot;Oceania&quot; </code></pre>
 <p>Either way, if there was a misspelled entry, for example, “Urope” we
 would have immediately seen it.</p>
@@ -555,7 +588,11 @@ natural to ask questions like “What country has the highest life
 expectancy?” or “What country had the highest GDP per capita?” The
 <code>arrange()</code> function can help us quickly find the
 answers.</p>
-<pre class="r"><code>arrange(gapminder_1997, lifeExp)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Sort the data by life expectancy
+# NOTE: Default is ascending order
+
+arrange(gm97, lifeExp)</code></pre>
 <pre><code># A tibble: 142 × 6
    country          year      pop continent lifeExp gdpPercap
    &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -574,7 +611,10 @@ answers.</p>
 default. We have some options, one of which is to wrap the column of
 interest in the <code>desc()</code> function to indicate we want the
 order to be descending.</p>
-<pre class="r"><code>arrange(gapminder_1997, desc(lifeExp))</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Sort the data by descending life expectancy
+
+arrange(gm97, desc(lifeExp))</code></pre>
 <pre><code># A tibble: 142 × 6
    country          year       pop continent lifeExp gdpPercap
    &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -595,7 +635,7 @@ citizens at a little over 80 years.</p>
 <blockquote>
 <h2 id="exercise">Exercise</h2>
 <p>Which country has the highest GDP per capita in 1997?</p>
-<pre class="r"><code>arrange(gapminder_1997, desc(gdpPercap))</code></pre>
+<pre class="r"><code>arrange(gm97, desc(gdpPercap))</code></pre>
 <pre><code># A tibble: 142 × 6
    country        year       pop continent lifeExp gdpPercap
    &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -618,7 +658,10 @@ citizens at a little over 80 years.</p>
 <p>Sometimes data tables have many columns, and it can be useful to
 select only a few of them to export, use downstream, preview, etc. The
 <code>select()</code> function works on columns:</p>
-<pre class="r"><code>select(gapminder_1997, country, year, lifeExp)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Select country, year, and lifeExp columns from the table
+
+select(gm97, country, year, lifeExp)</code></pre>
 <pre><code># A tibble: 142 × 3
    country      year lifeExp
    &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
@@ -635,7 +678,10 @@ select only a few of them to export, use downstream, preview, etc. The
 # ℹ 132 more rows</code></pre>
 <p>We can do the equivalent of <code>select()</code> statement using
 base R with:</p>
-<pre class="r"><code>gapminder_1997[ , c(&#39;country&#39;, &#39;year&#39;, &#39;lifeExp&#39;)]</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Base R appraoch to selecting columns from the table
+
+gm97[ , c(&#39;country&#39;, &#39;year&#39;, &#39;lifeExp&#39;)]</code></pre>
 <pre><code># A tibble: 142 × 3
    country      year lifeExp
    &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
@@ -659,7 +705,10 @@ we quoted the column names in this code, whereas in
 <p><strong>Checkpoint</strong></p>
 <p>Columns can be removed using <code>select()</code> with a “minus” in
 front of the column name.</p>
-<pre class="r"><code>select(gapminder_1997, -year)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Remove the year column
+
+select(gm97, -year)</code></pre>
 <pre><code># A tibble: 142 × 5
    country           pop continent lifeExp gdpPercap
    &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -676,11 +725,14 @@ front of the column name.</p>
 # ℹ 132 more rows</code></pre>
 <p>Notice the <code>year</code> column is no longer displayed.</p>
 </div>
-<div id="saving-objects" class="section level2">
-<h2>Saving objects</h2>
-<p>If we view <code>gapminder_1997</code> we notice haven’t changed the
-original data because we haven’t saved the object.</p>
-<pre class="r"><code>gapminder_1997</code></pre>
+<div id="saving-objects-in-session" class="section level2">
+<h2>Saving objects in session</h2>
+<p>If we view <code>gm97</code> we notice haven’t changed the original
+data because we haven’t saved the object.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Display gm97
+
+gm97</code></pre>
 <pre><code># A tibble: 142 × 6
    country      year       pop continent lifeExp gdpPercap
    &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -695,10 +747,13 @@ original data because we haven’t saved the object.</p>
  9 Bangladesh   1997 123315288 Asia         59.4      973.
 10 Belgium      1997  10199787 Europe       77.5    27561.
 # ℹ 132 more rows</code></pre>
-<p>To manipulate <code>gapminder_1997</code> and save it as a new object
-we have to assign it a new object name:</p>
-<pre class="r"><code>gapminder_column_subset = select(gapminder_1997, country, year, lifeExp)
-gapminder_column_subset</code></pre>
+<p>To manipulate <code>gm97</code> and save it as a new object we have
+to assign it a new object name:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Create a new table by selecting columns of an existing table
+
+gm97_subset = select(gm97, country, year, lifeExp)
+gm97_subset</code></pre>
 <pre><code># A tibble: 142 × 3
    country      year lifeExp
    &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
@@ -722,13 +777,16 @@ these manipulations. What happens in R stays in R until we explicitly
 write a new object to the same file. <strong>It’s good practice to keep
 raw input data separate, and to never overwrite it.</strong> Let’s use
 the <code>write_csv()</code> function to write the
-<code>gapminder_column_subset</code> data to a file. First let’s look at
+<code>gm97_subset</code> data to a file. First let’s look at
 <code>?write_csv</code> and determine what are the required
 parameters.</p>
 <p>It looks like <code>x</code>, the data to be written and
 <code>file</code>, the path to the output file are required. There are
 other options, but we won’t use them here.</p>
-<pre class="r"><code>write_csv(gapminder_column_subset, file = &#39;gapminder_column_subset.csv&#39;)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Write the subsetted table to file
+
+write_csv(gm97_subset, file = &#39;gm97_subset.csv&#39;)</code></pre>
 <p><strong>Checkpoint</strong></p>
 </div>
 <div id="narrow-down-rows-with-filter" class="section level2">
@@ -804,10 +862,13 @@ operators in R:</p>
 </tr>
 </tbody>
 </table>
-<p>With these operators in mind we can filter the
-<code>gapminder_1997</code> data table in a variety of ways. To filter
-for only the African data we could:</p>
-<pre class="r"><code>filter(gapminder_1997, continent == &#39;Africa&#39;)</code></pre>
+<p>With these operators in mind we can filter the <code>gm97</code> data
+table in a variety of ways. To filter for only the African data we
+could:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Filter the data for only countries in Africa
+
+filter(gm97, continent == &#39;Africa&#39;)</code></pre>
 <pre><code># A tibble: 52 × 6
    country                   year      pop continent lifeExp gdpPercap
    &lt;chr&gt;                    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -824,7 +885,10 @@ for only the African data we could:</p>
 # ℹ 42 more rows</code></pre>
 <p>The base R equivalent of the above uses the square bracket notation
 that we saw earlier with a twist:</p>
-<pre class="r"><code>gapminder_1997[gapminder_1997$continent == &#39;Africa&#39;, ]</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Base R approach to filtering rows
+
+gm97[gm97$continent == &#39;Africa&#39;, ]</code></pre>
 <pre><code># A tibble: 52 × 6
    country                   year      pop continent lifeExp gdpPercap
    &lt;chr&gt;                    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -845,7 +909,7 @@ want all the columns returned.</p>
 <blockquote>
 <h2 id="exercise-1">Exercise</h2>
 <p>How can we filter the data for just the United Kingdom?</p>
-<pre class="r"><code>filter(gapminder_1997, country == &#39;United Kingdom&#39;)</code></pre>
+<pre class="r"><code>filter(gm97, country == &#39;United Kingdom&#39;)</code></pre>
 <pre><code># A tibble: 1 × 6
   country         year      pop continent lifeExp gdpPercap
   &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -855,7 +919,10 @@ want all the columns returned.</p>
 over 10,000,000?” by using the <code>&amp;</code> operator with our
 previous code. This requires both conditions to be true at the same
 time:</p>
-<pre class="r"><code>filter(gapminder_1997, continent == &#39;Africa&#39; &amp; pop &gt;= 10000000)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Filter the data for African countries with populations more than 10M.
+
+filter(gm97, continent == &#39;Africa&#39; &amp; pop &gt;= 10000000)</code></pre>
 <pre><code># A tibble: 19 × 6
    country          year       pop continent lifeExp gdpPercap
    &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -881,7 +948,10 @@ time:</p>
 <p>We can subset the data for very large or very small population with
 the <code>|</code> operator, which requires either condition to be
 true:</p>
-<pre class="r"><code>filter(gapminder_1997, pop &lt;= 1000000 | pop &gt;= 1000000000)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Filter the data for high and low populations
+
+filter(gm97, pop &lt;= 1000000 | pop &gt;= 1000000000)</code></pre>
 <pre><code># A tibble: 9 × 6
   country                year        pop continent lifeExp gdpPercap
   &lt;chr&gt;                 &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -902,12 +972,15 @@ true:</p>
 <h2>Make new columns with <code>mutate()</code></h2>
 <p><img src="images/dplyr-mutate.png" /></p>
 <p>It’s common to use existing columns of a data table to create new
-columns. For example, in the <code>gapminder_1997</code> data we have a
+columns. For example, in the <code>gm97</code> data we have a
 <code>pop</code> column and a <code>gdpPercap</code> column. We could
 multiply these two columns to get a new <code>gdp</code> column. The
 <code>dplyr</code> function <code>mutate()</code> adds columns to an
 existing data table.</p>
-<pre class="r"><code>mutate(gapminder_1997, gdp = pop * gdpPercap)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Compute the GDP of each country by multiplying GDP per capita and population
+
+mutate(gm97, gdp = pop * gdpPercap)</code></pre>
 <pre><code># A tibble: 142 × 7
    country      year       pop continent lifeExp gdpPercap           gdp
    &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
@@ -922,10 +995,13 @@ existing data table.</p>
  9 Bangladesh   1997 123315288 Asia         59.4      973. 119957417048.
 10 Belgium      1997  10199787 Europe       77.5    27561. 281118335091.
 # ℹ 132 more rows</code></pre>
-<p>As before, this didn’t actually add the column to
-<code>gapminder_1997</code>, we have to save the object to store it:</p>
-<pre class="r"><code>gapminder_gdp_1997 = mutate(gapminder_1997, gdp = pop * gdpPercap)
-gapminder_gdp_1997</code></pre>
+<p>As before, this didn’t actually add the column to <code>gm97</code>,
+we have to save the object to store it:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Now save the updated table as a new object
+
+gm97_gdp = mutate(gm97, gdp = pop * gdpPercap)
+gm97_gdp</code></pre>
 <pre><code># A tibble: 142 × 7
    country      year       pop continent lifeExp gdpPercap           gdp
    &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
@@ -954,7 +1030,10 @@ equivalent in the <code>tidyverse</code> in the <code>%&gt;%</code>
 symbol. To see this in action, let’s select data from Oceania and
 display only the <code>country</code>, <code>continent</code>, and
 <code>pop</code> columns.</p>
-<pre class="r"><code>gapminder_1997 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% select(country, continent, pop)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Filter for countries in Oceania, then show a subset of the columns
+
+gm97 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% select(country, continent, pop)</code></pre>
 <pre><code># A tibble: 2 × 3
   country     continent      pop
   &lt;chr&gt;       &lt;chr&gt;        &lt;dbl&gt;
@@ -964,27 +1043,33 @@ display only the <code>country</code>, <code>continent</code>, and
 <h2 id="question">Question</h2>
 <p>Does the order of <code>filter()</code> and <code>select()</code>
 matter? Would something like the following work, why or why not?</p>
-<pre class="r"><code>gapminder_1997 %&gt;% 
+<pre class="r"><code>gm97 %&gt;% 
     select(country, pop) %&gt;% 
     filter(continent == &#39;Oceania&#39;)</code></pre>
 </blockquote>
 <p>It seems there are only two countries, Australia and New Zealand. If
 we wanted to take the mean of the populations we could pipe the data,
 after filtering, to <code>summarize()</code> as in:</p>
-<pre class="r"><code>gapminder_1997 %&gt;%
+<pre class="r"><code># -------------------------------------------------------------------------
+# Filter for countries in Oceania and then compute the mean population
+
+gm97 %&gt;%
     filter(continent == &#39;Oceania&#39;) %&gt;%
-    summarize(oceania_mean_pop = mean(pop))</code></pre>
+    summarize(mean_pop = mean(pop))</code></pre>
 <pre><code># A tibble: 1 × 1
-  oceania_mean_pop
-             &lt;dbl&gt;
-1         11120715</code></pre>
+  mean_pop
+     &lt;dbl&gt;
+1 11120715</code></pre>
 <p>Note this is distinct from taking the mean over the entire
 dataset:</p>
-<pre class="r"><code>gapminder_1997 %&gt;% summarize(global_mean_pop = mean(pop))</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Use the same summarize() statement, but on the entire dataset
+
+gm97 %&gt;% summarize(mean_pop = mean(pop))</code></pre>
 <pre><code># A tibble: 1 × 1
-  global_mean_pop
-            &lt;dbl&gt;
-1       38839468.</code></pre>
+   mean_pop
+      &lt;dbl&gt;
+1 38839468.</code></pre>
 <p>Here we’ve meaningfully named our output, but that was optional. For
 quick data exploration that could be left off.</p>
 <p><strong>Checkpoint</strong></p>
@@ -998,7 +1083,10 @@ Oceania with each continent name. That’s a bit tedious, and the
 <code>tidyverse</code> provides a very nice function,
 <code>group_by()</code>, that breaks a data table up into groups and
 will perform operations within the groups.</p>
-<pre class="r"><code>gapminder_1997 %&gt;% 
+<pre class="r"><code># -------------------------------------------------------------------------
+# Compute the mean population per continent
+
+gm97 %&gt;% 
     group_by(continent) %&gt;% 
     summarize(mean_pop = mean(pop))</code></pre>
 <pre><code># A tibble: 5 × 2
@@ -1012,9 +1100,12 @@ will perform operations within the groups.</p>
 <p>Notice that the Oceania average matches what we got above. Going back
 to our Oceania subset, we can use <code>group_by()</code> with the
 counting function <code>n()</code> to count how many countries there are
-per continent in the <code>gapminder_1997</code> data, and verify that
-there really only are two:</p>
-<pre class="r"><code>gapminder_1997 %&gt;% 
+per continent in the <code>gm97</code> data, and verify that there
+really only are two:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Determine the number of countries on each continent in the dataset
+
+gm97 %&gt;% 
     group_by(continent) %&gt;% 
     summarize(num_countries_per_continent = n())</code></pre>
 <pre><code># A tibble: 5 × 2
@@ -1028,18 +1119,38 @@ there really only are two:</p>
 <p>There is a base R function, <code>table()</code>, that tabulates the
 number of time an entry occurs in a vector, and is useful for quick
 sanity checking:</p>
-<pre class="r"><code>table(gapminder_1997$continent)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Base R approach for determining the number of countries per continent
+
+table(gm97$continent)</code></pre>
 <pre><code>
   Africa Americas     Asia   Europe  Oceania 
       52       25       33       30        2 </code></pre>
-<p><strong>Checkpoint</strong></p>
+</div>
+</div>
+<div id="objectives-1" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Learn essential data manipulation functions of <code>dplyr</code>:
+<ul>
+<li><code>select()</code> columns</li>
+<li><code>filter()</code> rows</li>
+<li><code>arrange()</code> rows</li>
+<li><code>mutate()</code> columns</li>
+<li><code>group_by()</code> rows</li>
+</ul></li>
+<li>Learn about the pipe operator (<code>%&gt;%</code>) and how to use
+it to chain together multiple functions.</li>
+</ul>
+</div>
+<div id="exercise-2" class="section level1">
+<h1>Exercise</h1>
 <blockquote>
-<h2 id="exercise-2">Exercise</h2>
 <p>In summarizing data, it’s often useful to build a nicely formatted
 table with min, median, and max values of a variable. Below is an
 example of code to do that for the populations by continent, and
 arranged by the median population.</p>
-<pre class="r"><code>gapminder_1997 %&gt;% 
+<pre class="r"><code>gm97 %&gt;% 
     group_by(continent) %&gt;%
     summarize(
         min_POP = min(pop),
@@ -1087,7 +1198,6 @@ lesson</a></th>
 <tbody>
 </tbody>
 </table>
-</div>
 </div>
 
 
