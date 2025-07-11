@@ -28,6 +28,10 @@ pre {
 
 </style>
 
+```{r, include = FALSE}
+source("../bin/set_values.R")
+```
+
 ```{r klippy, echo=FALSE, include=TRUE}
 klippy::klippy(lang = c("r", "markdown", "bash"), position = c("top", "right"))
 ```
@@ -77,7 +81,7 @@ The [How to ask for R help](http://blog.revolutionanalytics.com/2014/01/how-to-a
 
 ```{r eval = exists("on_aws") && on_aws, echo=FALSE}
 # To avoid confusion, we will only generate/refresh these files on AWS instance
-# The on_aws var is initialized in knit_site.R
+# The on_aws var is initialized in bin/set_values.R
 
 sink('sessionInfo.txt')
 sessionInfo()
