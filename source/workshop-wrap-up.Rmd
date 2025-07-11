@@ -113,11 +113,8 @@ devtools::session_info()
 
 ## Thanks to/from the workshop team
 
-| ![](images/headshots/headshot_cgates.jpg) | ![](images/headshots/headshot_mbradenb.jpg) | ![](images/headshots/headshot_trsaari.jpg) |  ![](images/headshots/headshot_wld.jpg) |
-|:-:|:-:|:-:|:-:|
-| **Chris** | **Marci** | **Travis** | **Bill** |
-| ![](images/headshots/headshot_damki.jpg) | ![](images/headshots/headshot_clairis.jpg) | ![](images/headshots/headshot_rcavalca.jpg) |
-| **Dana** | **Clair** | **Raymond** | 
+```{r, child='helper-gallery.Rmd'}
+```
 
 <br/>
 
