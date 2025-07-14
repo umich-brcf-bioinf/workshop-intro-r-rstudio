@@ -32,6 +32,13 @@ pre {
 .doNotRun {
 background-color: CornSilk;
 }
+
+table.fig, th.fig, td.fig {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 15px;
+}
+
 ```
 
 ```{r klippy, echo=FALSE, include=TRUE}
@@ -53,9 +60,16 @@ knitr_fig_path("04-")
 
 # What is a package?
 
-![](images/packages.png)
-
 A **package** is the collection of functions (and sometimes data) stored as files in a particular structure. A **library** is the directory location where the code and data are stored. Typically the words are used interchangeably.
+
+<table class='fig'>
+<tr><th class='fig'>A package is a collection of functions</th></tr>
+<tr><td class='fig' style="text-align: center;">![](images/toolbox.png)</td></tr>
+<tr><td class='fig'>
+In day one, we introduced several tools (i.e. **functions**) to manipulate tables (`select`, `filter`, `mutate` etc.). A **package** is like a toolbox that gathers related tools together.
+</td></tr>
+</table>
+<br/>
 
 R comes with a number of packages already installed, but it's in the ability to use additional packages that makes R especially useful. There are three main places to look for R packages. These include:
 
