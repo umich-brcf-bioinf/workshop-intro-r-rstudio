@@ -182,7 +182,7 @@ What is one thing you hope to learn in this workshop?
 It is important that you can see:
 
  - Zoom (instructor's shared screen + reactions)
- - Your terminal/command window (days 1-2) or R/Studio (days 2-3)
+ - R/Studio window
  - Slack
  - Lesson plan web page
 
