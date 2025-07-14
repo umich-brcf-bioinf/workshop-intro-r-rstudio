@@ -401,6 +401,11 @@ pre {
 }
 
 </style>
+<style type="text/css">
+.doNotRun {
+background-color: CornSilk;
+}
+</style>
 <script>
   addClassKlippyTo("pre.r, pre.markdown, pre.bash");
   addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
@@ -417,6 +422,7 @@ specialities.</li>
 </div>
 <div id="what-is-a-package" class="section level1">
 <h1>What is a package?</h1>
+<p><img src="images/packages.png" /></p>
 <p>A <strong>package</strong> is the collection of functions (and
 sometimes data) stored as files in a particular structure. A
 <strong>library</strong> is the directory location where the code and
@@ -489,7 +495,7 @@ makes it possible to install packages from essentially any source.</p>
 <p>The <code>BiocManager::install()</code> function can install CRAN,
 Bioconductor, and GitHub packages. Here’s an example with a mix of all
 three:</p>
-<pre class="r"><code># DO NOT RUN
+<pre class="default doNotRun"><code># DO NOT RUN
 # tidyverse is on CRAN, DESeq2 is on Bioconductor, and methylSig is on GitHub
 BiocManager::install(c(&#39;tidyverse&#39;, &#39;DESeq2&#39;, &#39;sartorlab/methylSig&#39;))</code></pre>
 <details>
@@ -498,13 +504,13 @@ Expand for repository-specific installers
 </summary>
 <p><strong>From CRAN</strong></p>
 <p>To install a package from CRAN, you can run something like:</p>
-<pre class="r"><code># Do not run, this is already installed for us
+<pre class="default doNotRun"><code># Do not run, this is already installed for us
 install.packages(&#39;tidyverse&#39;)</code></pre>
 <p><strong>From Bioconductor</strong></p>
 <p>To install a package from Bioconductor, you first need the
 <code>BiocManager</code> package. Then you can give the name of the
 package to the installer, as in:</p>
-<pre class="r"><code># Do not run
+<pre class="default doNotRun"><code># Do not run
 install.packages(&#39;BiocManager&#39;)
 
 # The :: notation before the install() tells R to use the function from BiocManager
@@ -512,7 +518,7 @@ BiocManager::install(&#39;DESeq2&#39;)</code></pre>
 <p><strong>From GitHub</strong></p>
 <p>To install packages from GitHub one can use the
 <code>remotes::install_github()</code> function. For example:</p>
-<pre class="r"><code># Do not run
+<pre class="default doNotRun"><code># Do not run
 # To install the package at https://github.com/sartorlab/methylSig/
 # The format is &lt;repository_owner&gt;/&lt;repository_name&gt;
 remotes::install_github(&#39;sartorlab/methylSig&#39;)</code></pre>

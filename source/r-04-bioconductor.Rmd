@@ -28,6 +28,12 @@ pre {
 
 </style>
 
+```{css, echo=FALSE}
+.doNotRun {
+background-color: CornSilk;
+}
+```
+
 ```{r klippy, echo=FALSE, include=TRUE}
 klippy::klippy(lang = c("r", "markdown", "bash"), position = c("top", "right"))
 ```
@@ -46,6 +52,8 @@ knitr_fig_path("04-")
 - Learn how to install packages from the different repositories.
 
 # What is a package?
+
+![](images/packages.png)
 
 A **package** is the collection of functions (and sometimes data) stored as files in a particular structure. A **library** is the directory location where the code and data are stored. Typically the words are used interchangeably.
 
@@ -75,7 +83,7 @@ Historically, the package install method was peculiar to the housing repository.
 
 The `BiocManager::install()` function can install CRAN, Bioconductor, and GitHub packages. Here's an example with a mix of all three:
 
-```{r eval = FALSE}
+```{verbatim, BiocManager_do_not_run, eval=FALSE, include=TRUE, class.source="doNotRun"}
 # DO NOT RUN
 # tidyverse is on CRAN, DESeq2 is on Bioconductor, and methylSig is on GitHub
 BiocManager::install(c('tidyverse', 'DESeq2', 'sartorlab/methylSig'))
@@ -87,7 +95,7 @@ BiocManager::install(c('tidyverse', 'DESeq2', 'sartorlab/methylSig'))
 
 To install a package from CRAN, you can run something like:
 
-```{r eval = FALSE}
+```{verbatim, install_packages_do_not_run, eval=FALSE, include=TRUE, class.source="doNotRun"}
 # Do not run, this is already installed for us
 install.packages('tidyverse')
 ```
@@ -96,7 +104,7 @@ install.packages('tidyverse')
 
 To install a package from Bioconductor, you first need the `BiocManager` package. Then you can give the name of the package to the installer, as in:
 
-```{r eval = FALSE}
+```{verbatim, install_BiocManager_do_not_run, eval=FALSE, include=TRUE, class.source="doNotRun"}
 # Do not run
 install.packages('BiocManager')
 
@@ -108,7 +116,7 @@ BiocManager::install('DESeq2')
 
 To install packages from GitHub one can use the `remotes::install_github()` function. For example:
 
-```{r eval = FALSE}
+```{verbatim, install_github_do_not_run, eval=FALSE, include=TRUE, class.source="doNotRun"}
 # Do not run
 # To install the package at https://github.com/sartorlab/methylSig/
 # The format is <repository_owner>/<repository_name>
