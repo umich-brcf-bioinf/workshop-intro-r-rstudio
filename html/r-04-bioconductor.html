@@ -401,6 +401,18 @@ pre {
 }
 
 </style>
+<style type="text/css">
+.doNotRun {
+background-color: CornSilk;
+}
+
+table.fig, th.fig, td.fig {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 15px;
+}
+
+</style>
 <script>
   addClassKlippyTo("pre.r, pre.markdown, pre.bash");
   addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
@@ -421,6 +433,28 @@ specialities.</li>
 sometimes data) stored as files in a particular structure. A
 <strong>library</strong> is the directory location where the code and
 data are stored. Typically the words are used interchangeably.</p>
+<table class="fig">
+<tr>
+<th class="fig">
+A package is a collection of functions
+</th>
+</tr>
+<tr>
+<td class="fig" style="text-align: center;">
+<img src="images/toolbox.png" />
+</td>
+</tr>
+<tr>
+<td class="fig">
+In day one, we introduced several tools
+(i.e. <strong>functions</strong>) to manipulate tables
+(<code>select</code>, <code>filter</code>, <code>mutate</code> etc.). A
+<strong>package</strong> is like a toolbox that gathers related tools
+together.
+</td>
+</tr>
+</table>
+<p><br/></p>
 <p>R comes with a number of packages already installed, but it’s in the
 ability to use additional packages that makes R especially useful. There
 are three main places to look for R packages. These include:</p>
@@ -489,7 +523,7 @@ makes it possible to install packages from essentially any source.</p>
 <p>The <code>BiocManager::install()</code> function can install CRAN,
 Bioconductor, and GitHub packages. Here’s an example with a mix of all
 three:</p>
-<pre class="r"><code># DO NOT RUN
+<pre class="default doNotRun"><code># DO NOT RUN
 # tidyverse is on CRAN, DESeq2 is on Bioconductor, and methylSig is on GitHub
 BiocManager::install(c(&#39;tidyverse&#39;, &#39;DESeq2&#39;, &#39;sartorlab/methylSig&#39;))</code></pre>
 <details>
@@ -498,13 +532,13 @@ Expand for repository-specific installers
 </summary>
 <p><strong>From CRAN</strong></p>
 <p>To install a package from CRAN, you can run something like:</p>
-<pre class="r"><code># Do not run, this is already installed for us
+<pre class="default doNotRun"><code># Do not run, this is already installed for us
 install.packages(&#39;tidyverse&#39;)</code></pre>
 <p><strong>From Bioconductor</strong></p>
 <p>To install a package from Bioconductor, you first need the
 <code>BiocManager</code> package. Then you can give the name of the
 package to the installer, as in:</p>
-<pre class="r"><code># Do not run
+<pre class="default doNotRun"><code># Do not run
 install.packages(&#39;BiocManager&#39;)
 
 # The :: notation before the install() tells R to use the function from BiocManager
@@ -512,7 +546,7 @@ BiocManager::install(&#39;DESeq2&#39;)</code></pre>
 <p><strong>From GitHub</strong></p>
 <p>To install packages from GitHub one can use the
 <code>remotes::install_github()</code> function. For example:</p>
-<pre class="r"><code># Do not run
+<pre class="default doNotRun"><code># Do not run
 # To install the package at https://github.com/sartorlab/methylSig/
 # The format is &lt;repository_owner&gt;/&lt;repository_name&gt;
 remotes::install_github(&#39;sartorlab/methylSig&#39;)</code></pre>
