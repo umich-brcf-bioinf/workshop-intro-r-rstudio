@@ -43,6 +43,8 @@ that will enable more efficient, reproducible, and impactful computational resea
 ## Session Info
 
 ```{r eval = exists("on_aws") && on_aws, echo=FALSE}
+library(tidyverse)
+library(ggrepel)
 sink('session_info.txt')
 devtools::session_info()
 sink()
@@ -82,14 +84,21 @@ devtools::session_info()
   mkdir workshop-intro-r-rstudio
   scp -r YOUR_USERNAME@`r workshop_vars$ssh_download_dns`:"IRR*" workshop-intro-r-rstudio
   ```
-### How could I install this software on my workstation/laptop?
+### Where else could I use RStudio?
   - See [Advanced setup instructions](workshop_setup/setup_instructions_advanced.html){target="_blank"}
-    for details on how to install programs on your own computer.
+    for details on how to install RStudio and required packages on your own computer.
+  - [PositCloud](https://posit.cloud/){target="_blank"} allows you to run R-Studio over the web for free. Click here to [login to PositCloud](https://posit.cloud/content/10156998) and launch an R session pre-configured for this workshop. (UM users can login using their umich.edu Google account.)
+  - UMich users can run RStudio on the [UM Great Lakes HPC](irr-on-great-lakes.html){target="_blank"}.
+
+---
 
 ### Where can I learn more about RStudio packages and functions?
 - A nifty collection of [cheatsheets for R](https://www.rstudio.com/resources/cheatsheets/){target="_blank"} and links to download some our favorites:
-  - [Base R](http://github.com/rstudio/cheatsheets/blob/main/base-r.pdf){target="_blank"}   - [Data transformation with dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf){target="_blank"}
+  - [Base R](http://github.com/rstudio/cheatsheets/blob/main/base-r.pdf){target="_blank"}   
+  - [Data transformation with dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf){target="_blank"}
   - [Data visualization with ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf){target="_blank"}
+
+---
 
 ### Can you recommend other relevant workshops or tutorials?
 - The [University of Michigan Bioinformatics Core](https://michmed.org/GqGzZ){target="_blank"} regularly hosts workshops.
