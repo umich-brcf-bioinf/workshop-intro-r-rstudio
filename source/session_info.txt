@@ -41,7 +41,7 @@
  jsonlite       2.0.0      2025-03-27 [2] CRAN (R 4.5.0)
  kableExtra   * 1.4.0.15   2025-06-12 [3] Github (haozhu233/kableExtra@2f58f89)
  klippy       * 0.0.0.9500 2025-06-12 [3] Github (umich-brcf-bioinf/workshop-klippy@a1be090)
- knitr        * 1.50       2025-03-16 [2] CRAN (R 4.5.0)
+ knitr          1.50       2025-03-16 [2] CRAN (R 4.5.0)
  later          1.4.2      2025-04-08 [2] CRAN (R 4.5.0)
  lifecycle      1.0.4      2023-11-07 [2] CRAN (R 4.5.0)
  lubridate    * 1.9.4      2024-12-08 [2] CRAN (R 4.5.0)
