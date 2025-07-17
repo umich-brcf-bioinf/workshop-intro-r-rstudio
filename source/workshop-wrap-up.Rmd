@@ -112,7 +112,7 @@ devtools::session_info()
 - [Advanced Research Computing](https://its.umich.edu/advanced-research-computing){target="_blank"}
   - [Research Computing Package](https://its.umich.edu/advanced-research-computing/research-computing-package){target="_blank"}
   - Upcoming [UM Advanced Research Computing workshops](https://ttc.iss.lsa.umich.edu/ttc/sessions/tag/arc/){target="_blank"}
-  - Videos on [getting started with Great Lakes](https://www.mivideo.it.umich.edu/channel/ARC-TS%2BTraining/181860561/){target="_blank"} (Requires UM login)
+  - Videos on [getting started with Great Lakes](https://www.mivideo.it.umich.edu/playlist/dedicated/1_rmm5rnp1/){target="_blank"} (Requires UM login)
 
 ---
 
