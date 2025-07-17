@@ -8,7 +8,11 @@ workshop_vars = list(
   rstudio_server_url="http://bfx-workshop02.med.umich.edu",
   rstudio_server_enddate = "7/25/2025",
   
-  ssh_download_dns="bfx-workshop01.med.umich.edu"
+  ssh_download_dns="bfx-workshop01.med.umich.edu",
+  
+  aws_s3_bucket = "https://umich-brcf-bioinf-workshop.s3.us-east-1.amazonaws.com",
+  aws_s3_file = "IRR/workshop-inputs-irr.tgz"
+
 )
 
 # The sessionInfo outputs will only be refreshed if this var exists and we 
