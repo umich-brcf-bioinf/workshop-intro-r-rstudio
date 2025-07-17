@@ -42,7 +42,7 @@ that will enable more efficient, reproducible, and impactful computational resea
 
 ## Session Info
 
-```{r eval = exists("on_aws") && on_aws, echo=FALSE}
+```{r eval = exists("on_aws") && on_aws, echo=FALSE, warning=FALSE, message = FALSE}
 library(tidyverse)
 library(ggrepel)
 sink('session_info.txt')
