@@ -1,96 +1,118 @@
+# =========================================================================
+# Data Transformation with dplyr
+# =========================================================================
+
+# -------------------------------------------------------------------------
+# Ensure libraries and data are loaded
+
 library(tidyverse)
+gm97 = read_csv('data/gapminder_1997.csv')
 
-# Read in the gapminder dataset
-gm97read_csv('data/gapminder_1997.csv')
+# Filter the data for countries in Africa
+filter(gm97, continent == 'Africa')
 
+# To see the entire table
+data.frame(filter(gm97, continent == 'Africa'))
 
-# Which African countries have a population at least 10,000,000 in 1997?
-filter(gapminder_1997, continent == 'Africa' & pop >= 10000000)
+# Base R way to do the same thing
+gm97[ gm97$continent == 'Africa', ]
 
-# Look for countries with very large populations or very small populations?
-# Less than 1,000,000 or more than 1,000,000,000
-filter(gapminder_1997, pop <= 1000000 | pop >= 1000000000)
+# Answer to the exercise
+filter(gm97, country == 'United Kingdom')
 
-# Here's an example of a contradictory logical condition
-# Less than 1,000,000 and more than 1,000,000,000
-filter(gapminder_1997, pop <= 1000000 & pop >= 1000000000)
+# Filter the data for African countries with populations > 10M
+filter(gm97, continent == 'Africa' & pop >= 10000000)
 
-# We can add columns with the mutate() function
-# Let's find GDP = pop * gdpPercap
-mutate(gapminder_1997, gdp = pop * gdpPercap)
+# Filter for high population and low population countries
+filter(gm97, pop <= 1000000 | pop >= 1000000000)
 
-# To see the whole thing, wrap it in data.frame()
-data.frame(mutate(gapminder_1997, gdp = pop * gdpPercap))
-View(mutate(gapminder_1997, gdp = pop * gdpPercap))
+# What if we create a "contradictory" logical condition?
+filter(gm97, pop <= 1000000 & pop >= 1000000000)
 
-# Let's keep this tibble around
-gapminder_gdp_1997 = mutate(gapminder_1997, gdp = pop * gdpPercap)
-gapminder_gdp_1997
+# If we want to add a column that combines information across columns, use mutate
+mutate(gm97, gdp = pop * gdpPercap)
 
-# Let's execute our first pipe command, combining filter() and select()
-gapminder_1997 %>% filter(continent == 'Oceania') %>% select(country, continent, pop)
+# Save the resulting table as a new object
+gm97_gdp = mutate(gm97, gdp = pop * gdpPercap)
+gm97_gdp
 
-gapminder_1997 %>% select(country, pop) %>% filter(continent == 'Oceania')
-# With each transition of the %>% there is a new (hidden) table
+# Add a column that doesn't rely on existing data
+mutate(gm97, hello = 'hello')
 
-# What is the mean population of the countries of Oceania?
-gapminder_1997 %>% 
-  filter(continent == 'Oceania') %>% 
-  summarize(oceania_mean_pop = mean(pop))
+# Preview any number of lines, here, 20
+print(gm97_gdp, n = 20)
 
-# To take the mean over the entire data set, remove the filter part
-gapminder_1997 %>% summarize(global_mean_pop = mean(pop))
+# The pipe operator, let's you combine these functions intuitively
+# Filter for countries in Oceania, then show a subset of the columns
+gm97 %>% filter(continent == 'Oceania') %>% select(country, continent, pop)
 
-# If we want to compute population means per continent, use group_by()
-gapminder_1997 %>% 
-  group_by(continent) %>% 
-  summarize(mean_pop = mean(pop))
+# Exercise, does this work?
+gm97 %>% 
+  select(country, pop) %>% 
+  filter(continent == 'Oceania')
+# NO, but this does:
+gm97 %>% 
+  select(country, continent, pop) %>% 
+  filter(continent == 'Oceania')
 
-# How many countries do we have data for on each continent?
-gapminder_1997 %>% 
-  group_by(continent) %>% 
-  summarize(num_countries_per_continent = n())
+gm97 %>% filter(continent == 'Oceania') %>% select(country, pop)
 
-# The base R way to count elements of a column
+# What is the mean of the populations of the countries on Oceania?
+gm97 %>% filter(continent == 'Oceania') %>% summarize(mean_pop = mean(pop))
+
+# Do the same thing, but on the whole dataset
+gm97 %>% summarize(mean_pop = mean(pop))
+
+# Rather than repeating the code for Oceania for each continent, use group_by()
+# Compute the mean population per continent
+gm97 %>% group_by(continent) %>% summarize(mean_pop = mean(pop))
+
+# How many countries are on each continent?
+gm97 %>% group_by(continent) %>% summarize(num_countries_per_continent = n())
+
+# Here's the base R version of the above
 table(gm97$continent)
 
-# Let's summarize gapminder_1997 by continent, and report the min, median, and max populations for the countries on those continents.
-gapminder_1997 %>% 
+# Report multiple summaries in a single table
+gm97 %>% group_by(continent) %>% 
+  summarize(mean_pop = mean(pop), n_countries = n())
+
+# Let's recapitulate the result of summary() using summarize()
+# and let's do it on the population column, and save it as an object
+gm97_pop_stats = gm97 %>% 
   group_by(continent) %>% 
   summarize(
     min_pop = min(pop),
     median_pop = median(pop),
+    mean_pop = mean(pop),
     max_pop = max(pop)
-  )
+  ) %>% 
+  arrange(median_pop)
+gm97_pop_stats
 
-###############
-# Visualization with ggplot2
+# Write the resulting table to file
+write_csv(gm97_pop_stats, file = 'results/tables/gm97_pop_stats.csv')
 
-# Incrementally build our plot
-ggplot(data = gapminder_1997) +
+# ------------------------------------------------------------
+
+# Let's create our first plot with the gm97 data
+ggplot(data = gm97)
+
+# Iteratively building our plot
+ggplot(gm97) + 
   aes(x = gdpPercap) +
-  labs(x = 'GDP Per Capita') + 
+  labs(x = 'GDP Per Capita') +
   aes(y = lifeExp) + 
   labs(y = 'Life Expectancy') +
   geom_point() +
   labs(title = 'Do people in wealthier countries live longer?') +
-  aes(color = continent)
-
-# Let's log transform the x-axis values
-ggplot(data = gapminder_1997) +
-  aes(x = gdpPercap) +
-  labs(x = 'GDP Per Capita') + 
-  aes(y = lifeExp) + 
-  labs(y = 'Life Expectancy') +
-  geom_point() +
-  labs(title = 'Do people in wealthier countries live longer?') +
-  aes(color = continent) + 
+  aes(color = continent) +
   scale_x_log10()
 
-# Let's change the colors of the points to a different set
-ggplot(data = gapminder_1997) +
+# Iteratively building our plot
+ggplot(gm97) + 
   aes(x = gdpPercap) +
-  labs(x = 'GDP Per Capita') + 
+  labs(x = 'GDP Per Capita') +
   aes(y = lifeExp) + 
   labs(y = 'Life Expectancy') +
   geom_point() +
@@ -98,133 +120,63 @@ ggplot(data = gapminder_1997) +
   aes(color = continent) +
   scale_color_brewer(palette = 'Set2')
 
-# The RColorBrewer package provides all sorts of color palettes
-RColorBrewer::brewer.pal.info
+# RColorBrewer has a lot of color scales
 RColorBrewer::display.brewer.all()
+RColorBrewer::brewer.pal.info
 
-# Does population play a role in this trend?
-# Let's try adding a size aesthetic to see.
-ggplot(data = gapminder_1997) +
+# Iteratively building our plot
+ggplot(gm97) + 
   aes(x = gdpPercap) +
-  labs(x = 'GDP Per Capita') + 
+  labs(x = 'GDP Per Capita') +
   aes(y = lifeExp) + 
   labs(y = 'Life Expectancy') +
   geom_point() +
   labs(title = 'Do people in wealthier countries live longer?') +
   aes(color = continent) +
-  scale_color_brewer(palette = 'Set2') +
-  aes(size = pop)
+  aes(size = pop / 1000000) + 
+  labs(color = 'Continent', size = 'Population (in millions)')
 
-# Let's change the scale of the population legend by dividing by 1,000,000
-ggplot(data = gapminder_1997) +
-  aes(x = gdpPercap) +
-  labs(x = 'GDP Per Capita') + 
-  aes(y = lifeExp) + 
-  labs(y = 'Life Expectancy') +
-  geom_point() +
-  labs(title = 'Do people in wealthier countries live longer?') +
-  aes(color = continent) +
-  scale_color_brewer(palette = 'Set2') +
-  aes(size = pop/1000000) +
-  labs(size = 'Population (in millions)') +
-  labs(color = 'Continent')
+# -------------------------------------------------------------------------
+# Recapitulate the above plot with more concise code
 
-# You can group common functions into a single call, with multiple arguments
-ggplot(data = gapminder_1997) +
-  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
-  geom_point() +
-  scale_color_brewer(palette = 'Set2') +
-  labs(
-    x = 'GDP Per Capita',
-    y = 'Life Expectancy',
-    color = 'Continent',
-    size = 'Population (in millions)')
+ggplot(data = gm97) + 
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) + 
+  geom_point() + 
+  scale_color_brewer(palette = 'Set1') + 
+  labs(x = 'GDP Per Capita', y = 'Life Expectancy', color = 'Continent', size = 'Population (in millions)',
+       title = 'Do people in wealthier countries live longer?')
 
-# Let's experiment with a boxplot
-ggplot(data = gapminder_1997) + 
-  aes(x = continent, y = lifeExp) +
-  geom_boxplot()
+# -------------------------------------------------------------------------
+# Read in full gapminder dataset
 
-# Let's add another geometry to see the individual life expectancies on top of the box plot
-ggplot(data = gapminder_1997) + 
-  aes(x = continent, y = lifeExp) +
-  geom_boxplot() + 
-  geom_point()
+gm = read_csv('data/gapminder_data.csv')
 
-# Let's change geom_point() to geom_jitter()
-ggplot(data = gapminder_1997) + 
-  aes(x = continent, y = lifeExp) +
-  geom_boxplot() + 
-  geom_jitter(width = 0.15)
+# Let's plot mean life expectancy per continent over time
+# First, let's summarize life expectancy per year per continent
+summarized_life_exp = gm %>% 
+  group_by(year, continent) %>% 
+  summarize(mean_life_exp = mean(lifeExp))
+summarized_life_exp
 
-# Order of layers matters
-ggplot(data = gapminder_1997) + 
-  aes(x = continent, y = lifeExp) +
-  geom_jitter(width = 0.15) +
-  geom_boxplot()
-  
-# ggplot2 has a variety of themes
-ggplot(data = gapminder_1997) +
-  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
-  geom_point() +
-  scale_color_brewer(palette = 'Set2') +
-  labs(
-    x = 'GDP Per Capita',
-    y = 'Life Expectancy',
-    color = 'Continent',
-    size = 'Population (in millions)') +
-  theme_bw()
+# Create a line graph of this underlying table
+ggplot(summarized_life_exp) +
+  aes(x = year, y = mean_life_exp, color = continent) +
+  geom_line()
 
-# How can we change the size of the text in the plots?
-ggplot(data = gapminder_1997) +
-  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
-  geom_point() +
-  scale_color_brewer(palette = 'Set2') +
-  labs(
-    x = 'GDP Per Capita',
-    y = 'Life Expectancy',
-    color = 'Continent',
-    size = 'Population (in millions)') +
-  theme_bw() + 
-  theme(text = element_text(size = 16))
+# Let's save this plot
+ggsave(
+  filename = 'results/figures/mean_life_exp_per_continent.png',
+  width = 8,
+  height = 4,
+  units = 'in',
+  dpi = 300
+)
 
-# How to rotate axis label text?
-ggplot(data = gapminder_1997) +
-  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) +
-  geom_point() +
-  scale_color_brewer(palette = 'Set2') +
-  labs(
-    x = 'GDP Per Capita',
-    y = 'Life Expectancy',
-    color = 'Continent',
-    size = 'Population (in millions)') +
-  theme_bw() + 
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
-
-library(ggrepel)
-# Let's highlight Brazil, China, India, and the United States
-gapminder_1997_labels = gapminder_1997 %>% 
-  mutate(label = ifelse(country %in% c('Brazil', 'China', 'India', 'United States'), country, ''))
-gapminder_1997_labels
-
-# Let's do a quick sanity check to make sure our labeling is correct
-gapminder_1997_labels %>% filter(label != '')
-
-# Let's actually add the labels to the plot for the countries of interest
-ggplot(data = gapminder_1997_labels) +
-  aes(
-    x = gdpPercap, 
-    y = lifeExp, 
-    color = continent, 
-    size = pop/1000000,
-    label = label) +
-  geom_point() +
-  geom_text_repel(box.padding = 0.5, max.overlaps = Inf) + 
-  scale_color_brewer(palette = 'Set2') +
-  labs(
-    x = 'GDP Per Capita',
-    y = 'Life Expectancy',
-    color = 'Continent',
-    size = 'Population (in millions)') +
-  theme_bw() + 
+# Let's rotate the x-axis labels for this plot
+ggplot(data = gm97) + 
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) + 
+  geom_point() + 
+  scale_color_brewer(palette = 'Set1') + 
+  labs(x = 'GDP Per Capita', y = 'Life Expectancy', color = 'Continent', size = 'Population (in millions)',
+       title = 'Do people in wealthier countries live longer?') +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
