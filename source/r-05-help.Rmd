@@ -88,7 +88,7 @@ sessionInfo()
 sink()
 
 sink('session_info.txt')
-devtools::session_info()
+sessioninfo::session_info()
 sink()
 ```
 
@@ -114,7 +114,7 @@ the `devtools` package installed., which we have done for you.)
 ```{r session_info, eval=FALSE}
 ################################################################################
 # A more concise, pleasant version of sessionInfo()
-devtools::session_info()
+sessioninfo::session_info()
 ```
 
 ```{verbatim session_info_txt, file='session_info.txt', eval=FALSE}

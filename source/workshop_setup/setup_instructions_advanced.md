@@ -188,7 +188,7 @@ Note: the exact version may be slightly different.
       no downstream impact). 
       
 ```
-required_packages = c("tidyverse",
+required_packages = c("sessioninfo", tidyverse",
                       "ggrepel", 
                       "RcolorBrewer")
 if (!requireNamespace("BiocManager", quietly = TRUE)) {
