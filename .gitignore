@@ -19,3 +19,4 @@ html/data/*
 html/scripts/*
 html/results/*
 ._*
+.Rproj.user

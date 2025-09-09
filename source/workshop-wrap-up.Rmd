@@ -46,7 +46,7 @@ that will enable more efficient, reproducible, and impactful computational resea
 library(tidyverse)
 library(ggrepel)
 sink('session_info.txt')
-devtools::session_info()
+sessioninfo::session_info()
 sink()
 ```
 
@@ -54,7 +54,7 @@ sink()
 ```{r session_info, eval=FALSE}
 ################################################################################
 # Session info (for reproducibility / future reference)
-devtools::session_info()
+session_info::session_info()
 ```
 
 ```{verbatim session_info_txt, file='session_info.txt', eval=FALSE}
