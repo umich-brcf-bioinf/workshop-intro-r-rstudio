@@ -134,3 +134,5 @@ Bioinformatics Workshop Team
 
 [bioinformatics-workshops@umich.edu](mailto:bioinformatics-workshops@umich.edu) <br/>
 [UM BRCF Bioinformatics Core](https://medresearch.umich.edu/office-research/about-office-research/biomedical-research-core-facilities/bioinformatics-core){target="_blank"}
+
+<hr/>
