@@ -107,8 +107,8 @@ sessionInfo()
 ```
 
 The `sessionInfo` command will work in any R environment. For a slightly more 
-elegant output, use `devtools::session_info()`. (Note, you'll have to have 
-the `devtools` package installed., which we have done for you.)
+elegant output, use `sessioninfo::session_info()`. (Note, you'll have to have 
+the `sessioninfo` package installed., which we have done for you.)
 
 
 ```{r session_info, eval=FALSE}
