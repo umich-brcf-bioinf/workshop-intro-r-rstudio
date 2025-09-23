@@ -50,9 +50,9 @@ this setup, you will need:
 
 ## How to get help
 
-While we have endeavored to make this setup process work robust and
-comprehensive, installing bioinformatics software is tricky and we would
-be happy to lend a hand to get things working.
+While we have endeavored to make this setup process robust and comprehensive, 
+installing bioinformatics software is tricky and we would be happy to lend a 
+hand to get things working.
 
 -   If you have problems/questions, please don't hesitate to email us
     at:
@@ -97,7 +97,7 @@ Please note that this is a standalone Slack workspace and not connected to UM or
 **3.2** When prompted, enter the  username and password supplied by your hosts and
  click **Sign In**.
 
- You should see a new webpage that looks like something like this:
+ You should see a new webpage that looks something like this:
 
  ![RStudio initial screen](images/setup_instructions_rstudio.png)
 
