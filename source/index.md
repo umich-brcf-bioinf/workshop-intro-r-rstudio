@@ -37,7 +37,7 @@ body, td {
 |  9:30 | [Intro to R](r-01-introduction.html)
 |       | **Break** |
 |       | [Data Exploration with dplyr](r-02-exploration-dplyr.html) |
-|  12:00 | Day 1 concludes |
+|  1:00 | Day 1 concludes |
 
 ### Day 2 (Raymond)
 | Time | Topic |
@@ -48,5 +48,5 @@ body, td {
 |       | **Break** |
 |       | [R Help](r-05-help.html) |
 |       | [Data Visualization with ggplot](r-03-exploration-ggplot.html) |
-| 11:45 | [Wrap-up](workshop-wrap-up.html) |
-| 12:00 | Day 2 concludes |
+| 12:45 | [Wrap-up](workshop-wrap-up.html) |
+| 1:00  | Workshop concludes |
