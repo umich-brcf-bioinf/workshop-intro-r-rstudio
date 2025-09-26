@@ -56,9 +56,9 @@ recognize these techniques when you see them and, with some independent study, a
  - Please let us know if there is anything we can do to improve the workshop experience.
 
 
+## About the workshop team
 ```{r, child='helper-gallery.Rmd'}
 ```
-
 <br/>
 
 
