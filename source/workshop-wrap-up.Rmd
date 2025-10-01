@@ -42,133 +42,22 @@ that will enable more efficient, reproducible, and impactful computational resea
 
 ## Session Info
 
-<summary>R/RStudio session info</summary>
+```{r eval = exists("on_aws") && on_aws, echo=FALSE, warning=FALSE, message = FALSE}
+library(tidyverse)
+library(ggrepel)
+sink('session_info.txt')
+sessioninfo::session_info()
+sink()
+```
+
 <details>
-```
-> devtools::session_info()
-─ Session info ──────────────────────────────────────────────────────────────────────────
- setting  value
- version  R version 4.5.0 (2025-04-11)
- os       Ubuntu 22.04.5 LTS
- system   x86_64, linux-gnu
- ui       RStudio
- language (EN)
- collate  C.UTF-8
- ctype    C.UTF-8
- tz       America/Detroit
- date     2025-06-11
- rstudio  2024.12.1+563 Kousa Dogwood (server)
- pandoc   2.9.2.1 @ /usr/bin/pandoc
- quarto   1.5.57 @ /usr/lib/rstudio-server/bin/quarto/bin/quarto
-
-─ Packages ──────────────────────────────────────────────────────────────────────────────
- package      * version date (UTC) lib source
- cachem         1.1.0   2024-05-16 [2] CRAN (R 4.5.0)
- cli            3.6.5   2025-04-23 [2] CRAN (R 4.5.0)
- devtools       2.4.5   2022-10-11 [2] CRAN (R 4.5.0)
- digest         0.6.37  2024-08-19 [2] CRAN (R 4.5.0)
- dplyr        * 1.1.4   2023-11-17 [2] CRAN (R 4.5.0)
- ellipsis       0.3.2   2021-04-29 [2] CRAN (R 4.5.0)
- farver         2.1.2   2024-05-13 [2] CRAN (R 4.5.0)
- fastmap        1.2.0   2024-05-15 [2] CRAN (R 4.5.0)
- forcats      * 1.0.0   2023-01-29 [2] CRAN (R 4.5.0)
- fs             1.6.6   2025-04-12 [2] CRAN (R 4.5.0)
- generics       0.1.4   2025-05-09 [2] CRAN (R 4.5.0)
- ggplot2      * 3.5.2   2025-04-09 [2] CRAN (R 4.5.0)
- ggrepel      * 0.9.6   2024-09-07 [2] CRAN (R 4.5.0)
- glue           1.8.0   2024-09-30 [2] CRAN (R 4.5.0)
- gtable         0.3.6   2024-10-25 [2] CRAN (R 4.5.0)
- hms            1.1.3   2023-03-21 [2] CRAN (R 4.5.0)
- htmltools      0.5.8.1 2024-04-04 [2] CRAN (R 4.5.0)
- htmlwidgets    1.6.4   2023-12-06 [2] CRAN (R 4.5.0)
- httpuv         1.6.16  2025-04-16 [2] CRAN (R 4.5.0)
- later          1.4.2   2025-04-08 [2] CRAN (R 4.5.0)
- lifecycle      1.0.4   2023-11-07 [2] CRAN (R 4.5.0)
- lubridate    * 1.9.4   2024-12-08 [2] CRAN (R 4.5.0)
- magrittr       2.0.3   2022-03-30 [2] CRAN (R 4.5.0)
- memoise        2.0.1   2021-11-26 [2] CRAN (R 4.5.0)
- mime           0.13    2025-03-17 [2] CRAN (R 4.5.0)
- miniUI         0.1.2   2025-04-17 [2] CRAN (R 4.5.0)
- pillar         1.10.2  2025-04-05 [2] CRAN (R 4.5.0)
- pkgbuild       1.4.8   2025-05-26 [2] CRAN (R 4.5.0)
- pkgconfig      2.0.3   2019-09-22 [2] CRAN (R 4.5.0)
- pkgload        1.4.0   2024-06-28 [2] CRAN (R 4.5.0)
- profvis        0.4.0   2024-09-20 [2] CRAN (R 4.5.0)
- promises       1.3.3   2025-05-29 [2] CRAN (R 4.5.0)
- purrr        * 1.0.4   2025-02-05 [2] CRAN (R 4.5.0)
- R6             2.6.1   2025-02-15 [2] CRAN (R 4.5.0)
- RColorBrewer   1.1-3   2022-04-03 [2] CRAN (R 4.5.0)
- Rcpp           1.0.14  2025-01-12 [2] CRAN (R 4.5.0)
- readr        * 2.1.5   2024-01-10 [2] CRAN (R 4.5.0)
- remotes        2.5.0   2024-03-17 [2] CRAN (R 4.5.0)
- rlang          1.1.6   2025-04-11 [2] CRAN (R 4.5.0)
- rstudioapi     0.17.1  2024-10-22 [2] CRAN (R 4.5.0)
- scales         1.4.0   2025-04-24 [2] CRAN (R 4.5.0)
- sessioninfo    1.2.3   2025-02-05 [2] CRAN (R 4.5.0)
- shiny          1.10.0  2024-12-14 [2] CRAN (R 4.5.0)
- stringi        1.8.7   2025-03-27 [2] CRAN (R 4.5.0)
- stringr      * 1.5.1   2023-11-14 [2] CRAN (R 4.5.0)
- tibble       * 3.2.1   2023-03-20 [2] CRAN (R 4.5.0)
- tidyr        * 1.3.1   2024-01-24 [2] CRAN (R 4.5.0)
- tidyselect     1.2.1   2024-03-11 [2] CRAN (R 4.5.0)
- tidyverse    * 2.0.0   2023-02-22 [2] CRAN (R 4.5.0)
- timechange     0.3.0   2024-01-18 [2] CRAN (R 4.5.0)
- tzdb           0.5.0   2025-03-15 [2] CRAN (R 4.5.0)
- urlchecker     1.0.1   2021-11-30 [2] CRAN (R 4.5.0)
- usethis        3.1.0   2024-11-26 [2] CRAN (R 4.5.0)
- vctrs          0.6.5   2023-12-01 [2] CRAN (R 4.5.0)
- withr          3.0.2   2024-10-28 [2] CRAN (R 4.5.0)
- xtable         1.8-4   2019-04-21 [2] CRAN (R 4.5.0)
-
- [1] /home/workshop/chrismgates/R/x86_64-pc-linux-gnu-library/4.5
- [2] /efs/workshop/R/library
- [3] /usr/local/lib/R/site-library
- [4] /usr/lib/R/site-library
- [5] /usr/lib/R/library
- * ── Packages attached to the search path.
-
-─────────────────────────────────────────────────────────────────────────────────────────
+```{r session_info, eval=FALSE}
+################################################################################
+# Session info (for reproducibility / future reference)
+session_info::session_info()
 ```
 
-FYI, the RStudio version can be found from the menu **Help:AboutRStudio**; you can 
-copy that info using the **Copy Version** button. This gives a concise passage 
-that shows the RStudio version, the OS, and the browser client version.
-```
-RStudio 2024.12.1+563 "Kousa Dogwood" Release (27771613951643d8987af2b2fb0c752081a3a853, 2025-02-02) for Ubuntu Jammy
-Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36, Quarto 1.5.57
-```
-
-Alternatively, you can see the RStudio version info from the command line: 
-```
-> RStudio.Version()
-$citation
-To cite RStudio in publications use:
-
-  Posit team (2025). RStudio: Integrated Development Environment for
-  R. Posit Software, PBC, Boston, MA. URL http://www.posit.co/.
-
-A BibTeX entry for LaTeX users is
-
-  @Manual{,
-    title = {RStudio: Integrated Development Environment for R},
-    author = {{Posit team}},
-    organization = {Posit Software, PBC},
-    address = {Boston, MA},
-    year = {2025},
-    url = {http://www.posit.co/},
-  }
-
-$mode
-[1] "server"
-
-$version
-[1] ‘2024.12.1.563’
-
-$long_version
-[1] "2024.12.1+563"
-
-$release_name
-[1] "Kousa Dogwood"
+```{verbatim session_info_txt, file='session_info.txt', eval=FALSE}
 ```
 </details>
 
@@ -187,22 +76,29 @@ $release_name
 ---
 
 ### Can I continue to use the RStudio environments we used in the workshop?
-- The RStudio workshop compute environment will be available through 4/11/2025.
+- The RStudio workshop compute environment will be available through `r workshop_vars$rstudio_server_enddate`.
   - _Please save all your R scripts now_ so that we can "right-size" the compute environment immediately following today's workshop session.
 - You can download files from the workshop environment from your terminal/command line window as below.
   (You will need to substitute your actual workshop username and type workshop password when prompted.)
   ```
   mkdir workshop-intro-r-rstudio
-  scp -r YOUR_USERNAME@`r ssh_download_dns`:"IRR*" workshop-intro-r-rstudio
+  scp -r YOUR_USERNAME@`r workshop_vars$ssh_download_dns`:"IRR*" workshop-intro-r-rstudio
   ```
-### How could I install this software on my workstation/laptop?
+### Where else could I use RStudio?
   - See [Advanced setup instructions](workshop_setup/setup_instructions_advanced.html){target="_blank"}
-    for details on how to install programs on your own computer.
+    for details on how to install RStudio and required packages on your own computer.
+  - [PositCloud](https://posit.cloud/){target="_blank"} allows you to run R-Studio over the web for free. Click here to [login to PositCloud](https://posit.cloud/content/10156998) and launch an R session pre-configured for this workshop. (UM users can login using their umich.edu Google account.)
+  - UMich users can run RStudio on the [UM Great Lakes HPC](irr-on-great-lakes.html){target="_blank"}.
+
+---
 
 ### Where can I learn more about RStudio packages and functions?
 - A nifty collection of [cheatsheets for R](https://www.rstudio.com/resources/cheatsheets/){target="_blank"} and links to download some our favorites:
-  - [Base R](http://github.com/rstudio/cheatsheets/blob/main/base-r.pdf){target="_blank"}   - [Data transformation with dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf){target="_blank"}
+  - [Base R](http://github.com/rstudio/cheatsheets/blob/main/base-r.pdf){target="_blank"}   
+  - [Data transformation with dplyr](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf){target="_blank"}
   - [Data visualization with ggplot2](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-visualization.pdf){target="_blank"}
+
+---
 
 ### Can you recommend other relevant workshops or tutorials?
 - The [University of Michigan Bioinformatics Core](https://michmed.org/GqGzZ){target="_blank"} regularly hosts workshops.
@@ -216,7 +112,7 @@ $release_name
 - [Advanced Research Computing](https://its.umich.edu/advanced-research-computing){target="_blank"}
   - [Research Computing Package](https://its.umich.edu/advanced-research-computing/research-computing-package){target="_blank"}
   - Upcoming [UM Advanced Research Computing workshops](https://ttc.iss.lsa.umich.edu/ttc/sessions/tag/arc/){target="_blank"}
-  - Videos on [getting started with Great Lakes](https://www.mivideo.it.umich.edu/channel/ARC-TS%2BTraining/181860561/){target="_blank"} (Requires UM login)
+  - Videos on [getting started with Great Lakes](https://www.mivideo.it.umich.edu/playlist/dedicated/1_rmm5rnp1/){target="_blank"} (Requires UM login)
 
 ---
 
@@ -226,11 +122,8 @@ $release_name
 
 ## Thanks to/from the workshop team
 
-| ![](images/headshots/headshot_cgates.jpg) | ![](images/headshots/headshot_mbradenb.jpg) | ![](images/headshots/headshot_trsaari.jpg) |  ![](images/headshots/headshot_wld.jpg) |
-|:-:|:-:|:-:|:-:|
-| **Chris** | **Marci** | **Travis** | **Bill** |
-| ![](images/headshots/headshot_damki.jpg) | ![](images/headshots/headshot_clairis.jpg) | ![](images/headshots/headshot_rcavalca.jpg) |
-| **Dana** | **Clair** | **Raymond** | 
+```{r, child='helper-gallery.Rmd'}
+```
 
 <br/>
 
@@ -241,3 +134,5 @@ Bioinformatics Workshop Team
 
 [bioinformatics-workshops@umich.edu](mailto:bioinformatics-workshops@umich.edu) <br/>
 [UM BRCF Bioinformatics Core](https://medresearch.umich.edu/office-research/about-office-research/biomedical-research-core-facilities/bioinformatics-core){target="_blank"}
+
+<hr/>

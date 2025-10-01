@@ -13,7 +13,7 @@ library(kableExtra)
 
 render('source/workshop_setup/preworkshop_checklist.md', output_dir='html/workshop_setup/')
 render('source/workshop_setup/setup_instructions.Rmd', output_dir='html/workshop_setup/')
-render('source/workshop_setup/setup_instructions_advanced.md', output_dir='html/workshop_setup/')
+render('source/workshop_setup/setup_instructions_advanced.Rmd', output_dir='html/workshop_setup/')
 
 # The html from the files below do have the nav bar, so if you make changes 
 # that impact the navbar (e.g. file name changes or reordering) you should 
@@ -30,9 +30,9 @@ render_site('source/r-04-bioconductor.Rmd')
 render_site('source/r-05-help.Rmd')
 render_site('source/r-03-exploration-ggplot.Rmd')
 
+render_site('source/irr-on-great-lakes.Rmd')
 render_site('source/workshop-wrap-up.Rmd')
 render_site('source/analysis_scripts.Rmd')
-
 
 
 #clean_site(preview=TRUE)

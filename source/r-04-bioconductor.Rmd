@@ -28,6 +28,19 @@ pre {
 
 </style>
 
+```{css, echo=FALSE}
+.doNotRun {
+background-color: CornSilk;
+}
+
+table.fig, th.fig, td.fig {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 15px;
+}
+
+```
+
 ```{r klippy, echo=FALSE, include=TRUE}
 klippy::klippy(lang = c("r", "markdown", "bash"), position = c("top", "right"))
 ```
@@ -48,6 +61,15 @@ knitr_fig_path("04-")
 # What is a package?
 
 A **package** is the collection of functions (and sometimes data) stored as files in a particular structure. A **library** is the directory location where the code and data are stored. Typically the words are used interchangeably.
+
+<table class='fig'>
+<tr><th class='fig'>A package is a collection of functions</th></tr>
+<tr><td class='fig' style="text-align: center;">![](images/toolbox.png)</td></tr>
+<tr><td class='fig'>
+In day one, we introduced several tools (i.e. **functions**) to manipulate tables (`select`, `filter`, `mutate` etc.). A **package** is like a toolbox that gathers related tools together.
+</td></tr>
+</table>
+<br/>
 
 R comes with a number of packages already installed, but it's in the ability to use additional packages that makes R especially useful. There are three main places to look for R packages. These include:
 
@@ -75,7 +97,7 @@ Historically, the package install method was peculiar to the housing repository.
 
 The `BiocManager::install()` function can install CRAN, Bioconductor, and GitHub packages. Here's an example with a mix of all three:
 
-```{r eval = FALSE}
+```{verbatim, BiocManager_do_not_run, eval=FALSE, include=TRUE, class.source="doNotRun"}
 # DO NOT RUN
 # tidyverse is on CRAN, DESeq2 is on Bioconductor, and methylSig is on GitHub
 BiocManager::install(c('tidyverse', 'DESeq2', 'sartorlab/methylSig'))
@@ -87,7 +109,7 @@ BiocManager::install(c('tidyverse', 'DESeq2', 'sartorlab/methylSig'))
 
 To install a package from CRAN, you can run something like:
 
-```{r eval = FALSE}
+```{verbatim, install_packages_do_not_run, eval=FALSE, include=TRUE, class.source="doNotRun"}
 # Do not run, this is already installed for us
 install.packages('tidyverse')
 ```
@@ -96,7 +118,7 @@ install.packages('tidyverse')
 
 To install a package from Bioconductor, you first need the `BiocManager` package. Then you can give the name of the package to the installer, as in:
 
-```{r eval = FALSE}
+```{verbatim, install_BiocManager_do_not_run, eval=FALSE, include=TRUE, class.source="doNotRun"}
 # Do not run
 install.packages('BiocManager')
 
@@ -108,7 +130,7 @@ BiocManager::install('DESeq2')
 
 To install packages from GitHub one can use the `remotes::install_github()` function. For example:
 
-```{r eval = FALSE}
+```{verbatim, install_github_do_not_run, eval=FALSE, include=TRUE, class.source="doNotRun"}
 # Do not run
 # To install the package at https://github.com/sartorlab/methylSig/
 # The format is <repository_owner>/<repository_name>

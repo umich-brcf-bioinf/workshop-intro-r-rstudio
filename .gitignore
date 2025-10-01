@@ -18,4 +18,6 @@ source/*_cache
 html/data/*
 html/scripts/*
 html/results/*
+html/workshop_setup/*.Rmd
 ._*
+.Rproj.user

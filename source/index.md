@@ -31,22 +31,22 @@ body, td {
 
 
 ### Day 1 (Chris & Raymond)
-| Time | Topic |
-| :---  | :----------------------------------------------------------- |
-|  9:00 | [Introductions and Startup](workshop-intro.html) |
-|  9:30 | [Intro to R](r-01-introduction.html)
-|       | **Break** |
-|       | [Data Exploration with dplyr](r-02-exploration-dplyr.html) |
-|  12:00 | Day 1 concludes |
+| Time      | Topic |
+| :-------- | :--------------------------------------------------------- |
+|  9:00     | [Introductions and Startup](workshop-intro.html) |
+|  9:30     | [Intro to R](r-01-introduction.html) |
+|  11:00ish | **Break** |
+|           | [Data Exploration with dplyr](r-02-exploration-dplyr.html) |
+|  1:00     | Day 1 concludes |
 
 ### Day 2 (Raymond)
-| Time | Topic |
-| :-----  | :------------------------------------ |
-|  9:00 | Review |
-|  9:10 | [Data Exploration with dplyr (cont.)](r-02-exploration-dplyr.html) |
-|       | [Using Packages / Libraries](r-04-bioconductor.html)
-|       | **Break** |
-|       | [R Help](r-05-help.html) |
-|       | [Data Visualization with ggplot](r-03-exploration-ggplot.html) |
-| 11:45 | [Wrap-up](workshop-wrap-up.html) |
-| 12:00 | Day 2 concludes |
+| Time      | Topic |
+| :-------- | :--------------------------------------------------------- |
+|  9:00     | Review |
+|  9:10     | [Using Packages / Libraries](r-04-bioconductor.html) |
+|           | [Data Visualization with ggplot (part 1)](r-03-exploration-ggplot.html) |
+| 11:00ish  | **Break** |
+|           | [R Help](r-05-help.html) |
+|           | [Data Visualization with ggplot (part 2)](r-03-exploration-ggplot.html) |
+| 12:45     | [Wrap-up](workshop-wrap-up.html) |
+| 1:00      | Workshop concludes |

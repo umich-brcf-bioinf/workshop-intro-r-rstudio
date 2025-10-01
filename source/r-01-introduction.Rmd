@@ -74,7 +74,7 @@ We will be using a dataset from [gapminder](https://www.gapminder.org/) which co
 
 # Orienting on RStudio
 
-To get started, let's log in to the workshop server by going here: [`r rstudio_server_url`](`r rstudio_server_url`){target="blank"}
+To get started, let's log in to the workshop server by going here: [`r workshop_vars$rstudio_server_url`](`r workshop_vars$rstudio_server_url`){target="blank"}
 
 The login page for the server looks like:
 
