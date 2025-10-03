@@ -402,15 +402,97 @@ body, td {
 <h1>Workshop analysis scripts</h1>
 <div id="day-1" class="section level2">
 <h2>Day 1</h2>
-<pre class="r"><code>3 + 2
+<pre class="r"><code>3+2
 
-6 + 8
-
-6 + 8
+7+5
 
 # =========================================================================
 # Introducing R and RStudio
 # =========================================================================
+
+# -------------------------------------------------------------------------
+# Get current working directory
+getwd()
+
+# Set a different working directory
+setwd(&#39;~/IRR&#39;)
+
+# -------------------------------------------------------------------------
+# Create directory structure
+
+dir.create(&#39;scripts&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/figures&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/tables&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/rdata&#39;, recursive = TRUE, showWarnings = FALSE)
+
+# Load the tidyverse package
+library(tidyverse)
+
+# Load the gapminder dataset
+setwd(&#39;~/IRR&#39;)
+gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)
+
+# To see what an object is, execute the name of object
+gm97
+
+# Examples of good object names
+age = 26
+wizard_name = &#39;Tom Riddle&#39;
+wizard_name = &#39;Harry Potter&#39;
+
+# Examples of bad object names
+# No spaces
+favorite number = 12
+
+# Cannot start with numbers
+1number = 3
+
+# If I want &#39;26&#39; as a character object
+character_age = &#39;26&#39;
+
+# You must quote strings
+bad_string = hello
+good_string = &#39;hello&#39;
+
+# Object names are case-sensitive
+Flower = &#39;marigold&#39;
+flower = &#39;rose&#39;
+# It&#39;s not recommended to do this
+
+# Example of a function needs arguments
+read_csv()
+
+# Example of a function that doesn&#39;t need arguments
+Sys.Date()
+
+getwd()
+
+# Some functions require more than one argument
+round(3.1415, 2)
+
+# How to figure out what arguments a function has / needs
+?round
+
+# Be explicit about the arguments in a function call
+round(x = 3.1415, digits = 2)
+
+# Use help.search() to find a function for chi-square test
+help.search(&#39;Chi-squared test&#39;)
+
+# An example of forgetting to close quote
+read_csv(&#39;data/gapminder_1997.csv&#39;)
+
+# An example of not closing parenthesis
+round(3.1415, 2)
+
+# Using an object as a parameter in a function
+file = &#39;data/gapminder_1997.csv&#39;
+read_csv(file)
+
+### Back from break
+# -------------------------------------------------------------------------
+# Set current working directory
+setwd(&#39;~/IRR&#39;)
 
 # -------------------------------------------------------------------------
 # Create directory structure
@@ -421,326 +503,153 @@ dir.create(&#39;results/tables&#39;, recursive = TRUE, showWarnings = FALSE)
 dir.create(&#39;results/rdata&#39;, recursive = TRUE, showWarnings = FALSE)
 
 # -------------------------------------------------------------------------
-# Load the tidyverse package
-
-library(tidyverse)
-
-# -------------------------------------------------------------------------
-# Load the gapminder 1997 data
-
-gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)
-
-# -------------------------------------------------------------------------
-# Examples of good variable names, and writing over an existing variable
-
-age = 26
-age
-
-wizard_name = &#39;Tom Riddle&#39;
-wizard_name
-
-wizard_name = &#39;Harry Potter&#39;
-wizard_name
-
-# CamelCase is another way to name long variable names
-
-# -------------------------------------------------------------------------
-# Error: Example of variable name with space
-
-favorite number = 12
-
-# -------------------------------------------------------------------------
-# Error: Example of variable name beginning with number
-
-1number = 3
-
-# -------------------------------------------------------------------------
-# Example of case-sensitivity of variable names
-
-Flower = &#39;marigold&#39;
-Flower
-
-flower = &#39;rose&#39;
-flower
-
-# -------------------------------------------------------------------------
-# Example of camelCase variable name
-
-favoriteNumber = 12
-favoriteNumber
-
-# -------------------------------------------------------------------------
-# Example of a function that needs arguments to function
-
-read_csv()
-
-# -------------------------------------------------------------------------
-# Examples of functions with no required arguments
-Sys.Date()
-
-getwd()
-
-# -------------------------------------------------------------------------
-# Example of a function with multiple arguments
-round(3.1415, 2)
-
-# -------------------------------------------------------------------------
-# Put a &quot;?&quot; in front of a function to see it&#39;s manual page
-
-?round
-
-# -------------------------------------------------------------------------
-# Example of named arguments
-
-round(x = 3.14159, digits = 2)
-
-# -------------------------------------------------------------------------
-# Use help.search() when the name of the function isn&#39;t known
-
-help.search(&#39;Chi-squared test&#39;)
-
-# -------------------------------------------------------------------------
-# Example of not closing quotes
-
-#read_csv(&#39;data/gapminder_1997.csv)
-
-# -------------------------------------------------------------------------
-# Example of not closing parentheses
-
-#round(3.1415, 2
-
-# =========================================================================
-# Data Transformation with dplyr
-# =========================================================================
-
-# -------------------------------------------------------------------------
 # Ensure libraries and data are loaded
 
 library(tidyverse)
 gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)
 
-# -------------------------------------------------------------------------
-# Preview the data
-
+# To view an object, execute it&#39;s name
 gm97
 
-# -------------------------------------------------------------------------
-# Summarize all column values
+# The View() function opens a table in RStudio
+View(gm97)
 
+# Use the summary() function to summarize all columns
 summary(gm97)
 
-# -------------------------------------------------------------------------
-# Calculate the mean life expectancy over the dataset
-
-summarize(gm97, avgLifeExp = mean(lifeExp))
-
+# What is the average life expectancy over the entire dataset?
 summarize(gm97, mean(lifeExp))
 
-# -------------------------------------------------------------------------
-# Base R approach to calculating the mean life expectancy
+# If I want to name the result in a nicer way...
+summarize(gm97, avgLifeExp = mean(lifeExp))
 
-mean(gm97$lifeExp)
-# mean(data.frame(gm97[, 5]))
-
-# Cody&#39;s question about rounding the result
-round(mean(gm97$lifeExp))
-
-summarize(gm97, avgLifeExp = round(mean(lifeExp)))
-
-# Protip: As often as you can, reference columns by their names
-
-# -------------------------------------------------------------------------
-# Determine the distinct continents present in the dataset
-
+# Find the distinct values in a column with distinct()
+# This is a good way to detect data entry errors
 distinct(gm97, continent)
 
-# -------------------------------------------------------------------------
-# Base R approach to determining the distinct continents
-
-unique(gm97$continent)
-
-# -------------------------------------------------------------------------
-# Sort the data by life expectancy
-# NOTE: Default is ascending order
-
+# We may want to sort a table according to a particular column
+# Which country has the highest life expectancy?
 arrange(gm97, lifeExp)
 
-# -------------------------------------------------------------------------
-# Sort the data by descending life expectancy
-
+# From this result, it seems like arrange() default is ascending order
+# Use the desc() function
 arrange(gm97, desc(lifeExp))
+# Japan has the highest lifeExp
 
-# Note: You can arrange by multiple columns to break ties
-arrange(gm97, desc(lifeExp), gdpPercap)
-
+# Which country has the highest gdpPercap in 1997?
 arrange(gm97, desc(gdpPercap))
 
-# -------------------------------------------------------------------------
-# Select country, year, and lifeExp columns from the table
-
+# Select particular columns from a table with select()
 select(gm97, country, year, lifeExp)
 
-# -------------------------------------------------------------------------
+# Use select() to remove a particular column
 # Remove the year column
-
 select(gm97, -year)
 
-# -------------------------------------------------------------------------
-# Create a new table by selecting columns of an existing table
+# Let&#39;s go back and sort by multiple columns
+arrange(gm97, continent, lifeExp)
+View(arrange(gm97, continent, lifeExp))
 
+# NOTE, none of the above operations have changed EITHER gm97 or the file
+# We have to assign the result to a new object to save the result
 gm97_subset = select(gm97, country, year, lifeExp)
 gm97_subset
 
-# -------------------------------------------------------------------------
-# Write the subsetted table to file
-
+# The above saves the result to a new object, but if we want a file...
 write_csv(gm97_subset, file = &#39;results/tables/gm97_subset.csv&#39;)
+# Be careful about overwriting files that already exist.
 
-# Raymond was doing this:
-mean(data.frame(gm97[,5]))
-#. but wanted to do this:
-mean(data.frame(gm97)[,5])
-# Sorry about this!</code></pre>
+# Filter the data for only countries in Africa
+filter(gm97, continent == &#39;Africa&#39;)
+View(filter(gm97, continent == &#39;Africa&#39;))
+
+# Filter the data for the United Kingdom
+filter(gm97, country == &#39;United Kingdom&#39;)
+
+# This doesn&#39;t filter in the way that we expect because it should be ==.
+filter(gm97, country = &#39;United Kingdom&#39;)
+
+# Let&#39;s find all the countries in Africa with populations &gt;= 10M
+filter(gm97, continent == &#39;Africa&#39; &amp; pop &gt;= 10000000)
+
+# Let&#39;s find the most and least populous countries &lt;= 1000000 or &gt;= 1000000000
+filter(gm97, pop &lt;= 1000000 | pop &gt;= 1000000000)
+
+# What happens when you provide a contradictory condition?
+filter(gm97, pop &lt;= 1000000 &amp; pop &gt;= 1000000000)
+
+# Let&#39;s add a column for gdp using mutate()
+mutate(gm97, gdp = pop * gdpPercap)
+
+# Save the result as a new object
+gm97_gdp = mutate(gm97, gdp = pop * gdpPercap)
+
+# The pipe operator (%&gt;%) allows us to combine the above functions one after the other
+# The operator has a keyboard shortcut Ctrl + Shift + m (%&gt;%)
+# filter for countries in Oceania and subset the columns
+gm97 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% select(country, continent, pop)
+
+# To exemplify the other way without pipes
+gm97_2 = filter(gm97, continent == &#39;Oceania&#39;)
+gm97_3 = select(gm97_2, country, continent, pop)
+
+# To see how pipes work, here is an example that doesn&#39;t work
+gm97 %&gt;% select(country, pop) %&gt;% filter(continent == &#39;Oceania&#39;)
+# Note, this doesn&#39;t work, because we removed the continent column
+
+# Find the mean population of the countries on Oceania
+gm97 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% summarize(mean_pop = mean(pop))
+
+# Note the difference on the wider data
+gm97 %&gt;% summarize(mean_pop = mean(pop))
+
+# Compute the mean population per continent using group_by()
+gm97 %&gt;% group_by(continent) %&gt;% summarize(mean_pop = mean(pop))
+
+# How many countries are on each continent?
+gm97 %&gt;% group_by(continent) %&gt;% summarize(count = n())
+# You can group_by() multiple columns as well, it will find all unique combos</code></pre>
 </div>
 <div id="day-2" class="section level2">
 <h2>Day 2</h2>
 <pre class="r"><code># =========================================================================
-# Data Transformation with dplyr
+# Data visualization with ggplot
 # =========================================================================
 
 # -------------------------------------------------------------------------
 # Ensure libraries and data are loaded
-
+setwd(&#39;~/IRR&#39;)
 library(tidyverse)
 gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)
 
-# Filter the data for countries in Africa
-filter(gm97, continent == &#39;Africa&#39;)
-
-# To see the entire table
-data.frame(filter(gm97, continent == &#39;Africa&#39;))
-
-# Base R way to do the same thing
-gm97[ gm97$continent == &#39;Africa&#39;, ]
-
-# Answer to the exercise
-filter(gm97, country == &#39;United Kingdom&#39;)
-
-# Filter the data for African countries with populations &gt; 10M
-filter(gm97, continent == &#39;Africa&#39; &amp; pop &gt;= 10000000)
-
-# Filter for high population and low population countries
-filter(gm97, pop &lt;= 1000000 | pop &gt;= 1000000000)
-
-# What if we create a &quot;contradictory&quot; logical condition?
-filter(gm97, pop &lt;= 1000000 &amp; pop &gt;= 1000000000)
-
-# If we want to add a column that combines information across columns, use mutate
-mutate(gm97, gdp = pop * gdpPercap)
-
-# Save the resulting table as a new object
-gm97_gdp = mutate(gm97, gdp = pop * gdpPercap)
-gm97_gdp
-
-# Add a column that doesn&#39;t rely on existing data
-mutate(gm97, hello = &#39;hello&#39;)
-
-# Preview any number of lines, here, 20
-print(gm97_gdp, n = 20)
-
-# The pipe operator, let&#39;s you combine these functions intuitively
-# Filter for countries in Oceania, then show a subset of the columns
-gm97 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% select(country, continent, pop)
-
-# Exercise, does this work?
-gm97 %&gt;% 
-  select(country, pop) %&gt;% 
-  filter(continent == &#39;Oceania&#39;)
-# NO, but this does:
-gm97 %&gt;% 
-  select(country, continent, pop) %&gt;% 
-  filter(continent == &#39;Oceania&#39;)
-
-gm97 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% select(country, pop)
-
-# What is the mean of the populations of the countries on Oceania?
-gm97 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% summarize(mean_pop = mean(pop))
-
-# Do the same thing, but on the whole dataset
-gm97 %&gt;% summarize(mean_pop = mean(pop))
-
-# Rather than repeating the code for Oceania for each continent, use group_by()
-# Compute the mean population per continent
-gm97 %&gt;% group_by(continent) %&gt;% summarize(mean_pop = mean(pop))
-
-# How many countries are on each continent?
-gm97 %&gt;% group_by(continent) %&gt;% summarize(num_countries_per_continent = n())
-
-# Here&#39;s the base R version of the above
-table(gm97$continent)
-
-# Report multiple summaries in a single table
-gm97 %&gt;% group_by(continent) %&gt;% 
-  summarize(mean_pop = mean(pop), n_countries = n())
-
-# Let&#39;s recapitulate the result of summary() using summarize()
-# and let&#39;s do it on the population column, and save it as an object
-gm97_pop_stats = gm97 %&gt;% 
-  group_by(continent) %&gt;% 
-  summarize(
-    min_pop = min(pop),
-    median_pop = median(pop),
-    mean_pop = mean(pop),
-    max_pop = max(pop)
-  ) %&gt;% 
-  arrange(median_pop)
-gm97_pop_stats
-
-# Write the resulting table to file
-write_csv(gm97_pop_stats, file = &#39;results/tables/gm97_pop_stats.csv&#39;)
-
-# ------------------------------------------------------------
-
-# Let&#39;s create our first plot with the gm97 data
-ggplot(data = gm97)
-
-# Iteratively building our plot
-ggplot(gm97) + 
+# Let&#39;s create our first plot
+ggplot(data = gm97) +
   aes(x = gdpPercap) +
   labs(x = &#39;GDP Per Capita&#39;) +
-  aes(y = lifeExp) + 
-  labs(y = &#39;Life Expectancy&#39;) +
-  geom_point() +
-  labs(title = &#39;Do people in wealthier countries live longer?&#39;) +
-  aes(color = continent) +
-  scale_x_log10()
-
-# Iteratively building our plot
-ggplot(gm97) + 
-  aes(x = gdpPercap) +
-  labs(x = &#39;GDP Per Capita&#39;) +
-  aes(y = lifeExp) + 
+  aes(y = lifeExp) +
   labs(y = &#39;Life Expectancy&#39;) +
   geom_point() +
   labs(title = &#39;Do people in wealthier countries live longer?&#39;) +
   aes(color = continent) +
   scale_color_brewer(palette = &#39;Set2&#39;)
 
-# RColorBrewer has a lot of color scales
+# The built-in color scales from RColorBrewer
 RColorBrewer::display.brewer.all()
+# In tabular form
 RColorBrewer::brewer.pal.info
 
-# Iteratively building our plot
-ggplot(gm97) + 
+ggplot(data = gm97) +
   aes(x = gdpPercap) +
   labs(x = &#39;GDP Per Capita&#39;) +
-  aes(y = lifeExp) + 
+  aes(y = lifeExp) +
   labs(y = &#39;Life Expectancy&#39;) +
   geom_point() +
   labs(title = &#39;Do people in wealthier countries live longer?&#39;) +
   aes(color = continent) +
-  aes(size = pop / 1000000) + 
-  labs(color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;)
+  scale_color_brewer(palette = &#39;Set2&#39;) + 
+  aes(size = pop/1E6) +
+  labs(size = &#39;Population (millions)&#39;) +
+  labs(color = &#39;Continent&#39;)
 
 # -------------------------------------------------------------------------
 # Recapitulate the above plot with more concise code
@@ -757,35 +666,155 @@ ggplot(data = gm97) +
 
 gm = read_csv(&#39;data/gapminder_data.csv&#39;)
 
-# Let&#39;s plot mean life expectancy per continent over time
-# First, let&#39;s summarize life expectancy per year per continent
-summarized_life_exp = gm %&gt;% 
+# Preview the first few lines
+head(gm)
+# Preview the last few lines
+tail(gm)
+
+# See the dimensions of a table
+dim(gm)
+
+# See the structure of the data
+str(gm)
+
+# Let&#39;s jump in by trying to plot life expectancy over time
+ggplot(data = gm) +
+  aes(x = year, y = lifeExp, color = continent) +
+  geom_point()
+
+# This plot is okay, but what if we want to clarify it
+# by showing the mean life expectancy per year for each continent?
+life_exp_by_year_continent = gm %&gt;% 
   group_by(year, continent) %&gt;% 
   summarize(mean_life_exp = mean(lifeExp))
-summarized_life_exp
 
-# Create a line graph of this underlying table
-ggplot(summarized_life_exp) +
+# Look at this resulting table
+View(life_exp_by_year_continent)
+
+# Plot the mean life expectancy per year / continent as a line graph
+ggplot(data = life_exp_by_year_continent) + 
   aes(x = year, y = mean_life_exp, color = continent) +
   geom_line()
 
-# Let&#39;s save this plot
-ggsave(
-  filename = &#39;results/figures/mean_life_exp_per_continent.png&#39;,
-  width = 8,
-  height = 4,
-  units = &#39;in&#39;,
-  dpi = 300
-)
+# What if we wanted to plot a line for each country, to see the trends over time?
+ggplot(data = gm) + 
+  aes(x = year, y = lifeExp, color = continent) +
+  geom_line()
 
-# Let&#39;s rotate the x-axis labels for this plot
+# This isn&#39;t quite what we wanted. But, if you look at the documentation, there&#39;s a group aesthetic.
+ggplot(data = gm) + 
+  aes(x = year, y = lifeExp, color = continent, group = country) +
+  geom_line()
+
+# How could we see the distribution of life expectancy per continent?
+ggplot(data = gm) + 
+  aes(x = continent, y = lifeExp) + 
+  geom_boxplot() +
+  geom_jitter(width = 0.15)
+
+# Maybe geom_violin() is better here
+# Here we can control width and size to make it nicer
+ggplot(data = gm) + 
+  aes(x = continent, y = lifeExp) + 
+  geom_violin() + 
+  geom_jitter(width = 0.1, alpha = 0.5)
+
+ggplot(data = gm) + 
+  aes(x = continent, y = lifeExp) + 
+  geom_jitter(width = 0.1, alpha = 0.5) +
+  geom_violin(alpha = 0.5)
+
+# How can we create a histogram of life expectancy?
 ggplot(data = gm97) + 
+  aes(x = lifeExp) +
+  geom_histogram(binwidth = 5)
+
+# How can we split a plot into different facets on a categorical variable? In other words, how can we split this plot to see the relationship per continent?
+ggplot(data = gm97) + 
+  aes(x = gdpPercap, y = lifeExp) + 
+  geom_point() +
+  facet_wrap(vars(continent))
+
+# You may prefer to have the continents stacked so that each plot occurs in its own row
+ggplot(data = gm97) + 
+  aes(x = gdpPercap, y = lifeExp) + 
+  geom_point() +
+  facet_grid(rows = vars(continent))
+
+?ggsave
+
+# Let&#39;s save the previous plot
+ggsave(filename = &#39;results/figures/first_saved_plot.png&#39;, height = 6, width = 6, units = &#39;in&#39;, dpi = 300)
+
+# Save our very nice plot as object
+scatter_plot = ggplot(data = gm97) + 
   aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) + 
   geom_point() + 
   scale_color_brewer(palette = &#39;Set1&#39;) + 
   labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
-       title = &#39;Do people in wealthier countries live longer?&#39;) +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))</code></pre>
+       title = &#39;Do people in wealthier countries live longer?&#39;)
+# View the plot
+scatter_plot
+
+# Save this scatter_plot
+ggsave(filename = &#39;results/figures/nice_scatterplot.png&#39;, plot = scatter_plot, width = 8, height = 8, units = &#39;in&#39;, dpi = 300)
+
+# There are built-in themes that control axes backgrounds, borders, etc.
+scatter_plot + theme_bw()
+
+# How can I rotate x-axis labels by 90 degrees?
+scatter_plot + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+# How can I label certain countries on this plot next to their data point?
+library(ggrepel)
+
+# We are going to add another column to this table, where countries not of interest have &#39;&#39; and the countries of interest are have their country names
+# Let&#39;s label Brazil, China, India, United States
+gm97_labels = gm97 %&gt;% 
+  mutate(label = ifelse(country %in% c(&#39;Brazil&#39;, &#39;China&#39;, &#39;India&#39;, &#39;United States&#39;), country, &#39;&#39;))
+View(gm97_labels)
+
+# Let&#39;s add to the existing code to get our text labels
+ggplot(data = gm97_labels) + 
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000, label = label) + 
+  geom_point() + 
+  geom_text_repel(box.padding = 0.5, max.overlaps = Inf) + 
+  scale_color_brewer(palette = &#39;Set1&#39;) + 
+  labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+       title = &#39;Do people in wealthier countries live longer?&#39;)
+
+# If you get into a funny plotting state, try resetting the graphical output with
+dev.off()
+
+# Let&#39;s de-couple the color and size from the labels
+ggplot(data = gm97_labels) + 
+  aes(x = gdpPercap, y = lifeExp, label = label) + 
+  geom_point(aes(color = continent, size = pop/1000000)) + 
+  geom_text_repel(box.padding = 0.5, max.overlaps = Inf) + 
+  scale_color_brewer(palette = &#39;Set1&#39;) + 
+  labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+       title = &#39;Do people in wealthier countries live longer?&#39;)
+
+# Adjusting the box.padding made each label have a leader
+ggplot(data = gm97_labels) + 
+  aes(x = gdpPercap, y = lifeExp, label = label) + 
+  geom_point(aes(color = continent, size = pop/1000000)) + 
+  geom_text_repel(box.padding = 1, max.overlaps = Inf) + 
+  scale_color_brewer(palette = &#39;Set1&#39;) + 
+  labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+       title = &#39;Do people in wealthier countries live longer?&#39;)
+
+ggsave(filename = &#39;results/figures/fancy_plot.pdf&#39;, height = 8, width = 8, units = &#39;in&#39;, dpi = 300)
+
+# Chris&#39;s suggestion
+p = ggplot(data = gm97_labels) + 
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000, label = label) + 
+  geom_point() + 
+  scale_color_brewer(palette = &#39;Set1&#39;) + 
+  labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+       title = &#39;Do people in wealthier countries live longer?&#39;)
+
+plotly::ggplotly(p)</code></pre>
 </div>
 </div>
 

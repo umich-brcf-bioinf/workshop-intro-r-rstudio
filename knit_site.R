@@ -20,7 +20,7 @@ render('source/workshop_setup/setup_instructions_advanced.Rmd', output_dir='html
 # re-knit all of them.
 
 #render_site('source/instructor-cheatsheet.Rmd');
-#render_site('source/analysis-scripts.Rmd');
+render_site('source/analysis_scripts.Rmd');
 render_site('source/index.md')
 render_site('source/workshop-intro.Rmd')
 
