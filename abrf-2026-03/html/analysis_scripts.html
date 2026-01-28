@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+
+<html lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="UM Bioinformatics Core Workshop Team" />
+
+
+<title>Intro to Single Cell RNA-Seq Workshop</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link rel="shortcut icon" href="favicon-16x16.png" />
+<!--Favicon from https://favicon.io/emoji-favicons -->
+<meta property="og:url" content="https://michmed.org/GqVRW"/>
+<meta property="og:title" content="Intro to R & RStudio"/>
+<meta property="og:description" content="A virtual workshop to analyze, and visualize data files using RStudio." />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro to R & RStudio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="workshop-intro.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio</a>
+    </li>
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (cont.)</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor.html">Using Packages / Libraries</a>
+    </li>
+    <li>
+      <a href="r-05-help.html">Getting Help with R</a>
+    </li>
+    <li>
+      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="workshop-wrap-up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Intro to Single Cell RNA-Seq Workshop</h1>
+<h4 class="author">UM Bioinformatics Core Workshop Team</h4>
+
+</div>
+
+
+<style type="text/css">
+
+body, td {
+   font-size: 18px;
+}
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown, pre.bash");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="workshop-analysis-scripts" class="section level1">
+<h1>Workshop analysis scripts</h1>
+<div id="day-1" class="section level2">
+<h2>Day 1</h2>
+<pre class="r"><code>3+2
+
+7+5
+
+# =========================================================================
+# Introducing R and RStudio
+# =========================================================================
+
+# -------------------------------------------------------------------------
+# Get current working directory
+getwd()
+
+# Set a different working directory
+setwd(&#39;~/IRR&#39;)
+
+# -------------------------------------------------------------------------
+# Create directory structure
+
+dir.create(&#39;scripts&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/figures&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/tables&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/rdata&#39;, recursive = TRUE, showWarnings = FALSE)
+
+# Load the tidyverse package
+library(tidyverse)
+
+# Load the gapminder dataset
+setwd(&#39;~/IRR&#39;)
+gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)
+
+# To see what an object is, execute the name of object
+gm97
+
+# Examples of good object names
+age = 26
+wizard_name = &#39;Tom Riddle&#39;
+wizard_name = &#39;Harry Potter&#39;
+
+# Examples of bad object names
+# No spaces
+favorite number = 12
+
+# Cannot start with numbers
+1number = 3
+
+# If I want &#39;26&#39; as a character object
+character_age = &#39;26&#39;
+
+# You must quote strings
+bad_string = hello
+good_string = &#39;hello&#39;
+
+# Object names are case-sensitive
+Flower = &#39;marigold&#39;
+flower = &#39;rose&#39;
+# It&#39;s not recommended to do this
+
+# Example of a function needs arguments
+read_csv()
+
+# Example of a function that doesn&#39;t need arguments
+Sys.Date()
+
+getwd()
+
+# Some functions require more than one argument
+round(3.1415, 2)
+
+# How to figure out what arguments a function has / needs
+?round
+
+# Be explicit about the arguments in a function call
+round(x = 3.1415, digits = 2)
+
+# Use help.search() to find a function for chi-square test
+help.search(&#39;Chi-squared test&#39;)
+
+# An example of forgetting to close quote
+read_csv(&#39;data/gapminder_1997.csv&#39;)
+
+# An example of not closing parenthesis
+round(3.1415, 2)
+
+# Using an object as a parameter in a function
+file = &#39;data/gapminder_1997.csv&#39;
+read_csv(file)
+
+### Back from break
+# -------------------------------------------------------------------------
+# Set current working directory
+setwd(&#39;~/IRR&#39;)
+
+# -------------------------------------------------------------------------
+# Create directory structure
+
+dir.create(&#39;scripts&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/figures&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/tables&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/rdata&#39;, recursive = TRUE, showWarnings = FALSE)
+
+# -------------------------------------------------------------------------
+# Ensure libraries and data are loaded
+
+library(tidyverse)
+gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)
+
+# To view an object, execute it&#39;s name
+gm97
+
+# The View() function opens a table in RStudio
+View(gm97)
+
+# Use the summary() function to summarize all columns
+summary(gm97)
+
+# What is the average life expectancy over the entire dataset?
+summarize(gm97, mean(lifeExp))
+
+# If I want to name the result in a nicer way...
+summarize(gm97, avgLifeExp = mean(lifeExp))
+
+# Find the distinct values in a column with distinct()
+# This is a good way to detect data entry errors
+distinct(gm97, continent)
+
+# We may want to sort a table according to a particular column
+# Which country has the highest life expectancy?
+arrange(gm97, lifeExp)
+
+# From this result, it seems like arrange() default is ascending order
+# Use the desc() function
+arrange(gm97, desc(lifeExp))
+# Japan has the highest lifeExp
+
+# Which country has the highest gdpPercap in 1997?
+arrange(gm97, desc(gdpPercap))
+
+# Select particular columns from a table with select()
+select(gm97, country, year, lifeExp)
+
+# Use select() to remove a particular column
+# Remove the year column
+select(gm97, -year)
+
+# Let&#39;s go back and sort by multiple columns
+arrange(gm97, continent, lifeExp)
+View(arrange(gm97, continent, lifeExp))
+
+# NOTE, none of the above operations have changed EITHER gm97 or the file
+# We have to assign the result to a new object to save the result
+gm97_subset = select(gm97, country, year, lifeExp)
+gm97_subset
+
+# The above saves the result to a new object, but if we want a file...
+write_csv(gm97_subset, file = &#39;results/tables/gm97_subset.csv&#39;)
+# Be careful about overwriting files that already exist.
+
+# Filter the data for only countries in Africa
+filter(gm97, continent == &#39;Africa&#39;)
+View(filter(gm97, continent == &#39;Africa&#39;))
+
+# Filter the data for the United Kingdom
+filter(gm97, country == &#39;United Kingdom&#39;)
+
+# This doesn&#39;t filter in the way that we expect because it should be ==.
+filter(gm97, country = &#39;United Kingdom&#39;)
+
+# Let&#39;s find all the countries in Africa with populations &gt;= 10M
+filter(gm97, continent == &#39;Africa&#39; &amp; pop &gt;= 10000000)
+
+# Let&#39;s find the most and least populous countries &lt;= 1000000 or &gt;= 1000000000
+filter(gm97, pop &lt;= 1000000 | pop &gt;= 1000000000)
+
+# What happens when you provide a contradictory condition?
+filter(gm97, pop &lt;= 1000000 &amp; pop &gt;= 1000000000)
+
+# Let&#39;s add a column for gdp using mutate()
+mutate(gm97, gdp = pop * gdpPercap)
+
+# Save the result as a new object
+gm97_gdp = mutate(gm97, gdp = pop * gdpPercap)
+
+# The pipe operator (%&gt;%) allows us to combine the above functions one after the other
+# The operator has a keyboard shortcut Ctrl + Shift + m (%&gt;%)
+# filter for countries in Oceania and subset the columns
+gm97 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% select(country, continent, pop)
+
+# To exemplify the other way without pipes
+gm97_2 = filter(gm97, continent == &#39;Oceania&#39;)
+gm97_3 = select(gm97_2, country, continent, pop)
+
+# To see how pipes work, here is an example that doesn&#39;t work
+gm97 %&gt;% select(country, pop) %&gt;% filter(continent == &#39;Oceania&#39;)
+# Note, this doesn&#39;t work, because we removed the continent column
+
+# Find the mean population of the countries on Oceania
+gm97 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% summarize(mean_pop = mean(pop))
+
+# Note the difference on the wider data
+gm97 %&gt;% summarize(mean_pop = mean(pop))
+
+# Compute the mean population per continent using group_by()
+gm97 %&gt;% group_by(continent) %&gt;% summarize(mean_pop = mean(pop))
+
+# How many countries are on each continent?
+gm97 %&gt;% group_by(continent) %&gt;% summarize(count = n())
+# You can group_by() multiple columns as well, it will find all unique combos</code></pre>
+</div>
+<div id="day-2" class="section level2">
+<h2>Day 2</h2>
+<pre class="r"><code># =========================================================================
+# Data visualization with ggplot
+# =========================================================================
+
+# -------------------------------------------------------------------------
+# Ensure libraries and data are loaded
+setwd(&#39;~/IRR&#39;)
+library(tidyverse)
+gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)
+
+# Let&#39;s create our first plot
+ggplot(data = gm97) +
+  aes(x = gdpPercap) +
+  labs(x = &#39;GDP Per Capita&#39;) +
+  aes(y = lifeExp) +
+  labs(y = &#39;Life Expectancy&#39;) +
+  geom_point() +
+  labs(title = &#39;Do people in wealthier countries live longer?&#39;) +
+  aes(color = continent) +
+  scale_color_brewer(palette = &#39;Set2&#39;)
+
+# The built-in color scales from RColorBrewer
+RColorBrewer::display.brewer.all()
+# In tabular form
+RColorBrewer::brewer.pal.info
+
+ggplot(data = gm97) +
+  aes(x = gdpPercap) +
+  labs(x = &#39;GDP Per Capita&#39;) +
+  aes(y = lifeExp) +
+  labs(y = &#39;Life Expectancy&#39;) +
+  geom_point() +
+  labs(title = &#39;Do people in wealthier countries live longer?&#39;) +
+  aes(color = continent) +
+  scale_color_brewer(palette = &#39;Set2&#39;) + 
+  aes(size = pop/1E6) +
+  labs(size = &#39;Population (millions)&#39;) +
+  labs(color = &#39;Continent&#39;)
+
+# -------------------------------------------------------------------------
+# Recapitulate the above plot with more concise code
+
+ggplot(data = gm97) + 
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) + 
+  geom_point() + 
+  scale_color_brewer(palette = &#39;Set1&#39;) + 
+  labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+       title = &#39;Do people in wealthier countries live longer?&#39;)
+
+# -------------------------------------------------------------------------
+# Read in full gapminder dataset
+
+gm = read_csv(&#39;data/gapminder_data.csv&#39;)
+
+# Preview the first few lines
+head(gm)
+# Preview the last few lines
+tail(gm)
+
+# See the dimensions of a table
+dim(gm)
+
+# See the structure of the data
+str(gm)
+
+# Let&#39;s jump in by trying to plot life expectancy over time
+ggplot(data = gm) +
+  aes(x = year, y = lifeExp, color = continent) +
+  geom_point()
+
+# This plot is okay, but what if we want to clarify it
+# by showing the mean life expectancy per year for each continent?
+life_exp_by_year_continent = gm %&gt;% 
+  group_by(year, continent) %&gt;% 
+  summarize(mean_life_exp = mean(lifeExp))
+
+# Look at this resulting table
+View(life_exp_by_year_continent)
+
+# Plot the mean life expectancy per year / continent as a line graph
+ggplot(data = life_exp_by_year_continent) + 
+  aes(x = year, y = mean_life_exp, color = continent) +
+  geom_line()
+
+# What if we wanted to plot a line for each country, to see the trends over time?
+ggplot(data = gm) + 
+  aes(x = year, y = lifeExp, color = continent) +
+  geom_line()
+
+# This isn&#39;t quite what we wanted. But, if you look at the documentation, there&#39;s a group aesthetic.
+ggplot(data = gm) + 
+  aes(x = year, y = lifeExp, color = continent, group = country) +
+  geom_line()
+
+# How could we see the distribution of life expectancy per continent?
+ggplot(data = gm) + 
+  aes(x = continent, y = lifeExp) + 
+  geom_boxplot() +
+  geom_jitter(width = 0.15)
+
+# Maybe geom_violin() is better here
+# Here we can control width and size to make it nicer
+ggplot(data = gm) + 
+  aes(x = continent, y = lifeExp) + 
+  geom_violin() + 
+  geom_jitter(width = 0.1, alpha = 0.5)
+
+ggplot(data = gm) + 
+  aes(x = continent, y = lifeExp) + 
+  geom_jitter(width = 0.1, alpha = 0.5) +
+  geom_violin(alpha = 0.5)
+
+# How can we create a histogram of life expectancy?
+ggplot(data = gm97) + 
+  aes(x = lifeExp) +
+  geom_histogram(binwidth = 5)
+
+# How can we split a plot into different facets on a categorical variable? In other words, how can we split this plot to see the relationship per continent?
+ggplot(data = gm97) + 
+  aes(x = gdpPercap, y = lifeExp) + 
+  geom_point() +
+  facet_wrap(vars(continent))
+
+# You may prefer to have the continents stacked so that each plot occurs in its own row
+ggplot(data = gm97) + 
+  aes(x = gdpPercap, y = lifeExp) + 
+  geom_point() +
+  facet_grid(rows = vars(continent))
+
+?ggsave
+
+# Let&#39;s save the previous plot
+ggsave(filename = &#39;results/figures/first_saved_plot.png&#39;, height = 6, width = 6, units = &#39;in&#39;, dpi = 300)
+
+# Save our very nice plot as object
+scatter_plot = ggplot(data = gm97) + 
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) + 
+  geom_point() + 
+  scale_color_brewer(palette = &#39;Set1&#39;) + 
+  labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+       title = &#39;Do people in wealthier countries live longer?&#39;)
+# View the plot
+scatter_plot
+
+# Save this scatter_plot
+ggsave(filename = &#39;results/figures/nice_scatterplot.png&#39;, plot = scatter_plot, width = 8, height = 8, units = &#39;in&#39;, dpi = 300)
+
+# There are built-in themes that control axes backgrounds, borders, etc.
+scatter_plot + theme_bw()
+
+# How can I rotate x-axis labels by 90 degrees?
+scatter_plot + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+# How can I label certain countries on this plot next to their data point?
+library(ggrepel)
+
+# We are going to add another column to this table, where countries not of interest have &#39;&#39; and the countries of interest are have their country names
+# Let&#39;s label Brazil, China, India, United States
+gm97_labels = gm97 %&gt;% 
+  mutate(label = ifelse(country %in% c(&#39;Brazil&#39;, &#39;China&#39;, &#39;India&#39;, &#39;United States&#39;), country, &#39;&#39;))
+View(gm97_labels)
+
+# Let&#39;s add to the existing code to get our text labels
+ggplot(data = gm97_labels) + 
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000, label = label) + 
+  geom_point() + 
+  geom_text_repel(box.padding = 0.5, max.overlaps = Inf) + 
+  scale_color_brewer(palette = &#39;Set1&#39;) + 
+  labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+       title = &#39;Do people in wealthier countries live longer?&#39;)
+
+# If you get into a funny plotting state, try resetting the graphical output with
+dev.off()
+
+# Let&#39;s de-couple the color and size from the labels
+ggplot(data = gm97_labels) + 
+  aes(x = gdpPercap, y = lifeExp, label = label) + 
+  geom_point(aes(color = continent, size = pop/1000000)) + 
+  geom_text_repel(box.padding = 0.5, max.overlaps = Inf) + 
+  scale_color_brewer(palette = &#39;Set1&#39;) + 
+  labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+       title = &#39;Do people in wealthier countries live longer?&#39;)
+
+# Adjusting the box.padding made each label have a leader
+ggplot(data = gm97_labels) + 
+  aes(x = gdpPercap, y = lifeExp, label = label) + 
+  geom_point(aes(color = continent, size = pop/1000000)) + 
+  geom_text_repel(box.padding = 1, max.overlaps = Inf) + 
+  scale_color_brewer(palette = &#39;Set1&#39;) + 
+  labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+       title = &#39;Do people in wealthier countries live longer?&#39;)
+
+ggsave(filename = &#39;results/figures/fancy_plot.pdf&#39;, height = 8, width = 8, units = &#39;in&#39;, dpi = 300)
+
+# Chris&#39;s suggestion
+p = ggplot(data = gm97_labels) + 
+  aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000, label = label) + 
+  geom_point() + 
+  scale_color_brewer(palette = &#39;Set1&#39;) + 
+  labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+       title = &#39;Do people in wealthier countries live longer?&#39;)
+
+plotly::ggplotly(p)</code></pre>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

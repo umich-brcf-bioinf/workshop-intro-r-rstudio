@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Data Transformation with dplyr</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link rel="shortcut icon" href="favicon-16x16.png" />
+<!--
+Favicon from
+https://twemoji.twitter.com/
+https://favicon.io/emoji-favicons/computer/
+-->
+<meta name="google-site-verification" content="t-Wgs-RXt8xi94RSoFamxoD2P2h-Hh7M_t_iOuxFZUo" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro to R & RStudio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="workshop-intro.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio</a>
+    </li>
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (cont.)</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor.html">Using Packages / Libraries</a>
+    </li>
+    <li>
+      <a href="r-05-help.html">Getting Help with R</a>
+    </li>
+    <li>
+      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="workshop-wrap-up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Data Transformation with dplyr</h1>
+
+</div>
+
+
+<style type="text/css">
+
+body, td {
+   font-size: 16px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown, pre.bash");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="objectives" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Learn essential data manipulation functions of <code>dplyr</code>:
+<ul>
+<li><code>select()</code> columns</li>
+<li><code>filter()</code> rows</li>
+<li><code>arrange()</code> rows</li>
+<li><code>mutate()</code> columns</li>
+<li><code>group_by()</code> rows</li>
+</ul></li>
+<li>Learn about the pipe operator (<code>%&gt;%</code>) and how to use
+it to chain together multiple functions.</li>
+</ul>
+</div>
+<div id="loading-data" class="section level1">
+<h1>Loading data</h1>
+<p>In the previous lesson we used the <code>read_csv()</code> function
+to load the <code>gm97</code> data. Let’s do that again:</p>
+<pre class="r"><code># =========================================================================
+# Data Transformation with dplyr
+# =========================================================================
+
+# -------------------------------------------------------------------------
+# Ensure libraries and data are loaded
+
+library(tidyverse)
+gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
+<pre><code>Rows: 142 Columns: 6
+── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (2): country, continent
+dbl (4): year, pop, lifeExp, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>This time, let’s look more closely at the data. If we type the name
+of the object and evaluate it, we’ll see a preview:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Preview the data
+
+gm97</code></pre>
+<pre><code># A tibble: 142 × 6
+   country      year       pop continent lifeExp gdpPercap
+   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan  1997  22227415 Asia         41.8      635.
+ 2 Albania      1997   3428038 Europe       73.0     3193.
+ 3 Algeria      1997  29072015 Africa       69.2     4797.
+ 4 Angola       1997   9875024 Africa       41.0     2277.
+ 5 Argentina    1997  36203463 Americas     73.3    10967.
+ 6 Australia    1997  18565243 Oceania      78.8    26998.
+ 7 Austria      1997   8069876 Europe       77.5    29096.
+ 8 Bahrain      1997    598561 Asia         73.9    20292.
+ 9 Bangladesh   1997 123315288 Asia         59.4      973.
+10 Belgium      1997  10199787 Europe       77.5    27561.
+# ℹ 132 more rows</code></pre>
+<p><strong>Checkpoint</strong></p>
+<p>The output shows we have “a tibble” and its dimensions are 142 rows
+by 6 columns. We then see:</p>
+<ul>
+<li>Column headings (country, year, etc)</li>
+<li>Column data types (chr, dbl, etc)</li>
+<li>The entries of the first 10 rows.</li>
+</ul>
+<p>Data in the form of a table is very common in R. The “base R” type is
+called a <code>data.frame</code>. The <code>tidyverse</code> extends on
+this notion with a <code>tibble</code>. The commands we’ll learn in this
+lesson work on <code>data.frame</code>s and <code>tibble</code>s. We’ll
+use <code>data.frame</code>, <code>tibble</code>, and “data table”
+interchangeably throughout the lessons.</p>
+</div>
+<div id="exploring-data-tables" class="section level1">
+<h1>Exploring data tables</h1>
+<p>After reading in data, it’s a good habit to preview it, look at
+summaries of it, and, in so doing, look for issues. When data contains
+hundreds of rows, it’s a good idea to get a sense for the values and
+ranges of the data.</p>
+<div id="get-stats-with-summary" class="section level2">
+<h2>Get stats with <code>summary()</code></h2>
+<p>The <code>summary()</code> function, from base R, takes a data table
+as input and will summarize the columns automatically depending on their
+data type.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Summarize all column values
+
+summary(gm97)</code></pre>
+<pre><code>   country               year           pop             continent            lifeExp        gdpPercap      
+ Length:142         Min.   :1997   Min.   :1.456e+05   Length:142         Min.   :36.09   Min.   :  312.2  
+ Class :character   1st Qu.:1997   1st Qu.:3.770e+06   Class :character   1st Qu.:55.63   1st Qu.: 1366.8  
+ Mode  :character   Median :1997   Median :9.735e+06   Mode  :character   Median :69.39   Median : 4781.8  
+                    Mean   :1997   Mean   :3.884e+07                      Mean   :65.01   Mean   : 9090.2  
+                    3rd Qu.:1997   3rd Qu.:2.431e+07                      3rd Qu.:74.17   3rd Qu.:12022.9  
+                    Max.   :1997   Max.   :1.230e+09                      Max.   :80.69   Max.   :41283.2  </code></pre>
+<p>We see that for the numeric data we get quantile information and the
+mean, whereas for character data we simply get the length of the column.
+For data with NAs, the number thereof would be displayed.</p>
+</div>
+<div id="get-stats-with-summarize" class="section level2">
+<h2>Get stats with <code>summarize()</code></h2>
+<p>If we wanted to know the mean life expectancy in the dataset, we
+could use the the <code>dplyr</code> <code>summarize()</code> function,
+specifying that we want the <code>mean()</code>:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Calculate the mean life expectancy over the dataset
+
+summarize(gm97, avgLifeExp = mean(lifeExp))</code></pre>
+<pre><code># A tibble: 1 × 1
+  avgLifeExp
+       &lt;dbl&gt;
+1       65.0</code></pre>
+<p>We can use any column name as the input to <code>mean()</code>, so
+long as it’s a numeric, and we get a new tibble with our value returned
+as a column, named as specified. Note, this matches the result of
+<code>summary()</code> with some difference in the number of significant
+digits displayed. Alternatively, we could have simply applied
+<code>mean()</code> directly to the column <code>lifeExp</code>:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Base R approach to calculating the mean life expectancy
+
+mean(gm97$lifeExp)</code></pre>
+<pre><code>[1] 65.01468</code></pre>
+<p>This is the base R way, with the <code>$</code> being how columns of
+a data table are accessed. The <code>mean()</code> function returns a
+number, whereas <code>summarize()</code> returns a <code>tibble</code>.
+In the <code>tidyverse</code>, a function whose input is a
+<code>tibble</code> will also have a <code>tibble</code> as output.</p>
+<p><strong>Checkpoint</strong></p>
+<blockquote>
+<h2 id="tip-reference-columns-by-name">Tip: Reference columns by
+name</h2>
+<p>While it is possible to access columns by their numerical index, this
+is less prefereable than using the explicit name of the column because
+altering the table could change the column indices. Depending on the
+situation, we might not even get an error, and instead would be simply
+operating on the wrong column. A dangerous situation to be in.</p>
+</blockquote>
+</div>
+<div id="find-unique-values-with-distinct" class="section level2">
+<h2>Find unique values with <code>distinct()</code></h2>
+<p><img src="images/dplyr-distinct.png" /></p>
+<p>Data is often subject to errors. To quickly catch data entry
+problems, the <code>distinct()</code> function can be used to show all
+unique values in the column of a table. Let’s take a look at the
+distinct values of the continents column:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Determine the distinct continents present in the dataset
+
+distinct(gm97, continent)</code></pre>
+<pre><code># A tibble: 5 × 1
+  continent
+  &lt;chr&gt;    
+1 Asia     
+2 Europe   
+3 Africa   
+4 Americas 
+5 Oceania  </code></pre>
+<p>Here we get a <code>tibble</code> back with the unique continent
+names in their order of appearance. There is an equivalent base R way to
+do this with the <code>unique()</code> function:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Base R approach to determining the distinct continents
+
+unique(gm97$continent)</code></pre>
+<pre><code>[1] &quot;Asia&quot;     &quot;Europe&quot;   &quot;Africa&quot;   &quot;Americas&quot; &quot;Oceania&quot; </code></pre>
+<p>Either way, if there was a misspelled entry, for example, “Urope” we
+would have immediately seen it.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="sorting-data-with-arrange" class="section level2">
+<h2>Sorting data with <code>arrange()</code></h2>
+<p><img src="images/dplyr-arrange.png" /></p>
+<p>We have a rich dataset whose default ordering is by country. But it’s
+natural to ask questions like “What country has the highest life
+expectancy?” or “What country had the highest GDP per capita?” The
+<code>arrange()</code> function can help us quickly find the
+answers.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Sort the data by life expectancy
+# NOTE: Default is ascending order
+
+arrange(gm97, lifeExp)</code></pre>
+<pre><code># A tibble: 142 × 6
+   country          year      pop continent lifeExp gdpPercap
+   &lt;chr&gt;           &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Rwanda           1997  7212583 Africa       36.1      590.
+ 2 Sierra Leone     1997  4578212 Africa       39.9      575.
+ 3 Zambia           1997  9417789 Africa       40.2     1071.
+ 4 Angola           1997  9875024 Africa       41.0     2277.
+ 5 Afghanistan      1997 22227415 Asia         41.8      635.
+ 6 Liberia          1997  2200725 Africa       42.2      609.
+ 7 Congo Dem. Rep.  1997 47798986 Africa       42.6      312.
+ 8 Somalia          1997  6633514 Africa       43.8      931.
+ 9 Uganda           1997 21210254 Africa       44.6      817.
+10 Guinea-Bissau    1997  1193708 Africa       44.9      797.
+# ℹ 132 more rows</code></pre>
+<p>This seems to have done an ascending order on <code>lifeExp</code> by
+default. We have some options, one of which is to wrap the column of
+interest in the <code>desc()</code> function to indicate we want the
+order to be descending.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Sort the data by descending life expectancy
+
+arrange(gm97, desc(lifeExp))</code></pre>
+<pre><code># A tibble: 142 × 6
+   country          year       pop continent lifeExp gdpPercap
+   &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Japan            1997 125956499 Asia         80.7    28817.
+ 2 Hong Kong China  1997   6495918 Asia         80      28378.
+ 3 Sweden           1997   8897619 Europe       79.4    25267.
+ 4 Switzerland      1997   7193761 Europe       79.4    32135.
+ 5 Iceland          1997    271192 Europe       79.0    28061.
+ 6 Australia        1997  18565243 Oceania      78.8    26998.
+ 7 Italy            1997  57479469 Europe       78.8    24675.
+ 8 Spain            1997  39855442 Europe       78.8    20445.
+ 9 France           1997  58623428 Europe       78.6    25890.
+10 Canada           1997  30305843 Americas     78.6    28955.
+# ℹ 132 more rows</code></pre>
+<p>And here we see that Japan is the country with the longest lived
+citizens at a little over 80 years.</p>
+<p><strong>Checkpoint</strong></p>
+<blockquote>
+<h2 id="exercise">Exercise</h2>
+<p>Which country has the highest GDP per capita in 1997?</p>
+<pre class="r"><code>arrange(gm97, desc(gdpPercap))</code></pre>
+<pre><code># A tibble: 142 × 6
+   country        year       pop continent lifeExp gdpPercap
+   &lt;chr&gt;         &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Norway         1997   4405672 Europe       78.3    41283.
+ 2 Kuwait         1997   1765345 Asia         76.2    40301.
+ 3 United States  1997 272911760 Americas     76.8    35767.
+ 4 Singapore      1997   3802309 Asia         77.2    33519.
+ 5 Switzerland    1997   7193761 Europe       79.4    32135.
+ 6 Netherlands    1997  15604464 Europe       78.0    30246.
+ 7 Denmark        1997   5283663 Europe       76.1    29804.
+ 8 Austria        1997   8069876 Europe       77.5    29096.
+ 9 Canada         1997  30305843 Americas     78.6    28955.
+10 Japan          1997 125956499 Asia         80.7    28817.
+# ℹ 132 more rows</code></pre>
+</blockquote>
+</div>
+<div id="subset-columns-with-select" class="section level2">
+<h2>Subset columns with <code>select()</code></h2>
+<p><img src="images/dplyr-select.png" /></p>
+<p>Sometimes data tables have many columns, and it can be useful to
+select only a few of them to export, use downstream, preview, etc. The
+<code>select()</code> function works on columns:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Select country, year, and lifeExp columns from the table
+
+select(gm97, country, year, lifeExp)</code></pre>
+<pre><code># A tibble: 142 × 3
+   country      year lifeExp
+   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Afghanistan  1997    41.8
+ 2 Albania      1997    73.0
+ 3 Algeria      1997    69.2
+ 4 Angola       1997    41.0
+ 5 Argentina    1997    73.3
+ 6 Australia    1997    78.8
+ 7 Austria      1997    77.5
+ 8 Bahrain      1997    73.9
+ 9 Bangladesh   1997    59.4
+10 Belgium      1997    77.5
+# ℹ 132 more rows</code></pre>
+<p>We can do the equivalent of <code>select()</code> statement using
+base R with:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Base R appraoch to selecting columns from the table
+
+gm97[ , c(&#39;country&#39;, &#39;year&#39;, &#39;lifeExp&#39;)]</code></pre>
+<pre><code># A tibble: 142 × 3
+   country      year lifeExp
+   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Afghanistan  1997    41.8
+ 2 Albania      1997    73.0
+ 3 Algeria      1997    69.2
+ 4 Angola       1997    41.0
+ 5 Argentina    1997    73.3
+ 6 Australia    1997    78.8
+ 7 Austria      1997    77.5
+ 8 Bahrain      1997    73.9
+ 9 Bangladesh   1997    59.4
+10 Belgium      1997    77.5
+# ℹ 132 more rows</code></pre>
+<p>Here we use the square-bracket notation again, leaving the row
+position blank returns all rows, and in the column position we specify
+the names of the columns as a vector with the <code>c()</code> function,
+meaning “combine”, creates a temporary vector of column names. Note that
+we quoted the column names in this code, whereas in
+<code>select()</code> we didn’t have to.</p>
+<p><strong>Checkpoint</strong></p>
+<p>Columns can be removed using <code>select()</code> with a “minus” in
+front of the column name.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Remove the year column
+
+select(gm97, -year)</code></pre>
+<pre><code># A tibble: 142 × 5
+   country           pop continent lifeExp gdpPercap
+   &lt;chr&gt;           &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan  22227415 Asia         41.8      635.
+ 2 Albania       3428038 Europe       73.0     3193.
+ 3 Algeria      29072015 Africa       69.2     4797.
+ 4 Angola        9875024 Africa       41.0     2277.
+ 5 Argentina    36203463 Americas     73.3    10967.
+ 6 Australia    18565243 Oceania      78.8    26998.
+ 7 Austria       8069876 Europe       77.5    29096.
+ 8 Bahrain        598561 Asia         73.9    20292.
+ 9 Bangladesh  123315288 Asia         59.4      973.
+10 Belgium      10199787 Europe       77.5    27561.
+# ℹ 132 more rows</code></pre>
+<p>Notice the <code>year</code> column is no longer displayed.</p>
+</div>
+<div id="saving-objects-in-session" class="section level2">
+<h2>Saving objects in session</h2>
+<p>If we view <code>gm97</code> we notice haven’t changed the original
+data because we haven’t saved the object.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Display gm97
+
+gm97</code></pre>
+<pre><code># A tibble: 142 × 6
+   country      year       pop continent lifeExp gdpPercap
+   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan  1997  22227415 Asia         41.8      635.
+ 2 Albania      1997   3428038 Europe       73.0     3193.
+ 3 Algeria      1997  29072015 Africa       69.2     4797.
+ 4 Angola       1997   9875024 Africa       41.0     2277.
+ 5 Argentina    1997  36203463 Americas     73.3    10967.
+ 6 Australia    1997  18565243 Oceania      78.8    26998.
+ 7 Austria      1997   8069876 Europe       77.5    29096.
+ 8 Bahrain      1997    598561 Asia         73.9    20292.
+ 9 Bangladesh   1997 123315288 Asia         59.4      973.
+10 Belgium      1997  10199787 Europe       77.5    27561.
+# ℹ 132 more rows</code></pre>
+<p>To manipulate <code>gm97</code> and save it as a new object we have
+to assign it a new object name:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Create a new table by selecting columns of an existing table
+
+gm97_subset = select(gm97, country, year, lifeExp)
+gm97_subset</code></pre>
+<pre><code># A tibble: 142 × 3
+   country      year lifeExp
+   &lt;chr&gt;       &lt;dbl&gt;   &lt;dbl&gt;
+ 1 Afghanistan  1997    41.8
+ 2 Albania      1997    73.0
+ 3 Algeria      1997    69.2
+ 4 Angola       1997    41.0
+ 5 Argentina    1997    73.3
+ 6 Australia    1997    78.8
+ 7 Austria      1997    77.5
+ 8 Bahrain      1997    73.9
+ 9 Bangladesh   1997    59.4
+10 Belgium      1997    77.5
+# ℹ 132 more rows</code></pre>
+</div>
+<div id="saving-objects-to-file" class="section level2">
+<h2>Saving objects to file</h2>
+<p>The original data file we read in
+<code>data/gapminder_1997.csv</code> remains the same throughout all
+these manipulations. What happens in R stays in R until we explicitly
+write a new object to the same file. <strong>It’s good practice to keep
+raw input data separate, and to never overwrite it.</strong> Let’s use
+the <code>write_csv()</code> function to write the
+<code>gm97_subset</code> data to a file. First let’s look at
+<code>?write_csv</code> and determine what are the required
+parameters.</p>
+<p>It looks like <code>x</code>, the data to be written and
+<code>file</code>, the path to the output file are required. There are
+other options, but we won’t use them here.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Write the subsetted table to file
+
+write_csv(gm97_subset, file = &#39;gm97_subset.csv&#39;)</code></pre>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="narrow-down-rows-with-filter" class="section level2">
+<h2>Narrow down rows with <code>filter()</code></h2>
+<p><img src="images/dplyr-filter.png" /></p>
+<p>We have seen that <code>select()</code> subsets the columns of a
+table. The function <code>filter()</code> subsets the rows of a data
+table based on logical criteria. So first, a note about logical
+operators in R:</p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="52%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operator</th>
+<th>Description</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt;</td>
+<td>less than</td>
+<td><code>pop &lt; 575990</code></td>
+</tr>
+<tr class="even">
+<td>&lt;=</td>
+<td>less than or equal to</td>
+<td><code>pop &lt;= 575990</code></td>
+</tr>
+<tr class="odd">
+<td>&gt;</td>
+<td>greater than</td>
+<td><code>pop &gt; 1000000</code></td>
+</tr>
+<tr class="even">
+<td>&gt;=</td>
+<td>greater than or equal to</td>
+<td><code>pop &gt;= 38000000</code></td>
+</tr>
+<tr class="odd">
+<td>==</td>
+<td>exactly equal to</td>
+<td><code>continent == 'Africa'</code></td>
+</tr>
+<tr class="even">
+<td>!=</td>
+<td>not equal to</td>
+<td><code>continent != 'Asia'</code></td>
+</tr>
+<tr class="odd">
+<td>!x</td>
+<td>not x</td>
+<td><code>!(continent == 'Africa')</code></td>
+</tr>
+<tr class="even">
+<td>a | b</td>
+<td>a or b</td>
+<td><code>pop &lt; 575990 | pop &gt; 1000000</code></td>
+</tr>
+<tr class="odd">
+<td>a &amp; b</td>
+<td>a and b</td>
+<td><code>continent == 'Asia' &amp; continent == 'Africa'</code></td>
+</tr>
+<tr class="even">
+<td>a %in% b</td>
+<td>a in b</td>
+<td><code>continent %in% c('Asia', 'Africa')</code></td>
+</tr>
+</tbody>
+</table>
+<p>With these operators in mind we can filter the <code>gm97</code> data
+table in a variety of ways. To filter for only the African data we
+could:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Filter the data for only countries in Africa
+
+filter(gm97, continent == &#39;Africa&#39;)</code></pre>
+<pre><code># A tibble: 52 × 6
+   country                   year      pop continent lifeExp gdpPercap
+   &lt;chr&gt;                    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Algeria                   1997 29072015 Africa       69.2     4797.
+ 2 Angola                    1997  9875024 Africa       41.0     2277.
+ 3 Benin                     1997  6066080 Africa       54.8     1233.
+ 4 Botswana                  1997  1536536 Africa       52.6     8647.
+ 5 Burkina Faso              1997 10352843 Africa       50.3      946.
+ 6 Burundi                   1997  6121610 Africa       45.3      463.
+ 7 Cameroon                  1997 14195809 Africa       52.2     1694.
+ 8 Central African Republic  1997  3696513 Africa       46.1      741.
+ 9 Chad                      1997  7562011 Africa       51.6     1005.
+10 Comoros                   1997   527982 Africa       60.7     1174.
+# ℹ 42 more rows</code></pre>
+<p>The base R equivalent of the above uses the square bracket notation
+that we saw earlier with a twist:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Base R approach to filtering rows
+
+gm97[gm97$continent == &#39;Africa&#39;, ]</code></pre>
+<pre><code># A tibble: 52 × 6
+   country                   year      pop continent lifeExp gdpPercap
+   &lt;chr&gt;                    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Algeria                   1997 29072015 Africa       69.2     4797.
+ 2 Angola                    1997  9875024 Africa       41.0     2277.
+ 3 Benin                     1997  6066080 Africa       54.8     1233.
+ 4 Botswana                  1997  1536536 Africa       52.6     8647.
+ 5 Burkina Faso              1997 10352843 Africa       50.3      946.
+ 6 Burundi                   1997  6121610 Africa       45.3      463.
+ 7 Cameroon                  1997 14195809 Africa       52.2     1694.
+ 8 Central African Republic  1997  3696513 Africa       46.1      741.
+ 9 Chad                      1997  7562011 Africa       51.6     1005.
+10 Comoros                   1997   527982 Africa       60.7     1174.
+# ℹ 42 more rows</code></pre>
+<p>Here we put the condition in the row position, before the comma,
+because we want to subset rows. The blank after the comma indicates we
+want all the columns returned.</p>
+<blockquote>
+<h2 id="exercise-1">Exercise</h2>
+<p>How can we filter the data for just the United Kingdom?</p>
+<pre class="r"><code>filter(gm97, country == &#39;United Kingdom&#39;)</code></pre>
+<pre><code># A tibble: 1 × 6
+  country         year      pop continent lifeExp gdpPercap
+  &lt;chr&gt;          &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+1 United Kingdom  1997 58808266 Europe       77.2    26075.</code></pre>
+</blockquote>
+<p>We can answer the question, “Which African countries have population
+over 10,000,000?” by using the <code>&amp;</code> operator with our
+previous code. This requires both conditions to be true at the same
+time:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Filter the data for African countries with populations more than 10M.
+
+filter(gm97, continent == &#39;Africa&#39; &amp; pop &gt;= 10000000)</code></pre>
+<pre><code># A tibble: 19 × 6
+   country          year       pop continent lifeExp gdpPercap
+   &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Algeria          1997  29072015 Africa       69.2     4797.
+ 2 Burkina Faso     1997  10352843 Africa       50.3      946.
+ 3 Cameroon         1997  14195809 Africa       52.2     1694.
+ 4 Congo Dem. Rep.  1997  47798986 Africa       42.6      312.
+ 5 Cote d&#39;Ivoire    1997  14625967 Africa       48.0     1786.
+ 6 Egypt            1997  66134291 Africa       67.2     4173.
+ 7 Ethiopia         1997  59861301 Africa       49.4      516.
+ 8 Ghana            1997  18418288 Africa       58.6     1005.
+ 9 Kenya            1997  28263827 Africa       54.4     1360.
+10 Madagascar       1997  14165114 Africa       55.0      986.
+11 Malawi           1997  10419991 Africa       47.5      692.
+12 Morocco          1997  28529501 Africa       67.7     2982.
+13 Mozambique       1997  16603334 Africa       46.3      472.
+14 Nigeria          1997 106207839 Africa       47.5     1625.
+15 South Africa     1997  42835005 Africa       60.2     7479.
+16 Sudan            1997  32160729 Africa       55.4     1632.
+17 Tanzania         1997  30686889 Africa       48.5      789.
+18 Uganda           1997  21210254 Africa       44.6      817.
+19 Zimbabwe         1997  11404948 Africa       46.8      792.</code></pre>
+<p>We can subset the data for very large or very small population with
+the <code>|</code> operator, which requires either condition to be
+true:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Filter the data for high and low populations
+
+filter(gm97, pop &lt;= 1000000 | pop &gt;= 1000000000)</code></pre>
+<pre><code># A tibble: 9 × 6
+  country                year        pop continent lifeExp gdpPercap
+  &lt;chr&gt;                 &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+1 Bahrain                1997     598561 Asia         73.9    20292.
+2 China                  1997 1230075000 Asia         70.4     2289.
+3 Comoros                1997     527982 Africa       60.7     1174.
+4 Djibouti               1997     417908 Africa       53.2     1895.
+5 Equatorial Guinea      1997     439971 Africa       48.2     2814.
+6 Iceland                1997     271192 Europe       79.0    28061.
+7 Montenegro             1997     692651 Europe       75.4     6466.
+8 Reunion                1997     684810 Africa       74.8     6072.
+9 Sao Tome and Principe  1997     145608 Africa       63.3     1339.</code></pre>
+<p>This gives us all the countries with fewer than a million people
+<strong>or</strong> more than a billion people.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="make-new-columns-with-mutate" class="section level2">
+<h2>Make new columns with <code>mutate()</code></h2>
+<p><img src="images/dplyr-mutate.png" /></p>
+<p>It’s common to use existing columns of a data table to create new
+columns. For example, in the <code>gm97</code> data we have a
+<code>pop</code> column and a <code>gdpPercap</code> column. We could
+multiply these two columns to get a new <code>gdp</code> column. The
+<code>dplyr</code> function <code>mutate()</code> adds columns to an
+existing data table.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Compute the GDP of each country by multiplying GDP per capita and population
+
+mutate(gm97, gdp = pop * gdpPercap)</code></pre>
+<pre><code># A tibble: 142 × 7
+   country      year       pop continent lifeExp gdpPercap           gdp
+   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+ 1 Afghanistan  1997  22227415 Asia         41.8      635.  14121995875.
+ 2 Albania      1997   3428038 Europe       73.0     3193.  10945912519.
+ 3 Algeria      1997  29072015 Africa       69.2     4797. 139467033682.
+ 4 Angola       1997   9875024 Africa       41.0     2277.  22486820881.
+ 5 Argentina    1997  36203463 Americas     73.3    10967. 397053586287.
+ 6 Australia    1997  18565243 Oceania      78.8    26998. 501223252921.
+ 7 Austria      1997   8069876 Europe       77.5    29096. 234800471832.
+ 8 Bahrain      1997    598561 Asia         73.9    20292.  12146009862.
+ 9 Bangladesh   1997 123315288 Asia         59.4      973. 119957417048.
+10 Belgium      1997  10199787 Europe       77.5    27561. 281118335091.
+# ℹ 132 more rows</code></pre>
+<p>As before, this didn’t actually add the column to <code>gm97</code>,
+we have to save the object to store it:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Now save the updated table as a new object
+
+gm97_gdp = mutate(gm97, gdp = pop * gdpPercap)
+gm97_gdp</code></pre>
+<pre><code># A tibble: 142 × 7
+   country      year       pop continent lifeExp gdpPercap           gdp
+   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+ 1 Afghanistan  1997  22227415 Asia         41.8      635.  14121995875.
+ 2 Albania      1997   3428038 Europe       73.0     3193.  10945912519.
+ 3 Algeria      1997  29072015 Africa       69.2     4797. 139467033682.
+ 4 Angola       1997   9875024 Africa       41.0     2277.  22486820881.
+ 5 Argentina    1997  36203463 Americas     73.3    10967. 397053586287.
+ 6 Australia    1997  18565243 Oceania      78.8    26998. 501223252921.
+ 7 Austria      1997   8069876 Europe       77.5    29096. 234800471832.
+ 8 Bahrain      1997    598561 Asia         73.9    20292.  12146009862.
+ 9 Bangladesh   1997 123315288 Asia         59.4      973. 119957417048.
+10 Belgium      1997  10199787 Europe       77.5    27561. 281118335091.
+# ℹ 132 more rows</code></pre>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="combine-functions-with-the-pipe" class="section level2">
+<h2>Combine functions with the <code>%&gt;%</code> pipe</h2>
+<p>We’ve learned how to subset rows with <code>filter()</code>, select
+columns with <code>select()</code>, get distinct elements with
+<code>distinct()</code>, and summarize columns with
+<code>summarize()</code>. It’s common to use these functions in
+sequence, where the output of one becomes the input of the next. The
+concept of “pipe” (<code>|</code>) from <code>bash</code> has an
+equivalent in the <code>tidyverse</code> in the <code>%&gt;%</code>
+symbol. To see this in action, let’s select data from Oceania and
+display only the <code>country</code>, <code>continent</code>, and
+<code>pop</code> columns.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Filter for countries in Oceania, then show a subset of the columns
+
+gm97 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% select(country, continent, pop)</code></pre>
+<pre><code># A tibble: 2 × 3
+  country     continent      pop
+  &lt;chr&gt;       &lt;chr&gt;        &lt;dbl&gt;
+1 Australia   Oceania   18565243
+2 New Zealand Oceania    3676187</code></pre>
+<blockquote>
+<h2 id="question">Question</h2>
+<p>Does the order of <code>filter()</code> and <code>select()</code>
+matter? Would something like the following work, why or why not?</p>
+<pre class="r"><code>gm97 %&gt;% 
+    select(country, pop) %&gt;% 
+    filter(continent == &#39;Oceania&#39;)</code></pre>
+</blockquote>
+<p>It seems there are only two countries, Australia and New Zealand. If
+we wanted to take the mean of the populations we could pipe the data,
+after filtering, to <code>summarize()</code> as in:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Filter for countries in Oceania and then compute the mean population
+
+gm97 %&gt;%
+    filter(continent == &#39;Oceania&#39;) %&gt;%
+    summarize(mean_pop = mean(pop))</code></pre>
+<pre><code># A tibble: 1 × 1
+  mean_pop
+     &lt;dbl&gt;
+1 11120715</code></pre>
+<p>Note this is distinct from taking the mean over the entire
+dataset:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Use the same summarize() statement, but on the entire dataset
+
+gm97 %&gt;% summarize(mean_pop = mean(pop))</code></pre>
+<pre><code># A tibble: 1 × 1
+   mean_pop
+      &lt;dbl&gt;
+1 38839468.</code></pre>
+<p>Here we’ve meaningfully named our output, but that was optional. For
+quick data exploration that could be left off.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="group-rows-with-group_by" class="section level2">
+<h2>Group rows with <code>group_by()</code></h2>
+<p><img src="images/dplyr-groupby-summarize.png" /></p>
+<p>If we wanted to determine the mean populations over all the
+continents, we could run the above code we used for Oceania, but replace
+Oceania with each continent name. That’s a bit tedious, and the
+<code>tidyverse</code> provides a very nice function,
+<code>group_by()</code>, that breaks a data table up into groups and
+will perform operations within the groups.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Compute the mean population per continent
+
+gm97 %&gt;% 
+    group_by(continent) %&gt;% 
+    summarize(mean_pop = mean(pop))</code></pre>
+<pre><code># A tibble: 5 × 2
+  continent   mean_pop
+  &lt;chr&gt;          &lt;dbl&gt;
+1 Africa     14304480.
+2 Americas   31876016.
+3 Asia      102523803.
+4 Europe     18964805.
+5 Oceania    11120715 </code></pre>
+<p>Notice that the Oceania average matches what we got above. Going back
+to our Oceania subset, we can use <code>group_by()</code> with the
+counting function <code>n()</code> to count how many countries there are
+per continent in the <code>gm97</code> data, and verify that there
+really only are two:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Determine the number of countries on each continent in the dataset
+
+gm97 %&gt;% 
+    group_by(continent) %&gt;% 
+    summarize(num_countries_per_continent = n())</code></pre>
+<pre><code># A tibble: 5 × 2
+  continent num_countries_per_continent
+  &lt;chr&gt;                           &lt;int&gt;
+1 Africa                             52
+2 Americas                           25
+3 Asia                               33
+4 Europe                             30
+5 Oceania                             2</code></pre>
+<p>There is a base R function, <code>table()</code>, that tabulates the
+number of time an entry occurs in a vector, and is useful for quick
+sanity checking:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Base R approach for determining the number of countries per continent
+
+table(gm97$continent)</code></pre>
+<pre><code>
+  Africa Americas     Asia   Europe  Oceania 
+      52       25       33       30        2 </code></pre>
+</div>
+</div>
+<div id="objectives-1" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Learn essential data manipulation functions of <code>dplyr</code>:
+<ul>
+<li><code>select()</code> columns</li>
+<li><code>filter()</code> rows</li>
+<li><code>arrange()</code> rows</li>
+<li><code>mutate()</code> columns</li>
+<li><code>group_by()</code> rows</li>
+</ul></li>
+<li>Learn about the pipe operator (<code>%&gt;%</code>) and how to use
+it to chain together multiple functions.</li>
+</ul>
+</div>
+<div id="exercise-2" class="section level1">
+<h1>Exercise</h1>
+<blockquote>
+<p>In summarizing data, it’s often useful to build a nicely formatted
+table with min, median, and max values of a variable. Below is an
+example of code to do that for the populations by continent, and
+arranged by the median population.</p>
+<pre class="r"><code>gm97 %&gt;% 
+    group_by(continent) %&gt;%
+    summarize(
+        min_POP = min(pop),
+        median_POP = median(pop),
+        max_POP = max(pop)
+    ) %&gt;% 
+    arrange(median_POP)</code></pre>
+<pre><code># A tibble: 5 × 4
+  continent min_POP median_POP    max_POP
+  &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+1 Africa     145608   7805422.  106207839
+2 Americas  1138101   7992357   272911760
+3 Europe     271192   9527017    82011073
+4 Oceania   3676187  11120715    18565243
+5 Asia       598561  21229759  1230075000</code></pre>
+<p>Try to write the code that would generate the following table,
+similar to the above, but for the GDP per continent instead of the
+population, including the mean GDP in addition to the min, median, and
+max, as well as ordering the results by mean GDP.</p>
+<pre><code># A tibble: 5 × 5
+  continent      min_GDP      mean_GDP    median_GDP max_GDP
+  &lt;chr&gt;            &lt;dbl&gt;         &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;
+1 Africa      194980183.  30023173824.   8190364646. 3.20e11
+2 Oceania   77385257446. 289304255183. 289304255183. 5.01e11
+3 Europe     4478413552. 383606933833. 172462904126. 2.28e12
+4 Asia       4745744246. 387597655323. 105396057842. 3.63e12
+5 Americas   9276089515. 582693307146.  45924427025. 9.76e12</code></pre>
+</blockquote>
+<br/> <br/>
+<hr/>
+<table style="width:100%;">
+<colgroup>
+<col width="28%" />
+<col width="42%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"><a href="r-01-introduction.html">Previous
+lesson</a></th>
+<th align="center"><a href="#top">Top of this lesson</a></th>
+<th align="right"><a href="r-04-bioconductor.html">Next lesson</a></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

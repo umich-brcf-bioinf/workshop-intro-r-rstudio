@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Introducing R and RStudio</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link rel="shortcut icon" href="favicon-16x16.png" />
+<!--
+Favicon from
+https://twemoji.twitter.com/
+https://favicon.io/emoji-favicons/computer/
+-->
+<meta name="google-site-verification" content="t-Wgs-RXt8xi94RSoFamxoD2P2h-Hh7M_t_iOuxFZUo" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro to R & RStudio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="workshop-intro.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio</a>
+    </li>
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (cont.)</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor.html">Using Packages / Libraries</a>
+    </li>
+    <li>
+      <a href="r-05-help.html">Getting Help with R</a>
+    </li>
+    <li>
+      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="workshop-wrap-up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Introducing R and RStudio</h1>
+
+</div>
+
+
+<style type="text/css">
+
+body, td {
+   font-size: 16px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown, pre.bash");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="objectives" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Introduce R and RStudio.</li>
+<li>Learn how to read in a csv file.</li>
+<li>Discuss object naming conventions and types.</li>
+<li>Discuss functions and parameters.</li>
+<li>Learn how to get help with functions.</li>
+<li>Get comfortable with errors and asking for help.</li>
+</ul>
+</div>
+<div id="the-gapminder-dataset" class="section level1">
+<h1>The gapminder dataset</h1>
+<p>We will be using a dataset from <a
+href="https://www.gapminder.org/">gapminder</a> which contains life
+expectancy, GDP, and population for countries around the world from 1952
+to 2007. It is sufficiently rich to allow us to explore data
+manipulation and visualization in R. We’ll begin with data just from
+1997, and will expand to the full 1952 - 2007 dataset towards the end.
+The following is a preview of the data we’ll be working with:</p>
+<p><img src="images/00_gapminder_preview.png" alt="gapminder preview"/></p>
+</div>
+<div id="server-login" class="section level1">
+<h1>Server login</h1>
+<p>Let’s log in to the workshop server: <a
+href="http://bfx-workshop02.med.umich.edu"
+target="blank">http://bfx-workshop02.med.umich.edu</a></p>
+<p>The login page for the server looks like:</p>
+<p><img src="images/01_rstudio_login_screen.png" alt="rstudio login screen" style="width: 1000px;"/></p>
+<p>Enter your user credentials and click <kbd>Sign In</kbd>. The RStudio
+interface should load and look like:</p>
+<p><img src="images/02_rstudio_session_default.png" alt="rstudio default session" style="width:1000px;"/></p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="create-a-project" class="section level1">
+<h1>Create a project</h1>
+<p>We will create an RStudio Project to easily keep track of our working
+directory. See the <a
+href="https://r4ds.hadley.nz/workflow-scripts.html#projects">Projects</a>
+section of <a href="https://r4ds.hadley.nz/">R for Data Science</a> for
+a more in-depth description of what a project is and how it’s
+helpful.</p>
+<p>To create a Project, click <kbd>File</kbd> then <kbd>New
+Project…</kbd>. In the New Project Wizard window that opens, select
+<kbd>Existing Directory</kbd>, then <kbd>Browse…</kbd>. In the Choose
+Directory window, select the <code>IRR</code> folder by clicking it
+once, and then click the <kbd>Choose</kbd> button. Finally, click
+<kbd>Create Project</kbd>.</p>
+<p>Once we do this, RStudio will restart and the Files pane (lower
+right) should put us in the <code>~/IRR</code> folder where there is an
+<code>inputs/</code> folder and an <code>IRR.Rproj</code> file.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="the-rstudio-interface" class="section level1">
+<h1>The RStudio interface</h1>
+<p>RStudio is an integrated development environment where you can write,
+execute, and see the results of your code. The interface is arranged in
+different panes:</p>
+<ul>
+<li>The <strong>Console pane</strong> along the left where you can enter
+commands and execute them.</li>
+<li>The <strong>Environment pane</strong> in the upper right shows any
+variables you have created, along with their values.</li>
+<li>The pane in the lower right has a few functions:
+<ul>
+<li>The <strong>Files tab</strong> let’s you navigate the file
+system.</li>
+<li>The <strong>Plots tab</strong> displays any plots from code run in
+the Console.</li>
+<li>The <strong>Help tab</strong> displays the documentation of
+functions.</li>
+</ul></li>
+</ul>
+<div id="commands-in-the-console" class="section level2">
+<h2>Commands in the Console</h2>
+<p>Working directly in the console is working directly with R. Commands
+can be entered and run with the <KBD>Enter</KBD> key:</p>
+<pre><code>&gt; 2+2
+[1] 4</code></pre>
+<p><img src="images/03_rstudio_console_execution.png" alt="rstudio console execution" style="width:1000px;"/></p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="commands-in-a-script" class="section level2">
+<h2>Commands in a Script</h2>
+<p>Instead of entering commands directly into the Console, we’ll record
+them in and run them from a script. Some benefits to using a script
+rather than using the Console pane:</p>
+<ul>
+<li>Scripts record the steps taken to analyze the data.</li>
+<li>Scripts can be re-run, allowing for reproducibility.</li>
+<li>Scripts are can be shared.</li>
+</ul>
+<p>We’ll create a script file by clicking on the icon in the upper-left
+of the interface (a blank piece of paper with a + sign), and selecting
+<KBD>R Script</KBD>.</p>
+<p><img src="images/04_rstudio_create_script.png" alt="rstudio create script" style="width:1000px;"/></p>
+<p>The new pane that opens is the <strong>Source pane</strong>, and you
+can think of it as a text editor:</p>
+<p><img src="images/05_rstudio_script_pane.png" alt="rstudio script pane" style="width:1000px;"/></p>
+<p>Code entered in a script file <strong>must explicitly be sent to the
+Console for execution</strong> with the <KBD>Ctrl + Enter</KBD> command.
+Enter the following command into the script file and execute it with
+<KBD>Ctrl + Enter</KBD>:</p>
+<pre><code>3+2</code></pre>
+<p>Looking in the Console we see the executed line and its result. Note
+that pressing <KBD>Enter</KBD> in the script creates a new line and does
+not execute the code as in the Console.</p>
+<p><img src="images/06_rstudio_script_execution.png" alt="rstudio script execution" style="width:1000px;"/></p>
+</div>
+<div id="console-vs-script" class="section level2">
+<h2>Console vs Script</h2>
+<p>The key differences between the Console and Script panes in
+RStudio:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Console</th>
+<th align="left">Script</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Reset across sessions</td>
+<td align="left">Preserved acros sessions</td>
+</tr>
+<tr class="even">
+<td align="left">Run with <KBD>Enter</KBD></td>
+<td align="left">Run with <KBD>Ctrl + Enter</KBD></td>
+</tr>
+<tr class="odd">
+<td align="left">Inconvenient to share</td>
+<td align="left">Convenient to share</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="configuring-rstudio" class="section level2">
+<h2>Configuring RStudio</h2>
+<p>All of the panes in RStudio have configuration options. For example,
+you can minimize/maximize a pane or resize panes by dragging the
+borders. The most important customization options for pane layout are in
+the <KBD>View</KBD> menu. Other options such as font sizes,
+colors/themes, and more are in the <KBD>Tools</KBD> menu under
+<KBD>Global Options</KBD>.</p>
+<p>We can enable soft-wrapping of code by selecting <KBD>Code</KBD> and
+then <KBD>Soft Wrap Long Lines</KBD>.</p>
+<p><img src="images/07_rstudio_soft_wrap.png" alt="rstudio code execution" style="width:1000px;"/></p>
+</div>
+</div>
+<div id="workshop-flow" class="section level1">
+<h1>Workshop flow</h1>
+<p>To accommodate different learning styles and to keep us moving along,
+we’ll provide code in three different ways, and you can get that code
+into RStudio in corresponding ways:</p>
+<table>
+<colgroup>
+<col width="48%" />
+<col width="51%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Source of Code</th>
+<th align="left">Execution of Code</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Zoom screen share</td>
+<td align="left">Type the code yourself.</td>
+</tr>
+<tr class="even">
+<td align="left">Slack</td>
+<td align="left">Copy and paste into RStudio.</td>
+</tr>
+<tr class="odd">
+<td align="left">Website</td>
+<td align="left">Copy with code block button and paste into
+RStudio.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Questions?</strong></p>
+</div>
+<div id="directory-structure" class="section level1">
+<h1>Directory structure</h1>
+<p>Before we begin, the folder structure of a project organizes all the
+relevant files. Typically we make directories for the following types of
+files:</p>
+<ul>
+<li>Raw data, called <code>data</code>, <code>input</code>, etc,</li>
+<li>Results, often <code>results</code> or <code>output</code> with
+subfolders for <code>tables</code>, <code>figures</code>, and
+<code>rdata</code>, and</li>
+<li>Scripts, often <code>scripts</code>.</li>
+</ul>
+<p>We’ve already provided the raw data in the <code>data/</code> folder,
+and it’s generally a good idea to keep raw data in its own folder.</p>
+<p>Let’s create some folders for our analysis scripts and results
+thereof.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Create directory structure
+
+dir.create(&#39;scripts&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/figures&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/tables&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/rdata&#39;, recursive = TRUE, showWarnings = FALSE)</code></pre>
+</div>
+<div id="saving-scripts" class="section level1">
+<h1>Saving scripts</h1>
+<p>Let’s save our currently open script by clicking <KBD>File</KBD> and
+then <KBD>Save</KBD>. Double click the <code>scripts/</code> folder and
+enter the file name <code>ISC_day1.R</code>.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="getting-started" class="section level1">
+<h1>Getting started</h1>
+<p>Out of the box, R has a number of useful functions, but its power
+lies in extending its functionality with packages / libraries. You can
+think of libraries as collections of functions organized around a
+particular functionality. For example, the <code>tidyverse</code>
+package is a collection of packages that are designed to work together
+to make data manipulation and visualization easier. In order to gain
+access to functions in a package, we need to load the package into our R
+session.</p>
+<div id="loading-libraries" class="section level2">
+<h2>Loading Libraries</h2>
+<p>Let’s begin with loading <code>tidyverse</code> since that’s the
+package we’ll use for the rest of the workshop.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Load the tidyverse package
+
+library(tidyverse)</code></pre>
+<blockquote>
+<h2 id="note-package-loading-messages" class="unlisted unnumbered">Note:
+Package loading messages</h2>
+<p>Loading a package can result in a lot of feedback from R. These
+aren’t necessarily errors, but give more information about the result of
+loading the package. The output tells us which packages were loaded
+(note that <code>tidyverse</code> is sort of a meta-package of
+packages). The first section of the output states which packages were
+lodaed and their versions. The second section notes “Conflicts” that
+occur because the name of a function is used multiple times. So
+<code>dplyr::filter() masks stats::filter()</code> means that the
+<code>dplyr</code> library and the <code>stats</code> library have
+functions called <code>filter()</code>, and that when calling
+<code>filter()</code>, the <code>dplyr</code> version will be the
+default. <br></p>
+</blockquote>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="loading-a-csv-file" class="section level2">
+<h2>Loading a csv file</h2>
+<p>Let’s jump right in and load some of the gapminder data using the
+<code>read_csv()</code> function:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Load the gapminder 1997 data
+
+gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
+<pre><code>Rows: 142 Columns: 6
+── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (2): country, continent
+dbl (4): year, pop, lifeExp, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Remember, with the cursor on this line we can click <KBD>Run</KBD>,
+or we can type <KBD>Ctrl</KBD>+<KBD>Enter</KBD>. We should see some
+output in the Console pane as well as <code>gm97</code> in the
+Environment pane. We’ll explore the resulting data in later lessons.</p>
+<p><strong>Checkpoint</strong></p>
+<p>Let’s break down this command:</p>
+<ul>
+<li><code>gm97</code> is the <strong>variable name</strong> we’re giving
+to the data we read in.</li>
+<li><code>=</code> is the <strong>assignment operator</strong> which
+assigns the object on the right to the name on the left.</li>
+<li><code>read_csv()</code> is a <strong>function</strong> in
+<code>tidyverse</code> that reads CSV files.</li>
+<li><code>data/gapminder_1997.csv</code> is the
+<strong>argument</strong> to <code>read_csv()</code> that specifies the
+file to read.</li>
+</ul>
+<p>The output of <code>read_csv()</code> in the Console pane gives
+information such as the dimensions of the data, the delimiter of the
+file, and how the columns of the data were interpreted.</p>
+<blockquote>
+<h2 id="note-the-assignment-operator" class="unlisted unnumbered">Note:
+The assignment operator</h2>
+<p>You may have seen another assignment operator, <code>&lt;-</code>,
+which is idiosyncratic to R. We leave as an exercise to the learner to
+look up the edge cases of when to use <code>&lt;-</code> vs
+<code>=</code>. For now, we will use <code>=</code> as the assignment
+operator, which is more common in other programming languages. <br></p>
+</blockquote>
+</div>
+</div>
+<div id="basic-r-data-types" class="section level1">
+<h1>Basic R data types</h1>
+<p>In the output of <code>read_csv()</code>, the <code>country</code>
+and <code>continent</code> columns were intepreted as character strings
+(<code>chr</code>) and the <code>year</code>, <code>pop</code>,
+<code>lifeExp</code>, and <code>gdpPercap</code> columns were
+interpreted as numbers (<code>dbl</code>). This begs the question of the
+data types available in R. The basic data types in R are:</p>
+<table>
+<colgroup>
+<col width="31%" />
+<col width="37%" />
+<col width="31%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Mode (abbreviation)</th>
+<th align="left">Type of data</th>
+<th align="left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Numeric (num)</td>
+<td align="left">Decimals, integers, etc.</td>
+<td align="left"><code>1.0</code>, <code>3.14</code>, <code>-2.5</code>,
+<code>10</code>, etc.</td>
+</tr>
+<tr class="even">
+<td align="left">Character (chr)</td>
+<td align="left">Sequence of letters or numbers.</td>
+<td align="left"><code>"Hi"</code>, <code>'Hi'</code>, <code>"1"</code>,
+etc.</td>
+</tr>
+<tr class="odd">
+<td align="left">Factor (fct)</td>
+<td align="left">Categorical values.</td>
+<td align="left">Months of the year.</td>
+</tr>
+<tr class="even">
+<td align="left">Logical</td>
+<td align="left">Boolean values</td>
+<td align="left"><code>TRUE</code>, <code>FALSE</code>, <code>T</code>,
+<code>F</code>, etc.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="assigning-values-to-objects" class="section level1">
+<h1>Assigning values to objects</h1>
+<p>Throughout this workshop we’ll be assigning names to objects and
+manipulating them. The names we give to objects can either make our
+lives easier or harder. Let’s start by describing good practices, and
+then we’ll give some examples of bad practices.</p>
+<div id="the-good" class="section level2">
+<h2>The good</h2>
+<ul>
+<li>Use brief, descriptive names.</li>
+<li>Separate words with underscores.</li>
+</ul>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Examples of good variable names, and writing over an existing variable
+
+age = 26
+age</code></pre>
+<pre><code>[1] 26</code></pre>
+<pre class="r"><code>wizard_name = &#39;Tom Riddle&#39;
+wizard_name</code></pre>
+<pre><code>[1] &quot;Tom Riddle&quot;</code></pre>
+<pre class="r"><code>wizard_name = &#39;Harry Potter&#39;
+wizard_name</code></pre>
+<pre><code>[1] &quot;Harry Potter&quot;</code></pre>
+</div>
+<div id="the-bad" class="section level2">
+<h2>The bad</h2>
+<ul>
+<li>No spaces.</li>
+<li>Don’t start with numbers.</li>
+<li>Don’t use proteted names, like <code>if</code>, <code>else</code>,
+<code>for</code>, etc. (see <a
+href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html">here</a>
+for complete list).</li>
+</ul>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Error: Example of variable name with space
+
+favorite number = 12</code></pre>
+<pre><code>Error in parse(text = input): &lt;text&gt;:4:10: unexpected symbol
+3: 
+4: favorite number
+            ^</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Error: Example of variable name beginning with number
+
+1number = 3</code></pre>
+<pre><code>Error in parse(text = input): &lt;text&gt;:4:2: unexpected symbol
+3: 
+4: 1number
+    ^</code></pre>
+</div>
+<div id="be-mindful" class="section level2">
+<h2>Be mindful</h2>
+<ul>
+<li>Object names are <strong>case-sensitive</strong>. This means that
+<code>name</code>, <code>Name</code>, and <code>NAME</code> are three
+distinct objects. Imagine what confusion you could create!</li>
+<li>Words in object names can also be separated by camelCase
+(e.g. <code>objectName</code>), but <strong>be consistent</strong>.</li>
+</ul>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of case-sensitivity of variable names
+
+Flower = &#39;marigold&#39;
+Flower</code></pre>
+<pre><code>[1] &quot;marigold&quot;</code></pre>
+<pre class="r"><code>flower = &#39;rose&#39;
+flower</code></pre>
+<pre><code>[1] &quot;rose&quot;</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of camelCase variable name
+
+favoriteNumber = 12
+favoriteNumber</code></pre>
+<pre><code>[1] 12</code></pre>
+<p>Notice that with each assignment, the object appears in the
+Environment pane. Also notice that by assigning <code>wizard_name</code>
+twice, the value becomes the last assigned value, overwriting our
+initial assignment. Also notice that if we evaluate the name of an
+object, it is printed in the Console pane. <strong>We will use this
+pattern repeatedly.</strong></p>
+<p><strong>Checkpoint</strong></p>
+</div>
+</div>
+<div id="calling-functions" class="section level1">
+<h1>Calling functions</h1>
+<p>Earlier we ran the code
+<code>gm97 = read_csv('data/gapminder_1997.csv')</code>. As we said
+before, <code>read_csv()</code> is a function and
+<code>'data/gapminder_1997.csv'</code> is an argument to that function.
+What happens if we just do:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of a function that needs arguments to function
+
+read_csv()</code></pre>
+<pre><code>Error in read_csv(): argument &quot;file&quot; is missing, with no default</code></pre>
+<p>We get an error in the Console pane. The key part of the message is
+“argument ‘file’ is missing, with no default”. In other words, this
+function needs to be told what to read because there is no default.</p>
+<p>Not every function needs arguments, but many do. Try the following
+functions:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Examples of functions with no required arguments
+Sys.Date()</code></pre>
+<pre><code>[1] &quot;2025-10-03&quot;</code></pre>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>[1] &quot;/home/workshop/rcavalca/workshop-intro-r-rstudio/source&quot;</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of a function with multiple arguments
+round(3.1415, 2)</code></pre>
+<pre><code>[1] 3.14</code></pre>
+<p>Notice that we threw in <code>round()</code> which actually takes two
+arguments. How could we have known that?</p>
+<div id="getting-help-with-functions" class="section level2">
+<h2>Getting help with functions</h2>
+<p>When a function is unfamiliar, we’ll often look at the manual page
+for the function to understand what arguments are required, what it
+does, and what it outputs. By prepending a <code>?</code> in front of a
+function name, you can access the manual page.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Put a &quot;?&quot; in front of a function to see it&#39;s manual page
+
+?round</code></pre>
+<p>The help page for <code>round()</code> tells us the function does
+essentially what we’d expect, and gives some other related functions.
+Note also that the arguments section gives us the names of the arguments
+and what is expected of them. There is often a Details section to
+describe nuances, and a Value section to describe the output. Finally,
+there is an Examples section which gives examples of how to run the
+code.</p>
+</div>
+<div id="arguments" class="section level2">
+<h2>Arguments</h2>
+<p>When we called <code>round(3.1415, 2)</code> it seemed like the first
+argument is the thing we want to round, and the second argument is how
+many digits we want. That tracks when we look at <code>?round</code>. R
+can evaluate arguments of a function based on their
+<strong>position</strong>, as we just saw. However, the preferred way to
+call a function is to use the names of the arguments, as in:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of named arguments
+
+round(x = 3.14159, digits = 2)</code></pre>
+<pre><code>[1] 3.14</code></pre>
+<p>Calling a function, and using named arguments, increases the
+readability of the code and reduces the chance of error, especially with
+complex functions having many arguments.</p>
+</div>
+</div>
+<div id="searching-for-functions" class="section level1">
+<h1>Searching for functions</h1>
+<p>Prepending a <code>?</code> in front a function name to find out more
+about the function requires knowing the name of the function beforehand.
+That won’t always be the case so there are a couple ways to search for R
+functions.</p>
+<ol style="list-style-type: decimal">
+<li>Search the internet for “R function that does X”.</li>
+<li>Use <code>help.search()</code>, as in
+<code>help.search('Chi-squared test')</code></li>
+</ol>
+<p>Note that in the results of <code>help.search()</code> we see things
+like, <code>stats::chisq.test</code>. Here the <code>::</code> is R
+notation for <code>package_name::function</code>.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="errosr-happn" class="section level1">
+<h1>Errosr happn</h1>
+<p>We already assigned some variables that resulted in errors. There
+will be plenty of more of those to come; they’re a normal part of coding
+and they are an opportunity to learn! To that end, let’s make some
+mistakes together.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of not closing quotes
+
+read_csv(&#39;data/gapminder_1997.csv)</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of not closing parentheses
+
+round(3.1415, 2</code></pre>
+<p>In both cases, the Console displays a <code>+</code> to indicate that
+R is waiting for more input. To get out of this state, we can press
+<KBD>Esc</KBD>, and try again.</p>
+<div id="handling-errors" class="section level2">
+<h2>Handling errors</h2>
+<p>The key to correcting errors is understanding what went wrong.
+Sometimes R can help, while other times it seems willfully obtuse.</p>
+<ol style="list-style-type: decimal">
+<li>Immediately check the spelling of the command; <strong>most errors
+are caused by typos</strong>.</li>
+<li>Read the error message to try to understand what might have gone
+wrong.</li>
+<li>Check that the objects going into the function are what you
+expect.</li>
+</ol>
+<p>If you’re still stuck as to why an error occurred (something we all
+encounter), reach out for help. For the workshop, please post the
+question in Slack with the following information:</p>
+<ol style="list-style-type: decimal">
+<li>The exact command that caused the error.</li>
+<li>The exact error message that resulted.</li>
+</ol>
+<p>This way we’ll more quickly be able to diagnose the problem.</p>
+</div>
+</div>
+<div id="base-r-and-the-tidyverse" class="section level1">
+<h1>Base R and the tidyverse</h1>
+<p>If you’ve used R before, you may have learned commands that are
+different what we’ll learn in this workshop. We’ll focus on functions
+from the <code>tidyverse</code>, a collection of R packages designed to
+work well together and and offer many features that aren’t part of a
+fresh install of R (that is, “base R”). Generally the
+<code>tidyverse</code> helps us write code that is easy to read and
+maintain, as we’ll see.</p>
+<p>The <code>tidyverse</code> is geared for data in the form of tables,
+and it is <strong>very good</strong> at manipulating, summarizing, and
+visualizing such data. However, data occurs in a variety of other shapes
+and forms. In particular, in a bioinformatics context, the Bioconductor
+repository of packages utilize data types that are not tables, and
+therefore do not always work well with <code>tidyverse</code> functions.
+We’ll see clearer examples of this in the RNA-seq Demystified workshop,
+and you will undoubtedly encounter many examples in the future.</p>
+<p>Some people ask “Should I learn tidyverse or base R?” and we think
+that rather than either/or, it’s better to think of both/and. Knowing
+base R and its approach will help in some contexts, while knowing
+<code>tidyverse</code> will help in others.</p>
+</div>
+<div id="cheatsheets" class="section level1">
+<h1>Cheatsheets!</h1>
+<p>The <code>tidyverse</code> packages have excellent cheatsheets that
+describe the functionality and usage of the packages. You can find them
+in RStudio by going to the “Help” menu and selecting “Cheat Sheets”. The
+two that will be most helpful in this workshop are “Data Visualization
+with ggplot2” and “Data Transformation with dplyr”.</p>
+</div>
+<div id="objectives-1" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Introduce R and RStudio.</li>
+<li>Learn how to read in a csv file.</li>
+<li>Discuss object naming conventions and types.</li>
+<li>Discuss functions and parameters.</li>
+<li>Learn how to get help with functions.</li>
+<li>Get comfortable with errors and asking for help.</li>
+</ul>
+<br/> <br/>
+<hr/>
+<table style="width:100%;">
+<colgroup>
+<col width="28%" />
+<col width="42%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"><a href="bash-06-organization.html">Previous
+lesson</a></th>
+<th align="center"><a href="#top">Top of this lesson</a></th>
+<th align="right"><a href="r-02-exploration-dplyr.html">Next
+lesson</a></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1791 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Data Visualization with ggplot</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link rel="shortcut icon" href="favicon-16x16.png" />
+<!--
+Favicon from
+https://twemoji.twitter.com/
+https://favicon.io/emoji-favicons/computer/
+-->
+<meta name="google-site-verification" content="t-Wgs-RXt8xi94RSoFamxoD2P2h-Hh7M_t_iOuxFZUo" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro to R & RStudio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="workshop-intro.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio</a>
+    </li>
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (cont.)</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor.html">Using Packages / Libraries</a>
+    </li>
+    <li>
+      <a href="r-05-help.html">Getting Help with R</a>
+    </li>
+    <li>
+      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="workshop-wrap-up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Data Visualization with ggplot</h1>
+
+</div>
+
+
+<style type="text/css">
+
+body, td {
+   font-size: 16px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown, pre.bash");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="objectives" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Create plots with both discrete and continuous variables with
+<code>ggplot2</code>.</li>
+<li>Understand the mapping of data to attributes / components of the
+graph.</li>
+<li>Modify the color, theme, and axis labels of a plot.</li>
+</ul>
+</div>
+<div id="exploring-data-visually" class="section level1">
+<h1>Exploring data visually</h1>
+<p>We have learned how to use functions from the <code>tidyverse</code>
+to subset and summarize data, along with some of the equivalent base R
+functions. But all of our manipulations have lacked the visual component
+that can be so helpful in understanding the properties of data,
+i.e. distributions, outliers, trends, etc. Let’s turn our attention to
+plotting in the <code>tidyverse</code> with <code>ggplot2</code>.</p>
+<p>The intellectual framework for <code>ggplot2</code> comes from the
+“Grammar of Graphics” by Wilkinson (<a
+href="https://link.springer.com/book/10.1007/0-387-28695-0">ref</a>).
+This module will introduce the components of that grammar, and how to
+combine them into publication-ready plots.</p>
+<div id="loading-data" class="section level2">
+<h2>Loading data</h2>
+<p>In the previous lesson we used the <code>read_csv()</code> function
+to load the <code>gm97</code> data. Let’s do that again:</p>
+<pre class="r"><code># =========================================================================
+# Data visualization with ggplot
+# =========================================================================
+
+# -------------------------------------------------------------------------
+# Ensure libraries and data are loaded
+
+library(tidyverse)
+gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
+<pre><code>Rows: 142 Columns: 6
+── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (2): country, continent
+dbl (4): year, pop, lifeExp, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div id="mappings-aesthetics-and-geometries" class="section level2">
+<h2>Mappings, aesthetics, and geometries</h2>
+<p>Let’s jump right in and create our first plot using the
+<code>ggplot()</code> function. Along the way we’ll discuss the
+components of a plot, and how <code>ggplot2</code> conceptualizes
+plotting.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Create base plot
+
+ggplot(data = gm97)</code></pre>
+<p><img src="fig/03-plot1-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>When we ran this code the Plots tab popped up and displayed … a gray
+rectangle. This is underwhelming as a first plot, but it’s a helpful
+reminder that computers do exactly what we tell them. In this case,
+we’ve just told R that we want to plot data from <code>gm97</code>. We
+haven’t told it <strong>how</strong>.</p>
+<p>The elements of a plot have properties like: x and y position, size,
+color, etc. These properties are <strong>aesthetics</strong>, and we
+need to map variables in our dataset to aesthetics in our plot. This is
+done with the aesthetic mapping function <code>aes()</code>. Let’s build
+up our plot iteratively by mapping <code>gdpPercap</code> to the x-axis
+with:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Add a mapping: x-axis is gdpPercap
+
+ggplot(data = gm97) +
+    aes(x = gdpPercap)</code></pre>
+<p><img src="fig/03-plot2-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>In <code>ggplot2</code>, the <code>+</code> indicates we want to add
+elements to a plot; it’s kind of like the pipe (<code>%&gt;%</code>) in
+<code>dplyr</code>. Our plot window is no longer a blank gray square,
+but now has a labeled x-axis with visual delimiters. Here,
+<code>gdpPercap</code> is just the column name from our data, and isn’t
+really formatted in a “publication-ready” manner. We can use the
+<code>labs()</code> function to alter the label on the x-axis with:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Add a &quot;nice&quot; label for the x-axis
+
+ggplot(data = gm97) +
+    aes(x = gdpPercap) +
+    labs(x = &#39;GDP Per Capita&#39;)</code></pre>
+<p><img src="fig/03-plot3-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p><strong>Checkpoint</strong></p>
+<blockquote>
+<h2 id="exercise">Exercise</h2>
+<p>How would we map life expectancy to the y-axis and give it a nicer
+label?</p>
+<pre class="r"><code>ggplot(data = gm97) +
+    aes(x = gdpPercap) +
+    labs(x = &#39;GDP Per Capita&#39;) +
+    aes(y = lifeExp) + 
+    labs(y = &#39;Life Expectancy&#39;)</code></pre>
+<p><img src="fig/03-plot4-1.png" width="816" style="display: block; margin: auto;" /></p>
+</blockquote>
+<p>This is progress, but we still don’t have any data plotted. For this,
+we tell the plot object what to draw by adding a
+<strong>geometry</strong> (or <code>geom</code> for short). There are
+many geometries, but we’ll begin with <code>geom_point()</code>, which
+plots points in the x-y plane.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Add a mapping: y-axis is lifeExp
+# Add a nice label for the y-axis
+# Add a geometry: geom_point() is a scatterplot
+
+ggplot(data = gm97) +
+    aes(x = gdpPercap) +
+    labs(x = &#39;GDP Per Capita&#39;) +
+    aes(y = lifeExp) + 
+    labs(y = &#39;Life Expectancy&#39;) +
+    geom_point()</code></pre>
+<p><img src="fig/03-plot5-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>From the plot, it appears that higher GDP correlates with longer life
+expectancy. We can add a title to the plot with <code>labs()</code> to
+suggest this is the point of the plot:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Add a plot title
+
+ggplot(data = gm97) +
+    aes(x = gdpPercap) +
+    labs(x = &#39;GDP Per Capita&#39;) +
+    aes(y = lifeExp) + 
+    labs(y = &#39;Life Expectancy&#39;) +
+    geom_point() +
+    labs(title = &#39;Do people in wealthier countries live longer?&#39;)</code></pre>
+<p><img src="fig/03-plot6-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="color" class="section level2">
+<h2>Color</h2>
+<p>We’ve made excellent progress on our first plot, and without even
+having to write very much code! There is much more we can do visually to
+understand what the data might be telling us in addition to the general
+trend we’ve already observed. For example, we can use different colors
+for each continent to understand how continent affects this
+relationship:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Add a mapping: color by continent
+
+ggplot(data = gm97) +
+    aes(x = gdpPercap) +
+    labs(x = &#39;GDP Per Capita&#39;) +
+    aes(y = lifeExp) + 
+    labs(y = &#39;Life Expectancy&#39;) +
+    geom_point() +
+    labs(title = &#39;Do people in wealthier countries live longer?&#39;) + 
+    aes(color = continent)</code></pre>
+<p><img src="fig/03-plot_color_continent-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>With the continents shown by color, we immediately pick out that
+African countries tend to have lower life expectancy than other
+countries. Of course, there are African countries (red points) with life
+expectancies similar to wealthier countries, suggesting that GDP per
+capita does not tell the full story about health, as we might have
+already guessed.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="scale" class="section level2">
+<h2>Scale</h2>
+<p>When we added the color mapping, ggplot added a legend automatically,
+assigning different colors to each of the unique values of
+<code>continent</code>. The colors ggplot uses are considered a “scale,”
+and each aesthetic value we can give (x, y, color, etc) has a
+corresponding scale. Let’s experiment with a different numerical scale
+to see how that works.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Change the scale of the x axis to log10
+
+ggplot(data = gm97) +
+    aes(x = gdpPercap) +
+    labs(x = &#39;GDP Per Capita&#39;) +
+    aes(y = lifeExp) + 
+    labs(y = &#39;Life Expectancy&#39;) +
+    geom_point() +
+    labs(title = &#39;Do people in wealthier countries live longer?&#39;) + 
+    aes(color = continent) + 
+    scale_x_log10()</code></pre>
+<p><img src="fig/03-plot_x_log_scale-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Here we see that the x-axis has been scaled by the log10. Depending
+on the data we’re plotting the log scale might be more appropriate than
+the default linear scale. We can also change the scale on the
+<code>continent</code> mapping to change the colors:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Change the colors assigned to each continent
+
+ggplot(data = gm97) +
+    aes(x = gdpPercap) +
+    labs(x = &#39;GDP Per Capita&#39;) +
+    aes(y = lifeExp) + 
+    labs(y = &#39;Life Expectancy&#39;) +
+    geom_point() +
+    labs(title = &#39;Do people in wealthier countries live longer?&#39;) + 
+    aes(color = continent) + 
+    scale_color_brewer(palette = &#39;Set2&#39;)</code></pre>
+<p><img src="fig/03-plot_color_continent_set1-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>In this case, <code>Set2</code> palette is color-blind friendly.
+There are many built-in palettes:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Display built-in color scales
+
+RColorBrewer::display.brewer.all()</code></pre>
+<p><img src="fig/03-brewer_pal_info-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Note that there are linear color scales which might be appropriate
+for numerical data with a minimum value of 0 (top group). There are also
+discrete color scales more appropriate for categorical data that aren’t
+associated with magnitude, like <code>continent</code> (middle group).
+There are also divergent color scales that might be useful for
+continuous variables centered around 0 (bottom group).</p>
+<p>Additionally, we can view attributes of the palettes, including which
+are color-blind friendly, with:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Show attributes of the built-in color scales
+
+RColorBrewer::brewer.pal.info</code></pre>
+<pre><code>         maxcolors category colorblind
+BrBG            11      div       TRUE
+PiYG            11      div       TRUE
+PRGn            11      div       TRUE
+PuOr            11      div       TRUE
+RdBu            11      div       TRUE
+RdGy            11      div      FALSE
+RdYlBu          11      div       TRUE
+RdYlGn          11      div      FALSE
+Spectral        11      div      FALSE
+Accent           8     qual      FALSE
+Dark2            8     qual       TRUE
+Paired          12     qual       TRUE
+Pastel1          9     qual      FALSE
+Pastel2          8     qual      FALSE
+Set1             9     qual      FALSE
+Set2             8     qual       TRUE
+Set3            12     qual      FALSE
+Blues            9      seq       TRUE
+BuGn             9      seq       TRUE
+BuPu             9      seq       TRUE
+GnBu             9      seq       TRUE
+Greens           9      seq       TRUE
+Greys            9      seq       TRUE
+Oranges          9      seq       TRUE
+OrRd             9      seq       TRUE
+PuBu             9      seq       TRUE
+PuBuGn           9      seq       TRUE
+PuRd             9      seq       TRUE
+Purples          9      seq       TRUE
+RdPu             9      seq       TRUE
+Reds             9      seq       TRUE
+YlGn             9      seq       TRUE
+YlGnBu           9      seq       TRUE
+YlOrBr           9      seq       TRUE
+YlOrRd           9      seq       TRUE</code></pre>
+<p>The RColorBrewer package is an excellent package for its ready-made
+palettes, as well as the ability to create custom palettes. See</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="size" class="section level2">
+<h2>Size</h2>
+<p>We also have the population data for each country and we might wonder
+if population has an effect on life expectancy and GDP per capita. We
+can map <code>pop</code> to the size of the points in the plot by adding
+another <code>aes()</code>. If there was a relationship, we might expect
+to see larger points concentrated in certain regions of the resulting
+graph.</p>
+<blockquote>
+<h2 id="exercise-1">Exercise</h2>
+<p>Given our previous code mapping data columns to the axes and to
+color, what would we add to the previous plot code to map the population
+to the <code>size</code> aesthatic?</p>
+<pre class="r"><code>ggplot(data = gm97) +
+    aes(x = gdpPercap) +
+    labs(x = &#39;GDP Per Capita&#39;) +
+    aes(y = lifeExp) + 
+    labs(y = &#39;Life Expectancy&#39;) +
+    geom_point() +
+    labs(title = &#39;Do people in wealthier countries live longer?&#39;) + 
+    aes(color = continent) + 
+    scale_color_brewer(palette = &#39;Set1&#39;) +
+    aes(size = pop)</code></pre>
+<p><img src="fig/03-plot_pop_size-1.png" width="816" style="display: block; margin: auto;" /></p>
+</blockquote>
+<p>Here ggplot has created another legend for us called
+<code>pop</code>, the name of the column, and it shows the size related
+to the population. However, this is in scientific notation, which is a
+little difficult to interpret at a glance. We can change this by
+dividing all the population values by 1,000,000. We can also change the
+labels of the legend using the <code>labs()</code> function, just as we
+did for the x and y axes and title.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Add a mapping: size is &quot;population in millions&quot;
+# Add nice labels for color and size mappings in the legend
+
+ggplot(data = gm97) +
+    aes(x = gdpPercap) +
+    labs(x = &#39;GDP Per Capita&#39;) +
+    aes(y = lifeExp) + 
+    labs(y = &#39;Life Expectancy&#39;) +
+    geom_point() +
+    labs(title = &#39;Do people in wealthier countries live longer?&#39;) + 
+    aes(color = continent) + 
+    scale_color_brewer(palette = &#39;Set1&#39;) +
+    labs(color = &#39;Continent&#39;) +
+    aes(size = pop/1000000) + 
+    labs(size = &#39;Population (in millions)&#39;)</code></pre>
+<p><img src="fig/03-plot_per_million-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>From this plot, it doesn’t look like population has much to do with
+either life expectancy or GDP per capita. Notice in the
+<code>aes()</code> with <code>size</code> we divided the
+<code>pop</code> column by 1,000,000. This works because columns in
+aesthetic mappings can be treated just like any other variable, and we
+can use functions to transform or change them at plot time rather than
+transforming the data first. We will see later that for more complex
+transformations, it can be advantageous to transform the data first and
+build a plot based on the transformed data rather than doing it at plot
+time.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="compact-code" class="section level2">
+<h2>Compact code</h2>
+<p>In this lesson we have built our plot up line by line and accumulated
+many lines of code. Many of these steps can be combined to make the code
+a bit more compact and readable:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Recapitulate the above plot with more concise code
+
+ggplot(data = gm97) + 
+    aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) + 
+    geom_point() + 
+    scale_color_brewer(palette = &#39;Set1&#39;) + 
+    labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+         title = &#39;Do people in wealthier countries live longer?&#39;)</code></pre>
+<p><img src="fig/03-plot_compact_code-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="exploring-more-complex-data" class="section level2">
+<h2>Exploring more complex data</h2>
+<p>The <code>gm97</code> has been useful for exploring
+<code>dplyr</code> and <code>ggplot</code> functions. Let’s load in a
+more complex dataset so we have a bit more data to explore. The
+<code>data/gapmainder_data.csv</code> dataset is similar to
+<code>gm97</code>, but is longitudinal. The first step is to load in the
+data.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Read in full gapminder dataset
+
+gm = read_csv(&#39;data/gapminder_data.csv&#39;)</code></pre>
+<pre><code>Rows: 1704 Columns: 6
+── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (2): country, continent
+dbl (4): year, pop, lifeExp, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>Let’s look at a preview of the data and explore some functions to see
+its attributes. First, we can preview it by evaluating a line of code
+which just names the object:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Preview the full dataset
+
+gm</code></pre>
+<pre><code># A tibble: 1,704 × 6
+   country      year      pop continent lifeExp gdpPercap
+   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Afghanistan  1952  8425333 Asia         28.8      779.
+ 2 Afghanistan  1957  9240934 Asia         30.3      821.
+ 3 Afghanistan  1962 10267083 Asia         32.0      853.
+ 4 Afghanistan  1967 11537966 Asia         34.0      836.
+ 5 Afghanistan  1972 13079460 Asia         36.1      740.
+ 6 Afghanistan  1977 14880372 Asia         38.4      786.
+ 7 Afghanistan  1982 12881816 Asia         39.9      978.
+ 8 Afghanistan  1987 13867957 Asia         40.8      852.
+ 9 Afghanistan  1992 16317921 Asia         41.7      649.
+10 Afghanistan  1997 22227415 Asia         41.8      635.
+# ℹ 1,694 more rows</code></pre>
+<p><strong>Checkpoint</strong></p>
+<p>Again, the <code>tibble</code> provides a nice preview of the data
+along with many of the attributes including the dimensions and types of
+columns. There are some functions we can use to determine these
+attributes on their own:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Calculate the dimensions of the dataset
+
+dim(gm)</code></pre>
+<pre><code>[1] 1704    6</code></pre>
+<p>This gives us the number of rows and columns, respectively.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Look at the first and last few rows of the dataset
+
+head(gm)</code></pre>
+<pre><code># A tibble: 6 × 6
+  country      year      pop continent lifeExp gdpPercap
+  &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+1 Afghanistan  1952  8425333 Asia         28.8      779.
+2 Afghanistan  1957  9240934 Asia         30.3      821.
+3 Afghanistan  1962 10267083 Asia         32.0      853.
+4 Afghanistan  1967 11537966 Asia         34.0      836.
+5 Afghanistan  1972 13079460 Asia         36.1      740.
+6 Afghanistan  1977 14880372 Asia         38.4      786.</code></pre>
+<pre class="r"><code>tail(gm)</code></pre>
+<pre><code># A tibble: 6 × 6
+  country   year      pop continent lifeExp gdpPercap
+  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+1 Zimbabwe  1982  7636524 Africa       60.4      789.
+2 Zimbabwe  1987  9216418 Africa       62.4      706.
+3 Zimbabwe  1992 10704340 Africa       60.4      693.
+4 Zimbabwe  1997 11404948 Africa       46.8      792.
+5 Zimbabwe  2002 11926563 Africa       40.0      672.
+6 Zimbabwe  2007 12311143 Africa       43.5      470.</code></pre>
+<p>The <code>head()</code> and <code>tail()</code> functions display the
+first and last few rows of an object, respectively. There is also a
+useful function called “structure”, <code>str()</code>, which displays
+the structure of an object. This is especially useful when we don’t know
+what an object contains.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Display the &quot;structure&quot; of an object
+
+str(gm)</code></pre>
+<pre><code>spc_tbl_ [1,704 × 6] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ country  : chr [1:1704] &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; &quot;Afghanistan&quot; ...
+ $ year     : num [1:1704] 1952 1957 1962 1967 1972 ...
+ $ pop      : num [1:1704] 8425333 9240934 10267083 11537966 13079460 ...
+ $ continent: chr [1:1704] &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; &quot;Asia&quot; ...
+ $ lifeExp  : num [1:1704] 28.8 30.3 32 34 36.1 ...
+ $ gdpPercap: num [1:1704] 779 821 853 836 740 ...
+ - attr(*, &quot;spec&quot;)=
+  .. cols(
+  ..   country = col_character(),
+  ..   year = col_double(),
+  ..   pop = col_double(),
+  ..   continent = col_character(),
+  ..   lifeExp = col_double(),
+  ..   gdpPercap = col_double()
+  .. )
+ - attr(*, &quot;problems&quot;)=&lt;externalptr&gt; </code></pre>
+<p>This is similar to information we see in the <code>tibble</code>
+preview. We see the type of object, dimensions, columns, their type, and
+a preview of their values. Of course, the <code>summary()</code>
+function works just the same as it did for <code>gm97</code>, and it’s a
+good idea to take a peek and see what the range of the data are:</p>
+<p><strong>Checkpoint</strong></p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Summarize all column values
+
+summary(gm)</code></pre>
+<pre><code>   country               year           pop             continent            lifeExp        gdpPercap       
+ Length:1704        Min.   :1952   Min.   :6.001e+04   Length:1704        Min.   :23.60   Min.   :   241.2  
+ Class :character   1st Qu.:1966   1st Qu.:2.794e+06   Class :character   1st Qu.:48.20   1st Qu.:  1202.1  
+ Mode  :character   Median :1980   Median :7.024e+06   Mode  :character   Median :60.71   Median :  3531.8  
+                    Mean   :1980   Mean   :2.960e+07                      Mean   :59.47   Mean   :  7215.3  
+                    3rd Qu.:1993   3rd Qu.:1.959e+07                      3rd Qu.:70.85   3rd Qu.:  9325.5  
+                    Max.   :2007   Max.   :1.319e+09                      Max.   :82.60   Max.   :113523.1  </code></pre>
+<p>We see the same columns as <code>gm97</code> but we notice that there
+are many more years of data collected than just 1997. Let’s jump right
+in with a plot to understand what this data looks like. And let’s begin
+with something similar to the scatterplot we did for <code>gm97</code>,
+but include the year.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Plot the full dataset in a similar way to the 1997 only data
+
+ggplot(data = gm) +
+    aes(x = year, y = lifeExp, color = continent) + 
+    geom_point()</code></pre>
+<p><img src="fig/03-full_plot_point-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>There seems to be an overall trend of higher life expectancy over
+time, but it’s not as clear as it could be. In our plot, the
+country-level data is not connected, making it hard to understand
+country-level trends. Before we figure out how to connect the dots,
+let’s use our <code>dplyr</code> knowledge to see if that overall trend
+we suspect is correct.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Calculate global mean life expectancy per year in the data
+
+gm %&gt;% group_by(year) %&gt;% summarize(mean_life_exp = mean(lifeExp))</code></pre>
+<pre><code># A tibble: 12 × 2
+    year mean_life_exp
+   &lt;dbl&gt;         &lt;dbl&gt;
+ 1  1952          49.1
+ 2  1957          51.5
+ 3  1962          53.6
+ 4  1967          55.7
+ 5  1972          57.6
+ 6  1977          59.6
+ 7  1982          61.5
+ 8  1987          63.2
+ 9  1992          64.2
+10  1997          65.0
+11  2002          65.7
+12  2007          67.0</code></pre>
+<p>That seems clear enough. Of course, this is for all countries
+combined. We could add continent as an additional group:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Calculate mean life expectancy per year per continent in the data
+
+gm %&gt;% group_by(year, continent) %&gt;% summarize(mean_life_exp = mean(lifeExp))</code></pre>
+<pre><code>`summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups` argument.</code></pre>
+<pre><code># A tibble: 60 × 3
+# Groups:   year [12]
+    year continent mean_life_exp
+   &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
+ 1  1952 Africa             39.1
+ 2  1952 Americas           53.3
+ 3  1952 Asia               46.3
+ 4  1952 Europe             64.4
+ 5  1952 Oceania            69.3
+ 6  1957 Africa             41.3
+ 7  1957 Americas           56.0
+ 8  1957 Asia               49.3
+ 9  1957 Europe             66.7
+10  1957 Oceania            70.3
+# ℹ 50 more rows</code></pre>
+<blockquote>
+<h2 id="exercise-2">Exercise</h2>
+<p>The above code is ordered by year, but to see the continent-wise
+trend, it would be easier to see the data arranged by continent, how
+would we rearrange the rows by continent?</p>
+<pre class="r"><code>gm %&gt;% 
+    group_by(year, continent) %&gt;% 
+    summarize(mean_life_exp = mean(lifeExp)) %&gt;% 
+    arrange(continent)</code></pre>
+<pre><code>`summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups` argument.</code></pre>
+<pre><code># A tibble: 60 × 3
+# Groups:   year [12]
+    year continent mean_life_exp
+   &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt;
+ 1  1952 Africa             39.1
+ 2  1957 Africa             41.3
+ 3  1962 Africa             43.3
+ 4  1967 Africa             45.3
+ 5  1972 Africa             47.5
+ 6  1977 Africa             49.6
+ 7  1982 Africa             51.6
+ 8  1987 Africa             53.3
+ 9  1992 Africa             53.6
+10  1997 Africa             53.6
+# ℹ 50 more rows</code></pre>
+</blockquote>
+<p>This is a step in the right direction, but now the
+<code>tibble</code> preview is actually preventing us from seeing all
+the data. There are two ways we can see the full result:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Calculate mean life expectancy per year per continent, and arrange by continent
+
+life_exp_by_year_continent = gm %&gt;% 
+    group_by(year, continent) %&gt;% 
+    summarize(mean_life_exp = mean(lifeExp)) %&gt;% 
+    arrange(continent)</code></pre>
+<pre><code>`summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups` argument.</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Use View() to see a large table in a more convenient display format
+
+View(life_exp_by_year_continent)</code></pre>
+<p>The <code>View()</code> function will show the table in the Scripts
+pane. Another way to accomplish this is to <code>%&gt;%</code> pipe
+<code>life_exp_by_year_continent</code> as a
+<code>data.frame</code>:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Coerce a tibble into a data.frame to see more of it in the Console
+
+life_exp_by_year_continent %&gt;% data.frame</code></pre>
+<pre><code>   year continent mean_life_exp
+1  1952    Africa      39.13550
+2  1957    Africa      41.26635
+3  1962    Africa      43.31944
+4  1967    Africa      45.33454
+5  1972    Africa      47.45094
+6  1977    Africa      49.58042
+7  1982    Africa      51.59287
+8  1987    Africa      53.34479
+9  1992    Africa      53.62958
+10 1997    Africa      53.59827
+11 2002    Africa      53.32523
+12 2007    Africa      54.80604
+13 1952  Americas      53.27984
+14 1957  Americas      55.96028
+15 1962  Americas      58.39876
+16 1967  Americas      60.41092
+17 1972  Americas      62.39492
+18 1977  Americas      64.39156
+19 1982  Americas      66.22884
+20 1987  Americas      68.09072
+21 1992  Americas      69.56836
+22 1997  Americas      71.15048
+23 2002  Americas      72.42204
+24 2007  Americas      73.60812
+25 1952      Asia      46.31439
+26 1957      Asia      49.31854
+27 1962      Asia      51.56322
+28 1967      Asia      54.66364
+29 1972      Asia      57.31927
+30 1977      Asia      59.61056
+31 1982      Asia      62.61794
+32 1987      Asia      64.85118
+33 1992      Asia      66.53721
+34 1997      Asia      68.02052
+35 2002      Asia      69.23388
+36 2007      Asia      70.72848
+37 1952    Europe      64.40850
+38 1957    Europe      66.70307
+39 1962    Europe      68.53923
+40 1967    Europe      69.73760
+41 1972    Europe      70.77503
+42 1977    Europe      71.93777
+43 1982    Europe      72.80640
+44 1987    Europe      73.64217
+45 1992    Europe      74.44010
+46 1997    Europe      75.50517
+47 2002    Europe      76.70060
+48 2007    Europe      77.64860
+49 1952   Oceania      69.25500
+50 1957   Oceania      70.29500
+51 1962   Oceania      71.08500
+52 1967   Oceania      71.31000
+53 1972   Oceania      71.91000
+54 1977   Oceania      72.85500
+55 1982   Oceania      74.29000
+56 1987   Oceania      75.32000
+57 1992   Oceania      76.94500
+58 1997   Oceania      78.19000
+59 2002   Oceania      79.74000
+60 2007   Oceania      80.71950</code></pre>
+<!-- Might also consider the pivot functions here... -->
+<p>And the result is printed out in the Console pane. Either way, the
+trend of increasing life expectancy over time that we saw globally
+appears to hold across all continents as well.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="line-geometry" class="section level2">
+<h2>Line geometry</h2>
+<p>Of course, <strong>seeing</strong> this data would be more
+compelling, and we already went through the trouble to save the
+summarized data as its own object, so let’s use it to introduce the line
+geometry <code>geom_line()</code>.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Plot the mean life expectancy over the years, per continent as a line graph
+# using the summarized data
+
+ggplot(data = life_exp_by_year_continent) + 
+    aes(x = year, y = mean_life_exp, color = continent) + 
+    geom_line()</code></pre>
+<p><img src="fig/03-plot_lifeexp_line-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>The <code>geom_line()</code> geometry connects the data points across
+time in the appropriate way. Sure enough, we see what we noticed from
+looking at the summarized table. This is a good example of needing to
+summarize the data before plotting, rather than altering the data at
+runtime, as we did when we divided the population by 1,000,000.</p>
+<p>Let’s pull this plot back a bit and try to plot all the countries at
+the same time, rather than an average. Let’s try altering the code above
+and replace <code>geom_point()</code> with <code>geom_line()</code>:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# First attempt at plotting life expectancy for all countries over time
+
+ggplot(data = gm) +
+    aes(x = year, y = lifeExp, color = continent) + 
+    geom_line()</code></pre>
+<p><img src="fig/03-full_plot_line_wrong-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>This is definitely not the right thing. We got a line for each
+continent, but we want a line for each country. To tell
+<code>ggplot</code> to connect the values for each <code>country</code>,
+we use the <code>group</code> aesthetic:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Map the group to the country and try again
+
+ggplot(data = gm) +
+    aes(x = year, y = lifeExp, color = continent, group = country) + 
+    geom_line()</code></pre>
+<p><img src="fig/03-full_plot_line_correct-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>And now we see each country plotted as its own line so we can see the
+overall trend, as well as the deviations from the trend.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="geometries-for-categories" class="section level2">
+<h2>Geometries for categories</h2>
+<p>The <code>geom_point</code> and <code>geom_line</code> geometries are
+designed to display numeric values on the x and y axes. Often data has
+discrete variables (<code>continent</code> or <code>country</code>)
+where something like a box plot is more appropriate. Let’s revisit our
+<code>gm97</code> data to create a box plot with the continent on the x
+axis and the life expectancy on the y-axis.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# For 1997 data only, make a boxplot of life expectancy across the continents
+
+ggplot(data = gm97) + aes(x = continent, y = lifeExp) + geom_boxplot()</code></pre>
+<p><img src="fig/03-plot_box-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>This makes comparing the range and spread of values across groups
+easier. The median of the data is displayed, as is the 25% and 75%-iles
+and any outliers.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="factors" class="section level2">
+<h2>Factors</h2>
+<p>In the above box plots it’s perfectly acceptable to have the
+continents listed in alphabetical order, which is the default when
+plotting categorical data in <code>ggplot2</code>. Imagine, however,
+that we want a box plot with months on the x-axis and some data on the
+y-axis. It wouldn’t be appropriate to plot the months in alphabetical
+order. Fortunately there is a data type in R called a
+<strong>factor</strong> which stores categorical data and enables us to
+specify the order of the “levels” or categories.</p>
+<p>We know that our data has a <code>continent</code> column, and we saw
+before that there were only 5 unique values in this column. This is a
+perfect candidate to introduce the idea of a factor. Let’s
+<code>mutate()</code> the <code>gm97</code> data and add a factor
+version of the continent column.</p>
+<p>First, let’s look at <code>?factor</code>. It takes a character
+vector (exactly what the <code>continent</code> column is), and an
+optional <code>levels</code> character vector which dictates the
+categories and their desired order.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Add a new continent factor with mutate, where the order is specified
+
+gm_factor = gm97 %&gt;% 
+    mutate(continent_factor = factor(continent, levels = c(&#39;Oceania&#39;, &#39;Africa&#39;, &#39;Asia&#39;, &#39;Americas&#39;, &#39;Europe&#39;)))</code></pre>
+<p>Let’s take a look at the new object and see how it’s different.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Preview the table with the additional column
+
+gm_factor</code></pre>
+<pre><code># A tibble: 142 × 7
+   country      year       pop continent lifeExp gdpPercap continent_factor
+   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;fct&gt;           
+ 1 Afghanistan  1997  22227415 Asia         41.8      635. Asia            
+ 2 Albania      1997   3428038 Europe       73.0     3193. Europe          
+ 3 Algeria      1997  29072015 Africa       69.2     4797. Africa          
+ 4 Angola       1997   9875024 Africa       41.0     2277. Africa          
+ 5 Argentina    1997  36203463 Americas     73.3    10967. Americas        
+ 6 Australia    1997  18565243 Oceania      78.8    26998. Oceania         
+ 7 Austria      1997   8069876 Europe       77.5    29096. Europe          
+ 8 Bahrain      1997    598561 Asia         73.9    20292. Asia            
+ 9 Bangladesh   1997 123315288 Asia         59.4      973. Asia            
+10 Belgium      1997  10199787 Europe       77.5    27561. Europe          
+# ℹ 132 more rows</code></pre>
+<p>Note that the new column has type <code>fct</code> (factor) and the
+old has <code>chr</code> (character). That’s a good start. Let’s look at
+the head of both columns.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Look at the first few elements of the old and new column continent column
+
+head(gm_factor$continent)</code></pre>
+<pre><code>[1] &quot;Asia&quot;     &quot;Europe&quot;   &quot;Africa&quot;   &quot;Africa&quot;   &quot;Americas&quot; &quot;Oceania&quot; </code></pre>
+<pre class="r"><code>head(gm_factor$continent_factor)</code></pre>
+<pre><code>[1] Asia     Europe   Africa   Africa   Americas Oceania 
+Levels: Oceania Africa Asia Americas Europe</code></pre>
+<p><strong>Checkpoint</strong></p>
+<p>Notice that for the factor column we get the same output, but with
+additional information about the <code>levels</code>, and the ordering
+is exactly what we specified. Now let’s see the effect on a plot similar
+to the boxplot we already created above.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Use the new factor column in a boxplot to see change in continent ordering
+
+ggplot(data = gm_factor) + aes(x = continent_factor, y = lifeExp) + geom_boxplot()</code></pre>
+<p><img src="fig/03-factor_boxplot-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Compare this to the plot we saw with the <code>continent</code>
+column, where the order was alphabetical. In the RNA-seq Demystified
+Workshop we will also see how factors and the order of their levels
+affect the tests for differential expression.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="layers-optional" class="section level2">
+<h2>Layers (optional)</h2>
+<p>To get a sense for how the data are distributed in the box plot, we
+could add a <strong>layer</strong> with <code>geom_point()</code> in
+addition to <code>geom_boxplot()</code>.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Add a layer on top of the boxplot to show individual data composing each box
+
+ggplot(data = gm97) + 
+    aes(x = continent, y = lifeExp) + 
+    geom_boxplot() + 
+    geom_point()</code></pre>
+<p><img src="fig/03-plot_box_layer-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>The points are stacking on top of one another, and it can be hard to
+tell, for a value of <code>lifeExp</code>, if more than one data point
+is there. We can fix this by “jittering” the points, with
+<code>geom_jitter()</code>.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Use geom_jitter() to prevent points from stacking
+
+ggplot(data = gm97) + 
+    aes(x = continent, y = lifeExp) + 
+    geom_boxplot() + 
+    geom_jitter()</code></pre>
+<p><img src="fig/03-plot_box_jitter-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Within a column, the horizontal position doesn’t have meaning, and is
+meant to visually separate points of the same value. However, it feels
+like the jitter is a bit wide, causing the boundaries between the
+continents to be unclear. If we look at the help
+<code>?geom_jitter</code> we’d see a <code>width</code> parameter, which
+controls how wide to allow the jitter.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Adjust the width of the jitter
+
+ggplot(data = gm97) + 
+    aes(x = continent, y = lifeExp) + 
+    geom_boxplot() + 
+    geom_jitter(width = 0.15)</code></pre>
+<p><img src="fig/03-plot_box_jitter_width-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>It may take some iterations of the <code>width</code> parameter to
+get things where we want them. This is pretty common in
+<code>ggplot2</code>. Note that the word “layer” also means that the
+layers appear in a particular order, for example, if we swap the
+<code>geom_boxplot()</code> and <code>geom_jitter()</code> we see that
+the points are obscured.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Experiment with reversing the order of the layers
+
+ggplot(data = gm97) + 
+    aes(x = continent, y = lifeExp) + 
+    geom_jitter(width = 0.15) +
+    geom_boxplot()</code></pre>
+<p><img src="fig/03-plot_box_jitter_layer-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Using the <code>width</code> parameter in <code>geom_jitter()</code>,
+we saw that it was possible to change aspects of a layer without
+altering other layers. This carries into the aesthetics too. For
+example, if we wanted to add a <code>size</code> aesthetic using the
+<code>pop</code> to only the <code>geom_jitter()</code> layer:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Map point size to population within the jitter geometry
+# NOTE: This applies the mapping only to the jitter layer
+
+ggplot(data = gm97) + 
+    aes(x = continent, y = lifeExp) + 
+    geom_boxplot() + 
+    geom_jitter(aes(size = pop), width = 0.3)</code></pre>
+<p><img src="fig/03-plot_box_jitter_aes-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="color-and-fill-optional" class="section level2">
+<h2>Color and Fill (optional)</h2>
+<p>Let’s have a look at our jittered boxplot and explore
+<code>color</code> and <code>fill</code>. When a color is assigned
+directly, we use the name of the color in quotes, as in ‘pink’, and we
+don’t need to use the <code>aes()</code> function.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Change the color of the boxplot outline
+# NOTE: The assignment is not mapped to the data
+
+ggplot(data = gm97) + 
+    aes(x = continent, y = lifeExp) + 
+    geom_boxplot(color = &#39;pink&#39;) + 
+    geom_jitter(aes(size = pop), width = 0.3)</code></pre>
+<p><img src="fig/03-plot_box_color1-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>We could add a different color to the points in the
+<code>geom_jitter()</code>, and we would do it outside of the
+<code>aes()</code> if we wanted them to be the same.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Use distinct colors in distinct geometries
+
+ggplot(data = gm97) + 
+    aes(x = continent, y = lifeExp) + 
+    geom_boxplot(color = &#39;pink&#39;) + 
+    geom_jitter(aes(size = pop), color = &#39;blue&#39;, width = 0.3)</code></pre>
+<p><img src="fig/03-plot_box_color2-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Notice that <code>color</code> changed the outline of the
+<code>geom_boxplot()</code>. We would use <code>fill</code> if we wanted
+to change the inside color of the box plot.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Change the fill color of the boxes
+
+ggplot(data = gm97) + 
+    aes(x = continent, y = lifeExp) + 
+    geom_boxplot(color = &#39;pink&#39;, fill = &#39;green&#39;) + 
+    geom_jitter(aes(size = pop), color = &#39;blue&#39;, width = 0.3)</code></pre>
+<p><img src="fig/03-plot_box_color3-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>We probably won’t publish this particular plot, as beautiful as it
+is.</p>
+<p>We have already seen in other plots that we can link
+<code>color</code> to an attribute of our data. We can do the same with
+<code>fill</code>, but we do it inside of the <code>aes()</code>
+function.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Change the fill color of the boxes, mapping to the data
+
+ggplot(data = gm97) + 
+    aes(x = continent, y = lifeExp) + 
+    geom_boxplot(aes(fill = continent)) + 
+    geom_jitter(aes(size = pop), width = 0.3)</code></pre>
+<p><img src="fig/03-plot_box_color4-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="single-variable-plots" class="section level2">
+<h2>Single-variable plots</h2>
+<p>Our very first plot involved two variables, but it’s often helpful to
+plot a single variable’s values as a histogram to understand its
+distribution. Here the geometries <code>geom_histogram()</code> and
+<code>geom_density()</code> can help us. Let’s take a look at the
+histogram for <code>lifeExp</code>.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Create a histogram
+
+ggplot(data = gm97) +
+    aes(x = lifeExp) + 
+    geom_histogram()</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="fig/03-plot_histogram-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Here there is a message displayed that the default number of bins is
+30 from <code>geom_histogram()</code>, but that may not be appropriate
+for all data. There are two ways we can change the bins the geometry
+uses to count, <code>bins</code> which fixes the number of bins, and
+<code>binwidth</code> which fixes the intervals in which values are
+counted. Let’s change the number of bins to 20.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Change the bin size of the histogram
+
+ggplot(data = gm97) +
+    aes(x = lifeExp) + 
+    geom_histogram(bins = 20)</code></pre>
+<p><img src="fig/03-plot_histogram_bins-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>We can see there are fewer bins in this plot.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="facets" class="section level2">
+<h2>Facets</h2>
+<p>We have used the aesthetics <code>aes()</code> to map data to
+<code>color</code>, <code>fill</code>, etc. and distinguish differences
+between the subgroups. Faceting is another technique to plot subgroups
+in their own panels of a single plot, also helping to distinguish
+differences between subgroups. We started off a relatively simple plot
+of GDP per capita versus life expectancy, and later colored it by
+continent. But let’s use facets to split the continents into their own
+sub-plots.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Create a facet plot of GDP per capita versus life expectancy across continents
+
+ggplot(gm97) + 
+    aes(x = gdpPercap, y = lifeExp) + 
+    geom_point() + 
+    facet_wrap(vars(continent))</code></pre>
+<p><img src="fig/03-plot_scatter_facetwrap-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Importantly, we had to use the helper function <code>vars()</code> to
+tell <code>facet_wrap()</code> what the column name to use in the facet.
+The details about why <code>vars()</code> is needed are somewhat
+nuanced, so we won’t get into them, but know that some
+<code>ggplot2</code> and <code>dplyr</code> functions may require the
+use of <code>vars()</code> when giving column names, whereas in the
+<code>aes()</code> function we don’t need the <code>vars()</code>.</p>
+<p>It might be easier to compare differences in the sub-plots if they
+were arranged by row or by column, rather than wrapping them in a grid.
+Have a look at the help for <code>?facet_grid()</code>. There are
+<code>rows</code> and <code>cols</code> arguments that will display the
+facets as rows or columns.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Force the facets to display as stacked rows
+# NOTE: This can make plots more comparable
+
+ggplot(gm97) + 
+    aes(x = gdpPercap, y = lifeExp) + 
+    geom_point() + 
+    facet_grid(rows = vars(continent))</code></pre>
+<p><img src="fig/03-plot_scatter_facetgrid-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Now there is only one x-axis, and multiple y-axes. Here the scale is
+the same for all the y-axes to make them comparable, but there are
+parameters of <code>facet_grid()</code> that allow the scales to change
+depending on the data within the facet itself if that’s more
+appropriate.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+</div>
+<div id="saving-plots" class="section level1">
+<h1>Saving plots</h1>
+<p>While it’s great to keep the code that created the plot in an R
+script, it’s also great to save it as an image so you can share it with
+people that don’t use R, or don’t want to run all your code to generate
+the plot. Since we’re saving all our steps in a script, we’ll make use
+of the <code>ggsave()</code> function. Let’s start by taking a look at
+the help:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Display the manual for ggsave()
+
+?ggsave</code></pre>
+<p>Note that it defaults to saving the last displayed plot. also note
+that there are parameters for the dimensions, the units of the
+dimensions, and the resolution. Let’s run a very basic version of
+<code>ggsave()</code>.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Save plot to a file
+
+ggsave(&#39;first_saved_plot.png&#39;, height = 6, width = 6, dpi = 300)</code></pre>
+<p>We can then navigate to the plot and click to open it in the File
+pane. Note that R Studio Server let’s you easily download any file by
+clicking any number of checkboxes for the files and then clicking “More”
+and “Export”. In the previous command we’ve used the <code>.png</code>
+extension, so that <code>ggsave()</code> knows to create a PNG, but we
+could have also used <code>.jpeg</code>, <code>.pdf</code>,
+<code>.eps</code>, etc to create an appropriate file output. See the
+documentation for <code>ggsave()</code> for supported file formats, and
+note that this is an easy way to save multiple formats and resolutions
+depending on whether you want to quickly share with a collaborator, or
+share with a journal for publication.</p>
+<p><strong>Checkpoint</strong></p>
+<p>We just learned how to save plots as files, but we can also save
+plots as objects in R. This is helpful for when we want to revisit a
+plot or make changes to it without having to re-type a bunch of
+code.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Save a plot as an object
+
+scatter_plot = ggplot(data = gm97) + 
+    aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000) + 
+    geom_point() + 
+    scale_color_brewer(palette = &#39;Set1&#39;) + 
+    labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+         title = &#39;Do people in wealthier countries live longer?&#39;,
+         caption = &#39;Figure: GDP per capita and life expectancy are positively correlated, while population is not.&#39;)</code></pre>
+<p>Notice nothing happens, unlike when we ran the code without saving it
+as an object. If we want to see the plot again, we have to execute the
+name of the object:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Display the plot object
+
+scatter_plot</code></pre>
+<p><img src="fig/03-display_plot_object-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="customizing-plots" class="section level1">
+<h1>Customizing plots</h1>
+<p>Now that we have a nice plot saved as an object, it’s a good time to
+explore different customizations we can add to the plot. Let’s start
+with changing the theme.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Use a built-in theme to change many attributes of a plot at once
+
+scatter_plot + theme_bw()</code></pre>
+<p><img src="fig/03-change_theme-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>What did this do? It changed the background color, added a border
+around the plot area, and perhaps some other things that are too subtle
+to notice. There are many themes available as presets (<a
+href="https://ggplot2.tidyverse.org/reference/ggtheme.html">see this
+link</a>), but we can also more finely control aspects of our plot with
+the <code>theme()</code> function (<a
+href="https://ggplot2.tidyverse.org/reference/theme.html">see
+documentation here</a> or do <code>?theme</code>).</p>
+<div id="change-font-attributes" class="section level2">
+<h2>Change font attributes</h2>
+<p>We can use the <code>text</code> argument of <code>theme()</code> to
+change the size of all the fonts in the plot.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Scale the size of all text in a plot
+
+scatter_plot + theme(text = element_text(size = 16))</code></pre>
+<p><img src="fig/03-change_font_size-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>We could also rotate the axis labels using either the
+<code>axis.text.x</code> or <code>axis.text.y</code> parameter of
+<code>theme()</code>, and then the <code>angle</code>,
+<code>vjust</code>, and <code>hjust</code> parameters of
+<code>element_text()</code>.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Rotate the x-axis labels 90 degrees counter-clockwise
+
+scatter_plot + theme(axis.text.x = element_text(angle = 90))</code></pre>
+<p><img src="fig/03-rotate_labels-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>Here the axis labels aren’t centered on the ticks, and seem to be
+center justified. We use the <code>vjust</code> and <code>hjust</code>
+parameters to fix that. This is a case where an example from searching
+the internet was helpful.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Adjust the justification after rotating the x-axis labels
+
+scatter_plot + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))</code></pre>
+<p><img src="fig/03-rotate_labels2-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="labeling-points-optional" class="section level2">
+<h2>Labeling points (optional)</h2>
+<p>In the scatterplot, we might want to highlight certain countries,
+such as Brazil, China, India, and the United States. There is a very
+nice add-on package called <a
+href="https://ggrepel.slowkow.com/index.html"><code>ggrepel</code></a>.
+In particular, if we look at the example for <a
+href="https://ggrepel.slowkow.com/articles/examples.html#hide-some-of-the-labels">how
+to hide some of the labels</a>, we’ll get a sense for how to write code
+to highlight these countries.</p>
+<p>It seems like we’ll need to add a new column to <code>gm97</code>
+that has empty labels (<code>''</code>) for the countries other than
+Brazil, China, India, and the United States.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Load the ggrepel package in preparation for point labeling
+
+library(ggrepel)
+
+# -------------------------------------------------------------------------
+# Mutate the gm97 data to include a label column
+# NOTE: We only add the desired labels and leave all others as the empty string
+
+gm97_labels = gm97 %&gt;% 
+    mutate(label = ifelse(country %in% c(&#39;Brazil&#39;, &#39;China&#39;, &#39;India&#39;, &#39;United States&#39;), country, &#39;&#39;))</code></pre>
+<p>What have we done here? We’ve used the <code>mutate()</code> function
+to create a new column called label, and the criteria for the entries
+are, if the entry from the <code>country</code> column is in the set
+<code>c('Brazil', 'China', 'India', 'United Staets')</code>, then pass
+on the country name, otherwise give it an empty string <code>''</code>.
+How can we be sure that we’ve done the right thing?</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# View the mutated data to make sure we did the right thing
+
+gm97_labels</code></pre>
+<pre><code># A tibble: 142 × 7
+   country      year       pop continent lifeExp gdpPercap label
+   &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;
+ 1 Afghanistan  1997  22227415 Asia         41.8      635. &quot;&quot;   
+ 2 Albania      1997   3428038 Europe       73.0     3193. &quot;&quot;   
+ 3 Algeria      1997  29072015 Africa       69.2     4797. &quot;&quot;   
+ 4 Angola       1997   9875024 Africa       41.0     2277. &quot;&quot;   
+ 5 Argentina    1997  36203463 Americas     73.3    10967. &quot;&quot;   
+ 6 Australia    1997  18565243 Oceania      78.8    26998. &quot;&quot;   
+ 7 Austria      1997   8069876 Europe       77.5    29096. &quot;&quot;   
+ 8 Bahrain      1997    598561 Asia         73.9    20292. &quot;&quot;   
+ 9 Bangladesh   1997 123315288 Asia         59.4      973. &quot;&quot;   
+10 Belgium      1997  10199787 Europe       77.5    27561. &quot;&quot;   
+# ℹ 132 more rows</code></pre>
+<p>Looks like the labels in the preview are correct, how can we check
+that the countries we wanted are correct?</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# View only the pertinent parts of the mutated data to verify
+
+gm97_labels %&gt;% filter(label != &#39;&#39;)</code></pre>
+<pre><code># A tibble: 4 × 7
+  country        year        pop continent lifeExp gdpPercap label        
+  &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;        
+1 Brazil         1997  168546719 Americas     69.4     7958. Brazil       
+2 China          1997 1230075000 Asia         70.4     2289. China        
+3 India          1997  959000000 Asia         61.8     1459. India        
+4 United States  1997  272911760 Americas     76.8    35767. United States</code></pre>
+<p>So now let’s take a cue from the example code and incorporate it into
+our original code:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Add a label mapping and a label geometry
+
+ggplot(data = gm97_labels) + 
+    aes(x = gdpPercap, y = lifeExp, color = continent, size = pop/1000000, label = label) + 
+    geom_point() + 
+    geom_text_repel(box.padding = 0.5, max.overlaps = Inf) +
+    scale_color_brewer(palette = &#39;Set1&#39;) + 
+    labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+         title = &#39;Do people in wealthier countries live longer?&#39;,
+         caption = &#39;Figure: GDP per capita and life expectancy are positively correlated, while population is not.&#39;)</code></pre>
+<p><img src="fig/03-plot_labels-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p><strong>Checkpoint</strong></p>
+<p>Notice that the size of the label is actually inherited from the size
+aesthetic. This is an example of aesthetics being inherited by default.
+We could prevent this inheritance by moving the <code>color</code> and
+<code>size</code> aesthetic mappings into <code>geom_point()</code> so
+that they only apply to that layer:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Prevent global inheritence of aesthetic mappings by specifying the mapping
+# only within the relevant geometry
+
+ggplot(data = gm97_labels) + 
+  aes(x = gdpPercap, y = lifeExp, label = label) + 
+  geom_point(aes(color = continent, size = pop/1000000)) + 
+  geom_text_repel(box.padding = 0.5, max.overlaps = Inf) +
+  scale_color_brewer(palette = &#39;Set1&#39;) + 
+  labs(x = &#39;GDP Per Capita&#39;, y = &#39;Life Expectancy&#39;, color = &#39;Continent&#39;, size = &#39;Population (in millions)&#39;,
+       title = &#39;Do people in wealthier countries live longer?&#39;,
+       caption = &#39;Figure: GDP per capita and life expectancy are positively correlated, while population is not.&#39;)</code></pre>
+<p><img src="fig/03-plot_labels2-1.png" width="816" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="objectives-1" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Learn the essential parts of the <code>ggplot2</code> “grammar of
+graphics”:
+<ul>
+<li>Map variables from the data to aesthetics (x, y, color, fill, size,
+etc.) via <code>aes()</code>.</li>
+<li>Plot those mappings with geometries via <code>geom_*()</code>.</li>
+<li>Adjust numeric and categorical scales via
+<code>scale_*()</code>.</li>
+<li>Use a variable to visually stratify data via
+<code>facet_*()</code>.</li>
+</ul></li>
+<li>Learn how to customize plots by:
+<ul>
+<li>Changing color and fill with the RColorBrewer package.</li>
+<li>Altering text and formatting of axis labels and legends.</li>
+</ul></li>
+</ul>
+</div>
+<div id="exercise-3" class="section level1">
+<h1>Exercise</h1>
+<blockquote>
+<p>In a previous exercise we created a plot showing the trend of life
+expectancy across all countries over time, colored by the continent. The
+following code generates a similar plot but for the GDP per capita.</p>
+<pre class="r"><code>ggplot(data = gm, aes(x = year, y = gdpPercap, color = continent, group = country)) +
+    geom_line() + theme_bw() +
+    labs(
+        title = &#39;GDP per Capita 1952 - 2007&#39;,
+        x = &#39;Year&#39;, y = &#39;GDP per Capita&#39;)</code></pre>
+<p><img src="fig/03-ggplot_exercise_example-1.png" width="816" style="display: block; margin: auto;" />
+Is this plot clear? Might it be improved by splitting up the continents
+into their own plots? Below is a plot which pulls apart the trends on
+the different continents, while still plotting each country
+individually. Try to write the code that would generate it.</p>
+<p><img src="fig/03-ggplot_exercise-1.png" width="816" style="display: block; margin: auto;" /></p>
+<p>This plot generates a lot of questions. For example:</p>
+<ol style="list-style-type: decimal">
+<li>What is the Asian country with the very high GDP per capita?</li>
+<li>What are the two countries that are outliers in the Americas?</li>
+<li>What two African countries seemed to experience strong GDP per
+capita growth through 1980, only to drop off?</li>
+<li>What two European countries overtake the long-leading GDP per capita
+country in 2007?</li>
+</ol>
+<p>All of these questions are suggested by looking at the plot, but we
+can answer them with the <code>dplyr</code> functions we’ve learned.</p>
+<ol style="list-style-type: decimal">
+<li>To find the Asian country of interest, we could simply find the
+country with the highest GDP per capita in 1952.</li>
+</ol>
+<pre class="r"><code>gm %&gt;% filter(year == 1952) %&gt;% arrange(desc(gdpPercap))</code></pre>
+<pre><code># A tibble: 142 × 6
+   country         year       pop continent lifeExp gdpPercap
+   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Kuwait          1952    160000 Asia         55.6   108382.
+ 2 Switzerland     1952   4815000 Europe       69.6    14734.
+ 3 United States   1952 157553000 Americas     68.4    13990.
+ 4 Canada          1952  14785584 Americas     68.8    11367.
+ 5 New Zealand     1952   1994794 Oceania      69.4    10557.
+ 6 Norway          1952   3327728 Europe       72.7    10095.
+ 7 Australia       1952   8691212 Oceania      69.1    10040.
+ 8 United Kingdom  1952  50430000 Europe       69.2     9980.
+ 9 Bahrain         1952    120447 Asia         50.9     9867.
+10 Denmark         1952   4334000 Europe       70.8     9692.
+# ℹ 132 more rows</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>We can actually use a similar tactic for this question, but we can
+pick any year based on the plot, and we must filter on the correct
+continent. Then we can observe the top two rows.</li>
+</ol>
+<pre class="r"><code>gm %&gt;% filter(year == 2007 &amp; continent == &#39;Americas&#39;) %&gt;% arrange(desc(gdpPercap))</code></pre>
+<pre><code># A tibble: 25 × 6
+   country              year       pop continent lifeExp gdpPercap
+   &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 United States        2007 301139947 Americas     78.2    42952.
+ 2 Canada               2007  33390141 Americas     80.7    36319.
+ 3 Puerto Rico          2007   3942491 Americas     78.7    19329.
+ 4 Trinidad and Tobago  2007   1056608 Americas     69.8    18009.
+ 5 Chile                2007  16284741 Americas     78.6    13172.
+ 6 Argentina            2007  40301927 Americas     75.3    12779.
+ 7 Mexico               2007 108700891 Americas     76.2    11978.
+ 8 Venezuela            2007  26084662 Americas     73.7    11416.
+ 9 Uruguay              2007   3447496 Americas     76.4    10611.
+10 Panama               2007   3242173 Americas     75.5     9809.
+# ℹ 15 more rows</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>We can use a similar approach as 2, but filter on the African
+countries, and look at the top two results.</li>
+</ol>
+<pre class="r"><code>gm %&gt;% filter(year == 1977 &amp; continent == &#39;Africa&#39;) %&gt;% arrange(desc(gdpPercap))</code></pre>
+<pre><code># A tibble: 52 × 6
+   country       year      pop continent lifeExp gdpPercap
+   &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Libya         1977  2721783 Africa       57.4    21951.
+ 2 Gabon         1977   706367 Africa       52.8    21746.
+ 3 South Africa  1977 27129932 Africa       55.5     8029.
+ 4 Algeria       1977 17152804 Africa       58.0     4910.
+ 5 Reunion       1977   492095 Africa       67.1     4320.
+ 6 Namibia       1977   977026 Africa       56.4     3876.
+ 7 Swaziland     1977   551425 Africa       52.5     3781.
+ 8 Mauritius     1977   913025 Africa       64.9     3711.
+ 9 Congo Rep.    1977  1536769 Africa       55.6     3259.
+10 Botswana      1977   781472 Africa       59.3     3215.
+# ℹ 42 more rows</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>And again, but look at the top three results.</li>
+</ol>
+<pre class="r"><code>gm %&gt;% filter(year == 2007 &amp; continent == &#39;Europe&#39;) %&gt;% arrange(desc(gdpPercap))</code></pre>
+<pre><code># A tibble: 30 × 6
+   country      year      pop continent lifeExp gdpPercap
+   &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+ 1 Norway       2007  4627926 Europe       80.2    49357.
+ 2 Ireland      2007  4109086 Europe       78.9    40676.
+ 3 Switzerland  2007  7554661 Europe       81.7    37506.
+ 4 Netherlands  2007 16570613 Europe       79.8    36798.
+ 5 Iceland      2007   301931 Europe       81.8    36181.
+ 6 Austria      2007  8199783 Europe       79.8    36126.
+ 7 Denmark      2007  5468120 Europe       78.3    35278.
+ 8 Sweden       2007  9031088 Europe       80.9    33860.
+ 9 Belgium      2007 10392226 Europe       79.4    33693.
+10 Finland      2007  5238460 Europe       79.3    33207.
+# ℹ 20 more rows</code></pre>
+</blockquote>
+<br/> <br/>
+<hr/>
+<table style="width:100%;">
+<colgroup>
+<col width="28%" />
+<col width="42%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"><a href="r-05-help.Rmd">Previous lesson</a></th>
+<th align="center"><a href="#top">Top of this lesson</a></th>
+<th align="right"><a href="workshop-wrap-up.html">Wrap up</a></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
