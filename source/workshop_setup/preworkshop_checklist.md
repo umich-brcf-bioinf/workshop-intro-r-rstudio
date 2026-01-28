@@ -18,14 +18,10 @@ body{ /* Normal  */
 
 <br/>
 
-1. (optional) Take the [Pre-workshop survey](https://michmed.org/qq87m){target="_blank"}<br/>
+1. (optional) TODO: Take the [Pre-workshop survey](https://michmed.org/qq87m){target="_blank"}<br/>
 To help us better understand your collective background, we invite you to take an optional, anonymous pre-workshop survey.
 
 2. Follow this link for [instructions to set up your computer](setup_instructions.html){target="_blank"}<br/>
-A separate email with the subject **"UM BioinfCore Workshop Login"** will detail your individual username and password to access the shared server. (Note that this email is sometimes flagged as spam, so if you don't see it in your Inbox please check your spam folder.)
-
-3. Join the UM BioinfCore Workshops Slack channel<br/>
-You will receive an email invite soon; please accept that to set up your Slack account.
 
 We are looking forward to seeing you in the workshop. Please let us know if you have any questions.<br/><br/>
 

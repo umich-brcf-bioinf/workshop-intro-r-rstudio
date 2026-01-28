@@ -40,15 +40,7 @@ We hope you now have more familiarity with key concepts, tools, and techniques
 that will enable more efficient, reproducible, and impactful computational research.
 
 
-## Session Info
-
-```{r eval = exists("on_aws") && on_aws, echo=FALSE, warning=FALSE, message = FALSE}
-library(tidyverse)
-library(ggrepel)
-sink('session_info.txt')
-sessioninfo::session_info()
-sink()
-```
+## TODO: Session Info
 
 <details>
 ```{r session_info, eval=FALSE}
@@ -66,19 +58,12 @@ session_info::session_info()
 
 ## Housekeeping
 
-- We will email you a link to the final session recordings next week.
-
 - This workshop website (aka "show notes") will be available.
-
-- The [UM Bioinformatics Core Workshop Slack channel](https://umbioinfcoreworkshops.slack.com){target="_blank"} 
-  will be available for 90 days.
 
 ---
 
-### Can I continue to use the RStudio environments we used in the workshop?
-- The RStudio workshop compute environment will be available through `r workshop_vars$rstudio_server_enddate`.
-  - _Please save all your R scripts now_ so that we can "right-size" the compute environment immediately following today's workshop session.
-- You can download files from the workshop environment from your terminal/command line window as below.
+### TODO Can I continue to use the RStudio environments we used in the workshop?
+- TODO You can download files from the workshop environment from your terminal/command line window as below.
   (You will need to substitute your actual workshop username and type workshop password when prompted.)
   ```
   mkdir workshop-intro-r-rstudio
@@ -87,8 +72,6 @@ session_info::session_info()
 ### Where else could I use RStudio?
   - See [Advanced setup instructions](workshop_setup/setup_instructions_advanced.html){target="_blank"}
     for details on how to install RStudio and required packages on your own computer.
-  - [PositCloud](https://posit.cloud/){target="_blank"} allows you to run R-Studio over the web for free. Click here to [login to PositCloud](https://posit.cloud/content/10156998) and launch an R session pre-configured for this workshop. (UM users can login using their umich.edu Google account.)
-  - UMich users can run RStudio on the [UM Great Lakes HPC](irr-on-great-lakes.html){target="_blank"}.
 
 ---
 
@@ -104,28 +87,12 @@ session_info::session_info()
 - The [University of Michigan Bioinformatics Core](https://michmed.org/GqGzZ){target="_blank"} regularly hosts workshops.
 - Intro lessons and workshops in Bash / Git / R / Python : 
   - [Software Carpentry](https://software-carpentry.org/lessons/){target="_blank"}
-  - [The Carpentries at the University of Michigan](https://umcarpentries.org/){target="_blank"} host several introductory workshops each year following curricula that are developed collaboratively and using the latest research into best practices for teaching computer science content. All workshops are offered for free to learners. 
 
-
-## How can I learn more about computational research at University of Michigan?
-- [UM CoderSpaces "office hours"](https://datascience.isr.umich.edu/events/coderspaces/){target="_blank"} and UM CoderSpaces Slack workspace. _(See "Useful Resources" section in CoderSpaces page for instructions on how to join and access the CoderSpaces Slack workspace.)_
-- [Advanced Research Computing](https://its.umich.edu/advanced-research-computing){target="_blank"}
-  - [Research Computing Package](https://its.umich.edu/advanced-research-computing/research-computing-package){target="_blank"}
-  - Upcoming [UM Advanced Research Computing workshops](https://ttc.iss.lsa.umich.edu/ttc/sessions/tag/arc/){target="_blank"}
-  - Videos on [getting started with Great Lakes](https://www.mivideo.it.umich.edu/playlist/dedicated/1_rmm5rnp1/){target="_blank"} (Requires UM login)
-
----
 
 ## Thank you
 
 ![](images/workshop-intro/sponsor_logos.png)
 
-## Thanks to/from the workshop team
-
-```{r, child='helper-gallery.Rmd'}
-```
-
-<br/>
 
 Thank you for participating in our workshop. We welcome your questions and
 feedback now and in the future.

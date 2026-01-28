@@ -30,23 +30,24 @@ body, td {
 ---
 
 
-### Day 1 (Chris & Raymond)
+### Morning session
 | Time      | Topic |
 | :-------- | :--------------------------------------------------------- |
-|  9:00     | [Introductions and Startup](workshop-intro.html) |
-|  9:30     | [Intro to R](r-01-introduction.html) |
-|  11:00ish | **Break** |
+|  8:00     | [Introductions and Startup](workshop-intro.html) |
+|  8:15     | [Intro to R](r-01-introduction.html) |
+|  10:00ish | **Break** |
 |           | [Data Exploration with dplyr](r-02-exploration-dplyr.html) |
-|  1:00     | Day 1 concludes |
+|  12:00     | Lunch |
 
-### Day 2 (Raymond)
+### Afternoon session
 | Time      | Topic |
 | :-------- | :--------------------------------------------------------- |
-|  9:00     | Review |
-|  9:10     | [Using Packages / Libraries](r-04-bioconductor.html) |
+|  1:00     | Review & questions |
+|  1:10     | [Using Packages / Libraries](r-04-bioconductor.html) |
 |           | [Data Visualization with ggplot (part 1)](r-03-exploration-ggplot.html) |
-| 11:00ish  | **Break** |
+|  2:45ish  | **Break** |
 |           | [R Help](r-05-help.html) |
 |           | [Data Visualization with ggplot (part 2)](r-03-exploration-ggplot.html) |
-| 12:45     | [Wrap-up](workshop-wrap-up.html) |
-| 1:00      | Workshop concludes |
+|           | [Understanding Quarto and RMarkdown](r-06-quarto.html) |
+| 3:45      | [Wrap-up](workshop-wrap-up.html) |
+| 4:00      | Workshop concludes |
