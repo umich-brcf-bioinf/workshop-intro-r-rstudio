@@ -416,8 +416,8 @@ pre {
 <li><code>mutate()</code> columns</li>
 <li><code>group_by()</code> rows</li>
 </ul></li>
-<li>Learn about the pipe operator (<code>%&gt;%</code>) and how to use
-it to chain together multiple functions.</li>
+<li>Learn about the pipe operator (<code>|&gt;</code>) and how to use it
+to chain together multiple functions.</li>
 </ul>
 </div>
 <div id="loading-data" class="section level1">
@@ -433,8 +433,19 @@ to load the <code>gm97</code> data. Let’s do that again:</p>
 
 library(tidyverse)
 gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
-<pre><code>Rows: 142 Columns: 6
-── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+<pre><code>── Attaching core tidyverse packages ───────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ─────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter()     masks stats::filter()
+✖ dplyr::group_rows() masks kableExtra::group_rows()
+✖ dplyr::lag()        masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
+Rows: 142 Columns: 6
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -1012,21 +1023,20 @@ gm97_gdp</code></pre>
 <p><strong>Checkpoint</strong></p>
 </div>
 <div id="combine-functions-with-the-pipe" class="section level2">
-<h2>Combine functions with the <code>%&gt;%</code> pipe</h2>
+<h2>Combine functions with the <code>|&gt;</code> pipe</h2>
 <p>We’ve learned how to subset rows with <code>filter()</code>, select
 columns with <code>select()</code>, get distinct elements with
 <code>distinct()</code>, and summarize columns with
 <code>summarize()</code>. It’s common to use these functions in
 sequence, where the output of one becomes the input of the next. The
-concept of “pipe” (<code>|</code>) from <code>bash</code> has an
-equivalent in the <code>tidyverse</code> in the <code>%&gt;%</code>
-symbol. To see this in action, let’s select data from Oceania and
-display only the <code>country</code>, <code>continent</code>, and
-<code>pop</code> columns.</p>
+concept of “pipe” (<code>|</code>) from <code>bash</code> has an R
+equivalent: the <code>|&gt;</code> symbol. To see this in action, let’s
+select data from Oceania and display only the <code>country</code>,
+<code>continent</code>, and <code>pop</code> columns.</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Filter for countries in Oceania, then show a subset of the columns
 
-gm97 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% select(country, continent, pop)</code></pre>
+gm97 |&gt; filter(continent == &#39;Oceania&#39;) |&gt; select(country, continent, pop)</code></pre>
 <pre><code># A tibble: 2 × 3
   country     continent      pop
   &lt;chr&gt;       &lt;chr&gt;        &lt;dbl&gt;
@@ -1036,8 +1046,8 @@ gm97 %&gt;% filter(continent == &#39;Oceania&#39;) %&gt;% select(country, contin
 <h2 id="question">Question</h2>
 <p>Does the order of <code>filter()</code> and <code>select()</code>
 matter? Would something like the following work, why or why not?</p>
-<pre class="r"><code>gm97 %&gt;% 
-    select(country, pop) %&gt;% 
+<pre class="r"><code>gm97 |&gt; 
+    select(country, pop) |&gt; 
     filter(continent == &#39;Oceania&#39;)</code></pre>
 </blockquote>
 <p>It seems there are only two countries, Australia and New Zealand. If
@@ -1046,8 +1056,8 @@ after filtering, to <code>summarize()</code> as in:</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Filter for countries in Oceania and then compute the mean population
 
-gm97 %&gt;%
-    filter(continent == &#39;Oceania&#39;) %&gt;%
+gm97 |&gt;
+    filter(continent == &#39;Oceania&#39;) |&gt;
     summarize(mean_pop = mean(pop))</code></pre>
 <pre><code># A tibble: 1 × 1
   mean_pop
@@ -1058,7 +1068,7 @@ dataset:</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Use the same summarize() statement, but on the entire dataset
 
-gm97 %&gt;% summarize(mean_pop = mean(pop))</code></pre>
+gm97 |&gt; summarize(mean_pop = mean(pop))</code></pre>
 <pre><code># A tibble: 1 × 1
    mean_pop
       &lt;dbl&gt;
@@ -1079,8 +1089,8 @@ will perform operations within the groups.</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Compute the mean population per continent
 
-gm97 %&gt;% 
-    group_by(continent) %&gt;% 
+gm97 |&gt; 
+    group_by(continent) |&gt; 
     summarize(mean_pop = mean(pop))</code></pre>
 <pre><code># A tibble: 5 × 2
   continent   mean_pop
@@ -1098,8 +1108,8 @@ really only are two:</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Determine the number of countries on each continent in the dataset
 
-gm97 %&gt;% 
-    group_by(continent) %&gt;% 
+gm97 |&gt; 
+    group_by(continent) |&gt; 
     summarize(num_countries_per_continent = n())</code></pre>
 <pre><code># A tibble: 5 × 2
   continent num_countries_per_continent
@@ -1132,8 +1142,8 @@ table(gm97$continent)</code></pre>
 <li><code>mutate()</code> columns</li>
 <li><code>group_by()</code> rows</li>
 </ul></li>
-<li>Learn about the pipe operator (<code>%&gt;%</code>) and how to use
-it to chain together multiple functions.</li>
+<li>Learn about the pipe operator (<code>|&gt;</code>) and how to use it
+to chain together multiple functions.</li>
 </ul>
 </div>
 <div id="exercise-2" class="section level1">
@@ -1143,13 +1153,13 @@ it to chain together multiple functions.</li>
 table with min, median, and max values of a variable. Below is an
 example of code to do that for the populations by continent, and
 arranged by the median population.</p>
-<pre class="r"><code>gm97 %&gt;% 
-    group_by(continent) %&gt;%
+<pre class="r"><code>gm97 |&gt; 
+    group_by(continent) |&gt;
     summarize(
         min_POP = min(pop),
         median_POP = median(pop),
         max_POP = max(pop)
-    ) %&gt;% 
+    ) |&gt; 
     arrange(median_POP)</code></pre>
 <pre><code># A tibble: 5 × 4
   continent min_POP median_POP    max_POP

@@ -93,7 +93,7 @@ ggplot(data = gm97) +
     aes(x = gdpPercap)
 ```
 
-In `ggplot2`, the `+` indicates we want to add elements to a plot; it's kind of like the pipe (`%>%`) in `dplyr`. Our plot window is no longer a blank gray square, but now has a labeled x-axis with visual delimiters. Here, `gdpPercap` is just the column name from our data, and isn't really formatted in a "publication-ready" manner. We can use the `labs()` function to alter the label on the x-axis with:
+In `ggplot2`, the `+` indicates we want to add elements to a plot; it's kind of like the pipe (`|>`) in `dplyr`. Our plot window is no longer a blank gray square, but now has a labeled x-axis with visual delimiters. Here, `gdpPercap` is just the column name from our data, and isn't really formatted in a "publication-ready" manner. We can use the `labs()` function to alter the label on the x-axis with:
 
 ```{r, 'plot3'}
 # -------------------------------------------------------------------------
@@ -380,7 +380,7 @@ There seems to be an overall trend of higher life expectancy over time, but it's
 # -------------------------------------------------------------------------
 # Calculate global mean life expectancy per year in the data
 
-gm %>% group_by(year) %>% summarize(mean_life_exp = mean(lifeExp))
+gm |> group_by(year) |> summarize(mean_life_exp = mean(lifeExp))
 ```
 
 That seems clear enough. Of course, this is for all countries combined. We could add continent as an additional group:
@@ -389,7 +389,7 @@ That seems clear enough. Of course, this is for all countries combined. We could
 # -------------------------------------------------------------------------
 # Calculate mean life expectancy per year per continent in the data
 
-gm %>% group_by(year, continent) %>% summarize(mean_life_exp = mean(lifeExp))
+gm |> group_by(year, continent) |> summarize(mean_life_exp = mean(lifeExp))
 ```
 
 > ## Exercise
@@ -397,9 +397,9 @@ gm %>% group_by(year, continent) %>% summarize(mean_life_exp = mean(lifeExp))
 > The above code is ordered by year, but to see the continent-wise trend, it would be easier to see the data arranged by continent, how would we rearrange the rows by continent?
 > 
 > ```{r, 'summarize_lifeexp_over_years_continents2'}
-> gm %>% 
->     group_by(year, continent) %>% 
->     summarize(mean_life_exp = mean(lifeExp)) %>% 
+> gm |> 
+>     group_by(year, continent) |> 
+>     summarize(mean_life_exp = mean(lifeExp)) |> 
 >     arrange(continent)
 > ```
 > 
@@ -410,9 +410,9 @@ This is a step in the right direction, but now the `tibble` preview is actually 
 # -------------------------------------------------------------------------
 # Calculate mean life expectancy per year per continent, and arrange by continent
 
-life_exp_by_year_continent = gm %>% 
-    group_by(year, continent) %>% 
-    summarize(mean_life_exp = mean(lifeExp)) %>% 
+life_exp_by_year_continent = gm |> 
+    group_by(year, continent) |> 
+    summarize(mean_life_exp = mean(lifeExp)) |> 
     arrange(continent)
 ```
 
@@ -423,13 +423,13 @@ life_exp_by_year_continent = gm %>%
 View(life_exp_by_year_continent)
 ```
 
-The `View()` function will show the table in the Scripts pane. Another way to accomplish this is to `%>%` pipe `life_exp_by_year_continent` as a `data.frame`:
+The `View()` function will show the table in the Scripts pane. Another way to accomplish this is to `|>` pipe `life_exp_by_year_continent` as a `data.frame`:
 
 ```{r, 'data.frame'}
 # -------------------------------------------------------------------------
 # Coerce a tibble into a data.frame to see more of it in the Console
 
-life_exp_by_year_continent %>% data.frame
+data.frame(life_exp_by_year_continent)
 ```
 
 <!-- Might also consider the pivot functions here... -->
@@ -507,7 +507,7 @@ First, let's look at `?factor`. It takes a character vector (exactly what the `c
 # -------------------------------------------------------------------------
 # Add a new continent factor with mutate, where the order is specified
 
-gm_factor = gm97 %>% 
+gm_factor = gm97 |> 
     mutate(continent_factor = factor(continent, levels = c('Oceania', 'Africa', 'Asia', 'Americas', 'Europe')))
 ```
 
@@ -836,7 +836,7 @@ library(ggrepel)
 # Mutate the gm97 data to include a label column
 # NOTE: We only add the desired labels and leave all others as the empty string
 
-gm97_labels = gm97 %>% 
+gm97_labels = gm97 |> 
     mutate(label = ifelse(country %in% c('Brazil', 'China', 'India', 'United States'), country, ''))
 ```
 
@@ -855,7 +855,7 @@ Looks like the labels in the preview are correct, how can we check that the coun
 # -------------------------------------------------------------------------
 # View only the pertinent parts of the mutated data to verify
 
-gm97_labels %>% filter(label != '')
+gm97_labels |> filter(label != '')
 ```
 
 So now let's take a cue from the example code and incorporate it into our original code:
@@ -938,25 +938,25 @@ ggplot(data = gm97_labels) +
 > 1. To find the Asian country of interest, we could simply find the country with the highest GDP per capita in 1952.
 > 
 > ```{r, 'exercise_1'}
-> gm %>% filter(year == 1952) %>% arrange(desc(gdpPercap))
+> gm |> filter(year == 1952) |> arrange(desc(gdpPercap))
 > ```
 > 
 > 2. We can actually use a similar tactic for this question, but we can pick any year based on the plot, and we must filter on the correct continent. Then we can observe the top two rows.
 > 
 > ```{r, 'exercise_2'}
-> gm %>% filter(year == 2007 & continent == 'Americas') %>% arrange(desc(gdpPercap))
+> gm |> filter(year == 2007 & continent == 'Americas') |> arrange(desc(gdpPercap))
 > ```
 > 
 > 3. We can use a similar approach as 2, but filter on the African countries, and look at the top two results.
 > 
 > ```{r, 'exercise_3'}
-> gm %>% filter(year == 1977 & continent == 'Africa') %>% arrange(desc(gdpPercap))
+> gm |> filter(year == 1977 & continent == 'Africa') |> arrange(desc(gdpPercap))
 > ```
 >
 > 4. And again, but look at the top three results.
 > 
 > ```{r, 'exercise_4'}
-> gm %>% filter(year == 2007 & continent == 'Europe') %>% arrange(desc(gdpPercap))
+> gm |> filter(year == 2007 & continent == 'Europe') |> arrange(desc(gdpPercap))
 > ```
 > 
 

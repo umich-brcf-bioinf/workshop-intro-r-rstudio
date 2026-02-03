@@ -2,8 +2,8 @@
 
 library(tidyverse)
 
-phenotypes_by_species = iris %>% 
-    group_by(Species) %>% 
+phenotypes_by_species = iris |> 
+    group_by(Species) |> 
     summarize(
         mean_sepal_length = mean(Sepal.Length),
         mean_sepal_width = mean(Sepal.Width),

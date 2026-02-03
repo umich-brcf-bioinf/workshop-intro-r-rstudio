@@ -442,7 +442,7 @@ to load the <code>gm97</code> data. Let’s do that again:</p>
 library(tidyverse)
 gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -479,7 +479,7 @@ ggplot(data = gm97) +
     aes(x = gdpPercap)</code></pre>
 <p><img src="fig/03-plot2-1.png" width="816" style="display: block; margin: auto;" /></p>
 <p>In <code>ggplot2</code>, the <code>+</code> indicates we want to add
-elements to a plot; it’s kind of like the pipe (<code>%&gt;%</code>) in
+elements to a plot; it’s kind of like the pipe (<code>|&gt;</code>) in
 <code>dplyr</code>. Our plot window is no longer a blank gray square,
 but now has a labeled x-axis with visual delimiters. Here,
 <code>gdpPercap</code> is just the column name from our data, and isn’t
@@ -753,7 +753,7 @@ data.</p>
 
 gm = read_csv(&#39;data/gapminder_data.csv&#39;)</code></pre>
 <pre><code>Rows: 1704 Columns: 6
-── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -879,7 +879,7 @@ we suspect is correct.</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Calculate global mean life expectancy per year in the data
 
-gm %&gt;% group_by(year) %&gt;% summarize(mean_life_exp = mean(lifeExp))</code></pre>
+gm |&gt; group_by(year) |&gt; summarize(mean_life_exp = mean(lifeExp))</code></pre>
 <pre><code># A tibble: 12 × 2
     year mean_life_exp
    &lt;dbl&gt;         &lt;dbl&gt;
@@ -900,7 +900,7 @@ combined. We could add continent as an additional group:</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Calculate mean life expectancy per year per continent in the data
 
-gm %&gt;% group_by(year, continent) %&gt;% summarize(mean_life_exp = mean(lifeExp))</code></pre>
+gm |&gt; group_by(year, continent) |&gt; summarize(mean_life_exp = mean(lifeExp))</code></pre>
 <pre><code>`summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups` argument.</code></pre>
 <pre><code># A tibble: 60 × 3
 # Groups:   year [12]
@@ -922,9 +922,9 @@ gm %&gt;% group_by(year, continent) %&gt;% summarize(mean_life_exp = mean(lifeEx
 <p>The above code is ordered by year, but to see the continent-wise
 trend, it would be easier to see the data arranged by continent, how
 would we rearrange the rows by continent?</p>
-<pre class="r"><code>gm %&gt;% 
-    group_by(year, continent) %&gt;% 
-    summarize(mean_life_exp = mean(lifeExp)) %&gt;% 
+<pre class="r"><code>gm |&gt; 
+    group_by(year, continent) |&gt; 
+    summarize(mean_life_exp = mean(lifeExp)) |&gt; 
     arrange(continent)</code></pre>
 <pre><code>`summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups` argument.</code></pre>
 <pre><code># A tibble: 60 × 3
@@ -949,9 +949,9 @@ the data. There are two ways we can see the full result:</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Calculate mean life expectancy per year per continent, and arrange by continent
 
-life_exp_by_year_continent = gm %&gt;% 
-    group_by(year, continent) %&gt;% 
-    summarize(mean_life_exp = mean(lifeExp)) %&gt;% 
+life_exp_by_year_continent = gm |&gt; 
+    group_by(year, continent) |&gt; 
+    summarize(mean_life_exp = mean(lifeExp)) |&gt; 
     arrange(continent)</code></pre>
 <pre><code>`summarise()` has grouped output by &#39;year&#39;. You can override using the `.groups` argument.</code></pre>
 <pre class="r"><code># -------------------------------------------------------------------------
@@ -959,13 +959,13 @@ life_exp_by_year_continent = gm %&gt;%
 
 View(life_exp_by_year_continent)</code></pre>
 <p>The <code>View()</code> function will show the table in the Scripts
-pane. Another way to accomplish this is to <code>%&gt;%</code> pipe
+pane. Another way to accomplish this is to <code>|&gt;</code> pipe
 <code>life_exp_by_year_continent</code> as a
 <code>data.frame</code>:</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Coerce a tibble into a data.frame to see more of it in the Console
 
-life_exp_by_year_continent %&gt;% data.frame</code></pre>
+data.frame(life_exp_by_year_continent)</code></pre>
 <pre><code>   year continent mean_life_exp
 1  1952    Africa      39.13550
 2  1957    Africa      41.26635
@@ -1117,7 +1117,7 @@ categories and their desired order.</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Add a new continent factor with mutate, where the order is specified
 
-gm_factor = gm97 %&gt;% 
+gm_factor = gm97 |&gt; 
     mutate(continent_factor = factor(continent, levels = c(&#39;Oceania&#39;, &#39;Africa&#39;, &#39;Asia&#39;, &#39;Americas&#39;, &#39;Europe&#39;)))</code></pre>
 <p>Let’s take a look at the new object and see how it’s different.</p>
 <pre class="r"><code># -------------------------------------------------------------------------
@@ -1491,7 +1491,7 @@ library(ggrepel)
 # Mutate the gm97 data to include a label column
 # NOTE: We only add the desired labels and leave all others as the empty string
 
-gm97_labels = gm97 %&gt;% 
+gm97_labels = gm97 |&gt; 
     mutate(label = ifelse(country %in% c(&#39;Brazil&#39;, &#39;China&#39;, &#39;India&#39;, &#39;United States&#39;), country, &#39;&#39;))</code></pre>
 <p>What have we done here? We’ve used the <code>mutate()</code> function
 to create a new column called label, and the criteria for the entries
@@ -1522,7 +1522,7 @@ that the countries we wanted are correct?</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # View only the pertinent parts of the mutated data to verify
 
-gm97_labels %&gt;% filter(label != &#39;&#39;)</code></pre>
+gm97_labels |&gt; filter(label != &#39;&#39;)</code></pre>
 <pre><code># A tibble: 4 × 7
   country        year        pop continent lifeExp gdpPercap label        
   &lt;chr&gt;         &lt;dbl&gt;      &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;        
@@ -1618,7 +1618,7 @@ can answer them with the <code>dplyr</code> functions we’ve learned.</p>
 <li>To find the Asian country of interest, we could simply find the
 country with the highest GDP per capita in 1952.</li>
 </ol>
-<pre class="r"><code>gm %&gt;% filter(year == 1952) %&gt;% arrange(desc(gdpPercap))</code></pre>
+<pre class="r"><code>gm |&gt; filter(year == 1952) |&gt; arrange(desc(gdpPercap))</code></pre>
 <pre><code># A tibble: 142 × 6
    country         year       pop continent lifeExp gdpPercap
    &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -1638,7 +1638,7 @@ country with the highest GDP per capita in 1952.</li>
 pick any year based on the plot, and we must filter on the correct
 continent. Then we can observe the top two rows.</li>
 </ol>
-<pre class="r"><code>gm %&gt;% filter(year == 2007 &amp; continent == &#39;Americas&#39;) %&gt;% arrange(desc(gdpPercap))</code></pre>
+<pre class="r"><code>gm |&gt; filter(year == 2007 &amp; continent == &#39;Americas&#39;) |&gt; arrange(desc(gdpPercap))</code></pre>
 <pre><code># A tibble: 25 × 6
    country              year       pop continent lifeExp gdpPercap
    &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -1657,7 +1657,7 @@ continent. Then we can observe the top two rows.</li>
 <li>We can use a similar approach as 2, but filter on the African
 countries, and look at the top two results.</li>
 </ol>
-<pre class="r"><code>gm %&gt;% filter(year == 1977 &amp; continent == &#39;Africa&#39;) %&gt;% arrange(desc(gdpPercap))</code></pre>
+<pre class="r"><code>gm |&gt; filter(year == 1977 &amp; continent == &#39;Africa&#39;) |&gt; arrange(desc(gdpPercap))</code></pre>
 <pre><code># A tibble: 52 × 6
    country       year      pop continent lifeExp gdpPercap
    &lt;chr&gt;        &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
@@ -1675,7 +1675,7 @@ countries, and look at the top two results.</li>
 <ol start="4" style="list-style-type: decimal">
 <li>And again, but look at the top three results.</li>
 </ol>
-<pre class="r"><code>gm %&gt;% filter(year == 2007 &amp; continent == &#39;Europe&#39;) %&gt;% arrange(desc(gdpPercap))</code></pre>
+<pre class="r"><code>gm |&gt; filter(year == 2007 &amp; continent == &#39;Europe&#39;) |&gt; arrange(desc(gdpPercap))</code></pre>
 <pre><code># A tibble: 30 × 6
    country      year      pop continent lifeExp gdpPercap
    &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
