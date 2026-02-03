@@ -45,7 +45,7 @@ knitr_fig_path("02-")
     - `arrange()` rows
     - `mutate()` columns
     - `group_by()` rows
-- Learn about the pipe operator (`%>%`) and how to use it to chain together multiple functions.
+- Learn about the pipe operator (`|>`) and how to use it to chain together multiple functions.
 
 # Loading data
 
@@ -357,15 +357,15 @@ gm97_gdp
 
 **Checkpoint**
 
-## Combine functions with the `%>%` pipe
+## Combine functions with the `|>` pipe
 
-We've learned how to subset rows with `filter()`, select columns with `select()`, get distinct elements with `distinct()`, and summarize columns with `summarize()`. It's common to use these functions in sequence, where the output of one becomes the input of the next. The concept of "pipe" (`|`) from `bash` has an equivalent in the `tidyverse` in the `%>%` symbol. To see this in action, let's select data from Oceania and display only the `country`, `continent`, and `pop` columns.
+We've learned how to subset rows with `filter()`, select columns with `select()`, get distinct elements with `distinct()`, and summarize columns with `summarize()`. It's common to use these functions in sequence, where the output of one becomes the input of the next. The concept of "pipe" (`|`) from `bash` has an R equivalent: the `|>` symbol. To see this in action, let's select data from Oceania and display only the `country`, `continent`, and `pop` columns.
 
 ```{r, 'pipe_example1'}
 # -------------------------------------------------------------------------
 # Filter for countries in Oceania, then show a subset of the columns
 
-gm97 %>% filter(continent == 'Oceania') %>% select(country, continent, pop)
+gm97 |> filter(continent == 'Oceania') |> select(country, continent, pop)
 ```
 
 > ## Question
@@ -373,8 +373,8 @@ gm97 %>% filter(continent == 'Oceania') %>% select(country, continent, pop)
 > Does the order of `filter()` and `select()` matter? Would something like the following work, why or why not?
 > 
 > ```{r, 'pipe_order', eval = FALSE}
-> gm97 %>% 
->     select(country, pop) %>% 
+> gm97 |> 
+>     select(country, pop) |> 
 >     filter(continent == 'Oceania')
 > ```
 > 
@@ -385,8 +385,8 @@ It seems there are only two countries, Australia and New Zealand. If we wanted t
 # -------------------------------------------------------------------------
 # Filter for countries in Oceania and then compute the mean population
 
-gm97 %>%
-    filter(continent == 'Oceania') %>%
+gm97 |>
+    filter(continent == 'Oceania') |>
     summarize(mean_pop = mean(pop))
 ```
 
@@ -396,7 +396,7 @@ Note this is distinct from taking the mean over the entire dataset:
 # -------------------------------------------------------------------------
 # Use the same summarize() statement, but on the entire dataset
 
-gm97 %>% summarize(mean_pop = mean(pop))
+gm97 |> summarize(mean_pop = mean(pop))
 ```
 
 Here we've meaningfully named our output, but that was optional. For quick data exploration that could be left off.
@@ -412,8 +412,8 @@ If we wanted to determine the mean populations over all the continents, we could
 # -------------------------------------------------------------------------
 # Compute the mean population per continent
 
-gm97 %>% 
-    group_by(continent) %>% 
+gm97 |> 
+    group_by(continent) |> 
     summarize(mean_pop = mean(pop))
 ```
 
@@ -423,8 +423,8 @@ Notice that the Oceania average matches what we got above. Going back to our Oce
 # -------------------------------------------------------------------------
 # Determine the number of countries on each continent in the dataset
 
-gm97 %>% 
-    group_by(continent) %>% 
+gm97 |> 
+    group_by(continent) |> 
     summarize(num_countries_per_continent = n())
 ```
 
@@ -445,34 +445,34 @@ table(gm97$continent)
     - `arrange()` rows
     - `mutate()` columns
     - `group_by()` rows
-- Learn about the pipe operator (`%>%`) and how to use it to chain together multiple functions.
+- Learn about the pipe operator (`|>`) and how to use it to chain together multiple functions.
 
 # Exercise
 > 
 > In summarizing data, it's often useful to build a nicely formatted table with min, median, and max values of a variable. Below is an example of code to do that for the populations by continent, and arranged by the median population.
 > 
 > ```{r, 'dplyr_exercise_example'}
-> gm97 %>% 
->     group_by(continent) %>%
+> gm97 |> 
+>     group_by(continent) |>
 >     summarize(
 >         min_POP = min(pop),
 >         median_POP = median(pop),
 >         max_POP = max(pop)
->     ) %>% 
+>     ) |> 
 >     arrange(median_POP)
 > ```
 > Try to write the code that would generate the following table, similar to the above, but for the GDP per continent instead of the population, including the mean GDP in addition to the min, median, and max, as well as ordering the results by mean GDP.
 > 
 > ```{r, 'dplyr_exercise_hidden', echo = FALSE}
-> gm97 %>% 
->     mutate(gdp = pop * gdpPercap) %>%
->     group_by(continent) %>%
+> gm97 |> 
+>     mutate(gdp = pop * gdpPercap) |>
+>     group_by(continent) |>
 >     summarize(
 >         min_GDP = min(gdp),
 >         mean_GDP = mean(gdp),
 >         median_GDP = median(gdp),
 >         max_GDP = max(gdp)
->     ) %>% 
+>     ) |> 
 >     arrange(mean_GDP)
 > ```
 > 
