@@ -68,7 +68,10 @@ recognize these techniques when you see them and, with some independent study, a
 
 # Housekeeping
 
-- Website "show notes" / RStudio-PositCloud
+- Website "show notes"
+- [Instructor notes](https://michmed.org/ygPR3){target="_blank"}
+- [RStudio-PositCloud](https://posit.cloud/){target="_blank"}
+
 - Restrooms
 - Coffee/Tea
 

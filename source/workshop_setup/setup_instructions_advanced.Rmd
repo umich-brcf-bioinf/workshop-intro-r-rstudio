@@ -215,7 +215,7 @@ required_packages = c(
   "sessioninfo", 
   "tidyverse",
   "ggrepel", 
-  "RcolorBrewer",
+  "RColorBrewer",
   # These last two enable interactive plots; they are not strictly necessary 
   # for the workshop curriculum - but it might come up in a question. 
   "plotly",

@@ -37,10 +37,11 @@ klippy::klippy(lang = c("r", "markdown", "bash"), position = c("top", "right"))
 ```
 
 We hope you now have more familiarity with key concepts, tools, and techniques
-that will enable more efficient, reproducible, and impactful computational research.
+that will enable more efficient, reproducible, and impactful data research and 
+science.
 
 
-## TODO: Session Info
+## Session Info
 
 <details>
 ```{r session_info, eval=FALSE}
@@ -62,9 +63,9 @@ session_info::session_info()
 
 ---
 
-### TODO Can I continue to use the RStudio environments we used in the workshop?
-- TODO You can download files from the workshop environment from your terminal/command line window as below.
-  (You will need to substitute your actual workshop username and type workshop password when prompted.)
+### Can I continue to use the RStudio environment we used in the workshop?
+- The [PositCloud](https://posit.cloud/){target="_blank"} environment used in this workshop does not expire. 
+- You have the option of downloading the workshop files to your own computer
   ```
   mkdir workshop-intro-r-rstudio
   scp -r YOUR_USERNAME@`r workshop_vars$ssh_download_dns`:"IRR*" workshop-intro-r-rstudio
