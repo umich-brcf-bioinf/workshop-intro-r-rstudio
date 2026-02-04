@@ -25,7 +25,7 @@ body, td {
 
 #### [Setup instructions](workshop_setup/setup_instructions.html){target="_blank"}
 
-#### TODO [SHARED GOOGLEDOC](https://umbioinfcoreworkshops.slack.com){target="_blank"}
+#### [Instructor Notes](https://docs.google.com/document/d/1ZgzQ9YnC0I-akjJ_s0579Qg3M7JR_LLt0G8o6pb5j9g/edit?usp=sharing){target="_blank"}
 
 ---
 
