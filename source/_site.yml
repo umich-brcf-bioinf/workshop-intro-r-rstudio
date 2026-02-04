@@ -6,13 +6,13 @@ navbar:
   left:
     - text: "Intro"
       href: workshop-intro.html
-    - text: "Day 1"
+    - text: "Morning"
       menu:
         - text: "Introducing R and RStudio"
           href: r-01-introduction.html
         - text: "Data Exploration with dplyr"
           href: r-02-exploration-dplyr.html
-    - text: "Day 2"
+    - text: "Afternoon"
       menu:
         - text: "Data Exploration with dplyr (cont.)"
           href: r-02-exploration-dplyr.html
