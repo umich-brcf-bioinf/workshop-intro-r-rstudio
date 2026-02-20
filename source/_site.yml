@@ -14,8 +14,6 @@ navbar:
           href: r-02-exploration-dplyr.html
     - text: "Afternoon"
       menu:
-        - text: "Data Exploration with dplyr (cont.)"
-          href: r-02-exploration-dplyr.html
         - text: "Using Packages / Libraries"
           href: r-04-bioconductor.html
         - text: "Getting Help with R"
