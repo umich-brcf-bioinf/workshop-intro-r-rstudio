@@ -355,9 +355,6 @@ div.tocify {
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (cont.)</a>
-    </li>
-    <li>
       <a href="r-04-bioconductor.html">Using Packages / Libraries</a>
     </li>
     <li>
@@ -637,6 +634,17 @@ package we’ll use for the rest of the workshop.</p>
 # Load the tidyverse package
 
 library(tidyverse)</code></pre>
+<pre><code>── Attaching core tidyverse packages ───────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+✔ purrr     1.0.4     
+── Conflicts ─────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter()     masks stats::filter()
+✖ dplyr::group_rows() masks kableExtra::group_rows()
+✖ dplyr::lag()        masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <blockquote>
 <h2 id="note-package-loading-messages" class="unlisted unnumbered">Note:
 Package loading messages</h2>
@@ -855,7 +863,7 @@ functions:</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Examples of functions with no required arguments
 Sys.Date()</code></pre>
-<pre><code>[1] &quot;2026-02-04&quot;</code></pre>
+<pre><code>[1] &quot;2026-02-19&quot;</code></pre>
 <pre class="r"><code>getwd()</code></pre>
 <pre><code>[1] &quot;/Users/cgates/git/workshop-intro-r-rstudio/source&quot;</code></pre>
 <pre class="r"><code># -------------------------------------------------------------------------

@@ -88,17 +88,16 @@ session_info::session_info()
 - The [University of Michigan Bioinformatics Core](https://michmed.org/GqGzZ){target="_blank"} regularly hosts workshops.
 - Intro lessons and workshops in Bash / Git / R / Python : 
   - [Software Carpentry](https://software-carpentry.org/lessons/){target="_blank"}
-
+- Some great "practice" datasets 
+  - [tidytuesday](https://github.com/rfordatascience/tidytuesday){target="_blank"} : a site for sharing sample datasets
+  - [Kaggle](https://www.kaggle.com/datasets){target="_blank"} : a site for learning AI/ML, but you can jump right to the sample datasets &#128521;
 
 ## Thank you
-
-![](images/workshop-intro/sponsor_logos.png)
-
 
 Thank you for participating in our workshop. We welcome your questions and
 feedback now and in the future.
 
-Bioinformatics Workshop Team
+The Workshop Team
 
 [bioinformatics-workshops@umich.edu](mailto:bioinformatics-workshops@umich.edu) <br/>
 [UM BRCF Bioinformatics Core](https://medresearch.umich.edu/office-research/about-office-research/biomedical-research-core-facilities/bioinformatics-core){target="_blank"}
