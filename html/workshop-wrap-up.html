@@ -334,7 +334,7 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Day 1
+    Morning
      
     <span class="caret"></span>
   </a>
@@ -349,14 +349,11 @@ div.tocify {
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Day 2
+    Afternoon
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-    <li>
-      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (cont.)</a>
-    </li>
     <li>
       <a href="r-04-bioconductor.html">Using Packages / Libraries</a>
     </li>
@@ -407,159 +404,98 @@ pre {
 </script>
 <p>We hope you now have more familiarity with key concepts, tools, and
 techniques that will enable more efficient, reproducible, and impactful
-computational research.</p>
+data research and science.</p>
 <div id="session-info" class="section level2">
 <h2>Session Info</h2>
 <details>
 <pre class="r"><code>################################################################################
 # Session info (for reproducibility / future reference)
 session_info::session_info()</code></pre>
-<pre class="default"><code>─ Session info ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+<pre class="default"><code>─ Session info ────────────────────────────────────────────────────────────────────────────────────────────────────────────
  setting  value
- version  R version 4.5.0 (2025-04-11)
- os       Ubuntu 22.04.5 LTS
+ version  R version 4.4.3 (2025-02-28)
+ os       Ubuntu 20.04.6 LTS
  system   x86_64, linux-gnu
  ui       RStudio
  language (EN)
  collate  C.UTF-8
  ctype    C.UTF-8
- tz       America/Detroit
- date     2025-07-16
- rstudio  2024.12.1+563 Kousa Dogwood (server)
- pandoc   3.2 @ /usr/lib/rstudio-server/bin/quarto/bin/tools/x86_64/ (via rmarkdown)
- quarto   1.5.57 @ /usr/lib/rstudio-server/bin/quarto/bin/quarto
+ tz       UTC
+ date     2026-02-04
+ rstudio  2025.05.1+513.pro3 Mariposa Orchid (server)
+ pandoc   NA
+ quarto   1.8.27 @ /usr/bin/quarto
 
-─ Packages ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
- package      * version    date (UTC) lib source
- assertthat     0.2.1      2019-03-21 [2] CRAN (R 4.5.0)
- bslib          0.9.0      2025-01-30 [2] CRAN (R 4.5.0)
- cachem         1.1.0      2024-05-16 [2] CRAN (R 4.5.0)
- cli            3.6.5      2025-04-23 [2] CRAN (R 4.5.0)
- devtools       2.4.5      2022-10-11 [2] CRAN (R 4.5.0)
- digest         0.6.37     2024-08-19 [2] CRAN (R 4.5.0)
- dplyr        * 1.1.4      2023-11-17 [2] CRAN (R 4.5.0)
- ellipsis       0.3.2      2021-04-29 [2] CRAN (R 4.5.0)
- evaluate       1.0.4      2025-06-18 [2] CRAN (R 4.5.0)
- farver         2.1.2      2024-05-13 [2] CRAN (R 4.5.0)
- fastmap        1.2.0      2024-05-15 [2] CRAN (R 4.5.0)
- forcats      * 1.0.0      2023-01-29 [2] CRAN (R 4.5.0)
- fs             1.6.6      2025-04-12 [2] CRAN (R 4.5.0)
- generics       0.1.4      2025-05-09 [2] CRAN (R 4.5.0)
- ggplot2      * 3.5.2      2025-04-09 [2] CRAN (R 4.5.0)
- ggrepel      * 0.9.6      2024-09-07 [2] CRAN (R 4.5.0)
- glue           1.8.0      2024-09-30 [2] CRAN (R 4.5.0)
- gtable         0.3.6      2024-10-25 [2] CRAN (R 4.5.0)
- hms            1.1.3      2023-03-21 [2] CRAN (R 4.5.0)
- htmltools      0.5.8.1    2024-04-04 [2] CRAN (R 4.5.0)
- htmlwidgets    1.6.4      2023-12-06 [2] CRAN (R 4.5.0)
- httpuv         1.6.16     2025-04-16 [2] CRAN (R 4.5.0)
- jquerylib      0.1.4      2021-04-26 [2] CRAN (R 4.5.0)
- jsonlite       2.0.0      2025-03-27 [2] CRAN (R 4.5.0)
- kableExtra   * 1.4.0.15   2025-06-12 [3] Github (haozhu233/kableExtra@2f58f89)
- klippy       * 0.0.0.9500 2025-06-12 [3] Github (umich-brcf-bioinf/workshop-klippy@a1be090)
- knitr          1.50       2025-03-16 [2] CRAN (R 4.5.0)
- later          1.4.2      2025-04-08 [2] CRAN (R 4.5.0)
- lifecycle      1.0.4      2023-11-07 [2] CRAN (R 4.5.0)
- lubridate    * 1.9.4      2024-12-08 [2] CRAN (R 4.5.0)
- magrittr       2.0.3      2022-03-30 [2] CRAN (R 4.5.0)
- memoise        2.0.1      2021-11-26 [2] CRAN (R 4.5.0)
- mime           0.13       2025-03-17 [2] CRAN (R 4.5.0)
- miniUI         0.1.2      2025-04-17 [2] CRAN (R 4.5.0)
- pillar         1.11.0     2025-07-04 [2] CRAN (R 4.5.0)
- pkgbuild       1.4.8      2025-05-26 [2] CRAN (R 4.5.0)
- pkgconfig      2.0.3      2019-09-22 [2] CRAN (R 4.5.0)
- pkgload        1.4.0      2024-06-28 [2] CRAN (R 4.5.0)
- profvis        0.4.0      2024-09-20 [2] CRAN (R 4.5.0)
- promises       1.3.3      2025-05-29 [2] CRAN (R 4.5.0)
- purrr        * 1.1.0      2025-07-10 [2] CRAN (R 4.5.0)
- R6             2.6.1      2025-02-15 [2] CRAN (R 4.5.0)
- RColorBrewer   1.1-3      2022-04-03 [2] CRAN (R 4.5.0)
- Rcpp           1.1.0      2025-07-02 [2] CRAN (R 4.5.0)
- readr        * 2.1.5      2024-01-10 [2] CRAN (R 4.5.0)
- remotes        2.5.0      2024-03-17 [2] CRAN (R 4.5.0)
- rlang          1.1.6      2025-04-11 [2] CRAN (R 4.5.0)
- rmarkdown    * 2.29       2024-11-04 [2] CRAN (R 4.5.0)
- rstudioapi     0.17.1     2024-10-22 [2] CRAN (R 4.5.0)
- sass           0.4.10     2025-04-11 [2] CRAN (R 4.5.0)
- scales         1.4.0      2025-04-24 [2] CRAN (R 4.5.0)
- sessioninfo    1.2.3      2025-02-05 [2] CRAN (R 4.5.0)
- shiny          1.11.1     2025-07-03 [2] CRAN (R 4.5.0)
- stringi        1.8.7      2025-03-27 [2] CRAN (R 4.5.0)
- stringr      * 1.5.1      2023-11-14 [2] CRAN (R 4.5.0)
- svglite        2.2.1      2025-05-12 [3] CRAN (R 4.5.0)
- systemfonts    1.2.3      2025-04-30 [2] CRAN (R 4.5.0)
- textshaping    1.0.1      2025-05-01 [2] CRAN (R 4.5.0)
- tibble       * 3.3.0      2025-06-08 [2] CRAN (R 4.5.0)
- tidyr        * 1.3.1      2024-01-24 [2] CRAN (R 4.5.0)
- tidyselect     1.2.1      2024-03-11 [2] CRAN (R 4.5.0)
- tidyverse    * 2.0.0      2023-02-22 [2] CRAN (R 4.5.0)
- timechange     0.3.0      2024-01-18 [2] CRAN (R 4.5.0)
- tzdb           0.5.0      2025-03-15 [2] CRAN (R 4.5.0)
- urlchecker     1.0.1      2021-11-30 [2] CRAN (R 4.5.0)
- usethis        3.1.0      2024-11-26 [2] CRAN (R 4.5.0)
- vctrs          0.6.5      2023-12-01 [2] CRAN (R 4.5.0)
- viridisLite    0.4.2      2023-05-02 [2] CRAN (R 4.5.0)
- withr          3.0.2      2024-10-28 [2] CRAN (R 4.5.0)
- xfun           0.52       2025-04-02 [2] CRAN (R 4.5.0)
- xml2           1.3.8      2025-03-14 [2] CRAN (R 4.5.0)
- xtable         1.8-4      2019-04-21 [2] CRAN (R 4.5.0)
- yaml           2.3.10     2024-07-26 [2] CRAN (R 4.5.0)
+─ Packages ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ package      * version date (UTC) lib source
+ cli            3.6.4   2025-02-13 [1] RSPM (R 4.4.0)
+ colorspace     2.1-1   2024-07-26 [1] RSPM (R 4.4.0)
+ dplyr        * 1.1.4   2023-11-17 [1] RSPM (R 4.4.0)
+ forcats      * 1.0.0   2023-01-29 [1] RSPM (R 4.4.0)
+ generics       0.1.3   2022-07-05 [1] RSPM (R 4.4.0)
+ ggplot2      * 3.5.1   2024-04-23 [1] RSPM (R 4.4.0)
+ ggrepel      * 0.9.6   2024-09-07 [1] RSPM (R 4.4.3)
+ glue           1.8.0   2024-09-30 [1] RSPM (R 4.4.0)
+ gtable         0.3.6   2024-10-25 [1] RSPM (R 4.4.0)
+ hms            1.1.3   2023-03-21 [1] RSPM (R 4.4.0)
+ lifecycle      1.0.4   2023-11-07 [1] RSPM (R 4.4.0)
+ lubridate    * 1.9.4   2024-12-08 [1] RSPM (R 4.4.0)
+ magrittr       2.0.3   2022-03-30 [1] RSPM (R 4.4.0)
+ munsell        0.5.1   2024-04-01 [1] RSPM (R 4.4.0)
+ pillar         1.10.2  2025-04-05 [1] RSPM (R 4.4.0)
+ pkgconfig      2.0.3   2019-09-22 [1] RSPM (R 4.4.0)
+ purrr        * 1.0.4   2025-02-05 [1] RSPM (R 4.4.0)
+ R6             2.6.1   2025-02-15 [1] RSPM (R 4.4.0)
+ RColorBrewer * 1.1-3   2022-04-03 [1] RSPM (R 4.4.0)
+ Rcpp           1.1.0   2025-07-02 [1] RSPM (R 4.4.3)
+ readr        * 2.1.5   2024-01-10 [1] RSPM (R 4.4.0)
+ rlang          1.1.5   2025-01-17 [1] RSPM (R 4.4.0)
+ rstudioapi     0.17.1  2024-10-22 [1] RSPM (R 4.4.0)
+ scales         1.3.0   2023-11-28 [1] RSPM (R 4.4.0)
+ sessioninfo    1.2.3   2025-02-05 [1] RSPM (R 4.4.0)
+ stringi        1.8.7   2025-03-27 [1] RSPM (R 4.4.0)
+ stringr      * 1.5.1   2023-11-14 [1] RSPM (R 4.4.0)
+ tibble       * 3.2.1   2023-03-20 [1] RSPM (R 4.4.0)
+ tidyr        * 1.3.1   2024-01-24 [1] RSPM (R 4.4.0)
+ tidyselect     1.2.1   2024-03-11 [1] RSPM (R 4.4.0)
+ tidyverse    * 2.0.0   2023-02-22 [1] RSPM (R 4.4.0)
+ timechange     0.3.0   2024-01-18 [1] RSPM (R 4.4.0)
+ tzdb           0.5.0   2025-03-15 [1] RSPM (R 4.4.0)
+ vctrs          0.6.5   2023-12-01 [1] RSPM (R 4.4.0)
+ withr          3.0.2   2024-10-28 [1] RSPM (R 4.4.0)
 
- [1] /home/workshop/cgates/R/x86_64-pc-linux-gnu-library/4.5
- [2] /efs/workshop/R/library
- [3] /efs/workshop/R/workshop-dev-libs
- [4] /usr/local/lib/R/site-library
- [5] /usr/lib/R/site-library
- [6] /usr/lib/R/library
+ [1] /cloud/lib/x86_64-pc-linux-gnu-library/4.4
+ [2] /opt/R/4.4.3/lib/R/library
  * ── Packages attached to the search path.
-
-───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</code></pre>
+ 
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</code></pre>
 </details>
 <hr />
 </div>
 <div id="housekeeping" class="section level2">
 <h2>Housekeeping</h2>
 <ul>
-<li><p>We will email you a link to the final session recordings next
-week.</p></li>
-<li><p>This workshop website (aka “show notes”) will be
-available.</p></li>
-<li><p>The <a href="https://umbioinfcoreworkshops.slack.com"
-target="_blank">UM Bioinformatics Core Workshop Slack channel</a> will
-be available for 90 days.</p></li>
+<li>This workshop website (aka “show notes”) will be available.</li>
 </ul>
 <hr />
 <div
-id="can-i-continue-to-use-the-rstudio-environments-we-used-in-the-workshop"
+id="can-i-continue-to-use-the-rstudio-environment-we-used-in-the-workshop"
 class="section level3">
-<h3>Can I continue to use the RStudio environments we used in the
+<h3>Can I continue to use the RStudio environment we used in the
 workshop?</h3>
 <ul>
-<li><p>The RStudio workshop compute environment will be available
-through 10/8/2025.</p>
-<ul>
-<li><em>Please save all your R scripts now</em> so that we can
-“right-size” the compute environment immediately following today’s
-workshop session.</li>
-</ul></li>
-<li><p>You can download files from the workshop environment from your
-terminal/command line window as below. (You will need to substitute your
-actual workshop username and type workshop password when prompted.)</p>
+<li><p>The <a href="https://posit.cloud/" target="_blank">PositCloud</a>
+environment used in this workshop does not expire.</p></li>
+<li><p>You have the option of downloading the workshop files to your own
+computer</p>
 <pre><code>mkdir workshop-intro-r-rstudio
-scp -r YOUR_USERNAME@bfx-workshop01.med.umich.edu:&quot;IRR*&quot; workshop-intro-r-rstudio</code></pre>
+scp -r YOUR_USERNAME@:&quot;IRR*&quot; workshop-intro-r-rstudio</code></pre>
 <h3 id="where-else-could-i-use-rstudio">Where else could I use
 RStudio?</h3>
 <ul>
 <li>See <a href="workshop_setup/setup_instructions_advanced.html"
 target="_blank">Advanced setup instructions</a> for details on how to
 install RStudio and required packages on your own computer.</li>
-<li><a href="https://posit.cloud/" target="_blank">PositCloud</a> allows
-you to run R-Studio over the web for free. Click here to <a
-href="https://posit.cloud/content/10156998">login to PositCloud</a> and
-launch an R session pre-configured for this workshop. (UM users can
-login using their umich.edu Google account.)</li>
-<li>UMich users can run RStudio on the <a href="irr-on-great-lakes.html"
-target="_blank">UM Great Lakes HPC</a>.</li>
 </ul></li>
 </ul>
 <hr />
@@ -596,96 +532,24 @@ of Michigan Bioinformatics Core</a> regularly hosts workshops.</li>
 <ul>
 <li><a href="https://software-carpentry.org/lessons/"
 target="_blank">Software Carpentry</a></li>
-<li><a href="https://umcarpentries.org/" target="_blank">The Carpentries
-at the University of Michigan</a> host several introductory workshops
-each year following curricula that are developed collaboratively and
-using the latest research into best practices for teaching computer
-science content. All workshops are offered for free to learners.</li>
+</ul></li>
+<li>Some great “practice” datasets
+<ul>
+<li><a href="https://github.com/rfordatascience/tidytuesday"
+target="_blank">tidytuesday</a> : a site for sharing sample
+datasets</li>
+<li><a href="https://www.kaggle.com/datasets" target="_blank">Kaggle</a>
+: a site for learning AI/ML, but you can jump right to the sample
+datasets 😉</li>
 </ul></li>
 </ul>
 </div>
-</div>
-<div
-id="how-can-i-learn-more-about-computational-research-at-university-of-michigan"
-class="section level2">
-<h2>How can I learn more about computational research at University of
-Michigan?</h2>
-<ul>
-<li><a href="https://datascience.isr.umich.edu/events/coderspaces/"
-target="_blank">UM CoderSpaces “office hours”</a> and UM CoderSpaces
-Slack workspace. <em>(See “Useful Resources” section in CoderSpaces page
-for instructions on how to join and access the CoderSpaces Slack
-workspace.)</em></li>
-<li><a href="https://its.umich.edu/advanced-research-computing"
-target="_blank">Advanced Research Computing</a>
-<ul>
-<li><a
-href="https://its.umich.edu/advanced-research-computing/research-computing-package"
-target="_blank">Research Computing Package</a></li>
-<li>Upcoming <a
-href="https://ttc.iss.lsa.umich.edu/ttc/sessions/tag/arc/"
-target="_blank">UM Advanced Research Computing workshops</a></li>
-<li>Videos on <a
-href="https://www.mivideo.it.umich.edu/playlist/dedicated/1_rmm5rnp1/"
-target="_blank">getting started with Great Lakes</a> (Requires UM
-login)</li>
-</ul></li>
-</ul>
-<hr />
 </div>
 <div id="thank-you" class="section level2">
 <h2>Thank you</h2>
-<p><img src="images/workshop-intro/sponsor_logos.png" /></p>
-</div>
-<div id="thanks-tofrom-the-workshop-team" class="section level2">
-<h2>Thanks to/from the workshop team</h2>
-<table>
-<colgroup>
-<col width="25%" />
-<col width="25%" />
-<col width="25%" />
-<col width="25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="center"><img
-src="images/headshots/headshot_cgates.jpg" /></th>
-<th align="center"><img
-src="images/headshots/headshot_mbradenb.jpg" /></th>
-<th align="center"><img
-src="images/headshots/headshot_trsaari.jpg" /></th>
-<th align="center"><img
-src="images/headshots/headshot_clairis.jpg" /></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center"><strong>Chris</strong></td>
-<td align="center"><strong>Marci</strong></td>
-<td align="center"><strong>Travis</strong></td>
-<td align="center"><strong>Clair</strong></td>
-</tr>
-<tr class="even">
-<td align="center"><img
-src="images/headshots/headshot_ncarruth.jpg" /></td>
-<td align="center"><img
-src="images/headshots/headshot_damki.jpg" /></td>
-<td align="center"><img
-src="images/headshots/headshot_rcavalca.jpg" /></td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>Nick</strong></td>
-<td align="center"><strong>Dana</strong></td>
-<td align="center"><strong>Raymond</strong></td>
-<td align="center"></td>
-</tr>
-</tbody>
-</table>
-<p><br/></p>
 <p>Thank you for participating in our workshop. We welcome your
 questions and feedback now and in the future.</p>
-<p>Bioinformatics Workshop Team</p>
+<p>The Workshop Team</p>
 <p><a
 href="mailto:bioinformatics-workshops@umich.edu">bioinformatics-workshops@umich.edu</a>
 <br/> <a

@@ -39,10 +39,13 @@ source("../bin/set_values.R")
 
 # Workshop goals and topics
 
- - We want to make the computers work harder so we can do more meaningful work. This workshop introduces foundational tools and techniques that make computational projects simpler, more powerful, and more reproducible.
+ - We want to make the computers work harder so we can do more meaningful work. 
+   This workshop introduces foundational tools and techniques that make 
+   computational projects simpler, more powerful, and more reproducible.
 
  - By the end of the workshop, attendees will be able to
-   - Use RStudio to build R scripts, examine R data structures, navigate directories and files
+   - Use RStudio to build R scripts, examine R data structures, navigate 
+     directories and files
    - Understand basics of importing data into R and ways to clean/manipulate data
    - Visualize data as plots
 
@@ -50,40 +53,32 @@ source("../bin/set_values.R")
    the allotted time, and we don't expect anyone to be an expert at the end of
    the workshop. 
 
-- We hope that this introduction helps you over the steepest parts of the learning curve and gives a sense of what’s possible so you can 
-recognize these techniques when you see them and, with some independent study, apply them in your own work.
+- We hope that this introduction helps you over the steepest parts of the 
+  learning curve and gives a sense of what’s possible so you can 
+  recognize these techniques when you see them and, with some independent study, 
+  apply them in your own work.
 
  - Please let us know if there is anything we can do to improve the workshop experience.
 
 
-# Code of Conduct
-
-- The workshop will follow the [ABRF Code of Conduct](https://abrf.org/events/code-of-conduct/){target="_blank"}.
-
-- Thank you for helping make this a welcoming, friendly community for all.
-
-<br/>
-<br/>
+## Introductions
 
 
 # Housekeeping
 
-- Website "show notes" / RStudio-PositCloud
+- The workshop will follow the [ABRF Code of Conduct](https://abrf.org/events/code-of-conduct/){target="_blank"}.
+- Website "show notes"
+- [Instructor notes](https://michmed.org/ygPR3){target="_blank"}
+- [RStudio-PositCloud](https://posit.cloud/){target="_blank"}
 - Restrooms
 - Coffee/Tea
+- Any questions?
 
----
-# TODO Thank you to our sponsors/contributors
-
-![](images/workshop-intro/sponsor_logos.png)
+# Reproducibilty, R, and RStudio
 
 
-# Any questions?
- -
- -
 
-
-## Acknowledgements
+# Acknowledgements
 
 * This workshop content is licensed under a [Creative Commons Attribution 4 License](https://creativecommons.org/licenses/by/4.0/){target="_blank"}.
 

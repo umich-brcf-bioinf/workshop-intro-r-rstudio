@@ -1839,15 +1839,17 @@ downstream impact).</li>
 # =========================================================================
 
 required_packages = c(
-  &quot;here&quot;, 
-  &quot;sessioninfo&quot;, 
+  # installs dplyr, ggplot, and other libraries in the tidy universe
   &quot;tidyverse&quot;,
-  &quot;ggrepel&quot;, 
-  &quot;RcolorBrewer&quot;,
-  # These last two enable interactive plots; they are not strictly necessary 
-  # for the workshop curriculum - but it might come up in a question. 
-  &quot;plotly&quot;,
-  &quot;htmlwidgets&quot;
+  # Plotting extras
+  &quot;ggrepel&quot;, &quot;RColorBrewer&quot;,
+  # nifty utililties
+  &quot;here&quot;, &quot;sessioninfo&quot;, 
+  # These last few are not strictly necessary for the workshop curriculum - but it might come up in a question. 
+  # for interactive plots
+  &quot;plotly&quot;, &quot;htmlwidgets&quot;, 
+  # for saving as SVG
+  &quot;svglite&quot;, &quot;systemfonts&quot;
 )
 
 # -------------------------------------------------------------------------

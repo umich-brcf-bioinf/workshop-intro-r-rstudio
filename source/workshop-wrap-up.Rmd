@@ -37,10 +37,11 @@ klippy::klippy(lang = c("r", "markdown", "bash"), position = c("top", "right"))
 ```
 
 We hope you now have more familiarity with key concepts, tools, and techniques
-that will enable more efficient, reproducible, and impactful computational research.
+that will enable more efficient, reproducible, and impactful data research and 
+science.
 
 
-## TODO: Session Info
+## Session Info
 
 <details>
 ```{r session_info, eval=FALSE}
@@ -62,9 +63,9 @@ session_info::session_info()
 
 ---
 
-### TODO Can I continue to use the RStudio environments we used in the workshop?
-- TODO You can download files from the workshop environment from your terminal/command line window as below.
-  (You will need to substitute your actual workshop username and type workshop password when prompted.)
+### Can I continue to use the RStudio environment we used in the workshop?
+- The [PositCloud](https://posit.cloud/){target="_blank"} environment used in this workshop does not expire. 
+- You have the option of downloading the workshop files to your own computer
   ```
   mkdir workshop-intro-r-rstudio
   scp -r YOUR_USERNAME@`r workshop_vars$ssh_download_dns`:"IRR*" workshop-intro-r-rstudio
@@ -87,17 +88,16 @@ session_info::session_info()
 - The [University of Michigan Bioinformatics Core](https://michmed.org/GqGzZ){target="_blank"} regularly hosts workshops.
 - Intro lessons and workshops in Bash / Git / R / Python : 
   - [Software Carpentry](https://software-carpentry.org/lessons/){target="_blank"}
-
+- Some great "practice" datasets 
+  - [tidytuesday](https://github.com/rfordatascience/tidytuesday){target="_blank"} : a site for sharing sample datasets
+  - [Kaggle](https://www.kaggle.com/datasets){target="_blank"} : a site for learning AI/ML, but you can jump right to the sample datasets &#128521;
 
 ## Thank you
-
-![](images/workshop-intro/sponsor_logos.png)
-
 
 Thank you for participating in our workshop. We welcome your questions and
 feedback now and in the future.
 
-Bioinformatics Workshop Team
+The Workshop Team
 
 [bioinformatics-workshops@umich.edu](mailto:bioinformatics-workshops@umich.edu) <br/>
 [UM BRCF Bioinformatics Core](https://medresearch.umich.edu/office-research/about-office-research/biomedical-research-core-facilities/bioinformatics-core){target="_blank"}
