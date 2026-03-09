@@ -23,7 +23,7 @@ body, td {
 
 #### [Setup instructions](workshop_setup/setup_instructions.html){target="_blank"}
 
-#### [RStudio-PositCloud](https://posit.cloud/){target="_blank"}
+#### [RStudio-PositCloud](https://posit.cloud/content/yours){target="_blank"}
 
 #### [Instructor Notes](https://michmed.org/ygPR3){target="_blank"}
 
