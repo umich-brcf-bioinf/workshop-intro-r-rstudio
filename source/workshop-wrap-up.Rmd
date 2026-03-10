@@ -64,12 +64,13 @@ session_info::session_info()
 ---
 
 ### Can I continue to use the RStudio environment we used in the workshop?
-- The [PositCloud](https://posit.cloud/){target="_blank"} environment used in this workshop does not expire. 
-- You have the option of downloading the workshop files to your own computer
-  ```
-  mkdir workshop-intro-r-rstudio
-  scp -r YOUR_USERNAME@`r workshop_vars$ssh_download_dns`:"IRR*" workshop-intro-r-rstudio
-  ```
+- The [PositCloud](https://posit.cloud/){target="_blank"} environment used in 
+  this workshop does not expire. 
+- You can downloading the workshop files to your own computer by [viewing&nbsp;your&nbsp;workspace](https://posit.cloud/content/yours){target="blank"} 
+  and clicking <u>&#x2B07;</u> <kbd>Export</kbd>. Posit-cloud will zip up a 
+  downloadable file which you can then expand and use with a local version of RStudio.
+  ![](workshop_setup/images/positcloud-workspace-export.png)
+
 ### Where else could I use RStudio?
   - See [Advanced setup instructions](workshop_setup/setup_instructions_advanced.html){target="_blank"}
     for details on how to install RStudio and required packages on your own computer.
@@ -91,6 +92,13 @@ session_info::session_info()
 - Some great "practice" datasets 
   - [tidytuesday](https://github.com/rfordatascience/tidytuesday){target="_blank"} : a site for sharing sample datasets
   - [Kaggle](https://www.kaggle.com/datasets){target="_blank"} : a site for learning AI/ML, but you can jump right to the sample datasets &#128521;
+
+
+### Are there other tools like RStudio that can help me work with R?
+- In addition to RStudio, Posit recently developed a new tool called   
+  [Positron](https://positron.posit.co/){target="_blank"}. Positron has many of 
+  the same features as RStudio but with better support for Python. Like Rstudio, 
+  Positron is free.
 
 ## Thank you
 
