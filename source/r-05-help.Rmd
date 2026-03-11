@@ -43,41 +43,80 @@ knitr_fig_path("05-")
 
 # Objectives
 
-- Learn where to get help with R.
+- Learn where to get help.
 - Learn how to ask for help with R.
-
-# With a little help from my friends
-
-<img src="images/oreilly_book_covers.png" alt="rstudio default session" style="width: 600px;"/>
-
-No matter how much experience you have with R, you will find yourself needing help. There is no shame in researching how to do something in R, and most people will find themselves looking up how to do the same things that they "should know how to do" over and over again. Here are some tips to make this process as helpful and efficient as possible.
-
-> "Never memorize something that you can look up"
-> -- A. Einstein
 
 # Finding help
 
-There are a few websites that are useful for getting help with R. They can be summarized as follows:
+Part of trying new thinghs is occasionally getting stuck and needing help. 
+Fortunately, you're not alone, and if you can't find a previous example of how
+to make something work, you can ask for help from the community of R folks. Here
+are some tips to make this process as helpful and efficient as possible.
+
+- R's own [suggestions in getting help](https://www.r-project.org/help.html){target="_blank"} are excellent.
+- Google is your friend and AI can also be your friend. But on occasion, they 
+will cheerfully suggest a *completely wrong answer*, so **always verify any 
+proposed solution actually works for your problem**. 
+
+There are a few websites that are useful for getting help with R.
 
 | Website | Purpose |
 | :--- | :--- |
-| [R Documentation](https://www.rdocumentation.org/) | Searchable documentation for R packages on CRAN and Bioconductor |
-| [Bioconductor Support](https://support.bioconductor.org/) | Support forum for Bioconductor packages |
-| [stackoverflow](https://stackoverflow.com/questions/tagged/r) | General programming questions |
-| [Biostars](https://www.biostars.org/) | Bioinformatics specific questions |
-| [UM CoderSpaces](https://umich-coderspaces.slack.com/) | General and UM-specific questions |
+| [R Documentation](https://www.rdocumentation.org/){target="_blank"} | Searchable documentation for R packages on CRAN and Bioconductor |
+| [Bioconductor Support](https://support.bioconductor.org/){target="_blank"} | Support forum for Bioconductor packages |
+| [stackoverflow](https://stackoverflow.com/questions/tagged/r){target="_blank"} | General programming questions |
+| [Biostars](https://www.biostars.org/){target="_blank"} | Bioinformatics specific questions |
+| [R for data science](https://r4ds.hadley.nz/){target="_blank"} | An extremely readable website book that goes soup to nuts. |
+| [RWeekly](https://rweekly.org/){target="_blank"} | Short kind of random tips/tidbits updated weekly |
+| [Posit Community Forum](https://forum.posit.co){target="_blank"} | Questions asked and answered |
+| [Posit: Cheatsheets](https://posit.co/resources/cheatsheets/){target="_blank"} | Super handy since no one has all the packages memorized |
+| [Posit: Getting help with R](https://support.posit.co/hc/en-us/articles/200552336-Getting-Help-with-R){target="_blank"} | Curated links by the posit team |
 
-# Getting help
+# How to ask for help
 
-If you are trying to get help on a forum, it best to follow some basic guidelines to make sure you get the help you need.
+If you can't find the right solution already posted, you you can post your new question to a forum.
+R's [Posting Guide](https://www.r-project.org/posting-guide.html){target="_blank} examples of how to ask for help with R. 
+It's a good read - but here's the condensed version:
 
-- **Check if a question has already been asked.** Forum members can get touchy if duplicate questions are asked.
-- **Clearly describe your problem in words.** State what you're trying to do, what you tried, and the result, including the full text of the error message.
-- **Try to include a "minimally reproducible example."** This means providing data and code that anyone can run to reproduce the error, and diagnose the issue. Specifically, this means you can't share large datasets, or idiosyncratic code. 
+1. **Re-check if a question has already been asked**. &#x1F60E; 
+2. **Clearly describe your problem in words**.  
+  State what you're trying to do, what you tried, and the result, including the full text of any error message.
+3. **Try to include a "minimally reproducible example"**.  
+  This means providing the smallest block of data and code that anyone can run to 
+  reproduce the error and (we hope) diagnose the issue. Focusing the question on 
+  the suspect code with minimal data helps the respondents dive right in. (Often '
+  times, when you're trying to craft the minimal example, you learn something new 
+  and sometimes even resolve the original problem.)
 
-The [How to ask for R help](http://blog.revolutionanalytics.com/2014/01/how-to-ask-for-r-help.html) blog post has some good examples of how to ask for help with R. Note that this advice largely generalizes to other programming languages.
+  ```{verbatim, minimal_example, eval=FALSE}
+  I have this data frame:
+  
+  my_data = read_csv("start, end, title
+  8:00, 4:00, Using R/R Studio
+  1:00, 4:00, Nextflow: Train the Trainers
+  8:00, 4:00, Lean Management for Shared Resources
+  ")
+  
+  But I want this data frame:
+  title                                workshop time  
+  Using R/R Studio                     start    08:00 
+  Using R/R Studio                     end      04:00 
+  Nextflow: Train the Trainers         start    01:00 
+  Nextflow: Train the Trainers         end      04:00 
+  Lean Management for Shared Resources start    08:00 
+  Lean Management for Shared Resources end      04:00
+  
+  ```
+  Note that sharing **minimal example data** often means you need to trim the data down to a small subset
+   
+   - Shown in the block above, `read_csv` allows you to "handcraft" data as a comma separated list of fields, one row per field.
+   - You can use one of R's built in example datasets like `iris` or `mtcars`. You can see the full list of built in datasets with `data()`.
+   - You can also use `format_csv` and `head` to prune a larger dataset to a few rows, e.g. `cat(format_csv(head(mtcars)))` to then 
+     copy into your post.
 
-## Sharing your session info
+4. **Share your session info**.  
+  Your problem and the solution often depends on the specific package versions you are using, so you should share this in your post.
+  Sharing help others reproduce the issue and find a solution quicker. There are a couple ways to get the session information. The older/more common way is the `sessionInfo` command which will work in any R environment:
 
 ```{r eval = exists("on_aws") && on_aws, echo=FALSE}
 # To avoid confusion, we will only generate/refresh these files on AWS instance
@@ -93,10 +132,6 @@ sink()
 ```
 
 
-Part of getting help, especially with R, is including your `sessionInfo()` with your question. This helps people know what packages and what versions you have installed. This will help reproduce the issue and possibly find a solution.
-
-There are a couple ways to get the session information. The first is:
-
 ```{r sessionInfo, eval=FALSE}
 ################################################################################
 # Print out details about this R install, session, and loaded libraries
@@ -106,73 +141,25 @@ sessionInfo()
 ```{verbatim sessionInfo_txt, file='sessionInfo.txt', eval=FALSE}
 ```
 
-The `sessionInfo` command will work in any R environment. For a slightly more 
-elegant output, use `sessioninfo::session_info()`. (Note, you'll have to have 
-the `sessioninfo` package installed., which we have done for you.)
+The new, slightly more elegant is `sessioninfo::session_info()`. (Note,
+the `sessioninfo` package must be installed. We did that for you.)
 
 
 ```{r session_info, eval=FALSE}
 ################################################################################
 # A more concise, pleasant version of sessionInfo()
+# install.packages('session_info')
 sessioninfo::session_info()
 ```
 
 ```{verbatim session_info_txt, file='session_info.txt', eval=FALSE}
 ```
 
-
-## Sharing your data
-
-Many times, there may be some issues with your data and the way it is formatted. In that case, you may want to share that data with someone else. However, you may not need to share the whole dataset; looking at a subset of your 50,000 row, 10,000 column dataframe may be TMI (too much information)! You can take an object you have in memory such as dataframe (if you don't know what this means yet, we will get to it!) and save it to a file. In our example we will use the `dput()` function on the `iris` dataframe which is an example dataset that is installed in R:
-
-
-```{r}
-# iris is an example data.frame built into R
-dput(head(iris)) # iris is an example data.frame that comes with R
-```
-
-This output very clearly states the structure of the `iris` data frame. Alternatively, you can also save objects in R memory to a file by specifying the name of the object, in this case the `iris` data frame, and passing a filename to the `file=` argument.
-
-```{r, eval=FALSE}
-# By convention, we use the .rds file extension
-saveRDS(iris, file="iris.rds")
-
-# To load this type of file back
-iris_rds = readRDS("iris.rds")
-```
-
-# Final FAQs on R
-
-Finally, here are a few pieces of introductory R knowledge that are too good to pass up. While we won't return to them in this course, we put them here because they come up commonly:
-
-**Do I need to click Run every time I want to run a script?**
-
-- No. In fact, the most common shortcut key allows you to run a command (or any lines of the script that are highlighted):
-  - Windows execution shortcut: <KBD>Ctrl</KBD>+<KBD>Enter</KBD>
-  - Mac execution shortcut: <KBD>Cmd(⌘)</KBD>+<KBD>Enter</KBD>
-
-  To see a complete list of shortcuts, click on the <KBD>Tools</KBD> menu and select <KBD>Keyboard Shortcuts Help</KBD>
-
-**What's with the brackets in R console output?**
-- R returns an index with your result. When your result contains multiple values, the number tells you what ordinal number begins the line, for example:
-
-```{r}
-1:101 # generates the sequence of numbers from 1 to 101
-```
-
-In the output above, `[81]` indicates that the first value on that line is the 81st item in your result
-
-
-
-**Can I run my R script without RStudio?**
-
-- Yes, remember - RStudio is running R. You get to use lots of the enhancements RStudio provides, but R works independent of RStudio. See [these tips](https://support.rstudio.com/hc/en-us/articles/218012917-How-to-run-R-scripts-from-the-command-line) for running your commands at the command line
-
-
-**Where else can I learn about RStudio?**
-- Check out the <KBD>Help</KBD> menu, especially "Cheatsheets" section
-
 <br/>
+
+"All of us, at some time or other, need help. Whether we're giving or receiving help, each one of us has something valuable to bring to this world."  
+— Fred Rogers
+
 <br/>
 <hr/>
 | [Previous lesson](r-04-bioconductor.html) | [Top of this lesson](#top) | [Next lesson](r-03-exploration-ggplot.html) |
