@@ -37,7 +37,8 @@ this setup, you will need:
 -   For simplicity, participants will log in to a pre-built server which
     has the necessary data, software, and configuration already installed.
 -   While not required or recommended, advanced users may elect to install some software
-    locally; see [advanced setup instructions](setup_instructions_advanced.html).
+    locally on their laptop; see 
+    [advanced setup instructions](setup_instructions_advanced.html).
 
 ## How to get help
 
@@ -45,33 +46,47 @@ this setup, you will need:
     at:
     [bioinformatics-workshops@umich.edu](mailto:bioinformatics-workshops@umich.edu)
 
--   When emailing it will speed things along if you could include:
-    -   Whether you are using Windows or Mac (and optionally which
-        version of the OS you are using).
-    -   The specific text of any error messages, if applicable.
+-   When emailing it will speed things along if you could include the specific 
+    text of any error messages.
 
 ## Setup steps
 
-### **Posit-Cloud**
+For the workshop you will access RStudio though your browser. This service is hosted through PositCloud, so you'll need to register there first:
 
- **1.1** If you have not used Zoom before, please use the following link to
-install "Zoom client for Meetings"\
-[https://zoom.us/download](https://zoom.us/download){target="_blank"}
+**1.**  [Register at PositCloud](https://login.posit.cloud/register){target="_blank"}. PositCloud is free for light use. (Paid plans exist for more computationally demanding work.) 
 
- You should see a new webpage that looks something like this:
+**2.** You can enter you email and a password -or- authenticate through an existing Google or Github account. 
 
- ![RStudio initial screen](images/setup_instructions_rstudio.png)
+**3.** Once you have created your account, click below to 
+[open the workshop workspace](https://posit.cloud/content/10156998){target="_blank"} in your browser.
 
- If you see a screen like that above, you have successfully logged into RStudio.
+  - You may need to login.
+  - You will see a progress bar "Deploying project"
+  - After a few moments, you should see a screen that looks similar to below.
+    (You will see the **Temporary Copy** warning at the top of the page; that's ok.)
+    ![](images/positcloud-temporary-copy.png)
+
+&nbsp; 
+**4.** Click <kbd>Save&nbsp;a&nbsp;Permanent&nbsp;Copy</kbd> at the top to copy 
+       the workshop template project into your own working area.
+       ![](images/positcloud-save-permanent-copy.png)
+
+**5.** After a moment, screen header will refresh and the **Temporary Copy** warning will be gone.
+
+&nbsp;
+**6.** Follow this link to see [your copy of the workshop project](https://posit.cloud/content/yours){target="_blank"}.
+  ![](images/positcloud-workspace.png)
+
+&nbsp;
+**7.** You can close and logout of your RStudio session by:
+  
+  - Clicking your username button in the top-right corner (highlighted in the picture above) 
+  - Clicking <kbd>&#x23FB; Log Out</kbd>
+  - Close the browser tab. 
+     ![](images/positcloud-workspace-logout.png)
 
 ## Congratulations
-Your workstation and logins are ready for the workshop; thank you for
-   taking time to set this up in advance.
-
-   - You can close your RStudio session by clicking the small orange "power"
-     button in the top-right corner (highlighted in the picture above by a red
-     arrow).  The webpage will announce **R&nbsp;Session&nbsp;Ended**; you may now close
-     the web page.
+You are ready for the workshop; thank you for taking time to set this up in advance.
 
 ### A note on the Posit-Cloud compute environment
 
@@ -80,7 +95,7 @@ particular workshop but is likely unsuitable for analyzing your own
 datasets. In particular:
 - It is not sized for compute intensive operations or large storage.
 - It is not secured for sensitive data of any kind.
-- This environment is temporary and will be removed shortly after the
+- FYI, the workspace you just copied above is available to you after the
   conclusion of the workshop.
 
 If you had problems or questions about the installation steps
