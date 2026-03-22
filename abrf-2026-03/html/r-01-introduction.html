@@ -13,7 +13,7 @@
 
 <title>Introducing R and RStudio</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -406,54 +406,12 @@ pre {
 <h1>Objectives</h1>
 <ul>
 <li>Introduce R and RStudio.</li>
+<li>Discuss data types and object assignment.</li>
 <li>Learn how to read in a csv file.</li>
-<li>Discuss object naming conventions and types.</li>
 <li>Discuss functions and parameters.</li>
 <li>Learn how to get help with functions.</li>
 <li>Get comfortable with errors and asking for help.</li>
 </ul>
-</div>
-<div id="the-gapminder-dataset" class="section level1">
-<h1>The gapminder dataset</h1>
-<p>We will be using a dataset from <a
-href="https://www.gapminder.org/">gapminder</a> which contains life
-expectancy, GDP, and population for countries around the world from 1952
-to 2007. It is sufficiently rich to allow us to explore data
-manipulation and visualization in R. We’ll begin with data just from
-1997, and will expand to the full 1952 - 2007 dataset towards the end.
-The following is a preview of the data we’ll be working with:</p>
-<p><img src="images/00_gapminder_preview.png" alt="gapminder preview"/></p>
-</div>
-<div id="server-login" class="section level1">
-<h1>Server login</h1>
-<p>Let’s log in to the workshop server: <a
-href="http://bfx-workshop02.med.umich.edu"
-target="blank">http://bfx-workshop02.med.umich.edu</a></p>
-<p>The login page for the server looks like:</p>
-<p><img src="images/01_rstudio_login_screen.png" alt="rstudio login screen" style="width: 1000px;"/></p>
-<p>Enter your user credentials and click <kbd>Sign In</kbd>. The RStudio
-interface should load and look like:</p>
-<p><img src="images/02_rstudio_session_default.png" alt="rstudio default session" style="width:1000px;"/></p>
-<p><strong>Checkpoint</strong></p>
-</div>
-<div id="create-a-project" class="section level1">
-<h1>Create a project</h1>
-<p>We will create an RStudio Project to easily keep track of our working
-directory. See the <a
-href="https://r4ds.hadley.nz/workflow-scripts.html#projects">Projects</a>
-section of <a href="https://r4ds.hadley.nz/">R for Data Science</a> for
-a more in-depth description of what a project is and how it’s
-helpful.</p>
-<p>To create a Project, click <kbd>File</kbd> then <kbd>New
-Project…</kbd>. In the New Project Wizard window that opens, select
-<kbd>Existing Directory</kbd>, then <kbd>Browse…</kbd>. In the Choose
-Directory window, select the <code>IRR</code> folder by clicking it
-once, and then click the <kbd>Choose</kbd> button. Finally, click
-<kbd>Create Project</kbd>.</p>
-<p>Once we do this, RStudio will restart and the Files pane (lower
-right) should put us in the <code>~/IRR</code> folder where there is an
-<code>inputs/</code> folder and an <code>IRR.Rproj</code> file.</p>
-<p><strong>Checkpoint</strong></p>
 </div>
 <div id="the-rstudio-interface" class="section level1">
 <h1>The RStudio interface</h1>
@@ -487,10 +445,11 @@ can be entered and run with the <KBD>Enter</KBD> key:</p>
 <div id="commands-in-a-script" class="section level2">
 <h2>Commands in a Script</h2>
 <p>Instead of entering commands directly into the Console, we’ll record
-them in and run them from a script. Some benefits to using a script
-rather than using the Console pane:</p>
+them in and run them from a script. Some benefits to recording your code
+in a script include:</p>
 <ul>
-<li>Scripts record the steps taken to analyze the data.</li>
+<li>Scripts <strong>linearly</strong> record the steps taken to analyze
+data.</li>
 <li>Scripts can be re-run, allowing for reproducibility.</li>
 <li>Scripts are can be shared.</li>
 </ul>
@@ -525,199 +484,26 @@ RStudio:</p>
 <tbody>
 <tr class="odd">
 <td align="left">Reset across sessions</td>
-<td align="left">Preserved acros sessions</td>
+<td align="left">Preserved across sessions</td>
 </tr>
 <tr class="even">
 <td align="left">Run with <KBD>Enter</KBD></td>
 <td align="left">Run with <KBD>Ctrl + Enter</KBD></td>
 </tr>
 <tr class="odd">
-<td align="left">Inconvenient to share</td>
-<td align="left">Convenient to share</td>
+<td align="left">Quick, exploratory</td>
+<td align="left">Recorded, directed</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="configuring-rstudio" class="section level2">
-<h2>Configuring RStudio</h2>
-<p>All of the panes in RStudio have configuration options. For example,
-you can minimize/maximize a pane or resize panes by dragging the
-borders. The most important customization options for pane layout are in
-the <KBD>View</KBD> menu. Other options such as font sizes,
-colors/themes, and more are in the <KBD>Tools</KBD> menu under
-<KBD>Global Options</KBD>.</p>
-<p>We can enable soft-wrapping of code by selecting <KBD>Code</KBD> and
-then <KBD>Soft Wrap Long Lines</KBD>.</p>
-<p><img src="images/07_rstudio_soft_wrap.png" alt="rstudio code execution" style="width:1000px;"/></p>
 </div>
-</div>
-<div id="workshop-flow" class="section level1">
-<h1>Workshop flow</h1>
-<p>To accommodate different learning styles and to keep us moving along,
-we’ll provide code in three different ways, and you can get that code
-into RStudio in corresponding ways:</p>
-<table>
-<colgroup>
-<col width="48%" />
-<col width="51%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Source of Code</th>
-<th align="left">Execution of Code</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Zoom screen share</td>
-<td align="left">Type the code yourself.</td>
-</tr>
-<tr class="even">
-<td align="left">Slack</td>
-<td align="left">Copy and paste into RStudio.</td>
-</tr>
-<tr class="odd">
-<td align="left">Website</td>
-<td align="left">Copy with code block button and paste into
-RStudio.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Questions?</strong></p>
-</div>
-<div id="directory-structure" class="section level1">
-<h1>Directory structure</h1>
-<p>Before we begin, the folder structure of a project organizes all the
-relevant files. Typically we make directories for the following types of
-files:</p>
-<ul>
-<li>Raw data, called <code>data</code>, <code>input</code>, etc,</li>
-<li>Results, often <code>results</code> or <code>output</code> with
-subfolders for <code>tables</code>, <code>figures</code>, and
-<code>rdata</code>, and</li>
-<li>Scripts, often <code>scripts</code>.</li>
-</ul>
-<p>We’ve already provided the raw data in the <code>data/</code> folder,
-and it’s generally a good idea to keep raw data in its own folder.</p>
-<p>Let’s create some folders for our analysis scripts and results
-thereof.</p>
-<pre class="r"><code># -------------------------------------------------------------------------
-# Create directory structure
-
-dir.create(&#39;scripts&#39;, recursive = TRUE, showWarnings = FALSE)
-dir.create(&#39;results/figures&#39;, recursive = TRUE, showWarnings = FALSE)
-dir.create(&#39;results/tables&#39;, recursive = TRUE, showWarnings = FALSE)
-dir.create(&#39;results/rdata&#39;, recursive = TRUE, showWarnings = FALSE)</code></pre>
-</div>
-<div id="saving-scripts" class="section level1">
-<h1>Saving scripts</h1>
-<p>Let’s save our currently open script by clicking <KBD>File</KBD> and
-then <KBD>Save</KBD>. Double click the <code>scripts/</code> folder and
-enter the file name <code>ISC_day1.R</code>.</p>
-<p><strong>Checkpoint</strong></p>
-</div>
-<div id="getting-started" class="section level1">
-<h1>Getting started</h1>
-<p>Out of the box, R has a number of useful functions, but its power
-lies in extending its functionality with packages / libraries. You can
-think of libraries as collections of functions organized around a
-particular functionality. For example, the <code>tidyverse</code>
-package is a collection of packages that are designed to work together
-to make data manipulation and visualization easier. In order to gain
-access to functions in a package, we need to load the package into our R
-session.</p>
-<div id="loading-libraries" class="section level2">
-<h2>Loading Libraries</h2>
-<p>Let’s begin with loading <code>tidyverse</code> since that’s the
-package we’ll use for the rest of the workshop.</p>
-<pre class="r"><code># -------------------------------------------------------------------------
-# Load the tidyverse package
-
-library(tidyverse)</code></pre>
-<pre><code>── Attaching core tidyverse packages ───────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.2     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.4     
-── Conflicts ─────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter()     masks stats::filter()
-✖ dplyr::group_rows() masks kableExtra::group_rows()
-✖ dplyr::lag()        masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-<blockquote>
-<h2 id="note-package-loading-messages" class="unlisted unnumbered">Note:
-Package loading messages</h2>
-<p>Loading a package can result in a lot of feedback from R. These
-aren’t necessarily errors, but give more information about the result of
-loading the package. The output tells us which packages were loaded
-(note that <code>tidyverse</code> is sort of a meta-package of
-packages). The first section of the output states which packages were
-lodaed and their versions. The second section notes “Conflicts” that
-occur because the name of a function is used multiple times. So
-<code>dplyr::filter() masks stats::filter()</code> means that the
-<code>dplyr</code> library and the <code>stats</code> library have
-functions called <code>filter()</code>, and that when calling
-<code>filter()</code>, the <code>dplyr</code> version will be the
-default. <br></p>
-</blockquote>
-<p><strong>Checkpoint</strong></p>
-</div>
-<div id="loading-a-csv-file" class="section level2">
-<h2>Loading a csv file</h2>
-<p>Let’s jump right in and load some of the gapminder data using the
-<code>read_csv()</code> function:</p>
-<pre class="r"><code># -------------------------------------------------------------------------
-# Load the gapminder 1997 data
-
-gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
-<pre><code>Rows: 142 Columns: 6
-── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────
-Delimiter: &quot;,&quot;
-chr (2): country, continent
-dbl (4): year, pop, lifeExp, gdpPercap
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<p>Remember, with the cursor on this line we can click <KBD>Run</KBD>,
-or we can type <KBD>Ctrl</KBD>+<KBD>Enter</KBD>. We should see some
-output in the Console pane as well as <code>gm97</code> in the
-Environment pane. We’ll explore the resulting data in later lessons.</p>
-<p><strong>Checkpoint</strong></p>
-<p>Let’s break down this command:</p>
-<ul>
-<li><code>gm97</code> is the <strong>variable name</strong> we’re giving
-to the data we read in.</li>
-<li><code>=</code> is the <strong>assignment operator</strong> which
-assigns the object on the right to the name on the left.</li>
-<li><code>read_csv()</code> is a <strong>function</strong> in
-<code>tidyverse</code> that reads CSV files.</li>
-<li><code>data/gapminder_1997.csv</code> is the
-<strong>argument</strong> to <code>read_csv()</code> that specifies the
-file to read.</li>
-</ul>
-<p>The output of <code>read_csv()</code> in the Console pane gives
-information such as the dimensions of the data, the delimiter of the
-file, and how the columns of the data were interpreted.</p>
-<blockquote>
-<h2 id="note-the-assignment-operator" class="unlisted unnumbered">Note:
-The assignment operator</h2>
-<p>You may have seen another assignment operator, <code>&lt;-</code>,
-which is idiosyncratic to R. We leave as an exercise to the learner to
-look up the edge cases of when to use <code>&lt;-</code> vs
-<code>=</code>. For now, we will use <code>=</code> as the assignment
-operator, which is more common in other programming languages. <br></p>
-</blockquote>
-</div>
-</div>
-<div id="basic-r-data-types" class="section level1">
-<h1>Basic R data types</h1>
-<p>In the output of <code>read_csv()</code>, the <code>country</code>
-and <code>continent</code> columns were intepreted as character strings
-(<code>chr</code>) and the <code>year</code>, <code>pop</code>,
-<code>lifeExp</code>, and <code>gdpPercap</code> columns were
-interpreted as numbers (<code>dbl</code>). This begs the question of the
-data types available in R. The basic data types in R are:</p>
+<div id="data-types" class="section level1">
+<h1>Data types</h1>
+<p>We encounter various types of data in our lives. A computer thinks
+about free text, structured text, numbers, etc. as different types as
+well. In R, as in many other programming languages, these basic data
+types are the building blocks of more complex data structures.</p>
 <table>
 <colgroup>
 <col width="31%" />
@@ -758,20 +544,14 @@ etc.</td>
 </tbody>
 </table>
 </div>
-<div id="assigning-values-to-objects" class="section level1">
-<h1>Assigning values to objects</h1>
-<p>Throughout this workshop we’ll be assigning names to objects and
-manipulating them. The names we give to objects can either make our
-lives easier or harder. Let’s start by describing good practices, and
-then we’ll give some examples of bad practices.</p>
-<div id="the-good" class="section level2">
-<h2>The good</h2>
-<ul>
-<li>Use brief, descriptive names.</li>
-<li>Separate words with underscores.</li>
-</ul>
+<div id="object-assignment" class="section level1">
+<h1>Object assignment</h1>
+<p>Computation is powerful because it allows us to procedurally process
+data, and to use those outputs as inputs for further analysis. To do
+that, we assign values to named <strong>objects</strong> using the
+<code>=</code> operator:</p>
 <pre class="r"><code># -------------------------------------------------------------------------
-# Examples of good variable names, and writing over an existing variable
+# Assigning values to objects
 
 age = 26
 age</code></pre>
@@ -782,19 +562,47 @@ wizard_name</code></pre>
 <pre class="r"><code>wizard_name = &#39;Harry Potter&#39;
 wizard_name</code></pre>
 <pre><code>[1] &quot;Harry Potter&quot;</code></pre>
-</div>
-<div id="the-bad" class="section level2">
-<h2>The bad</h2>
+<p>Notice a few things. Each object appears in the Environment pane
+after assignment. Assigning to <code>wizard_name</code> a second time
+overwrites the first value — the object holds the most recent
+assignment. Evaluating the name of an object prints its value in the
+Console. <strong>We will use this pattern repeatedly.</strong></p>
+<div id="naming-objects" class="section level2">
+<h2>Naming objects</h2>
+<p>Some practices make object names easier to work with:</p>
 <ul>
-<li>No spaces.</li>
-<li>Don’t start with numbers.</li>
-<li>Don’t use proteted names, like <code>if</code>, <code>else</code>,
+<li>Use brief, descriptive names.</li>
+<li>Separate words with underscores.</li>
+<li>Object names are <strong>case-sensitive</strong> —
+<code>name</code>, <code>Name</code>, and <code>NAME</code> are three
+distinct objects.</li>
+</ul>
+<p>Some things will cause errors:</p>
+<ul>
+<li>No spaces in names.</li>
+<li>Names cannot start with a number.</li>
+<li>Don’t use reserved words like <code>if</code>, <code>else</code>,
 <code>for</code>, etc. (see <a
 href="https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html">here</a>
-for complete list).</li>
+for the complete list).</li>
 </ul>
+<blockquote>
+<h2 id="exercise" class="unlisted unnumbered">Exercise</h2>
+<p>Create at least four objects in your script, one of each data type
+from the table above. Choose any names and values you like. Run your
+code with <KBD>Ctrl + Enter</KBD> and verify the objects appear in the
+Environment pane. <br></p>
+</blockquote>
+<p><strong>Checkpoint</strong> — Did anyone get an error? Let’s take a
+look.</p>
+</div>
+</div>
+<div id="errosr-happn" class="section level1">
+<h1>Errosr happn</h1>
+<p>Errors are a completely normal part of coding and they are an
+opportunity to learn. Let’s look at a few common ones.</p>
 <pre class="r"><code># -------------------------------------------------------------------------
-# Error: Example of variable name with space
+# Error: variable name with a space
 
 favorite number = 12</code></pre>
 <pre><code>Error in parse(text = input): &lt;text&gt;:4:10: unexpected symbol
@@ -802,134 +610,13 @@ favorite number = 12</code></pre>
 4: favorite number
             ^</code></pre>
 <pre class="r"><code># -------------------------------------------------------------------------
-# Error: Example of variable name beginning with number
+# Error: variable name beginning with a number
 
 1number = 3</code></pre>
 <pre><code>Error in parse(text = input): &lt;text&gt;:4:2: unexpected symbol
 3: 
 4: 1number
     ^</code></pre>
-</div>
-<div id="be-mindful" class="section level2">
-<h2>Be mindful</h2>
-<ul>
-<li>Object names are <strong>case-sensitive</strong>. This means that
-<code>name</code>, <code>Name</code>, and <code>NAME</code> are three
-distinct objects. Imagine what confusion you could create!</li>
-<li>Words in object names can also be separated by camelCase
-(e.g. <code>objectName</code>), but <strong>be consistent</strong>.</li>
-</ul>
-<pre class="r"><code># -------------------------------------------------------------------------
-# Example of case-sensitivity of variable names
-
-Flower = &#39;marigold&#39;
-Flower</code></pre>
-<pre><code>[1] &quot;marigold&quot;</code></pre>
-<pre class="r"><code>flower = &#39;rose&#39;
-flower</code></pre>
-<pre><code>[1] &quot;rose&quot;</code></pre>
-<pre class="r"><code># -------------------------------------------------------------------------
-# Example of camelCase variable name
-
-favoriteNumber = 12
-favoriteNumber</code></pre>
-<pre><code>[1] 12</code></pre>
-<p>Notice that with each assignment, the object appears in the
-Environment pane. Also notice that by assigning <code>wizard_name</code>
-twice, the value becomes the last assigned value, overwriting our
-initial assignment. Also notice that if we evaluate the name of an
-object, it is printed in the Console pane. <strong>We will use this
-pattern repeatedly.</strong></p>
-<p><strong>Checkpoint</strong></p>
-</div>
-</div>
-<div id="calling-functions" class="section level1">
-<h1>Calling functions</h1>
-<p>Earlier we ran the code
-<code>gm97 = read_csv('data/gapminder_1997.csv')</code>. As we said
-before, <code>read_csv()</code> is a function and
-<code>'data/gapminder_1997.csv'</code> is an argument to that function.
-What happens if we just do:</p>
-<pre class="r"><code># -------------------------------------------------------------------------
-# Example of a function that needs arguments to function
-
-read_csv()</code></pre>
-<pre><code>Error in read_csv(): argument &quot;file&quot; is missing, with no default</code></pre>
-<p>We get an error in the Console pane. The key part of the message is
-“argument ‘file’ is missing, with no default”. In other words, this
-function needs to be told what to read because there is no default.</p>
-<p>Not every function needs arguments, but many do. Try the following
-functions:</p>
-<pre class="r"><code># -------------------------------------------------------------------------
-# Examples of functions with no required arguments
-Sys.Date()</code></pre>
-<pre><code>[1] &quot;2026-02-19&quot;</code></pre>
-<pre class="r"><code>getwd()</code></pre>
-<pre><code>[1] &quot;/Users/cgates/git/workshop-intro-r-rstudio/source&quot;</code></pre>
-<pre class="r"><code># -------------------------------------------------------------------------
-# Example of a function with multiple arguments
-round(3.1415, 2)</code></pre>
-<pre><code>[1] 3.14</code></pre>
-<p>Notice that we threw in <code>round()</code> which actually takes two
-arguments. How could we have known that?</p>
-<div id="getting-help-with-functions" class="section level2">
-<h2>Getting help with functions</h2>
-<p>When a function is unfamiliar, we’ll often look at the manual page
-for the function to understand what arguments are required, what it
-does, and what it outputs. By prepending a <code>?</code> in front of a
-function name, you can access the manual page.</p>
-<pre class="r"><code># -------------------------------------------------------------------------
-# Put a &quot;?&quot; in front of a function to see it&#39;s manual page
-
-?round</code></pre>
-<p>The help page for <code>round()</code> tells us the function does
-essentially what we’d expect, and gives some other related functions.
-Note also that the arguments section gives us the names of the arguments
-and what is expected of them. There is often a Details section to
-describe nuances, and a Value section to describe the output. Finally,
-there is an Examples section which gives examples of how to run the
-code.</p>
-</div>
-<div id="arguments" class="section level2">
-<h2>Arguments</h2>
-<p>When we called <code>round(3.1415, 2)</code> it seemed like the first
-argument is the thing we want to round, and the second argument is how
-many digits we want. That tracks when we look at <code>?round</code>. R
-can evaluate arguments of a function based on their
-<strong>position</strong>, as we just saw. However, the preferred way to
-call a function is to use the names of the arguments, as in:</p>
-<pre class="r"><code># -------------------------------------------------------------------------
-# Example of named arguments
-
-round(x = 3.14159, digits = 2)</code></pre>
-<pre><code>[1] 3.14</code></pre>
-<p>Calling a function, and using named arguments, increases the
-readability of the code and reduces the chance of error, especially with
-complex functions having many arguments.</p>
-</div>
-</div>
-<div id="searching-for-functions" class="section level1">
-<h1>Searching for functions</h1>
-<p>Prepending a <code>?</code> in front a function name to find out more
-about the function requires knowing the name of the function beforehand.
-That won’t always be the case so there are a couple ways to search for R
-functions.</p>
-<ol style="list-style-type: decimal">
-<li>Search the internet for “R function that does X”.</li>
-<li>Use <code>help.search()</code>, as in
-<code>help.search('Chi-squared test')</code></li>
-</ol>
-<p>Note that in the results of <code>help.search()</code> we see things
-like, <code>stats::chisq.test</code>. Here the <code>::</code> is R
-notation for <code>package_name::function</code>.</p>
-<p><strong>Checkpoint</strong></p>
-</div>
-<div id="errosr-happn" class="section level1">
-<h1>Errosr happn</h1>
-<p>We already assigned some variables that resulted in errors. There
-will be plenty of more of those to come; they’re a normal part of coding
-and they are an opportunity to learn! To that end, let’s make some
-mistakes together.</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Example of not closing quotes
 
@@ -938,9 +625,9 @@ read_csv(&#39;data/gapminder_1997.csv)</code></pre>
 # Example of not closing parentheses
 
 round(3.1415, 2</code></pre>
-<p>In both cases, the Console displays a <code>+</code> to indicate that
-R is waiting for more input. To get out of this state, we can press
-<KBD>Esc</KBD>, and try again.</p>
+<p>In the last two cases, the Console displays a <code>+</code> to
+indicate that R is waiting for more input. To get out of this state,
+press <KBD>Esc</KBD> and try again.</p>
 <div id="handling-errors" class="section level2">
 <h2>Handling errors</h2>
 <p>The key to correcting errors is understanding what went wrong.
@@ -953,9 +640,8 @@ wrong.</li>
 <li>Check that the objects going into the function are what you
 expect.</li>
 </ol>
-<p>If you’re still stuck as to why an error occurred (something we all
-encounter), reach out for help. For the workshop, please post the
-question in Slack with the following information:</p>
+<p>If you’re still stuck, reach out for help. For the workshop, please
+post the question in Slack with the following information:</p>
 <ol style="list-style-type: decimal">
 <li>The exact command that caused the error.</li>
 <li>The exact error message that resulted.</li>
@@ -963,42 +649,236 @@ question in Slack with the following information:</p>
 <p>This way we’ll more quickly be able to diagnose the problem.</p>
 </div>
 </div>
-<div id="base-r-and-the-tidyverse" class="section level1">
-<h1>Base R and the tidyverse</h1>
-<p>If you’ve used R before, you may have learned commands that are
-different what we’ll learn in this workshop. We’ll focus on functions
-from the <code>tidyverse</code>, a collection of R packages designed to
-work well together and and offer many features that aren’t part of a
-fresh install of R (that is, “base R”). Generally the
-<code>tidyverse</code> helps us write code that is easy to read and
-maintain, as we’ll see.</p>
-<p>The <code>tidyverse</code> is geared for data in the form of tables,
-and it is <strong>very good</strong> at manipulating, summarizing, and
-visualizing such data. However, data occurs in a variety of other shapes
-and forms. In particular, in a bioinformatics context, the Bioconductor
-repository of packages utilize data types that are not tables, and
-therefore do not always work well with <code>tidyverse</code> functions.
-We’ll see clearer examples of this in the RNA-seq Demystified workshop,
-and you will undoubtedly encounter many examples in the future.</p>
-<p>Some people ask “Should I learn tidyverse or base R?” and we think
-that rather than either/or, it’s better to think of both/and. Knowing
-base R and its approach will help in some contexts, while knowing
-<code>tidyverse</code> will help in others.</p>
+<div id="building-a-data.frame" class="section level1">
+<h1>Building a data.frame</h1>
+<p>Individual objects are useful, but data often has structure —
+multiple observations of multiple variables. In R, the natural way to
+represent tabular data is a <code>data.frame</code>. Let’s build one
+together using names and birth months from people in the workshop:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Build a data.frame from participant names and birth months
+
+workshop_data = data.frame(
+  name         = c(&quot;Alice&quot;, &quot;Bob&quot;, &quot;Carol&quot;),
+  birth_month  = c(3, 11, 7)
+)
+workshop_data</code></pre>
+<pre><code>   name birth_month
+1 Alice           3
+2   Bob          11
+3 Carol           7</code></pre>
+<p>The <code>c()</code> function <strong>combines</strong> values into a
+vector — the building block of a column in a <code>data.frame</code>.
+Notice that <code>name</code> is a character column and
+<code>birth_month</code> is numeric, consistent with the data types we
+discussed earlier.</p>
+<p><strong>Checkpoint</strong></p>
+</div>
+<div id="loading-libraries" class="section level1">
+<h1>Loading libraries</h1>
+<p>In practice, we almost never enter data by hand. Data usually lives
+in files, and reading those files well is where R’s package ecosystem
+really shines. Out of the box, R has a number of useful functions, but
+its power lies in extending its functionality with packages. You can
+think of packages as collections of functions organized around a
+particular task. The <code>tidyverse</code> is a collection of packages
+designed to work together to make data manipulation and visualization
+easier.</p>
+<p>In order to use functions from a package, we first need to load it
+into our R session:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Load the tidyverse package
+
+library(tidyverse)</code></pre>
+<blockquote>
+<h2 id="note-package-loading-messages" class="unlisted unnumbered">Note:
+Package loading messages</h2>
+<p>Loading a package can result in a lot of feedback from R. These
+aren’t necessarily errors, but give more information about the result of
+loading the package. The output tells us which packages were loaded
+(note that <code>tidyverse</code> is sort of a meta-package of
+packages). The first section of the output states which packages were
+loaded and their versions. The second section notes “Conflicts” that
+occur because the name of a function is used multiple times. So
+<code>dplyr::filter() masks stats::filter()</code> means that the
+<code>dplyr</code> library and the <code>stats</code> library both have
+functions called <code>filter()</code>, and that when calling
+<code>filter()</code>, the <code>dplyr</code> version will be the
+default. <br></p>
+</blockquote>
+<p><strong>Checkpoint</strong></p>
+<div id="loading-a-csv-file" class="section level2">
+<h2>Loading a csv file</h2>
+<p>Now let’s use tidyverse’s <code>read_csv()</code> function to read in
+some data from a file, rather than typing it in by hand:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Load the gapminder 1997 data
+
+gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
+<pre><code>Rows: 142 Columns: 6
+── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Delimiter: &quot;,&quot;
+chr (2): country, continent
+dbl (4): year, pop, lifeExp, gdpPercap
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<p>With the cursor on this line we can click <KBD>Run</KBD>, or type
+<KBD>Ctrl</KBD>+<KBD>Enter</KBD>. We should see output in the Console
+pane as well as <code>gm97</code> in the Environment pane. We’ll explore
+this data in later lessons.</p>
+<p><strong>Checkpoint</strong></p>
+<p>Let’s break down this command:</p>
+<ul>
+<li><code>gm97</code> is the <strong>variable name</strong> we’re giving
+to the data we read in.</li>
+<li><code>=</code> is the <strong>assignment operator</strong> which
+assigns the object on the right to the name on the left.</li>
+<li><code>read_csv()</code> is a <strong>function</strong> in
+<code>tidyverse</code> that reads CSV files.</li>
+<li><code>'data/gapminder_1997.csv'</code> is the
+<strong>argument</strong> to <code>read_csv()</code> that specifies the
+file to read.</li>
+</ul>
+<p>The output of <code>read_csv()</code> in the Console pane gives
+information such as the dimensions of the data, the delimiter of the
+file, and how the columns of the data were interpreted.</p>
+<blockquote>
+<h2 id="note-the-assignment-operator" class="unlisted unnumbered">Note:
+The assignment operator</h2>
+<p>You may have seen another assignment operator, <code>&lt;-</code>,
+which is idiosyncratic to R. We leave as an exercise to the learner to
+look up the edge cases of when to use <code>&lt;-</code> vs
+<code>=</code>. For now, we will use <code>=</code> as the assignment
+operator, which is more common in other programming languages. <br></p>
+</blockquote>
+</div>
+</div>
+<div id="calling-functions" class="section level1">
+<h1>Calling functions</h1>
+<p>Earlier we ran <code>read_csv()</code> with a single argument. What
+happens if we call it with no arguments at all?</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of a function that needs arguments to function
+
+read_csv()</code></pre>
+<pre><code>Error in `read_csv()`:
+! argument &quot;file&quot; is missing, with no default</code></pre>
+<p>We get an error. The key part of the message is “argument ‘file’ is
+missing, with no default” — in other words, this function needs to be
+told what to read because there is no default.</p>
+<p>Not every function needs arguments, but many do. Try the
+following:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Examples of functions with no required arguments
+Sys.Date()</code></pre>
+<pre><code>[1] &quot;2026-03-22&quot;</code></pre>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>[1] &quot;/Users/rcavalca/Projects/workshop-intro-r-rstudio/source&quot;</code></pre>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of a function with multiple arguments
+round(3.1415, 2)</code></pre>
+<pre><code>[1] 3.14</code></pre>
+<p>Notice that <code>round()</code> takes two arguments. How could we
+have known that?</p>
+<div id="getting-help-with-functions" class="section level2">
+<h2>Getting help with functions</h2>
+<p>When a function is unfamiliar, we’ll often look at its manual page to
+understand what arguments are required, what it does, and what it
+outputs. Prepend a <code>?</code> in front of a function name to pull up
+the manual page:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Put a &quot;?&quot; in front of a function to see its manual page
+
+?round</code></pre>
+<p>The help page for <code>round()</code> tells us the function does
+essentially what we’d expect, and gives some other related functions.
+The <strong>Arguments</strong> section gives us the names of the
+arguments and what is expected of them. There is often a
+<strong>Details</strong> section to describe nuances, a
+<strong>Value</strong> section to describe the output, and an
+<strong>Examples</strong> section at the bottom which is often the first
+place to look.</p>
+</div>
+<div id="arguments" class="section level2">
+<h2>Arguments</h2>
+<p>When we called <code>round(3.1415, 2)</code>, it looked like the
+first argument is the thing we want to round and the second is how many
+digits. That tracks with <code>?round</code>. R can evaluate arguments
+of a function based on their <strong>position</strong>, as we just saw.
+However, the preferred way to call a function is to use the
+<strong>names</strong> of the arguments:</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Example of named arguments
+
+round(x = 3.14159, digits = 2)</code></pre>
+<pre><code>[1] 3.14</code></pre>
+<p>Using named arguments increases the readability of the code and
+reduces the chance of error, especially with complex functions that have
+many arguments.</p>
+</div>
+</div>
+<div id="searching-for-functions" class="section level1">
+<h1>Searching for functions</h1>
+<p>Prepending <code>?</code> to find out more about a function requires
+knowing the function name beforehand — that won’t always be the case.
+There are a couple ways to search for R functions:</p>
+<ol style="list-style-type: decimal">
+<li>Search the internet for “R function that does X”.</li>
+<li>Use <code>help.search()</code>, as in
+<code>help.search('Chi-squared test')</code></li>
+</ol>
+<p>Note that in the results of <code>help.search()</code> we see things
+like <code>stats::chisq.test</code>. Here <code>::</code> is R notation
+for <code>package_name::function</code>.</p>
+<p><strong>Checkpoint</strong></p>
 </div>
 <div id="cheatsheets" class="section level1">
 <h1>Cheatsheets!</h1>
 <p>The <code>tidyverse</code> packages have excellent cheatsheets that
 describe the functionality and usage of the packages. You can find them
-in RStudio by going to the “Help” menu and selecting “Cheat Sheets”. The
-two that will be most helpful in this workshop are “Data Visualization
-with ggplot2” and “Data Transformation with dplyr”.</p>
+in RStudio by going to the <strong>Help</strong> menu and selecting
+<strong>Cheat Sheets</strong>. The two that will be most helpful in this
+workshop are “Data Visualization with ggplot2” and “Data Transformation
+with dplyr”.</p>
+</div>
+<div id="directory-structure" class="section level1">
+<h1>Directory structure</h1>
+<p>Before we begin, the folder structure of a project organizes all the
+relevant files. Typically we make directories for the following types of
+files:</p>
+<ul>
+<li>Raw data, called <code>data</code>, <code>input</code>, etc,</li>
+<li>Results, often <code>results</code> or <code>output</code> with
+subfolders for <code>tables</code>, <code>figures</code>, and
+<code>rdata</code>, and</li>
+<li>Scripts, often <code>scripts</code>.</li>
+</ul>
+<p>We’ve already provided the raw data in the <code>data/</code> folder,
+and it’s generally a good idea to keep raw data in its own folder.</p>
+<p>Let’s create some folders for our analysis scripts and results
+thereof.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Create directory structure
+
+dir.create(&#39;scripts&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/figures&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/tables&#39;, recursive = TRUE, showWarnings = FALSE)
+dir.create(&#39;results/rdata&#39;, recursive = TRUE, showWarnings = FALSE)</code></pre>
+</div>
+<div id="saving-scripts" class="section level1">
+<h1>Saving scripts</h1>
+<p>Let’s save our currently open script by clicking <KBD>File</KBD> and
+then <KBD>Save</KBD>. Double click the <code>scripts/</code> folder and
+enter the file name <code>IRR.R</code>.</p>
+<p><strong>Checkpoint</strong></p>
 </div>
 <div id="objectives-1" class="section level1">
 <h1>Objectives</h1>
 <ul>
 <li>Introduce R and RStudio.</li>
+<li>Discuss data types and object assignment.</li>
 <li>Learn how to read in a csv file.</li>
-<li>Discuss object naming conventions and types.</li>
 <li>Discuss functions and parameters.</li>
 <li>Learn how to get help with functions.</li>
 <li>Get comfortable with errors and asking for help.</li>
