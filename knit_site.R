@@ -1,10 +1,7 @@
-# install.packages("remotes")
-# library(remotes)
-# remove.packages('klippy');
-# remotes::install_github("umich-brcf-bioinf/workshop-klippy");
-# install.packages("kable")
-# devtools::install_github("haozhu233/kableExtra")
+# install.packages(c('remotes', 'BiocManager'))
+# BiocManager::install(c('rmarkdown', 'tidyverse', 'umich-brcf-bioinf/workshop-klippy', 'knitr', 'haozhu233/kableExtra'))
 
+library(tidyverse)
 library(rmarkdown)
 library(klippy)
 library(kableExtra)
