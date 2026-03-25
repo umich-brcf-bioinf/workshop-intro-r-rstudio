@@ -28,7 +28,7 @@ to participate in the workshop. To complete
 this setup, you will need:
 
 -   A Macintosh or Windows workstation connected to the internet.
--   About 10 minutes.
+-   About 5 minutes.
 
 
 ## Introduction

@@ -157,6 +157,17 @@ sessioninfo::session_info()
 
 <br/>
 
+
+# Summary
+
+- Needing help is good - it means you are learning and growing. 
+- There are lots of web resources for general and specific questions.
+- When asking for help:
+  - Describe your problem clearly.
+  - Include a "minimally reproducible example".
+  - Include your session info.
+
+
 "All of us, at some time or other, need help. Whether we're giving or receiving help, each one of us has something valuable to bring to this world."  
 — Fred Rogers
 
