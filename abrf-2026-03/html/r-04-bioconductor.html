@@ -13,7 +13,7 @@
 
 <title>Using Packages / Libraries</title>
 
-<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -518,11 +518,13 @@ makes it possible to install packages from essentially any source.</p>
 <div id="one-installer-to-rule-them-all" class="section level2">
 <h2>One installer to rule them all</h2>
 <p>The <code>BiocManager::install()</code> function can install CRAN,
-Bioconductor, and GitHub packages. Here’s an example with a mix of all
-three:</p>
-<pre class="default doNotRun"><code># DO NOT RUN
-# tidyverse is on CRAN, DESeq2 is on Bioconductor, and methylSig is on GitHub
-BiocManager::install(c(&#39;tidyverse&#39;, &#39;DESeq2&#39;, &#39;sartorlab/methylSig&#39;))</code></pre>
+Bioconductor, and GitHub packages. Let’s install a couple of useful
+packages. One, <code>janitor</code> helps to clean data tables and
+format column names in consistent ways. The other <code>gt</code> is a
+helpful package for formatting tables for reports. We’ll see that in
+action a bit later.</p>
+<pre class="default doNotRun"><code># Install the janitor and gt packages
+BiocManager::install(c(&#39;janitor&#39;, &#39;gt&#39;))</code></pre>
 <details>
 <summary>
 Expand for repository-specific installers
@@ -572,7 +574,8 @@ alt="screenshot of bioconductor search" /></p>
 <p>Once you have installed a package, that doesn’t mean you have access
 to all its functions in the R session. You have to use the
 <code>library()</code> command to load a package, like with:</p>
-<pre class="r"><code>library(DESeq2)</code></pre>
+<pre class="r"><code>library(janitor)
+library(gt)</code></pre>
 <p>Note that when installing a package we quoted the package name, but
 when we load the library after installation we don’t.</p>
 </div>
@@ -586,14 +589,11 @@ package search</a></li>
 <li><a href="https://cran.r-project.org/">CRAN</a></li>
 </ul>
 </div>
-<div id="objectives-1" class="section level1">
-<h1>Objectives</h1>
-<ul>
-<li>Understand what an R package is.</li>
-<li>Learn about the different package repositories, and their
-specialities.</li>
-<li>Learn how to install packages from the different repositories.</li>
-</ul>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<p>We introduced the idea of a package, how to install them, and how to
+load them. We discussed different package repositories and their
+specialities.</p>
 <br/> <br/>
 <hr/>
 <table style="width:100%;">
