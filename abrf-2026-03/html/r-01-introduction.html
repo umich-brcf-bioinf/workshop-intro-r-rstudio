@@ -13,7 +13,7 @@
 
 <title>Introducing R and RStudio</title>
 
-<script src="site_libs/header-attrs-2.30/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
@@ -362,6 +362,9 @@ div.tocify {
     </li>
     <li>
       <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
+    </li>
+    <li>
+      <a href="r-06-quarto.html">Quarto</a>
     </li>
   </ul>
 </li>
@@ -716,7 +719,7 @@ some data from a file, rather than typing it in by hand:</p>
 
 gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ───────────────────────────────────────────────────────────────────────
+── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -762,8 +765,7 @@ happens if we call it with no arguments at all?</p>
 # Example of a function that needs arguments to function
 
 read_csv()</code></pre>
-<pre><code>Error in `read_csv()`:
-! argument &quot;file&quot; is missing, with no default</code></pre>
+<pre><code>Error in read_csv(): argument &quot;file&quot; is missing, with no default</code></pre>
 <p>We get an error. The key part of the message is “argument ‘file’ is
 missing, with no default” — in other words, this function needs to be
 told what to read because there is no default.</p>
@@ -772,9 +774,9 @@ following:</p>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Examples of functions with no required arguments
 Sys.Date()</code></pre>
-<pre><code>[1] &quot;2026-03-25&quot;</code></pre>
+<pre><code>[1] &quot;2026-03-27&quot;</code></pre>
 <pre class="r"><code>getwd()</code></pre>
-<pre><code>[1] &quot;/Users/rcavalca/Projects/workshop-intro-r-rstudio/source&quot;</code></pre>
+<pre><code>[1] &quot;/Users/cgates/git/workshop-intro-r-rstudio/source&quot;</code></pre>
 <pre class="r"><code># -------------------------------------------------------------------------
 # Example of a function with multiple arguments
 round(3.1415, 2)</code></pre>
