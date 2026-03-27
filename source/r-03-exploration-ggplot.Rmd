@@ -969,5 +969,5 @@ Instead of plotting each continent individually, we could try faceting the plot.
 <br/>
 <br/>
 <hr/>
-| [Previous lesson](r-05-help.Rmd) | [Top of this lesson](#top) | [Wrap up](workshop-wrap-up.html) |
+| [Previous lesson](r-05-help.Rmd) | [Top of this lesson](#top) | [Wrap up](r-06-quarto.html) |
 | :--- | :----: | ---: |

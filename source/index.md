@@ -48,6 +48,6 @@ body, td {
 |  2:45ish  | **Break** |
 |           | [R Help](r-05-help.html) |
 |           | [Data Visualization with ggplot (part 2)](r-03-exploration-ggplot.html) |
-|           | [Understanding Quarto and RMarkdown](r-06-quarto.html) |
+|           | [Quarto](r-06-quarto.html) |
 | 3:45      | [Wrap-up](workshop-wrap-up.html) |
 | 4:00      | Workshop concludes |

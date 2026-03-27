@@ -363,6 +363,9 @@ div.tocify {
     <li>
       <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
     </li>
+    <li>
+      <a href="r-06-quarto.html">Quarto</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -431,7 +434,7 @@ to load the <code>gm97</code> data. Let’s do that again:</p>
 library(tidyverse)
 gm97 = read_csv(&#39;data/gapminder_1997.csv&#39;)</code></pre>
 <pre><code>Rows: 142 Columns: 6
-── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────
+── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 Delimiter: &quot;,&quot;
 chr (2): country, continent
 dbl (4): year, pop, lifeExp, gdpPercap
@@ -1117,21 +1120,6 @@ table(gm97$continent)</code></pre>
       52       25       33       30        2 </code></pre>
 </div>
 </div>
-<div id="objectives-1" class="section level1">
-<h1>Objectives</h1>
-<ul>
-<li>Learn essential data manipulation functions of <code>dplyr</code>:
-<ul>
-<li><code>select()</code> columns</li>
-<li><code>filter()</code> rows</li>
-<li><code>arrange()</code> rows</li>
-<li><code>mutate()</code> columns</li>
-<li><code>group_by()</code> rows</li>
-</ul></li>
-<li>Learn about the pipe operator (<code>|&gt;</code>) and how to use it
-to chain together multiple functions.</li>
-</ul>
-</div>
 <div id="exercise-2" class="section level1">
 <h1>Exercise</h1>
 <blockquote>
@@ -1168,7 +1156,38 @@ max, as well as ordering the results by mean GDP.</p>
 4 Asia       4745744246. 387597655323. 105396057842. 3.63e12
 5 Americas   9276089515. 582693307146.  45924427025. 9.76e12</code></pre>
 </blockquote>
-<br/> <br/>
+<p><br/></p>
+</div>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<ul>
+<li><code>View()</code> shows a table as a window in the RStudio Source
+panes.</li>
+<li><code>dplyr</code> is as package of functions for manipulating
+tables (or tibbles)
+<ul>
+<li><code>select()</code> subets columns</li>
+<li><code>filter()</code> subsets rows</li>
+<li><code>arrange()</code> sorts rows by one or more column</li>
+<li><code>mutate()</code> adds new columns</li>
+<li><code>group_by()</code> groups the table into sub-tables</li>
+<li><code>summarize()</code> runs summary functions (min, max, n, etc)
+on tables or groups</li>
+</ul></li>
+<li>A function doesn’t impact the source table.
+<ul>
+<li>You can assign the resulting table to a variable.</li>
+<li>You can save the results to file with <code>write_csv()</code></li>
+</ul></li>
+<li>The pipe operator (<code>|&gt;</code>) chains together multiple
+functions.</li>
+<li>Check out the <a
+href="https://dplyr.tidyverse.org/articles/dplyr.html"
+target="_blank">dplyr doc</a> and <a
+href="https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf"
+target="_blank">dplyr Cheatsheet</a> for more info.</li>
+</ul>
+<br/>
 <hr/>
 <table style="width:100%;">
 <colgroup>

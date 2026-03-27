@@ -437,16 +437,6 @@ There is a base R function, `table()`, that tabulates the number of time an entr
 table(gm97$continent)
 ```
 
-# Objectives
-
-- Learn essential data manipulation functions of `dplyr`:
-    - `select()` columns
-    - `filter()` rows
-    - `arrange()` rows
-    - `mutate()` columns
-    - `group_by()` rows
-- Learn about the pipe operator (`|>`) and how to use it to chain together multiple functions.
-
 # Exercise
 > 
 > In summarizing data, it's often useful to build a nicely formatted table with min, median, and max values of a variable. Below is an example of code to do that for the populations by continent, and arranged by the median population.
@@ -478,6 +468,23 @@ table(gm97$continent)
 > 
 
 <br/>
+
+# Summary
+
+- `View()` shows a table as a window in the RStudio Source panes. 
+- `dplyr` is as package of functions for manipulating tables (or tibbles)
+    - `select()` subets columns
+    - `filter()` subsets rows
+    - `arrange()` sorts rows by one or more column
+    - `mutate()` adds new columns
+    - `group_by()` groups the table into sub-tables
+    - `summarize()` runs summary functions (min, max, n, etc) on tables or groups
+- A function doesn't impact the source table.
+  - You can assign the resulting table to a variable.
+  - You can save the results to file with `write_csv()`
+- The pipe operator (`|>`) chains together multiple functions.
+- Check out the [dplyr doc](https://dplyr.tidyverse.org/articles/dplyr.html){target="_blank"} and [dplyr Cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf){target="_blank"} for more info.
+
 <br/>
 <hr/>
 | [Previous lesson](r-01-introduction.html) | [Top of this lesson](#top) | [Next lesson](r-04-bioconductor.html) |
