@@ -1,5 +1,5 @@
 ---
-title: "Intro to R & Studio"
+title: "Intro to R & RStudio"
 author: "UM Bioinformatics Core Workshop Team"
 output:
         html_document:
@@ -63,6 +63,11 @@ source("../bin/set_values.R")
 
 ## Introductions
 
+- Chris Gates
+- Raymond Cavalcante
+- Nick Carruthers
+- Weisheng Wu
+
 
 # Housekeeping
 
@@ -73,10 +78,6 @@ source("../bin/set_values.R")
 - Restrooms
 - Coffee/Tea
 - Any questions?
-
-# Reproducibilty, R, and RStudio
-
-
 
 # Acknowledgements
 
