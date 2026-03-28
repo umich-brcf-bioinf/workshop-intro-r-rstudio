@@ -408,16 +408,10 @@ pre {
 <div id="objectives" class="section level1">
 <h1>Objectives</h1>
 <ul>
-<li>Learn essential data manipulation functions of <code>dplyr</code>:
-<ul>
-<li><code>select()</code> columns</li>
-<li><code>filter()</code> rows</li>
-<li><code>arrange()</code> rows</li>
-<li><code>mutate()</code> columns</li>
-<li><code>group_by()</code> rows</li>
-</ul></li>
-<li>Learn about the pipe operator (<code>|&gt;</code>) and how to use it
-to chain together multiple functions.</li>
+<li>See key functions to load and explore a data table.</li>
+<li>Understand essential <code>dplyr</code> functions.</li>
+<li>Use the pipe operator (<code>|&gt;</code>) to chain functions
+together.</li>
 </ul>
 </div>
 <div id="loading-data" class="section level1">
@@ -482,8 +476,44 @@ interchangeably throughout the lessons.</p>
 summaries of it, and, in so doing, look for issues. When data contains
 hundreds of rows, it’s a good idea to get a sense for the values and
 ranges of the data.</p>
-<div id="get-stats-with-summary" class="section level2">
-<h2>Get stats with <code>summary()</code></h2>
+<div id="view-head-and-tail" class="section level2">
+<h2><code>View()</code>, <code>head()</code>, and
+<code>tail()</code></h2>
+<p>The <code>View()</code> function takes a data table as input and
+opens it as a new new tab in the <em>Source pane</em>.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# View the data table 
+View(gm97)</code></pre>
+<p><code>head()</code> shows the first few rows of a data table.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Show the first rows of data table 
+head(gm97)</code></pre>
+<pre><code># A tibble: 6 × 6
+  country      year      pop continent lifeExp gdpPercap
+  &lt;chr&gt;       &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+1 Afghanistan  1997 22227415 Asia         41.8      635.
+2 Albania      1997  3428038 Europe       73.0     3193.
+3 Algeria      1997 29072015 Africa       69.2     4797.
+4 Angola       1997  9875024 Africa       41.0     2277.
+5 Argentina    1997 36203463 Americas     73.3    10967.
+6 Australia    1997 18565243 Oceania      78.8    26998.</code></pre>
+<p>Older R scripts often use the base R dataframe. Tidyverse/dplyr
+upgraded base R dataframes to <strong>tibbles</strong> which show only
+the first few rows by default. <code>head()</code> works fine with
+tibbles but is more commonly used with the older dataframes.</p>
+<p><code>tail()</code> shows the last few rows of a data table.</p>
+<pre class="r"><code># -------------------------------------------------------------------------
+# Show the last 3 rows of data table 
+tail(gm97, n=3)</code></pre>
+<pre><code># A tibble: 3 × 6
+  country     year      pop continent lifeExp gdpPercap
+  &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;
+1 Yemen Rep.  1997 15826497 Asia         58.0     2117.
+2 Zambia      1997  9417789 Africa       40.2     1071.
+3 Zimbabwe    1997 11404948 Africa       46.8      792.</code></pre>
+</div>
+<div id="summary" class="section level2">
+<h2><code>summary()</code></h2>
 <p>The <code>summary()</code> function, from base R, takes a data table
 as input and will summarize the columns automatically depending on their
 data type.</p>
@@ -501,49 +531,51 @@ summary(gm97)</code></pre>
 <p>We see that for the numeric data we get quantile information and the
 mean, whereas for character data we simply get the length of the column.
 For data with NAs, the number thereof would be displayed.</p>
-</div>
-<div id="get-stats-with-summarize" class="section level2">
-<h2>Get stats with <code>summarize()</code></h2>
-<p>If we wanted to know the mean life expectancy in the dataset, we
-could use the the <code>dplyr</code> <code>summarize()</code> function,
-specifying that we want the <code>mean()</code>:</p>
-<pre class="r"><code># -------------------------------------------------------------------------
+<!--
+## Get stats with `summarize()`
+
+If we wanted to know the mean life expectancy in the dataset, we could use the the `dplyr` `summarize()` function, specifying that we want the `mean()`:
+
+
+``` r
+# -------------------------------------------------------------------------
 # Calculate the mean life expectancy over the dataset
 
-summarize(gm97, avgLifeExp = mean(lifeExp))</code></pre>
-<pre><code># A tibble: 1 × 1
+summarize(gm97, avgLifeExp = mean(lifeExp))
+```
+
+```
+# A tibble: 1 × 1
   avgLifeExp
-       &lt;dbl&gt;
-1       65.0</code></pre>
-<p>We can use any column name as the input to <code>mean()</code>, so
-long as it’s a numeric, and we get a new tibble with our value returned
-as a column, named as specified. Note, this matches the result of
-<code>summary()</code> with some difference in the number of significant
-digits displayed. Alternatively, we could have simply applied
-<code>mean()</code> directly to the column <code>lifeExp</code>:</p>
-<pre class="r"><code># -------------------------------------------------------------------------
+       <dbl>
+1       65.0
+```
+
+We can use any column name as the input to `mean()`, so long as it's a numeric, and we get a new tibble with our value returned as a column, named as specified. Note, this matches the result of `summary()` with some difference in the number of significant digits displayed. Alternatively, we could have simply applied `mean()` directly to the column `lifeExp`:
+
+
+``` r
+# -------------------------------------------------------------------------
 # Base R approach to calculating the mean life expectancy
 
-mean(gm97$lifeExp)</code></pre>
-<pre><code>[1] 65.01468</code></pre>
-<p>This is the base R way, with the <code>$</code> being how columns of
-a data table are accessed. The <code>mean()</code> function returns a
-number, whereas <code>summarize()</code> returns a <code>tibble</code>.
-In the <code>tidyverse</code>, a function whose input is a
-<code>tibble</code> will also have a <code>tibble</code> as output.</p>
-<p><strong>Checkpoint</strong></p>
-<blockquote>
-<h2 id="tip-reference-columns-by-name">Tip: Reference columns by
-name</h2>
-<p>While it is possible to access columns by their numerical index, this
-is less prefereable than using the explicit name of the column because
-altering the table could change the column indices. Depending on the
-situation, we might not even get an error, and instead would be simply
-operating on the wrong column. A dangerous situation to be in.</p>
-</blockquote>
+mean(gm97$lifeExp)
+```
+
+```
+[1] 65.01468
+```
+
+This is the base R way, with the `$` being how columns of a data table are accessed. The `mean()` function returns a number, whereas `summarize()` returns a `tibble`. In the `tidyverse`, a function whose input is a `tibble` will also have a `tibble` as output. 
+
+**Checkpoint**
+
+> ## Tip: Reference columns by name
+> 
+> While it is possible to access columns by their numerical index, this is less prefereable than using the explicit name of the column because altering the table could change the column indices. Depending on the situation, we might not even get an error, and instead would be simply operating on the wrong column. A dangerous situation to be in.
+-->
 </div>
-<div id="find-unique-values-with-distinct" class="section level2">
-<h2>Find unique values with <code>distinct()</code></h2>
+<div id="distinct-unique-values" class="section level2">
+<h2><code>distinct()</code>: unique values</h2>
 <p><img src="images/dplyr-distinct.png" /></p>
 <p>Data is often subject to errors. To quickly catch data entry
 problems, the <code>distinct()</code> function can be used to show all
@@ -562,19 +594,33 @@ distinct(gm97, continent)</code></pre>
 4 Americas 
 5 Oceania  </code></pre>
 <p>Here we get a <code>tibble</code> back with the unique continent
-names in their order of appearance. There is an equivalent base R way to
-do this with the <code>unique()</code> function:</p>
-<pre class="r"><code># -------------------------------------------------------------------------
+names in their order of appearance.</p>
+<p>This makes it easy to find inconsistencies (e.g. there was a
+misspelled entry like “Urope” instead of “Europe”).</p>
+<!--
+There is an equivalent base R way to do this with the `unique()` function:
+
+
+``` r
+# -------------------------------------------------------------------------
 # Base R approach to determining the distinct continents
 
-unique(gm97$continent)</code></pre>
-<pre><code>[1] &quot;Asia&quot;     &quot;Europe&quot;   &quot;Africa&quot;   &quot;Americas&quot; &quot;Oceania&quot; </code></pre>
-<p>Either way, if there was a misspelled entry, for example, “Urope” we
-would have immediately seen it.</p>
+unique(gm97$continent)
+```
+
+```
+[1] "Asia"     "Europe"   "Africa"   "Americas" "Oceania" 
+```
+
+Either way, if there was a misspelled entry, for example, "Urope" we would have immediately seen it.
+-->
 <p><strong>Checkpoint</strong></p>
 </div>
-<div id="sorting-data-with-arrange" class="section level2">
-<h2>Sorting data with <code>arrange()</code></h2>
+</div>
+<div id="key-dplyr-functions" class="section level1">
+<h1>Key <code>dplyr</code> functions</h1>
+<div id="arrange-sorting-rows" class="section level2">
+<h2><code>arrange()</code>: sorting rows</h2>
 <p><img src="images/dplyr-arrange.png" /></p>
 <p>We have a rich dataset whose default ordering is by country. But it’s
 natural to ask questions like “What country has the highest life
@@ -645,8 +691,8 @@ citizens at a little over 80 years.</p>
 # ℹ 132 more rows</code></pre>
 </blockquote>
 </div>
-<div id="subset-columns-with-select" class="section level2">
-<h2>Subset columns with <code>select()</code></h2>
+<div id="select-subset-columns" class="section level2">
+<h2><code>select()</code>: subset columns</h2>
 <p><img src="images/dplyr-select.png" /></p>
 <p>Sometimes data tables have many columns, and it can be useful to
 select only a few of them to export, use downstream, preview, etc. The
@@ -762,8 +808,8 @@ gm97_subset</code></pre>
 10 Belgium      1997    77.5
 # ℹ 132 more rows</code></pre>
 </div>
-<div id="saving-objects-to-file" class="section level2">
-<h2>Saving objects to file</h2>
+<div id="write_csv-saving-objects" class="section level2">
+<h2><code>write_csv()</code>: saving objects</h2>
 <p>The original data file we read in
 <code>data/gapminder_1997.csv</code> remains the same throughout all
 these manipulations. What happens in R stays in R until we explicitly
@@ -782,8 +828,8 @@ other options, but we won’t use them here.</p>
 write_csv(gm97_subset, file = &#39;gm97_subset.csv&#39;)</code></pre>
 <p><strong>Checkpoint</strong></p>
 </div>
-<div id="narrow-down-rows-with-filter" class="section level2">
-<h2>Narrow down rows with <code>filter()</code></h2>
+<div id="filter-subset-rows" class="section level2">
+<h2><code>filter()</code>: subset rows</h2>
 <p><img src="images/dplyr-filter.png" /></p>
 <p>We have seen that <code>select()</code> subsets the columns of a
 table. The function <code>filter()</code> subsets the rows of a data
@@ -791,9 +837,9 @@ table based on logical criteria. So first, a note about logical
 operators in R:</p>
 <table>
 <colgroup>
-<col width="20%" />
-<col width="52%" />
-<col width="28%" />
+<col width="23%" />
+<col width="50%" />
+<col width="26%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -961,8 +1007,8 @@ filter(gm97, pop &lt;= 1000000 | pop &gt;= 1000000000)</code></pre>
 <strong>or</strong> more than a billion people.</p>
 <p><strong>Checkpoint</strong></p>
 </div>
-<div id="make-new-columns-with-mutate" class="section level2">
-<h2>Make new columns with <code>mutate()</code></h2>
+<div id="mutate-make-columns" class="section level2">
+<h2><code>mutate()</code>: make columns</h2>
 <p><img src="images/dplyr-mutate.png" /></p>
 <p>It’s common to use existing columns of a data table to create new
 columns. For example, in the <code>gm97</code> data we have a
@@ -1011,8 +1057,8 @@ gm97_gdp</code></pre>
 # ℹ 132 more rows</code></pre>
 <p><strong>Checkpoint</strong></p>
 </div>
-<div id="combine-functions-with-the-pipe" class="section level2">
-<h2>Combine functions with the <code>|&gt;</code> pipe</h2>
+<div id="piping" class="section level2">
+<h2><code>|&gt;</code>: piping</h2>
 <p>We’ve learned how to subset rows with <code>filter()</code>, select
 columns with <code>select()</code>, get distinct elements with
 <code>distinct()</code>, and summarize columns with
@@ -1066,8 +1112,8 @@ gm97 |&gt; summarize(mean_pop = mean(pop))</code></pre>
 quick data exploration that could be left off.</p>
 <p><strong>Checkpoint</strong></p>
 </div>
-<div id="group-rows-with-group_by" class="section level2">
-<h2>Group rows with <code>group_by()</code></h2>
+<div id="group_by-and-summarize" class="section level2">
+<h2><code>group_by()</code> and <code>summarize()</code></h2>
 <p><img src="images/dplyr-groupby-summarize.png" /></p>
 <p>If we wanted to determine the mean populations over all the
 continents, we could run the above code we used for Oceania, but replace
@@ -1158,7 +1204,7 @@ max, as well as ordering the results by mean GDP.</p>
 </blockquote>
 <p><br/></p>
 </div>
-<div id="summary" class="section level1">
+<div id="summary-1" class="section level1">
 <h1>Summary</h1>
 <ul>
 <li><code>View()</code> shows a table as a window in the RStudio Source
@@ -1166,6 +1212,7 @@ panes.</li>
 <li><code>dplyr</code> is as package of functions for manipulating
 tables (or tibbles)
 <ul>
+<li><code>distinct()</code> unique values</li>
 <li><code>select()</code> subets columns</li>
 <li><code>filter()</code> subsets rows</li>
 <li><code>arrange()</code> sorts rows by one or more column</li>
@@ -1187,9 +1234,9 @@ target="_blank">dplyr doc</a> and <a
 href="https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf"
 target="_blank">dplyr Cheatsheet</a> for more info.</li>
 </ul>
-<br/>
+<p><br/></p>
 <hr/>
-<table style="width:100%;">
+<table>
 <colgroup>
 <col width="28%" />
 <col width="42%" />
