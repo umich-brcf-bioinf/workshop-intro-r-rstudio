@@ -44,41 +44,11 @@ source("../bin/set_values.R")
 # Objectives
 
 - Introduce R and RStudio.
+- Discuss data types and object assignment.
 - Learn how to read in a csv file.
-- Discuss object naming conventions and types.
 - Discuss functions and parameters.
 - Learn how to get help with functions.
 - Get comfortable with errors and asking for help.
-
-# The gapminder dataset
-
-We will be using a dataset from [gapminder](https://www.gapminder.org/) which contains life expectancy, GDP, and population for countries around the world from 1952 to 2007. It is sufficiently rich to allow us to explore data manipulation and visualization in R. We'll begin with data just from 1997, and will expand to the full 1952 - 2007 dataset towards the end. The following is a preview of the data we'll be working with:
-
-<img src="images/00_gapminder_preview.png" alt="gapminder preview"/>
-
-# Server login
-
-Let's log in to the workshop server: [`r workshop_vars$rstudio_server_url`](`r workshop_vars$rstudio_server_url`){target="blank"}
-
-The login page for the server looks like:
-
-<img src="images/01_rstudio_login_screen.png" alt="rstudio login screen" style="width: 1000px;"/>
-
-Enter your user credentials and click <kbd>Sign In</kbd>. The RStudio interface should load and look like:
-
-<img src="images/02_rstudio_session_default.png" alt="rstudio default session" style="width:1000px;"/>
-
-**Checkpoint**
-
-# Create a project
-
-We will create an RStudio Project to easily keep track of our working directory. See the [Projects](https://r4ds.hadley.nz/workflow-scripts.html#projects) section of [R for Data Science](https://r4ds.hadley.nz/) for a more in-depth description of what a project is and how it's helpful.
-
-To create a Project, click <kbd>File</kbd> then <kbd>New Project...</kbd>. In the New Project Wizard window that opens, select <kbd>Existing Directory</kbd>, then <kbd>Browse...</kbd>. In the Choose Directory window, select the `IRR` folder by clicking it once, and then click the <kbd>Choose</kbd> button. Finally, click <kbd>Create Project</kbd>.
-
-Once we do this, RStudio will restart and the Files pane (lower right) should put us in the `~/IRR` folder where there is an `inputs/` folder and an `IRR.Rproj` file.
-
-**Checkpoint**
 
 # The RStudio interface
 
@@ -106,9 +76,9 @@ Working directly in the console is working directly with R. Commands can be ente
 
 ## Commands in a Script
 
-Instead of entering commands directly into the Console, we'll record them in and run them from a script. Some benefits to using a script rather than using the Console pane:
+Instead of entering commands directly into the Console, we'll record them in and run them from a script. Some benefits to recording your code in a script include:
 
-- Scripts record the steps taken to analyze the data.
+- Scripts **linearly** record the steps taken to analyze data.
 - Scripts can be re-run, allowing for reproducibility.
 - Scripts are can be shared.
 
@@ -136,29 +106,253 @@ The key differences between the Console and Script panes in RStudio:
 
 | Console          | Script            |
 |:-----------------|:------------------|
-| Reset across sessions | Preserved acros sessions |
+| Reset across sessions | Preserved across sessions |
 | Run with <KBD>Enter</KBD> | Run with <KBD>Ctrl + Enter</KBD> |
-| Inconvenient to share    | Convenient to share     |
+| Quick, exploratory    | Recorded, directed     |
 
-## Configuring RStudio
+# Data types
 
-All of the panes in RStudio have configuration options. For example, you can minimize/maximize a pane or resize panes by dragging the borders. The most important customization options for pane layout are in the <KBD>View</KBD> menu. Other options such as font sizes, colors/themes, and more are in the <KBD>Tools</KBD> menu under <KBD>Global Options</KBD>.
+We encounter various types of data in our lives. A computer thinks about free text, structured text, numbers, etc. as different types as well. In R, as in many other programming languages, these basic data types are the building blocks of more complex data structures.
 
-We can enable soft-wrapping of code by selecting <KBD>Code</KBD> and then <KBD>Soft Wrap Long Lines</KBD>.
+| Mode (abbreviation) | Type of data | Example |
+|:----|:-----|:----|
+| Numeric (num) | Decimals, integers, etc. | `1.0`, `3.14`, `-2.5`, `10`, etc. |
+| Character (chr) | Sequence of letters or numbers. | `"Hi"`, `'Hi'`, `"1"`, etc. |
+| Factor (fct) | Categorical values. | Months of the year. |
+| Logical | Boolean values | `TRUE`, `FALSE`, `T`, `F`, etc. |
 
-<img src="images/07_rstudio_soft_wrap.png" alt="rstudio code execution" style="width:1000px;"/>
+# Object assignment
 
-# Workshop flow
+Computation is powerful because it allows us to procedurally process data, and to use those outputs as inputs for further analysis. To do that, we assign values to named **objects** using the `=` operator:
 
-To accommodate different learning styles and to keep us moving along, we'll provide code in three different ways, and you can get that code into RStudio in corresponding ways:
+```{r, 'assign_objects'}
+# -------------------------------------------------------------------------
+# Assigning values to objects
 
-| Source of Code   | Execution of Code |
-|:-----------------|:------------------|
-| Zoom screen share            | Type the code yourself.                            |
-| Slack            | Copy and paste into RStudio.                  |
-| Website          | Copy with code block button and paste into RStudio. |
+age = 26
+age
+wizard_name = 'Tom Riddle'
+wizard_name
+wizard_name = 'Harry Potter'
+wizard_name
+```
 
-**Questions?**
+Notice a few things. Each object appears in the Environment pane after assignment. Assigning to `wizard_name` a second time overwrites the first value — the object holds the most recent assignment. Evaluating the name of an object prints its value in the Console. **We will use this pattern repeatedly.**
+
+## Naming objects
+
+Some practices make object names easier to work with:
+
+- Use brief, descriptive names.
+- Separate words with underscores.
+- Object names are **case-sensitive** — `name`, `Name`, and `NAME` are three distinct objects.
+
+Some things will cause errors:
+
+- No spaces in names.
+- Names cannot start with a number.
+- Don't use reserved words like `if`, `else`, `for`, etc. (see [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html) for the complete list).
+
+> ## Exercise {.unlisted .unnumbered}
+>
+> Create at least four objects in your script, one of each data type from the table above. Choose any names and values you like. Run your code with <KBD>Ctrl + Enter</KBD> and verify the objects appear in the Environment pane.
+<br>
+
+**Checkpoint** — Did anyone get an error? Let's take a look.
+
+# Errosr happn
+
+Errors are a completely normal part of coding and they are an opportunity to learn. Let's look at a few common ones.
+
+```{r, 'bad_object_assignments1', error = TRUE}
+# -------------------------------------------------------------------------
+# Error: variable name with a space
+
+favorite number = 12
+```
+
+```{r, 'bad_object_assignments2', error = TRUE}
+# -------------------------------------------------------------------------
+# Error: variable name beginning with a number
+
+1number = 3
+```
+
+```{r, 'error_example1', eval = FALSE}
+# -------------------------------------------------------------------------
+# Example of not closing quotes
+
+read_csv('data/gapminder_1997.csv)
+```
+
+```{r, 'error_example2', eval = FALSE}
+# -------------------------------------------------------------------------
+# Example of not closing parentheses
+
+round(3.1415, 2
+```
+
+In the last two cases, the Console displays a `+` to indicate that R is waiting for more input. To get out of this state, press <KBD>Esc</KBD> and try again.
+
+## Handling errors
+
+The key to correcting errors is understanding what went wrong. Sometimes R can help, while other times it seems willfully obtuse.
+
+1. Immediately check the spelling of the command; **most errors are caused by typos**.
+2. Read the error message to try to understand what might have gone wrong.
+3. Check that the objects going into the function are what you expect.
+
+If you're still stuck, reach out for help. For the workshop, please post the question in Slack with the following information:
+
+1. The exact command that caused the error.
+2. The exact error message that resulted.
+
+This way we'll more quickly be able to diagnose the problem.
+
+# Building a data.frame
+
+Individual objects are useful, but data often has structure — multiple observations of multiple variables. In R, the natural way to represent tabular data is a `data.frame`. Let's build one together using names and birth months from people in the workshop:
+
+```{r, 'build_df_display', eval = FALSE}
+# -------------------------------------------------------------------------
+# Build a data.frame from participant names and birth months
+
+workshop_data = data.frame(
+  name         = c("Alice", "Bob", "Carol"),
+  birth_month  = c(3, 11, 7)
+)
+workshop_data
+```
+
+```{r, 'build_df', echo = FALSE}
+workshop_data = data.frame(
+  name         = c("Alice", "Bob", "Carol"),
+  birth_month  = c(3, 11, 7)
+)
+workshop_data
+```
+
+The `c()` function **combines** values into a vector — the building block of a column in a `data.frame`. Notice that `name` is a character column and `birth_month` is numeric, consistent with the data types we discussed earlier.
+
+**Checkpoint**
+
+# Loading libraries
+
+In practice, we almost never enter data by hand. Data usually lives in files, and reading those files well is where R's package ecosystem really shines. Out of the box, R has a number of useful functions, but its power lies in extending its functionality with packages. You can think of packages as collections of functions organized around a particular task. The `tidyverse` is a collection of packages designed to work together to make data manipulation and visualization easier.
+
+In order to use functions from a package, we first need to load it into our R session:
+
+```{r, 'load_tidyverse', message = TRUE, warning = TRUE}
+# -------------------------------------------------------------------------
+# Load the tidyverse package
+
+library(tidyverse)
+```
+
+> ## Note: Package loading messages {.unlisted .unnumbered}
+>
+> Loading a package can result in a lot of feedback from R. These aren't necessarily errors, but give more information about the result of loading the package. The output tells us which packages were loaded (note that `tidyverse` is sort of a meta-package of packages). The first section of the output states which packages were loaded and their versions. The second section notes "Conflicts" that occur because the name of a function is used multiple times. So `dplyr::filter() masks stats::filter()` means that the `dplyr` library and the `stats` library both have functions called `filter()`, and that when calling `filter()`, the `dplyr` version will be the default.
+<br>
+
+**Checkpoint**
+
+## Loading a csv file
+
+Now let's use tidyverse's `read_csv()` function to read in some data from a file, rather than typing it in by hand:
+
+```{r, 'load_gm97_display', eval = FALSE}
+# -------------------------------------------------------------------------
+# Load the gapminder 1997 data
+
+gm97 = read_csv('data/gapminder_1997.csv')
+```
+
+```{r, 'load_gm97', echo = FALSE}
+gm97 = read_csv('../data/gapminder_1997.csv')
+```
+
+With the cursor on this line we can click <KBD>Run</KBD>, or type <KBD>Ctrl</KBD>+<KBD>Enter</KBD>. We should see output in the Console pane as well as `gm97` in the Environment pane. We'll explore this data in later lessons.
+
+**Checkpoint**
+
+Let's break down this command:
+
+- `gm97` is the **variable name** we're giving to the data we read in.
+- `=` is the **assignment operator** which assigns the object on the right to the name on the left.
+- `read_csv()` is a **function** in `tidyverse` that reads CSV files.
+- `'data/gapminder_1997.csv'` is the **argument** to `read_csv()` that specifies the file to read.
+
+The output of `read_csv()` in the Console pane gives information such as the dimensions of the data, the delimiter of the file, and how the columns of the data were interpreted.
+
+> ## Note: The assignment operator {.unlisted .unnumbered}
+>
+> You may have seen another assignment operator, `<-`, which is idiosyncratic to R. We leave as an exercise to the learner to look up the edge cases of when to use `<-` vs `=`. For now, we will use `=` as the assignment operator, which is more common in other programming languages.
+<br>
+
+# Calling functions
+
+Earlier we ran `read_csv()` with a single argument. What happens if we call it with no arguments at all?
+
+```{r, 'bad_function_call', error = TRUE}
+# -------------------------------------------------------------------------
+# Example of a function that needs arguments to function
+
+read_csv()
+```
+
+We get an error. The key part of the message is "argument 'file' is missing, with no default" — in other words, this function needs to be told what to read because there is no default.
+
+Not every function needs arguments, but many do. Try the following:
+
+```{r, 'function_calls'}
+# -------------------------------------------------------------------------
+# Examples of functions with no required arguments
+Sys.Date()
+getwd()
+
+# -------------------------------------------------------------------------
+# Example of a function with multiple arguments
+round(3.1415, 2)
+```
+
+Notice that `round()` takes two arguments. How could we have known that?
+
+## Getting help with functions
+
+When a function is unfamiliar, we'll often look at its manual page to understand what arguments are required, what it does, and what it outputs. Prepend a `?` in front of a function name to pull up the manual page:
+
+```{r, 'help', eval = FALSE}
+# -------------------------------------------------------------------------
+# Put a "?" in front of a function to see its manual page
+
+?round
+```
+
+The help page for `round()` tells us the function does essentially what we'd expect, and gives some other related functions. The **Arguments** section gives us the names of the arguments and what is expected of them. There is often a **Details** section to describe nuances, a **Value** section to describe the output, and an **Examples** section at the bottom which is often the first place to look.
+
+## Arguments
+
+When we called `round(3.1415, 2)`, it looked like the first argument is the thing we want to round and the second is how many digits. That tracks with `?round`. R can evaluate arguments of a function based on their **position**, as we just saw. However, the preferred way to call a function is to use the **names** of the arguments:
+
+```{r, 'named_args'}
+# -------------------------------------------------------------------------
+# Example of named arguments
+
+round(x = 3.14159, digits = 2)
+```
+
+Using named arguments increases the readability of the code and reduces the chance of error, especially with complex functions that have many arguments.
+
+# Searching for functions
+
+Prepending `?` to find out more about a function requires knowing the function name beforehand — that won't always be the case. There are a couple ways to search for R functions:
+
+1. Search the internet for "R function that does X".
+2. Use `help.search()`, as in `help.search('Chi-squared test')`
+
+Note that in the results of `help.search()` we see things like `stats::chisq.test`. Here `::` is R notation for `package_name::function`.
+
+**Checkpoint**
 
 # Directory structure
 
@@ -184,268 +378,16 @@ dir.create('results/rdata', recursive = TRUE, showWarnings = FALSE)
 
 # Saving scripts
 
-Let's save our currently open script by clicking <KBD>File</KBD> and then <KBD>Save</KBD>. Double click the `scripts/` folder and enter the file name `ISC_day1.R`.
+Let's save our currently open script by clicking <KBD>File</KBD> and then <KBD>Save</KBD>. Double click the `scripts/` folder and enter the file name `IRR.R`.
 
 **Checkpoint**
 
-# Getting started
+# Summary
 
-Out of the box, R has a number of useful functions, but its power lies in extending its functionality with packages / libraries. You can think of libraries as collections of functions organized around a particular functionality. For example, the `tidyverse` package is a collection of packages that are designed to work together to make data manipulation and visualization easier. In order to gain access to functions in a package, we need to load the package into our R session.
-
-## Loading Libraries
-
-Let's begin with loading `tidyverse` since that's the package we'll use for the rest of the workshop.
-
-```{r, 'load_tidyverse', message = TRUE, warning = TRUE}
-# -------------------------------------------------------------------------
-# Load the tidyverse package
-
-library(tidyverse)
-```
-
-> ## Note: Package loading messages {.unlisted .unnumbered}
->
-> Loading a package can result in a lot of feedback from R. These aren't necessarily errors, but give more information about the result of loading the package. The output tells us which packages were loaded (note that `tidyverse` is sort of a meta-package of packages). The first section of the output states which packages were lodaed and their versions. The second section notes "Conflicts" that occur because the name of a function is used multiple times. So `dplyr::filter() masks stats::filter()` means that the `dplyr` library and the `stats` library have functions called `filter()`, and that when calling `filter()`, the `dplyr` version will be the default.
-<br>
-
-**Checkpoint**
-
-## Loading a csv file
-
-Let's jump right in and load some of the gapminder data using the `read_csv()` function:
-
-```{r, 'load_gm97_display', eval = FALSE}
-# -------------------------------------------------------------------------
-# Load the gapminder 1997 data
-
-gm97 = read_csv('data/gapminder_1997.csv')
-```
-
-```{r, 'load_gm97', echo = FALSE}
-gm97 = read_csv('../data/gapminder_1997.csv')
-```
-
-Remember, with the cursor on this line we can click <KBD>Run</KBD>, or we can type <KBD>Ctrl</KBD>+<KBD>Enter</KBD>. We should see some output in the Console pane as well as `gm97` in the Environment pane. We'll explore the resulting data in later lessons.
-
-**Checkpoint**
-
-Let's break down this command:
-
-- `gm97` is the **variable name** we're giving to the data we read in.
-- `=` is the **assignment operator** which assigns the object on the right to the name on the left.
-- `read_csv()` is a **function** in `tidyverse` that reads CSV files.
-- `data/gapminder_1997.csv` is the **argument** to `read_csv()` that specifies the file to read.
-
-The output of `read_csv()` in the Console pane gives information such as the dimensions of the data, the delimiter of the file, and how the columns of the data were interpreted.
-
-> ## Note: The assignment operator {.unlisted .unnumbered}
->
-> You may have seen another assignment operator, `<-`, which is idiosyncratic to R. We leave as an exercise to the learner to look up the edge cases of when to use `<-` vs `=`. For now, we will use `=` as the assignment operator, which is more common in other programming languages.
-<br>
-
-# Basic R data types
-
-In the output of `read_csv()`, the `country` and `continent` columns were intepreted as character strings (`chr`) and the `year`, `pop`, `lifeExp`, and `gdpPercap` columns were interpreted as numbers (`dbl`). This begs the question of the data types available in R. The basic data types in R are:
-
-| Mode (abbreviation) | Type of data | Example |
-|:----|:-----|:----|
-| Numeric (num) | Decimals, integers, etc. | `1.0`, `3.14`, `-2.5`, `10`, etc. |
-| Character (chr) | Sequence of letters or numbers. | `"Hi"`, `'Hi'`, `"1"`, etc. |
-| Factor (fct) | Categorical values. | Months of the year. |
-| Logical | Boolean values | `TRUE`, `FALSE`, `T`, `F`, etc. |
-
-# Assigning values to objects
-
-Throughout this workshop we'll be assigning names to objects and manipulating them. The names we give to objects can either make our lives easier or harder. Let's start by describing good practices, and then we'll give some examples of bad practices.
-
-## The good
-
-- Use brief, descriptive names.
-- Separate words with underscores.
-
-```{r, 'assign_objects'}
-# -------------------------------------------------------------------------
-# Examples of good variable names, and writing over an existing variable
-
-age = 26
-age
-wizard_name = 'Tom Riddle'
-wizard_name
-wizard_name = 'Harry Potter'
-wizard_name
-```
-
-## The bad
-
-- No spaces.
-- Don't start with numbers.
-- Don't use proteted names, like `if`, `else`, `for`, etc. (see [here](https://stat.ethz.ch/R-manual/R-devel/library/base/html/Reserved.html) for complete list).
-
-```{r, 'bad_object_assignments1', error = TRUE}
-# -------------------------------------------------------------------------
-# Error: Example of variable name with space
-
-favorite number = 12
-```
-
-```{r, 'bad_object_assignments=2', error = TRUE}
-# -------------------------------------------------------------------------
-# Error: Example of variable name beginning with number
-
-1number = 3
-```
-
-## Be mindful
-
-- Object names are **case-sensitive**. This means that `name`, `Name`, and `NAME` are three distinct objects. Imagine what confusion you could create!
-- Words in object names can also be separated by camelCase (e.g. `objectName`), but **be consistent**.
-
-```{r, 'mindful_assignments', error = TRUE}
-# -------------------------------------------------------------------------
-# Example of case-sensitivity of variable names
-
-Flower = 'marigold'
-Flower
-flower = 'rose'
-flower
-```
-
-```{r, 'camelCase_assignments', error = TRUE}
-# -------------------------------------------------------------------------
-# Example of camelCase variable name
-
-favoriteNumber = 12
-favoriteNumber
-```
-
-Notice that with each assignment, the object appears in the Environment pane. Also notice that by assigning `wizard_name` twice, the value becomes the last assigned value, overwriting our initial assignment. Also notice that if we evaluate the name of an object, it is printed in the Console pane. **We will use this pattern repeatedly.**
-
-**Checkpoint**
-
-# Calling functions
-
-Earlier we ran the code `gm97 = read_csv('data/gapminder_1997.csv')`. As we said before, `read_csv()` is a function and `'data/gapminder_1997.csv'` is an argument to that function. What happens if we just do:
-
-```{r, 'bad_function_call', error = TRUE}
-# -------------------------------------------------------------------------
-# Example of a function that needs arguments to function
-
-read_csv()
-```
-
-We get an error in the Console pane. The key part of the message is "argument 'file' is missing, with no default". In other words, this function needs to be told what to read because there is no default.
-
-Not every function needs arguments, but many do. Try the following functions:
-
-```{r, 'function_calls'}
-# -------------------------------------------------------------------------
-# Examples of functions with no required arguments
-Sys.Date()
-getwd()
-
-# -------------------------------------------------------------------------
-# Example of a function with multiple arguments
-round(3.1415, 2)
-```
-
-Notice that we threw in `round()` which actually takes two arguments. How could we have known that?
-
-## Getting help with functions
-
-When a function is unfamiliar, we'll often look at the manual page for the function to understand what arguments are required, what it does, and what it outputs. By prepending a `?` in front of a function name, you can access the manual page.
-
-```{r, 'help', eval = FALSE}
-# -------------------------------------------------------------------------
-# Put a "?" in front of a function to see it's manual page
-
-?round
-```
-
-The help page for `round()` tells us the function does essentially what we'd expect, and gives some other related functions. Note also that the arguments section gives us the names of the arguments and what is expected of them. There is often a Details section to describe nuances, and a Value section to describe the output. Finally, there is an Examples section which gives examples of how to run the code.
-
-## Arguments
-
-When we called `round(3.1415, 2)` it seemed like the first argument is the thing we want to round, and the second argument is how many digits we want. That tracks when we look at `?round`. R can evaluate arguments of a function based on their **position**, as we just saw. However, the preferred way to call a function is to use the names of the arguments, as in:
-
-```{r, 'named_args'}
-# -------------------------------------------------------------------------
-# Example of named arguments
-
-round(x = 3.14159, digits = 2)
-```
-
-Calling a function, and using named arguments, increases the readability of the code and reduces the chance of error, especially with complex functions having many arguments.
-
-# Searching for functions
-
-Prepending a `?` in front a function name to find out more about the function requires knowing the name of the function beforehand. That won't always be the case so there are a couple ways to search for R functions.
-
-1. Search the internet for "R function that does X".
-2. Use `help.search()`, as in `help.search('Chi-squared test')`
-
-Note that in the results of `help.search()` we see things like, `stats::chisq.test`. Here the `::` is R notation for `package_name::function`.
-
-**Checkpoint**
-
-# Errosr happn
-
-We already assigned some variables that resulted in errors. There will be plenty of more of those to come; they're a normal part of coding and they are an opportunity to learn! To that end, let's make some mistakes together.
-
-```{r 'error_example1', eval = FALSE}
-# -------------------------------------------------------------------------
-# Example of not closing quotes
-
-read_csv('data/gapminder_1997.csv)
-```
-
-```{r, 'error_example2', eval = FALSE}
-# -------------------------------------------------------------------------
-# Example of not closing parentheses
-
-round(3.1415, 2
-```
-
-In both cases, the Console displays a `+` to indicate that R is waiting for more input. To get out of this state, we can press <KBD>Esc</KBD>, and try again.
-
-## Handling errors
-
-The key to correcting errors is understanding what went wrong. Sometimes R can help, while other times it seems willfully obtuse.
-
-1. Immediately check the spelling of the command; **most errors are caused by typos**.
-2. Read the error message to try to understand what might have gone wrong.
-3. Check that the objects going into the function are what you expect.
-
-If you're still stuck as to why an error occurred (something we all encounter), reach out for help. For the workshop, please post the question in Slack with the following information:
-
-1. The exact command that caused the error.
-2. The exact error message that resulted.
-
-This way we'll more quickly be able to diagnose the problem.
-
-# Base R and the tidyverse
-
-If you've used R before, you may have learned commands that are different what we'll learn in this workshop. We'll focus on functions from the `tidyverse`, a collection of R packages designed to work well together and and offer many features that aren't part of a fresh install of R (that is, "base R"). Generally the `tidyverse` helps us write code that is easy to read and maintain, as we'll see.
-
-The `tidyverse` is geared for data in the form of tables, and it is **very good** at manipulating, summarizing, and visualizing such data. However, data occurs in a variety of other shapes and forms. In particular, in a bioinformatics context, the Bioconductor repository of packages utilize data types that are not tables, and therefore do not always work well with `tidyverse` functions. We'll see clearer examples of this in the RNA-seq Demystified workshop, and you will undoubtedly encounter many examples in the future.
-
-Some people ask "Should I learn tidyverse or base R?" and we think that rather than either/or, it's better to think of both/and. Knowing base R and its approach will help in some contexts, while knowing `tidyverse` will help in others.
-
-# Cheatsheets!
-
-The `tidyverse` packages have excellent cheatsheets that describe the functionality and usage of the packages. You can find them in RStudio by going to the “Help” menu and selecting “Cheat Sheets”. The two that will be most helpful in this workshop are “Data Visualization with ggplot2” and “Data Transformation with dplyr”.
-
-# Objectives
-
-- Introduce R and RStudio.
-- Learn how to read in a csv file.
-- Discuss object naming conventions and types.
-- Discuss functions and parameters.
-- Learn how to get help with functions.
-- Get comfortable with errors and asking for help.
+We introduced the interface of RStudio, learned about different data types and how to combine them in data frames, how to read data in to R, discussed functions generally and the idea of parameters, and got comfortable making errors and looking to documentation for help.
 
 <br/>
 <br/>
 <hr/>
 | [Previous lesson](bash-06-organization.html) | [Top of this lesson](#top) | [Next lesson](r-02-exploration-dplyr.html) |
 | :--- | :----: | ---: |
-

@@ -1,0 +1,8 @@
+- The RStudio workshop compute environment will be available through `r workshop_vars$rstudio_server_enddate`.
+  - _Please save all your R scripts now_ so that we can "right-size" the compute environment immediately following today's workshop session.
+- You can download files from the workshop environment from your terminal/command line window as below.
+  (You will need to substitute your actual workshop username and type workshop password when prompted.)
+  ```
+  mkdir workshop-intro-r-rstudio
+  scp -r YOUR_USERNAME@`r workshop_vars$ssh_download_dns`:"IRR*" workshop-intro-r-rstudio
+  ```

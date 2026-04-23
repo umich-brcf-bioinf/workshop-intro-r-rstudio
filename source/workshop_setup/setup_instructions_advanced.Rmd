@@ -211,15 +211,17 @@ packages. To install them into RStudio:
 # =========================================================================
 
 required_packages = c(
-  "here", 
-  "sessioninfo", 
+  # installs dplyr, ggplot, and other libraries in the tidy universe
   "tidyverse",
-  "ggrepel", 
-  "RcolorBrewer",
-  # These last two enable interactive plots; they are not strictly necessary 
-  # for the workshop curriculum - but it might come up in a question. 
-  "plotly",
-  "htmlwidgets"
+  # Plotting extras
+  "ggrepel", "RColorBrewer",
+  # nifty utililties
+  "here", "sessioninfo", 
+  # These last few are not strictly necessary for the workshop curriculum - but it might come up in a question. 
+  # for interactive plots
+  "plotly", "htmlwidgets", 
+  # for saving as SVG
+  "svglite", "systemfonts"
 )
 
 # -------------------------------------------------------------------------

@@ -11,8 +11,11 @@ workshop_vars = list(
   ssh_download_dns="bfx-workshop01.med.umich.edu",
   
   aws_s3_bucket = "https://umich-brcf-bioinf-workshop.s3.us-east-1.amazonaws.com",
-  aws_s3_file = "IRR/workshop-inputs-irr.tgz"
+  aws_s3_file = "IRR/workshop-inputs-irr.tgz",
 
+  #workshop_platform = "setup-aws"
+  workshop_platform = "setup-positcloud"
+  
 )
 
 # The sessionInfo outputs will only be refreshed if this var exists and we 

@@ -20,7 +20,7 @@ body{ /* Normal  */
 </style>
 
 ```{r, include = FALSE}
-source("../../bin/set_values.R")
+source("../../../bin/set_values.R")
 ```
 
 This document guides you through the installation of software necessary
