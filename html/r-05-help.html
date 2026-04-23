@@ -366,6 +366,9 @@ div.tocify {
     <li>
       <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
     </li>
+    <li>
+      <a href="r-06-quarto.html">Bonus: Quarto</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -408,26 +411,26 @@ pre {
 <div id="objectives" class="section level1">
 <h1>Objectives</h1>
 <ul>
-<li>Learn where to get help with R.</li>
+<li>Learn where to get help.</li>
 <li>Learn how to ask for help with R.</li>
 </ul>
 </div>
-<div id="with-a-little-help-from-my-friends" class="section level1">
-<h1>With a little help from my friends</h1>
-<p><img src="images/oreilly_book_covers.png" alt="rstudio default session" style="width: 600px;"/></p>
-<p>No matter how much experience you have with R, you will find yourself
-needing help. There is no shame in researching how to do something in R,
-and most people will find themselves looking up how to do the same
-things that they “should know how to do” over and over again. Here are
-some tips to make this process as helpful and efficient as possible.</p>
-<blockquote>
-<p>“Never memorize something that you can look up” – A. Einstein</p>
-</blockquote>
-</div>
 <div id="finding-help" class="section level1">
 <h1>Finding help</h1>
-<p>There are a few websites that are useful for getting help with R.
-They can be summarized as follows:</p>
+<p>Part of trying new thinghs is occasionally getting stuck and needing
+help. Fortunately, you’re not alone, and if you can’t find a previous
+example of how to make something work, you can ask for help from the
+community of R folks. Here are some tips to make this process as helpful
+and efficient as possible.</p>
+<ul>
+<li>R’s own <a href="https://www.r-project.org/help.html"
+target="_blank">suggestions in getting help</a> are excellent.</li>
+<li>Google is your friend and AI can also be your friend. But on
+occasion, they will cheerfully suggest a <em>completely wrong
+answer</em>, so <strong>always verify any proposed solution actually
+works for your problem</strong>.</li>
+</ul>
+<p>There are a few websites that are useful for getting help with R.</p>
 <table>
 <colgroup>
 <col width="50%" />
@@ -441,61 +444,119 @@ They can be summarized as follows:</p>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="https://www.rdocumentation.org/">R
-Documentation</a></td>
+<td align="left"><a href="https://www.rdocumentation.org/"
+target="_blank">R Documentation</a></td>
 <td align="left">Searchable documentation for R packages on CRAN and
 Bioconductor</td>
 </tr>
 <tr class="even">
-<td align="left"><a
-href="https://support.bioconductor.org/">Bioconductor Support</a></td>
+<td align="left"><a href="https://support.bioconductor.org/"
+target="_blank">Bioconductor Support</a></td>
 <td align="left">Support forum for Bioconductor packages</td>
 </tr>
 <tr class="odd">
-<td align="left"><a
-href="https://stackoverflow.com/questions/tagged/r">stackoverflow</a></td>
+<td align="left"><a href="https://stackoverflow.com/questions/tagged/r"
+target="_blank">stackoverflow</a></td>
 <td align="left">General programming questions</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://www.biostars.org/">Biostars</a></td>
+<td align="left"><a href="https://www.biostars.org/"
+target="_blank">Biostars</a></td>
 <td align="left">Bioinformatics specific questions</td>
 </tr>
 <tr class="odd">
-<td align="left"><a href="https://umich-coderspaces.slack.com/">UM
-CoderSpaces</a></td>
-<td align="left">General and UM-specific questions</td>
+<td align="left"><a href="https://r4ds.hadley.nz/" target="_blank">R for
+data science</a></td>
+<td align="left">An extremely readable website book that goes soup to
+nuts.</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://rweekly.org/"
+target="_blank">RWeekly</a></td>
+<td align="left">Short kind of random tips/tidbits updated weekly</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://forum.posit.co" target="_blank">Posit
+Community Forum</a></td>
+<td align="left">Questions asked and answered</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://posit.co/resources/cheatsheets/"
+target="_blank">Posit: Cheatsheets</a></td>
+<td align="left">Super handy since no one has all the packages
+memorized</td>
+</tr>
+<tr class="odd">
+<td align="left"><a
+href="https://support.posit.co/hc/en-us/articles/200552336-Getting-Help-with-R"
+target="_blank">Posit: Getting help with R</a></td>
+<td align="left">Curated links by the posit team</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="getting-help" class="section level1">
-<h1>Getting help</h1>
-<p>If you are trying to get help on a forum, it best to follow some
-basic guidelines to make sure you get the help you need.</p>
+<div id="how-to-ask-for-help" class="section level1">
+<h1>How to ask for help</h1>
+<p>If you can’t find the right solution already posted, you you can post
+your new question to a forum. R’s <a
+href="https://www.r-project.org/posting-guide.html"
+target="&quot;_blank">Posting Guide</a> examples of how to ask for help
+with R. It’s a good read - but here’s the condensed version:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Re-check if a question has already been asked</strong>.
+😎</li>
+<li><strong>Clearly describe your problem in words</strong>.<br />
+State what you’re trying to do, what you tried, and the result,
+including the full text of any error message.</li>
+<li><strong>Try to include a “minimally reproducible
+example”</strong>.<br />
+This means providing the smallest block of data and code that anyone can
+run to reproduce the error and (we hope) diagnose the issue. Focusing
+the question on the suspect code with minimal data helps the respondents
+dive right in. (Often ’ times, when you’re trying to craft the minimal
+example, you learn something new and sometimes even resolve the original
+problem.)</li>
+</ol>
+<pre class="default"><code>I have this data frame:
+
+my_data = read_csv(&quot;start, end, title
+8:00, 4:00, Using R/R Studio
+1:00, 4:00, Nextflow: Train the Trainers
+8:00, 4:00, Lean Management for Shared Resources
+&quot;)
+
+But I want this data frame:
+title                                workshop time  
+Using R/R Studio                     start    08:00 
+Using R/R Studio                     end      04:00 
+Nextflow: Train the Trainers         start    01:00 
+Nextflow: Train the Trainers         end      04:00 
+Lean Management for Shared Resources start    08:00 
+Lean Management for Shared Resources end      04:00
+</code></pre>
+<p>Note that sharing <strong>minimal example data</strong> often means
+you need to trim the data down to a small subset</p>
 <ul>
-<li><strong>Check if a question has already been asked.</strong> Forum
-members can get touchy if duplicate questions are asked.</li>
-<li><strong>Clearly describe your problem in words.</strong> State what
-you’re trying to do, what you tried, and the result, including the full
-text of the error message.</li>
-<li><strong>Try to include a “minimally reproducible example.”</strong>
-This means providing data and code that anyone can run to reproduce the
-error, and diagnose the issue. Specifically, this means you can’t share
-large datasets, or idiosyncratic code.</li>
+<li>Shown in the block above, <code>read_csv</code> allows you to
+“handcraft” data as a comma separated list of fields, one row per
+field.</li>
+<li>You can use one of R’s built in example datasets like
+<code>iris</code> or <code>mtcars</code>. You can see the full list of
+built in datasets with <code>data()</code>.</li>
+<li>You can also use <code>format_csv</code> and <code>head</code> to
+prune a larger dataset to a few rows,
+e.g. <code>cat(format_csv(head(mtcars)))</code> to then copy into your
+post.</li>
 </ul>
-<p>The <a
-href="http://blog.revolutionanalytics.com/2014/01/how-to-ask-for-r-help.html">How
-to ask for R help</a> blog post has some good examples of how to ask for
-help with R. Note that this advice largely generalizes to other
-programming languages.</p>
-<div id="sharing-your-session-info" class="section level2">
-<h2>Sharing your session info</h2>
-<p>Part of getting help, especially with R, is including your
-<code>sessionInfo()</code> with your question. This helps people know
-what packages and what versions you have installed. This will help
-reproduce the issue and possibly find a solution.</p>
-<p>There are a couple ways to get the session information. The first
-is:</p>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Share your session info</strong>.<br />
+Your problem and the solution often depends on the specific package
+versions you are using, so you should share this in your post. Sharing
+help others reproduce the issue and find a solution quicker. There are a
+couple ways to get the session information. The older/more common way is
+the <code>sessionInfo</code> command which will work in any R
+environment:</li>
+</ol>
 <pre class="r"><code>################################################################################
 # Print out details about this R install, session, and loaded libraries
 sessionInfo()</code></pre>
@@ -526,13 +587,13 @@ loaded via a namespace (and not attached):
 [13] fastmap_1.2.0      jsonlite_2.0.0     viridisLite_0.4.2  scales_1.4.0       textshaping_1.0.1  jquerylib_0.1.4    cli_3.6.5          crayon_1.5.3       rlang_1.1.6        bit64_4.6.0-1      withr_3.0.2        cachem_1.1.0      
 [25] yaml_2.3.10        parallel_4.5.0     tools_4.5.0        tzdb_0.5.0         assertthat_0.2.1   vctrs_0.6.5        R6_2.6.1           lifecycle_1.0.4    bit_4.6.0          vroom_1.6.5        pkgconfig_2.0.3    pillar_1.11.0     
 [37] bslib_0.9.0        gtable_0.3.6       glue_1.8.0         systemfonts_1.2.3  xfun_0.52          tidyselect_1.2.1   rstudioapi_0.17.1  farver_2.1.2       htmltools_0.5.8.1  svglite_2.2.1      compiler_4.5.0    </code></pre>
-<p>The <code>sessionInfo</code> command will work in any R environment.
-For a slightly more elegant output, use
-<code>sessioninfo::session_info()</code>. (Note, you’ll have to have the
-<code>sessioninfo</code> package installed., which we have done for
+<p>The new, slightly more elegant is
+<code>sessioninfo::session_info()</code>. (Note, the
+<code>sessioninfo</code> package must be installed. We did that for
 you.)</p>
 <pre class="r"><code>################################################################################
 # A more concise, pleasant version of sessionInfo()
+# install.packages(&#39;session_info&#39;)
 sessioninfo::session_info()</code></pre>
 <pre class="default"><code>─ Session info ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
  setting  value
@@ -620,75 +681,26 @@ sessioninfo::session_info()</code></pre>
  * ── Packages attached to the search path.
 
 ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</code></pre>
+<p><br/></p>
 </div>
-<div id="sharing-your-data" class="section level2">
-<h2>Sharing your data</h2>
-<p>Many times, there may be some issues with your data and the way it is
-formatted. In that case, you may want to share that data with someone
-else. However, you may not need to share the whole dataset; looking at a
-subset of your 50,000 row, 10,000 column dataframe may be TMI (too much
-information)! You can take an object you have in memory such as
-dataframe (if you don’t know what this means yet, we will get to it!)
-and save it to a file. In our example we will use the
-<code>dput()</code> function on the <code>iris</code> dataframe which is
-an example dataset that is installed in R:</p>
-<pre class="r"><code># iris is an example data.frame built into R
-dput(head(iris)) # iris is an example data.frame that comes with R</code></pre>
-<pre><code>structure(list(Sepal.Length = c(5.1, 4.9, 4.7, 4.6, 5, 5.4), 
-    Sepal.Width = c(3.5, 3, 3.2, 3.1, 3.6, 3.9), Petal.Length = c(1.4, 
-    1.4, 1.3, 1.5, 1.4, 1.7), Petal.Width = c(0.2, 0.2, 0.2, 
-    0.2, 0.2, 0.4), Species = structure(c(1L, 1L, 1L, 1L, 1L, 
-    1L), levels = c(&quot;setosa&quot;, &quot;versicolor&quot;, &quot;virginica&quot;), class = &quot;factor&quot;)), row.names = c(NA, 
-6L), class = &quot;data.frame&quot;)</code></pre>
-<p>This output very clearly states the structure of the
-<code>iris</code> data frame. Alternatively, you can also save objects
-in R memory to a file by specifying the name of the object, in this case
-the <code>iris</code> data frame, and passing a filename to the
-<code>file=</code> argument.</p>
-<pre class="r"><code># By convention, we use the .rds file extension
-saveRDS(iris, file=&quot;iris.rds&quot;)
-
-# To load this type of file back
-iris_rds = readRDS(&quot;iris.rds&quot;)</code></pre>
-</div>
-</div>
-<div id="final-faqs-on-r" class="section level1">
-<h1>Final FAQs on R</h1>
-<p>Finally, here are a few pieces of introductory R knowledge that are
-too good to pass up. While we won’t return to them in this course, we
-put them here because they come up commonly:</p>
-<p><strong>Do I need to click Run every time I want to run a
-script?</strong></p>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
 <ul>
-<li>No. In fact, the most common shortcut key allows you to run a
-command (or any lines of the script that are highlighted):
+<li>Needing help is good - it means you are learning and growing.</li>
+<li>There are lots of web resources for general and specific
+questions.</li>
+<li>When asking for help:
 <ul>
-<li>Windows execution shortcut: <KBD>Ctrl</KBD>+<KBD>Enter</KBD></li>
-<li>Mac execution shortcut: <KBD>Cmd(⌘)</KBD>+<KBD>Enter</KBD></li>
+<li>Describe your problem clearly.</li>
+<li>Include a “minimally reproducible example”.</li>
+<li>Include your session info.</li>
+</ul></li>
 </ul>
-To see a complete list of shortcuts, click on the <KBD>Tools</KBD> menu
-and select <KBD>Keyboard Shortcuts Help</KBD></li>
-</ul>
-<p><strong>What’s with the brackets in R console output?</strong> - R
-returns an index with your result. When your result contains multiple
-values, the number tells you what ordinal number begins the line, for
-example:</p>
-<pre class="r"><code>1:101 # generates the sequence of numbers from 1 to 101</code></pre>
-<pre><code>  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48  49  50  51  52  53  54  55  56  57  58
- [59]  59  60  61  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99 100 101</code></pre>
-<p>In the output above, <code>[81]</code> indicates that the first value
-on that line is the 81st item in your result</p>
-<p><strong>Can I run my R script without RStudio?</strong></p>
-<ul>
-<li>Yes, remember - RStudio is running R. You get to use lots of the
-enhancements RStudio provides, but R works independent of RStudio. See
-<a
-href="https://support.rstudio.com/hc/en-us/articles/218012917-How-to-run-R-scripts-from-the-command-line">these
-tips</a> for running your commands at the command line</li>
-</ul>
-<p><strong>Where else can I learn about RStudio?</strong> - Check out
-the <KBD>Help</KBD> menu, especially “Cheatsheets” section</p>
-<br/> <br/>
+<p>“All of us, at some time or other, need help. Whether we’re giving or
+receiving help, each one of us has something valuable to bring to this
+world.”<br />
+— Fred Rogers</p>
+<br/>
 <hr/>
 <table style="width:100%;">
 <colgroup>

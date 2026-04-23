@@ -14,6 +14,7 @@ output:
             code_download: false
 ---
 
+```{=html}
 <style type="text/css">
 
 body, td {
@@ -27,6 +28,7 @@ pre {
 }
 
 </style>
+```
 
 ```{r klippy, echo=FALSE, include=TRUE}
 klippy::klippy(lang = c("r", "markdown", "bash"), position = c("top", "right"))
@@ -39,13 +41,9 @@ knitr_fig_path("02-")
 
 # Objectives
 
-- Learn essential data manipulation functions of `dplyr`:
-    - `select()` columns
-    - `filter()` rows
-    - `arrange()` rows
-    - `mutate()` columns
-    - `group_by()` rows
-- Learn about the pipe operator (`%>%`) and how to use it to chain together multiple functions.
+-   See key functions to load and explore a data table.
+-   Understand essential `dplyr` functions.
+-   Use the pipe operator (`|>`) to chain functions together.
 
 # Loading data
 
@@ -81,9 +79,9 @@ gm97
 
 The output shows we have "a tibble" and its dimensions are 142 rows by 6 columns. We then see:
 
-- Column headings (country, year, etc)
-- Column data types (chr, dbl, etc)
-- The entries of the first 10 rows.
+-   Column headings (country, year, etc)
+-   Column data types (chr, dbl, etc)
+-   The entries of the first 10 rows.
 
 Data in the form of a table is very common in R. The "base R" type is called a `data.frame`. The `tidyverse` extends on this notion with a `tibble`. The commands we'll learn in this lesson work on `data.frame`s and `tibble`s. We'll use `data.frame`, `tibble`, and "data table" interchangeably throughout the lessons.
 
@@ -91,7 +89,35 @@ Data in the form of a table is very common in R. The "base R" type is called a `
 
 After reading in data, it's a good habit to preview it, look at summaries of it, and, in so doing, look for issues. When data contains hundreds of rows, it's a good idea to get a sense for the values and ranges of the data.
 
-## Get stats with `summary()`
+## `View()`, `head()`, and `tail()`
+
+The `View()` function takes a data table as input and opens it as a new new tab in the *Source pane*.
+
+```{r, 'View', eval = FALSE}
+# -------------------------------------------------------------------------
+# View the data table 
+View(gm97)
+```
+
+`head()` shows the first few rows of a data table.
+
+```{r, 'head'}
+# -------------------------------------------------------------------------
+# Show the first rows of data table 
+head(gm97)
+```
+
+Older R scripts often use the base R dataframe. Tidyverse/dplyr upgraded base R dataframes to **tibbles** which show only the first few rows by default. `head()` works fine with tibbles but is more commonly used with the older dataframes.
+
+`tail()` shows the last few rows of a data table.
+
+```{r, 'tail'}
+# -------------------------------------------------------------------------
+# Show the last 3 rows of data table 
+tail(gm97, n=3)
+```
+
+## `summary()`
 
 The `summary()` function, from base R, takes a data table as input and will summarize the columns automatically depending on their data type.
 
@@ -104,6 +130,8 @@ summary(gm97)
 
 We see that for the numeric data we get quantile information and the mean, whereas for character data we simply get the length of the column. For data with NAs, the number thereof would be displayed.
 
+````{=html}
+<!--
 ## Get stats with `summarize()`
 
 If we wanted to know the mean life expectancy in the dataset, we could use the the `dplyr` `summarize()` function, specifying that we want the `mean()`:
@@ -131,8 +159,10 @@ This is the base R way, with the `$` being how columns of a data table are acces
 > ## Tip: Reference columns by name
 > 
 > While it is possible to access columns by their numerical index, this is less prefereable than using the explicit name of the column because altering the table could change the column indices. Depending on the situation, we might not even get an error, and instead would be simply operating on the wrong column. A dangerous situation to be in.
+-->
+````
 
-## Find unique values with `distinct()`
+## `distinct()`: unique values
 
 ![](images/dplyr-distinct.png)
 
@@ -145,7 +175,13 @@ Data is often subject to errors. To quickly catch data entry problems, the `dist
 distinct(gm97, continent)
 ```
 
-Here we get a `tibble` back with the unique continent names in their order of appearance. There is an equivalent base R way to do this with the `unique()` function:
+Here we get a `tibble` back with the unique continent names in their order of appearance.
+
+This makes it easy to find inconsistencies (e.g. there was a misspelled entry like "Urope" instead of "Europe").
+
+````{=html}
+<!--
+There is an equivalent base R way to do this with the `unique()` function:
 
 ```{r, 'unique_continent'}
 # -------------------------------------------------------------------------
@@ -155,10 +191,14 @@ unique(gm97$continent)
 ```
 
 Either way, if there was a misspelled entry, for example, "Urope" we would have immediately seen it.
+-->
+````
 
 **Checkpoint**
 
-## Sorting data with `arrange()`
+# Key `dplyr` functions
+
+## `arrange()`: sorting rows
 
 ![](images/dplyr-arrange.png)
 
@@ -186,14 +226,15 @@ And here we see that Japan is the country with the longest lived citizens at a l
 **Checkpoint**
 
 > ## Exercise
+>
 > Which country has the highest GDP per capita in 1997?
-> 
+>
 > ```{r, 'highest_gdppercap_solution'}
 > arrange(gm97, desc(gdpPercap))
 > ```
-> 
 
-## Subset columns with `select()`
+## `select()`: subset columns
+
 ![](images/dplyr-select.png)
 
 Sometimes data tables have many columns, and it can be useful to select only a few of them to export, use downstream, preview, etc. The `select()` function works on columns:
@@ -250,7 +291,7 @@ gm97_subset = select(gm97, country, year, lifeExp)
 gm97_subset
 ```
 
-## Saving objects to file
+## `write_csv()`: saving objects
 
 The original data file we read in `data/gapminder_1997.csv` remains the same throughout all these manipulations. What happens in R stays in R until we explicitly write a new object to the same file. **It's good practice to keep raw input data separate, and to never overwrite it.** Let's use the `write_csv()` function to write the `gm97_subset` data to a file. First let's look at `?write_csv` and determine what are the required parameters.
 
@@ -265,23 +306,24 @@ write_csv(gm97_subset, file = 'gm97_subset.csv')
 
 **Checkpoint**
 
-## Narrow down rows with `filter()`
+## `filter()`: subset rows
+
 ![](images/dplyr-filter.png)
 
 We have seen that `select()` subsets the columns of a table. The function `filter()` subsets the rows of a data table based on logical criteria. So first, a note about logical operators in R:
 
-| Operator | Description              | Example      |
-|----------|--------------------------|--------------|
-| <        | less than                | `pop < 575990` |
-| <=       | less than or equal to    | `pop <= 575990` |
-| >        | greater than             | `pop > 1000000` |
-| >=       | greater than or equal to | `pop >= 38000000` |
-| ==       | exactly equal to         | `continent == 'Africa'` |
-| !=       | not equal to             | `continent != 'Asia'` |
-| !x       | not x                    | `!(continent == 'Africa')` |
-| a \| b   | a or b                   | `pop < 575990 | pop > 1000000` |
-| a & b    | a and b                  | `continent == 'Asia' & continent == 'Africa'` |
-| a %in% b | a in b                   | `continent %in% c('Asia', 'Africa')` |
+| Operator | Description | Example |
+|-----------------|------------------------------------|-------------------|
+| \< | less than | `pop < 575990` |
+| \<= | less than or equal to | `pop <= 575990` |
+| \> | greater than | `pop > 1000000` |
+| \>= | greater than or equal to | `pop >= 38000000` |
+| == | exactly equal to | `continent == 'Africa'` |
+| != | not equal to | `continent != 'Asia'` |
+| !x | not x | `!(continent == 'Africa')` |
+| a \| b | a or b | `pop < 575990 | pop > 1000000` |
+| a & b | a and b | `continent == 'Asia' & continent == 'Africa'` |
+| a %in% b | a in b | `continent %in% c('Asia', 'Africa')` |
 
 With these operators in mind we can filter the `gm97` data table in a variety of ways. To filter for only the African data we could:
 
@@ -304,12 +346,12 @@ gm97[gm97$continent == 'Africa', ]
 Here we put the condition in the row position, before the comma, because we want to subset rows. The blank after the comma indicates we want all the columns returned.
 
 > ## Exercise
+>
 > How can we filter the data for just the United Kingdom?
-> 
+>
 > ```{r, 'filter_solution'}
 > filter(gm97, country == 'United Kingdom')
 > ```
-> 
 
 We can answer the question, "Which African countries have population over 10,000,000?" by using the `&` operator with our previous code. This requires both conditions to be true at the same time:
 
@@ -333,7 +375,8 @@ This gives us all the countries with fewer than a million people **or** more tha
 
 **Checkpoint**
 
-## Make new columns with `mutate()`
+## `mutate()`: make columns
+
 ![](images/dplyr-mutate.png)
 
 It's common to use existing columns of a data table to create new columns. For example, in the `gm97` data we have a `pop` column and a `gdpPercap` column. We could multiply these two columns to get a new `gdp` column. The `dplyr` function `mutate()` adds columns to an existing data table.
@@ -357,27 +400,26 @@ gm97_gdp
 
 **Checkpoint**
 
-## Combine functions with the `%>%` pipe
+## `|>`: piping
 
-We've learned how to subset rows with `filter()`, select columns with `select()`, get distinct elements with `distinct()`, and summarize columns with `summarize()`. It's common to use these functions in sequence, where the output of one becomes the input of the next. The concept of "pipe" (`|`) from `bash` has an equivalent in the `tidyverse` in the `%>%` symbol. To see this in action, let's select data from Oceania and display only the `country`, `continent`, and `pop` columns.
+We've learned how to subset rows with `filter()`, select columns with `select()`, get distinct elements with `distinct()`, and summarize columns with `summarize()`. It's common to use these functions in sequence, where the output of one becomes the input of the next. The concept of "pipe" (`|`) from `bash` has an R equivalent: the `|>` symbol. To see this in action, let's select data from Oceania and display only the `country`, `continent`, and `pop` columns.
 
 ```{r, 'pipe_example1'}
 # -------------------------------------------------------------------------
 # Filter for countries in Oceania, then show a subset of the columns
 
-gm97 %>% filter(continent == 'Oceania') %>% select(country, continent, pop)
+gm97 |> filter(continent == 'Oceania') |> select(country, continent, pop)
 ```
 
 > ## Question
-> 
+>
 > Does the order of `filter()` and `select()` matter? Would something like the following work, why or why not?
-> 
+>
 > ```{r, 'pipe_order', eval = FALSE}
-> gm97 %>% 
->     select(country, pop) %>% 
+> gm97 |> 
+>     select(country, pop) |> 
 >     filter(continent == 'Oceania')
 > ```
-> 
 
 It seems there are only two countries, Australia and New Zealand. If we wanted to take the mean of the populations we could pipe the data, after filtering, to `summarize()` as in:
 
@@ -385,8 +427,8 @@ It seems there are only two countries, Australia and New Zealand. If we wanted t
 # -------------------------------------------------------------------------
 # Filter for countries in Oceania and then compute the mean population
 
-gm97 %>%
-    filter(continent == 'Oceania') %>%
+gm97 |>
+    filter(continent == 'Oceania') |>
     summarize(mean_pop = mean(pop))
 ```
 
@@ -396,14 +438,15 @@ Note this is distinct from taking the mean over the entire dataset:
 # -------------------------------------------------------------------------
 # Use the same summarize() statement, but on the entire dataset
 
-gm97 %>% summarize(mean_pop = mean(pop))
+gm97 |> summarize(mean_pop = mean(pop))
 ```
 
 Here we've meaningfully named our output, but that was optional. For quick data exploration that could be left off.
 
 **Checkpoint**
 
-## Group rows with `group_by()`
+## `group_by()` and `summarize()`
+
 ![](images/dplyr-groupby-summarize.png)
 
 If we wanted to determine the mean populations over all the continents, we could run the above code we used for Oceania, but replace Oceania with each continent name. That's a bit tedious, and the `tidyverse` provides a very nice function, `group_by()`, that breaks a data table up into groups and will perform operations within the groups.
@@ -412,8 +455,8 @@ If we wanted to determine the mean populations over all the continents, we could
 # -------------------------------------------------------------------------
 # Compute the mean population per continent
 
-gm97 %>% 
-    group_by(continent) %>% 
+gm97 |> 
+    group_by(continent) |> 
     summarize(mean_pop = mean(pop))
 ```
 
@@ -423,8 +466,8 @@ Notice that the Oceania average matches what we got above. Going back to our Oce
 # -------------------------------------------------------------------------
 # Determine the number of countries on each continent in the dataset
 
-gm97 %>% 
-    group_by(continent) %>% 
+gm97 |> 
+    group_by(continent) |> 
     summarize(num_countries_per_continent = n())
 ```
 
@@ -437,48 +480,58 @@ There is a base R function, `table()`, that tabulates the number of time an entr
 table(gm97$continent)
 ```
 
-# Objectives
-
-- Learn essential data manipulation functions of `dplyr`:
-    - `select()` columns
-    - `filter()` rows
-    - `arrange()` rows
-    - `mutate()` columns
-    - `group_by()` rows
-- Learn about the pipe operator (`%>%`) and how to use it to chain together multiple functions.
-
 # Exercise
-> 
+
 > In summarizing data, it's often useful to build a nicely formatted table with min, median, and max values of a variable. Below is an example of code to do that for the populations by continent, and arranged by the median population.
-> 
+>
 > ```{r, 'dplyr_exercise_example'}
-> gm97 %>% 
->     group_by(continent) %>%
+> gm97 |> 
+>     group_by(continent) |>
 >     summarize(
 >         min_POP = min(pop),
 >         median_POP = median(pop),
 >         max_POP = max(pop)
->     ) %>% 
+>     ) |> 
 >     arrange(median_POP)
 > ```
+>
 > Try to write the code that would generate the following table, similar to the above, but for the GDP per continent instead of the population, including the mean GDP in addition to the min, median, and max, as well as ordering the results by mean GDP.
-> 
+>
 > ```{r, 'dplyr_exercise_hidden', echo = FALSE}
-> gm97 %>% 
->     mutate(gdp = pop * gdpPercap) %>%
->     group_by(continent) %>%
+> gm97 |> 
+>     mutate(gdp = pop * gdpPercap) |>
+>     group_by(continent) |>
 >     summarize(
 >         min_GDP = min(gdp),
 >         mean_GDP = mean(gdp),
 >         median_GDP = median(gdp),
 >         max_GDP = max(gdp)
->     ) %>% 
+>     ) |> 
 >     arrange(mean_GDP)
 > ```
-> 
 
 <br/>
+
+# Summary
+
+-   `View()` shows a table as a window in the RStudio Source panes.
+-   `dplyr` is as package of functions for manipulating tables (or tibbles)
+    -   `distinct()` unique values
+    -   `select()` subets columns
+    -   `filter()` subsets rows
+    -   `arrange()` sorts rows by one or more column
+    -   `mutate()` adds new columns
+    -   `group_by()` groups the table into sub-tables
+    -   `summarize()` runs summary functions (min, max, n, etc) on tables or groups
+-   A function doesn't impact the source table.
+    -   You can assign the resulting table to a variable.
+    -   You can save the results to file with `write_csv()`
+-   The pipe operator (`|>`) chains together multiple functions.
+-   Check out the [dplyr doc](https://dplyr.tidyverse.org/articles/dplyr.html){target="_blank"} and [dplyr Cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/data-transformation.pdf){target="_blank"} for more info.
+
 <br/>
+
 <hr/>
+
 | [Previous lesson](r-01-introduction.html) | [Top of this lesson](#top) | [Next lesson](r-04-bioconductor.html) |
-| :--- | :----: | ---: |
+|:--------------------|:-----------------------------:|--------------------:|

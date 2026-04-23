@@ -22,5 +22,7 @@ navbar:
           href: r-05-help.html
         - text: "Data Visualization with ggplot"
           href: r-03-exploration-ggplot.html
+        - text: "Bonus: Quarto"
+          href: r-06-quarto.html
     - text: "Wrap up"
       href: workshop-wrap-up.html
