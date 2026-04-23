@@ -1,0 +1,7 @@
+- The [PositCloud](https://posit.cloud/){target="_blank"} environment used in 
+  this workshop does not expire. 
+- If you have a version of RStuio installed on your laptop/workstation, you can 
+  download the workshop files to your own computer by [viewing&nbsp;your&nbsp;workspace](https://posit.cloud/content/yours){target="blank"} 
+  and clicking <u>&#x2B07;</u> <kbd>Export</kbd>; Posit-cloud will zip up a 
+  downloadable file.
+  ![](workshop_setup/setup-positcloud/images/positcloud-workspace-export.png)
