@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Getting help with R</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/paper.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link rel="shortcut icon" href="favicon-16x16.png" />
+<!--
+Favicon from
+https://twemoji.twitter.com/
+https://favicon.io/emoji-favicons/computer/
+-->
+<meta name="google-site-verification" content="t-Wgs-RXt8xi94RSoFamxoD2P2h-Hh7M_t_iOuxFZUo" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Intro to R & RStudio</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="workshop-intro.html">Intro</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 1
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-01-introduction.html">Introducing R and RStudio</a>
+    </li>
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Day 2
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="r-02-exploration-dplyr.html">Data Exploration with dplyr (cont.)</a>
+    </li>
+    <li>
+      <a href="r-04-bioconductor.html">Using Packages / Libraries</a>
+    </li>
+    <li>
+      <a href="r-05-help.html">Getting Help with R</a>
+    </li>
+    <li>
+      <a href="r-03-exploration-ggplot.html">Data Visualization with ggplot</a>
+    </li>
+    <li>
+      <a href="r-06-quarto.html">Bonus: Quarto</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="workshop-wrap-up.html">Wrap up</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Getting help with R</h1>
+
+</div>
+
+
+<style type="text/css">
+
+body, td {
+   font-size: 16px;
+}
+code.r{
+  font-size: 12px;
+}
+pre {
+  font-size: 12px
+}
+
+</style>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown, pre.bash");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="objectives" class="section level1">
+<h1>Objectives</h1>
+<ul>
+<li>Learn where to get help.</li>
+<li>Learn how to ask for help with R.</li>
+</ul>
+</div>
+<div id="finding-help" class="section level1">
+<h1>Finding help</h1>
+<p>Part of trying new thinghs is occasionally getting stuck and needing
+help. Fortunately, you’re not alone, and if you can’t find a previous
+example of how to make something work, you can ask for help from the
+community of R folks. Here are some tips to make this process as helpful
+and efficient as possible.</p>
+<ul>
+<li>R’s own <a href="https://www.r-project.org/help.html"
+target="_blank">suggestions in getting help</a> are excellent.</li>
+<li>Google is your friend and AI can also be your friend. But on
+occasion, they will cheerfully suggest a <em>completely wrong
+answer</em>, so <strong>always verify any proposed solution actually
+works for your problem</strong>.</li>
+</ul>
+<p>There are a few websites that are useful for getting help with R.</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Website</th>
+<th align="left">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="https://www.rdocumentation.org/"
+target="_blank">R Documentation</a></td>
+<td align="left">Searchable documentation for R packages on CRAN and
+Bioconductor</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://support.bioconductor.org/"
+target="_blank">Bioconductor Support</a></td>
+<td align="left">Support forum for Bioconductor packages</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://stackoverflow.com/questions/tagged/r"
+target="_blank">stackoverflow</a></td>
+<td align="left">General programming questions</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://www.biostars.org/"
+target="_blank">Biostars</a></td>
+<td align="left">Bioinformatics specific questions</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://r4ds.hadley.nz/" target="_blank">R for
+data science</a></td>
+<td align="left">An extremely readable website book that goes soup to
+nuts.</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://rweekly.org/"
+target="_blank">RWeekly</a></td>
+<td align="left">Short kind of random tips/tidbits updated weekly</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://forum.posit.co" target="_blank">Posit
+Community Forum</a></td>
+<td align="left">Questions asked and answered</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://posit.co/resources/cheatsheets/"
+target="_blank">Posit: Cheatsheets</a></td>
+<td align="left">Super handy since no one has all the packages
+memorized</td>
+</tr>
+<tr class="odd">
+<td align="left"><a
+href="https://support.posit.co/hc/en-us/articles/200552336-Getting-Help-with-R"
+target="_blank">Posit: Getting help with R</a></td>
+<td align="left">Curated links by the posit team</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="how-to-ask-for-help" class="section level1">
+<h1>How to ask for help</h1>
+<p>If you can’t find the right solution already posted, you you can post
+your new question to a forum. R’s <a
+href="https://www.r-project.org/posting-guide.html"
+target="&quot;_blank">Posting Guide</a> examples of how to ask for help
+with R. It’s a good read - but here’s the condensed version:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Re-check if a question has already been asked</strong>.
+😎</li>
+<li><strong>Clearly describe your problem in words</strong>.<br />
+State what you’re trying to do, what you tried, and the result,
+including the full text of any error message.</li>
+<li><strong>Try to include a “minimally reproducible
+example”</strong>.<br />
+This means providing the smallest block of data and code that anyone can
+run to reproduce the error and (we hope) diagnose the issue. Focusing
+the question on the suspect code with minimal data helps the respondents
+dive right in. (Often ’ times, when you’re trying to craft the minimal
+example, you learn something new and sometimes even resolve the original
+problem.)</li>
+</ol>
+<pre class="default"><code>I have this data frame:
+
+my_data = read_csv(&quot;start, end, title
+8:00, 4:00, Using R/R Studio
+1:00, 4:00, Nextflow: Train the Trainers
+8:00, 4:00, Lean Management for Shared Resources
+&quot;)
+
+But I want this data frame:
+title                                workshop time  
+Using R/R Studio                     start    08:00 
+Using R/R Studio                     end      04:00 
+Nextflow: Train the Trainers         start    01:00 
+Nextflow: Train the Trainers         end      04:00 
+Lean Management for Shared Resources start    08:00 
+Lean Management for Shared Resources end      04:00
+</code></pre>
+<p>Note that sharing <strong>minimal example data</strong> often means
+you need to trim the data down to a small subset</p>
+<ul>
+<li>Shown in the block above, <code>read_csv</code> allows you to
+“handcraft” data as a comma separated list of fields, one row per
+field.</li>
+<li>You can use one of R’s built in example datasets like
+<code>iris</code> or <code>mtcars</code>. You can see the full list of
+built in datasets with <code>data()</code>.</li>
+<li>You can also use <code>format_csv</code> and <code>head</code> to
+prune a larger dataset to a few rows,
+e.g. <code>cat(format_csv(head(mtcars)))</code> to then copy into your
+post.</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>Share your session info</strong>.<br />
+Your problem and the solution often depends on the specific package
+versions you are using, so you should share this in your post. Sharing
+help others reproduce the issue and find a solution quicker. There are a
+couple ways to get the session information. The older/more common way is
+the <code>sessionInfo</code> command which will work in any R
+environment:</li>
+</ol>
+<pre class="r"><code>################################################################################
+# Print out details about this R install, session, and loaded libraries
+sessionInfo()</code></pre>
+<pre class="default"><code>R version 4.5.0 (2025-04-11)
+Platform: x86_64-pc-linux-gnu
+Running under: Ubuntu 22.04.5 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0 
+LAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0  LAPACK version 3.10.0
+
+locale:
+ [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8        LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8    LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C           LC_TELEPHONE=C        
+[11] LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+
+time zone: America/Detroit
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] lubridate_1.9.4     forcats_1.0.0       stringr_1.5.1       dplyr_1.1.4         purrr_1.1.0         readr_2.1.5         tidyr_1.3.1         tibble_3.3.0        ggplot2_3.5.2       tidyverse_2.0.0     knitr_1.50         
+[12] kableExtra_1.4.0.15 klippy_0.0.0.9500   rmarkdown_2.29     
+
+loaded via a namespace (and not attached):
+ [1] utf8_1.2.6         sass_0.4.10        generics_0.1.4     xml2_1.3.8         stringi_1.8.7      hms_1.1.3          digest_0.6.37      magrittr_2.0.3     evaluate_1.0.4     grid_4.5.0         timechange_0.3.0   RColorBrewer_1.1-3
+[13] fastmap_1.2.0      jsonlite_2.0.0     viridisLite_0.4.2  scales_1.4.0       textshaping_1.0.1  jquerylib_0.1.4    cli_3.6.5          crayon_1.5.3       rlang_1.1.6        bit64_4.6.0-1      withr_3.0.2        cachem_1.1.0      
+[25] yaml_2.3.10        parallel_4.5.0     tools_4.5.0        tzdb_0.5.0         assertthat_0.2.1   vctrs_0.6.5        R6_2.6.1           lifecycle_1.0.4    bit_4.6.0          vroom_1.6.5        pkgconfig_2.0.3    pillar_1.11.0     
+[37] bslib_0.9.0        gtable_0.3.6       glue_1.8.0         systemfonts_1.2.3  xfun_0.52          tidyselect_1.2.1   rstudioapi_0.17.1  farver_2.1.2       htmltools_0.5.8.1  svglite_2.2.1      compiler_4.5.0    </code></pre>
+<p>The new, slightly more elegant is
+<code>sessioninfo::session_info()</code>. (Note, the
+<code>sessioninfo</code> package must be installed. We did that for
+you.)</p>
+<pre class="r"><code>################################################################################
+# A more concise, pleasant version of sessionInfo()
+# install.packages(&#39;session_info&#39;)
+sessioninfo::session_info()</code></pre>
+<pre class="default"><code>─ Session info ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ setting  value
+ version  R version 4.5.0 (2025-04-11)
+ os       Ubuntu 22.04.5 LTS
+ system   x86_64, linux-gnu
+ ui       RStudio
+ language (EN)
+ collate  C.UTF-8
+ ctype    C.UTF-8
+ tz       America/Detroit
+ date     2025-10-03
+ rstudio  2024.12.1+563 Kousa Dogwood (server)
+ pandoc   3.2 @ /usr/lib/rstudio-server/bin/quarto/bin/tools/x86_64/ (via rmarkdown)
+ quarto   1.5.57 @ /usr/lib/rstudio-server/bin/quarto/bin/quarto
+
+─ Packages ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+ package      * version    date (UTC) lib source
+ assertthat     0.2.1      2019-03-21 [2] CRAN (R 4.5.0)
+ bit            4.6.0      2025-03-06 [2] CRAN (R 4.5.0)
+ bit64          4.6.0-1    2025-01-16 [2] CRAN (R 4.5.0)
+ bslib          0.9.0      2025-01-30 [2] CRAN (R 4.5.0)
+ cachem         1.1.0      2024-05-16 [2] CRAN (R 4.5.0)
+ cli            3.6.5      2025-04-23 [2] CRAN (R 4.5.0)
+ crayon         1.5.3      2024-06-20 [2] CRAN (R 4.5.0)
+ digest         0.6.37     2024-08-19 [2] CRAN (R 4.5.0)
+ dplyr        * 1.1.4      2023-11-17 [2] CRAN (R 4.5.0)
+ evaluate       1.0.4      2025-06-18 [2] CRAN (R 4.5.0)
+ farver         2.1.2      2024-05-13 [2] CRAN (R 4.5.0)
+ fastmap        1.2.0      2024-05-15 [2] CRAN (R 4.5.0)
+ forcats      * 1.0.0      2023-01-29 [2] CRAN (R 4.5.0)
+ generics       0.1.4      2025-05-09 [2] CRAN (R 4.5.0)
+ ggplot2      * 3.5.2      2025-04-09 [2] CRAN (R 4.5.0)
+ glue           1.8.0      2024-09-30 [2] CRAN (R 4.5.0)
+ gtable         0.3.6      2024-10-25 [2] CRAN (R 4.5.0)
+ hms            1.1.3      2023-03-21 [2] CRAN (R 4.5.0)
+ htmltools      0.5.8.1    2024-04-04 [2] CRAN (R 4.5.0)
+ jquerylib      0.1.4      2021-04-26 [2] CRAN (R 4.5.0)
+ jsonlite       2.0.0      2025-03-27 [2] CRAN (R 4.5.0)
+ kableExtra   * 1.4.0.15   2025-06-23 [1] Github (haozhu233/kableExtra@2f58f89)
+ klippy       * 0.0.0.9500 2025-06-23 [1] Github (umich-brcf-bioinf/workshop-klippy@a1be090)
+ knitr        * 1.50       2025-03-16 [2] CRAN (R 4.5.0)
+ lifecycle      1.0.4      2023-11-07 [2] CRAN (R 4.5.0)
+ lubridate    * 1.9.4      2024-12-08 [2] CRAN (R 4.5.0)
+ magrittr       2.0.3      2022-03-30 [2] CRAN (R 4.5.0)
+ pillar         1.11.0     2025-07-04 [2] CRAN (R 4.5.0)
+ pkgconfig      2.0.3      2019-09-22 [2] CRAN (R 4.5.0)
+ purrr        * 1.1.0      2025-07-10 [2] CRAN (R 4.5.0)
+ R6             2.6.1      2025-02-15 [2] CRAN (R 4.5.0)
+ RColorBrewer   1.1-3      2022-04-03 [2] CRAN (R 4.5.0)
+ readr        * 2.1.5      2024-01-10 [2] CRAN (R 4.5.0)
+ rlang          1.1.6      2025-04-11 [2] CRAN (R 4.5.0)
+ rmarkdown    * 2.29       2024-11-04 [2] CRAN (R 4.5.0)
+ rstudioapi     0.17.1     2024-10-22 [2] CRAN (R 4.5.0)
+ sass           0.4.10     2025-04-11 [2] CRAN (R 4.5.0)
+ scales         1.4.0      2025-04-24 [2] CRAN (R 4.5.0)
+ sessioninfo    1.2.3      2025-02-05 [2] CRAN (R 4.5.0)
+ stringi        1.8.7      2025-03-27 [2] CRAN (R 4.5.0)
+ stringr      * 1.5.1      2023-11-14 [2] CRAN (R 4.5.0)
+ svglite        2.2.1      2025-05-12 [1] CRAN (R 4.5.0)
+ systemfonts    1.2.3      2025-04-30 [2] CRAN (R 4.5.0)
+ textshaping    1.0.1      2025-05-01 [2] CRAN (R 4.5.0)
+ tibble       * 3.3.0      2025-06-08 [2] CRAN (R 4.5.0)
+ tidyr        * 1.3.1      2024-01-24 [2] CRAN (R 4.5.0)
+ tidyselect     1.2.1      2024-03-11 [2] CRAN (R 4.5.0)
+ tidyverse    * 2.0.0      2023-02-22 [2] CRAN (R 4.5.0)
+ timechange     0.3.0      2024-01-18 [2] CRAN (R 4.5.0)
+ tzdb           0.5.0      2025-03-15 [2] CRAN (R 4.5.0)
+ utf8           1.2.6      2025-06-08 [2] CRAN (R 4.5.0)
+ vctrs          0.6.5      2023-12-01 [2] CRAN (R 4.5.0)
+ viridisLite    0.4.2      2023-05-02 [2] CRAN (R 4.5.0)
+ vroom          1.6.5      2023-12-05 [2] CRAN (R 4.5.0)
+ withr          3.0.2      2024-10-28 [2] CRAN (R 4.5.0)
+ xfun           0.52       2025-04-02 [2] CRAN (R 4.5.0)
+ xml2           1.3.8      2025-03-14 [2] CRAN (R 4.5.0)
+ yaml           2.3.10     2024-07-26 [2] CRAN (R 4.5.0)
+
+ [1] /home/workshop/rcavalca/R/x86_64-pc-linux-gnu-library/4.5
+ [2] /efs/workshop/R/library
+ [3] /efs/workshop/ifun/R/library
+ [4] /efs/workshop/R/workshop-dev-libs
+ [5] /usr/local/lib/R/site-library
+ [6] /usr/lib/R/site-library
+ [7] /usr/lib/R/library
+ * ── Packages attached to the search path.
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</code></pre>
+<p><br/></p>
+</div>
+<div id="summary" class="section level1">
+<h1>Summary</h1>
+<ul>
+<li>Needing help is good - it means you are learning and growing.</li>
+<li>There are lots of web resources for general and specific
+questions.</li>
+<li>When asking for help:
+<ul>
+<li>Describe your problem clearly.</li>
+<li>Include a “minimally reproducible example”.</li>
+<li>Include your session info.</li>
+</ul></li>
+</ul>
+<p>“All of us, at some time or other, need help. Whether we’re giving or
+receiving help, each one of us has something valuable to bring to this
+world.”<br />
+— Fred Rogers</p>
+<br/>
+<hr/>
+<table style="width:100%;">
+<colgroup>
+<col width="28%" />
+<col width="42%" />
+<col width="28%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"><a href="r-04-bioconductor.html">Previous
+lesson</a></th>
+<th align="center"><a href="#top">Top of this lesson</a></th>
+<th align="right"><a href="r-03-exploration-ggplot.html">Next
+lesson</a></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
