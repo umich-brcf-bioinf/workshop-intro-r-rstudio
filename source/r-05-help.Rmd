@@ -122,11 +122,11 @@ It's a good read - but here's the condensed version:
 # To avoid confusion, we will only generate/refresh these files on AWS instance
 # The on_aws var is initialized in bin/set_values.R
 
-sink('sessionInfo.txt')
+sink('workshop_setup/setup-aws/sessionInfo.txt')
 sessionInfo()
 sink()
 
-sink('session_info.txt')
+sink('workshop_setup/setup-aws/session_info.txt')
 sessioninfo::session_info()
 sink()
 ```
@@ -138,7 +138,7 @@ sink()
 sessionInfo()
 ```
 
-```{verbatim sessionInfo_txt, file='sessionInfo.txt', eval=FALSE}
+```{verbatim sessionInfo_txt, file=paste0('workshop_setup/',workshop_vars$workshop_platform,'/sessionInfo.txt'), eval=FALSE}
 ```
 
 The new, slightly more elegant is `sessioninfo::session_info()`. (Note,
@@ -152,7 +152,7 @@ the `sessioninfo` package must be installed. We did that for you.)
 sessioninfo::session_info()
 ```
 
-```{verbatim session_info_txt, file='session_info.txt', eval=FALSE}
+```{verbatim session_info_txt, file=paste0('workshop_setup/', workshop_vars$workshop_platform, '/session_info.txt'), eval=FALSE}
 ```
 
 <br/>
